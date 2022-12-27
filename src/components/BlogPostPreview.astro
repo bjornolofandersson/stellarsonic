@@ -5,10 +5,13 @@ export interface Props {
 const { post } = Astro.props;
 ---
 
-<article class="post-preview">
+<article class="bg-white shadow-md rounded-md overflow-hidden">
   <a href={post.url}>
-    <h1 class="title">{post.headline}</h1>
-    <time class="publish-date">{post.datePublished}</time>
-    <p>{post.description}</p>
+    <img src={post.image} alt="" />
+    <div class="p-4">
+      <h1 class="text-xl">{post.headline}</h1>
+      <time>{post.datePublished}</time>
+      <p>{post.description}</p>
+    </div>
   </a>
 </article>
