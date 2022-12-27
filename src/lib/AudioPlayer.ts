@@ -1,24 +1,28 @@
 import { toSeconds, parse } from 'iso8601-duration';
+import { MusicMix } from './interfaces';
 
 let audio: HTMLAudioElement;
 let currentTrack: number;
 
-function getOffset(playlist: any, track: number) {
+function getOffset(playlist: MusicMix, track: number) {
   let offset = 0;
   for (let i=0; i<track; i++) {
-    offset += toSeconds(parse(playlist.track[i].duration));
+    offset += toSeconds(parse(playlist.tracks[i].duration));
   }
   return offset;
 }
 
-export function play(playlist: any, track?: number) {
+export function play(playlist: MusicMix, track?: number) {
   let playSrc;
   if (track !== undefined) {
-    if (playlist.track[track]?.audio?.contentUrl !== undefined) {
+    playSrc = playlist.audio;
+    /*
+    if (playlist.tracks[track]?.audio?.contentUrl !== undefined) {
       playSrc = playlist.track[track].audio.contentUrl;
     } else {
       playSrc = playlist.audio.contentUrl;
     }
+    */
   }
   if (!audio) {
     audio = new Audio(playSrc);
