@@ -13,6 +13,7 @@ const { frontmatter: playlist } = Astro.props;
 const { title, subtitle, description, image, tracks, genres, colors } = playlist
 const bgColor = `background: ${colors[0]}`;
 const fgColor = `color: ${colors[1]}`;
+const bgColor2 = `background: ${colors[1]}`;
 
 const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 100vh`
 ---
@@ -63,7 +64,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     </div>
 
   </div>
-  <div class="bg-slate-200 relative">
+  <div class="bg-slate-200 relative" style={bgColor2}>
     <div class="container mx-auto p-12">
       <div class="grid grid-cols-3 gap-4">
         <div></div>
@@ -74,7 +75,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     </div>
   </div>
 
-  <div class="bg-slate-100 relative">
+  <div class="bg-slate-100 dark:bg-dark-base dark:text-stone-300 relative">
     <div class="container mx-auto p-12">
       <div class="grid grid-cols-3 gap-4">
         <div></div>

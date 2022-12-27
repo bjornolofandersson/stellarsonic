@@ -35,7 +35,7 @@ const [featured, ...posts] = page.data;
 
 
 <Layout title="Hello">
-  <div class="w-full bg-slate-700 p-12">
+  <div class="w-full bg-light-accent-variant dark:bg-dark-accent-variant p-12">
     <div class="relative container mx-auto px-12 py-12">
       <div class="mb-10">
         <h1 class="text-white text-6xl">Stellarsonic</h1>
@@ -43,7 +43,7 @@ const [featured, ...posts] = page.data;
       </div>
     </div>
   </div>
-  <div class="w-full py-12 bg-accent">
+  <div class="w-full py-12 bg-light-accent dark:bg-dark-accent">
     <ul class="flex justify-center text-white text-l">
       {genres.map(genre => <li class="px-4">{genre}</li> )}
     </ul>

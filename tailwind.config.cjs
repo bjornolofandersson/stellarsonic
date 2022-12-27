@@ -9,8 +9,18 @@ module.exports = {
         accent: '#d77f7a',
       },
       backgroundColor: {
-        dark: 'rgb(51 65 85)',
-        accent: '#d77f7a',
+        dark: {
+          'base': '#242424',
+          'base-variant': '#282828',
+          'accent': '#d77f7a',
+          'accent-variant': '#5a3232',
+        },
+        light: {
+          'base': 'blue',
+          'base-variant': '#ffffff',
+          'accent': '#d77f7a',
+          'accent-variant': '#5a3232',
+        }
       }
     },
 	},

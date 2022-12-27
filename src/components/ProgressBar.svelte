@@ -49,7 +49,7 @@
   <div class="flex justify-between pb-2">
     {#each player.playlist.tracks as t, i}
       {#if t === track}
-        <div class="w-full h-4 mr-1 last:mr-0 rounded-sm" style="background: {progressColor};"></div>
+        <div class="w-full h-4 mr-1 last:mr-0 rounded-sm bg-light-accent dark:bg-dark-accent"></div>
       {:else}
         <button class="w-full h-4 mr-1 last:mr-0 rounded-sm hover:bg-slate-200" style="border: 1px solid #00000030;" on:click={() => onClickTrack(i)}></button>
       {/if}
