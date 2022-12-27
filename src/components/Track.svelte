@@ -8,6 +8,7 @@
   const player = MixAudioPlayer.getInstance(playlist);
   const {name, artist, year} = player.getTrackData(track);
   let isPlaying = false;
+  let color = '#FFFFFF';
 
   function onClick() {
     if (player.isPlaying(track)) {
@@ -19,6 +20,7 @@
 
   function checkIsPlaying() {
     isPlaying = player.isPlaying(track);
+    color = player.getCurrentTrack() === track ? '#d77f7a' : '#ffffff';
   }
 
   setInterval(checkIsPlaying, 100);
@@ -37,7 +39,7 @@
       </button>
     {/if}
     <div>
-      <span class="text-sm">{name}</span><br/>
+      <span class="text-sm" style="color: {color}">{name}</span><br/>
       <span class="text-xs opacity-30">{artist} ({year})</span>
     </div>
   </li>
