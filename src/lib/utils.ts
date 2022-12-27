@@ -8,3 +8,11 @@ export function totalDuration(mix: MusicMix) {
   }
   return duration;
 }
+
+export function uniqueGenres(posts: MusicMix[]) {
+  const genres: string[] = [];
+  for (let post of posts) {
+    genres.push(...post.genres);
+  }
+  return Array.from(new Set(genres));
+}

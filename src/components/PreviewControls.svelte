@@ -1,24 +1,21 @@
 <script lang="ts">
   import { MixAudioPlayer } from "../lib/AudioPlayer";
-  import { MusicMix, MusicTrack } from "../lib/interfaces";
+  import { MusicMix } from "../lib/interfaces";
   import ProgressBar from "./ProgressBar.svelte";
 
   export let playlist: MusicMix;
 
   const player = MixAudioPlayer.getInstance(playlist);
 
-  let isPlaying = false;
   let trackNr: number = 1;
   let track: any = {};
 
   function update() {
-    isPlaying = player.isPlaying();
     trackNr = player.getCurrentTrack();
     track = player.getTrackData(trackNr);
   }
 
   setInterval(update, 100);
-
 </script>
 
 <div class="w-full">
