@@ -32,7 +32,7 @@ const { page } = Astro.props;
 
 <Layout title="Hello">
   <div class="container mx-auto py-12 px-6">
-    <section class="grid md:grid-cols-2 lg:grid-cols-3">
+    <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {page.data.map((post: any) =>
         <BlogPostPreview post={post} />
       )}
