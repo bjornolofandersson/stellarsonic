@@ -7,6 +7,7 @@ const { post } = Astro.props;
 const overlayStyle = `--tw-gradient-to: ${post.colors[0]}`;
 const fgColor = `color: ${post.colors[1]}`;
 const bgColor = `background: ${post.colors[0]}`;
+const bgColor2 = `background: ${post.colors[1]}`;
 
 const bgStyle=`background: url(${post.image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1);`
 
@@ -31,9 +32,8 @@ const bgStyle=`background: url(${post.image}) 50% 50% / cover no-repeat; opacity
           <div class="col-span-2 text-white px-6 py-4">
             <h1 class="text-3xl">{post.title}</h1>
             <h2 class="text-md" style={fgColor}>{post.subtitle}</h2>
-          </div>
-          <div class="text-white p-6 text-xs" style="border-left: 1px solid #FFFFFF30">
-            <span>45m</span>
+
+            <div class="mt-12 p-2 rounded-md w-32" style={bgColor2}>Listen now</div>
           </div>
         </div>
       </div>
