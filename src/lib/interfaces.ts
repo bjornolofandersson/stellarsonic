@@ -3,6 +3,8 @@ export interface Article {
 
   subtitle: string;
 
+  description: string;
+
   image: string;
 
   genres: string[];
