@@ -31,6 +31,12 @@ export class MixAudioPlayer {
   }
 
   public play(track?: number) {
+    for (const player of Object.values(MixAudioPlayer.instances)) {
+      if (player !== this) {
+        player.pause();
+      }
+    }
+
     if (track !== undefined) {
       if (track === this.getCurrentTrack()) {
         this.audio.play();
