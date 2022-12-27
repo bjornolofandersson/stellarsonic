@@ -46,5 +46,5 @@
     </button>
   </div>
 
-  <ProgressBar player={player} trackColor="#00000030" progressColor="#d77f7a"/>
+  <ProgressBar player={player} trackColor="#00000030" progressColor={playlist.colors[1]}/>
 </div>

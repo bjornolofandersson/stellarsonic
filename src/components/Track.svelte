@@ -20,7 +20,7 @@
 
   function checkIsPlaying() {
     isPlaying = player.isPlaying(track);
-    color = player.getCurrentTrack() === track ? '#d77f7a' : '#ffffff';
+    color = player.getCurrentTrack() === track ? playlist.colors[1] : '#ffffff';
   }
 
   setInterval(checkIsPlaying, 100);
