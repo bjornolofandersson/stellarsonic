@@ -1,26 +1,37 @@
 ---
+import Controls from './PreviewControls.svelte';
+
 export interface Props {
   post: any;
 }
 const { post } = Astro.props;
 
 const overlayStyle = `--tw-gradient-to: ${post.colors[0]}`;
+const fgColor = `color: ${post.colors[1]}`;
+const bgColor = `background: ${post.colors[0]}`;
 
+const date = new Date(post.date).toDateString();
 ---
 
-<article class="bg-white shadow-lg rounded-md overflow-hidden relative aspect-square" style="padding-bottom: 100%">
-  <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
-  <a href={post.url}>
-    <div class="absolute w-full bottom-0 h-32 bg-gradient-to-b from-transparent" style={overlayStyle}>
-      <div class="grid grid-cols-3 h-full pb-4">
-        <div class="col-span-2 text-white px-6 py-4 text-xl">{post.title}</div>
-        <div class="text-white p-6 text-xs" style="border-left: 1px solid #FFFFFF30">
-          <span>45m</span>
-        </div>
-      </div>
+<div class="w-full overflow-hidden">
+  <div class="grid grid-cols-2 md:grid-cols-4 py-6">
+    <div class="text-right p-2">
+      <time class="text-xs p-2" style="border-bottom: 1px solid #00000012">{date}</time>
+      <ul class="flex justify-end">
+        {post.genres.map((genre: any) => <li class="px-1 py-2" style="font-size: 10px; color: #d77f7a;">{genre}</li>)}
+      </ul>
     </div>
-  </a>
-</article>
+    <a href={post.url} class="relative aspect-square shadow-md" style="border: 5px solid white">
+      <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
+    </a>
+    <div class="p-2 col-span-2">
+      <h1 class="text-black text-xl">{post.title}</h1>
+      <h2 class="text-white text-sm" style={fgColor}>{post.subtitle}</h2>
+      <Controls client:only playlist={post} />
+    </div>
+
+  </div>
+</div>
 
 <style>
   body {

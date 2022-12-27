@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro'
 //import Container from '../../components/Container.astro';
 import BlogPostPreview from '../../components/BlogPostPreview.astro';
+import Featured from '../../components/Featured.astro';
 //import Paginator from '../../components/Paginator.astro'
   
   
@@ -27,20 +28,23 @@ export async function getStaticPaths({paginate}: any) {
   //description: 'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.'
 //}
 const { page } = Astro.props;
+
+const [featured, ...posts] = page.data;
 ---
 
 
 <Layout title="Hello">
-  <div class="bg-slate-200">
-    <div class="container mx-auto py-12 px-6">
-      <section>
-        <h1 class="text-5xl">Stellarsonic</h1>
-        <h2 class="text-xl">A record blog</h2>
-      </section>
-    </div>
+  <Featured post={featured}></Featured>
+  <div class="w-full py-12 bg-slate-200">
+    <ul class="flex justify-center text-xl">
+      <li class="px-2">Funk</li> 
+      <li class="px-2">Soul</li> 
+      <li class="px-2">Hip-Hop</li> 
+    </ul>
   </div>
-  <div class="container mx-auto py-12 px-6">
-    <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+  <div class="container mx-auto py-12 px-12">
+    <section class="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
       {page.data.map((post: any) =>
         <BlogPostPreview post={post} />
       )}
