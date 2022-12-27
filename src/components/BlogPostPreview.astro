@@ -6,35 +6,43 @@ export interface Props {
 }
 const { post } = Astro.props;
 
-const overlayStyle = `--tw-gradient-to: ${post.colors[0]}`;
-const fgColor = `color: ${post.colors[1]}`;
-const bgColor = `background: ${post.colors[0]}`;
-
 const date = new Date(post.date).toDateString();
 ---
 
-<div class="w-full overflow-hidden">
-  <div class="grid grid-cols-2 md:grid-cols-4 py-6">
-    <div class="text-right p-2">
+<div class="w-full overflow-hidden blog-post-preview">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-12">
+    <div class="text-right px-20 py-6">
       <time class="text-xs p-2" style="border-bottom: 1px solid #00000012">{date}</time>
       <ul class="flex justify-end">
         {post.genres.map((genre: any) => <li class="px-1 py-2" style="font-size: 10px; color: #d77f7a;">{genre}</li>)}
       </ul>
     </div>
-    <a href={post.url} class="relative aspect-square shadow-md" style="border: 5px solid white">
-      <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
-    </a>
-    <div class="p-2 col-span-2">
-      <h1 class="text-black text-xl">{post.title}</h1>
-      <h2 class="text-white text-sm" style={fgColor}>{post.subtitle}</h2>
+    <div class="w-full px-20 md:pl-0 lg:px-0">
+      <a href={post.url} class="block relative aspect-square">
+        <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
+      </a>
+    </div>
+    <div class="px-20 py-6 lg:py-0 md:col-span-2">
+      <div class="flex">
+        <button class="w-16 mr-6 aspect-square text-slate-600" style="border: 1px solid #CCC">
+          <span class="material-symbols-outlined">play_arrow</span>
+        </button>
+        <div>
+          <h1 class="text-black text-2xl">{post.title}</h1>
+          <h2 class="text-l" style="color: #d77f7a">{post.subtitle}</h2>
+        </div>
+      </div>
+      <p class="text-xs py-6 opacity-60">{post.description}</p>
       <Controls client:only playlist={post} />
     </div>
-
   </div>
 </div>
 
 <style>
   body {
     font-family: 'Raleway', sans-serif;
+  }
+  .blog-post-preview:nth-child(even) {
+    background: white;
   }
 </style>

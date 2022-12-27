@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro'
 //import Container from '../../components/Container.astro';
 import BlogPostPreview from '../../components/BlogPostPreview.astro';
-import Featured from '../../components/Featured.astro';
 //import Paginator from '../../components/Paginator.astro'
   
   
@@ -34,17 +33,24 @@ const [featured, ...posts] = page.data;
 
 
 <Layout title="Hello">
-  <Featured post={featured}></Featured>
-  <div class="w-full py-12 bg-slate-200">
-    <ul class="flex justify-center text-xl">
-      <li class="px-2">Funk</li> 
-      <li class="px-2">Soul</li> 
-      <li class="px-2">Hip-Hop</li> 
+  <div class="w-full bg-slate-700 p-12">
+    <div class="relative container mx-auto px-12 py-12">
+      <div class="mb-10">
+        <h1 class="text-white text-6xl">Stellarsonic</h1>
+        <h2 class="text-xl" style="color: #d77f7a;">A record blog</h2>
+      </div>
+    </div>
+  </div>
+  <div class="w-full py-12" style="background: #d77f7a;">
+    <ul class="flex justify-center text-white text-l">
+      <li class="px-4">Funk</li> 
+      <li class="px-4">Soul</li> 
+      <li class="px-4">Hip-Hop</li> 
     </ul>
   </div>
 
-  <div class="container mx-auto py-12 px-12">
-    <section class="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
+  <div class="container mx-auto py-12">
+    <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
       {page.data.map((post: any) =>
         <BlogPostPreview post={post} />
       )}
