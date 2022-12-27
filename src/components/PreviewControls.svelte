@@ -20,13 +20,13 @@
 
 <div class="w-full">
   <div class="flex justify-between">
-    <button class="mt-2 text-slate-600" on:click={() => player.skipPrev()}>
+    <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => player.skipPrev()}>
       <span class="material-symbols-outlined">skip_previous</span> 
     </button>
 
-    <div class="text-xs mt-2 opacity-30">{track.name}</div>
+    <div class="text-xs mt-2 opacity-30 dark:text-white">{track.name}</div>
 
-    <button class="mt-2 text-slate-600" on:click={() => player.skipNext()}>
+    <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => player.skipNext()}>
       <span class="material-symbols-outlined">skip_next</span> 
     </button>
   </div>

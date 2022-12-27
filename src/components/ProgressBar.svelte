@@ -57,8 +57,8 @@
   </div>
 
   <div class="flex justify-between">
-    <div class="text-xs opacity-30">{formatTime(progress)}</div>
-    <div class="text-xs opacity-30">{track.artist} · {track.year}</div>
-    <div class="text-xs opacity-30">{formatTime(duration)}</div>
+    <div class="text-xs opacity-30 dark:text-white">{formatTime(progress)}</div>
+    <div class="text-xs opacity-30 dark:text-white">{track.artist} · {track.year}</div>
+    <div class="text-xs opacity-30 dark:text-white">{formatTime(duration)}</div>
   </div>
 </div>

@@ -10,10 +10,10 @@ const { post } = Astro.props;
 const date = new Date(post.date).toDateString();
 ---
 
-<div class="w-full overflow-hidden blog-post-preview">
+<div class="w-full overflow-hidden even:bg-slate-200 dark:even:bg-slate-700">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-12">
     <div class="text-right px-20">
-      <time class="text-sm p-2 text-slate-600" style="border-bottom: 1px solid #00000012">{date}</time>
+      <time class="text-sm p-2 text-slate-600 dark:text-white" style="border-bottom: 1px solid #00000012">{date}</time>
       <ul class="flex justify-end">
         {post.genres.map((genre: any) => <li class="px-1 py-2 mt-2 text-xs text-accent">{genre}</li>)}
       </ul>
@@ -27,11 +27,11 @@ const date = new Date(post.date).toDateString();
       <div class="flex">
         <PreviewPlayButton client:only playlist={post} />
         <div>
-          <h1 class="text-slate-600 text-2xl">{post.title}</h1>
+          <h1 class="text-slate-600 dark:text-slate-200 text-2xl">{post.title}</h1>
           <h2 class="text-l text-accent">{post.subtitle}</h2>
         </div>
       </div>
-      <p class="text-xs py-6 opacity-60">{post.description}</p>
+      <p class="text-xs py-6 opacity-60 dark:text-slate-200">{post.description}</p>
       <Controls client:only playlist={post} />
     </div>
   </div>
@@ -40,8 +40,5 @@ const date = new Date(post.date).toDateString();
 <style>
   body {
     font-family: 'Raleway', sans-serif;
-  }
-  .blog-post-preview:nth-child(even) {
-    background: white;
   }
 </style>

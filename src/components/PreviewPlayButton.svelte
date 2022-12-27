@@ -25,7 +25,7 @@
 </script>
 
 <div>
-  <button class="w-16 mr-6 aspect-square text-slate-600 hover:text-accent" style="border: 1px solid #CCC" on:click={onClick}>
+  <button class="w-16 mr-6 aspect-square text-slate-600 dark:text-slate-200 hover:text-accent" style="border: 1px solid #CCC" on:click={onClick}>
     <span class="mt-2 material-symbols-outlined">
       {#if isPlaying}
         pause
