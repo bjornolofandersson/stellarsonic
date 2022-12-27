@@ -1,0 +1,35 @@
+---
+import type { MusicMix } from "../lib/interfaces";
+import site from "../settings.yaml";
+
+export interface Props extends MusicMix {};
+
+const { title, image, date, tracks, genres, tags } = Astro.props;
+
+const ldData = {
+  "@context": "https://schema.org",
+  "@type": "MusicPlaylist",
+  headline: `${title}`,
+  datePublished: `${date}`,
+  image: {
+    "@type": "ImageObject",
+    url: `${site.url}${image}`,
+  },
+  //description: `${description}`,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `${site.url}/blog/`,
+  },
+  track: tracks.map(({name, artist, year, duration}) => ({
+    "@type": "MusicRecording",
+    name,
+    byArtist: artist,
+    copyrightYear: year,
+    duration,
+  })),
+  genre: genres,
+  keywords: tags.join(', '),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(ldData)} is:inline></script>

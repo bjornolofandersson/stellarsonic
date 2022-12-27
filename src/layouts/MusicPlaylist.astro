@@ -3,17 +3,73 @@ import Layout from './Layout.astro';
 //import AudioPlayer from '../components/AudioPlayer.svelte';
 import Track from '../components/Track.svelte';
 //import Container from "../components/Container.astro";
-import Schema from '../components/MusicPlaylistSchema.astro';
-const { frontmatter: playlist } = Astro.props;
-const { headline, datePublished, track, image } = playlist
+import Schema from '../components/MusicMixSchema.astro';
+import { MusicMix } from '../lib/interfaces';
 
-const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.05; transform: scaleX(-1); height: 350px;`
+export interface Props {
+  frontmatter: MusicMix;
+}
+
+const { frontmatter: playlist } = Astro.props;
+const { title, subtitle, image, tracks, genres, colors } = playlist
+const bgColor = `background: ${colors[0]}`;
+const fgColor = `color: ${colors[1]}`;
+const tagColor = `background: ${colors[1]}`;
+
+const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 100vh`
 ---
 
 <Layout title="Test">
   <Fragment slot="head-bottom">
     <Schema {...playlist} />
   </Fragment>
+
+  <div style={bgColor} class="text-white relative">
+    <div class="w-full bg-fixed fixed" style={bgStyle}>
+    </div>
+    <div style="backdrop-filter: blur(4px);">
+
+    <div class="container mx-auto p-12">
+      <section class="text-white">
+        <h1 class="text-5xl">{title}</h1>
+        <h2 class="text-xl" style={fgColor}>{subtitle}</h2>
+      </section>
+    </div>
+    <section class="container mx-auto p-12">
+      <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-3 md:col-span-1">
+          <div class="shadow-lg rounded-md overflow-hidden relative aspect-square" style="padding-bottom: 100%">
+            <img class="absolute w-full h-full object-cover" src={image} alt=""/>
+          </div>
+          <div class="mt-12">
+            <ul class="flex">
+              {genres.map(genre => <li class="text-xs p-2" style={fgColor}>{genre}</li>)}
+            </ul>
+          </div>
+        </div>
+        <div class="col-span-3 md:col-span-2">
+          <ul class="divide-y divide-slate-400/25 columns-2">
+            {tracks.map((track, index) =>
+              <Track client:load playlist={playlist} track={index} />
+            )}
+          </ul>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+
+  <div class="bg-slate-200 relative">
+    <div class="container mx-auto p-12">
+      <div class="grid grid-cols-3 gap-4">
+        <div></div>
+        <div class="p-12 article col-span-2">
+          <slot/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
   <div class="w-full" style="background: #291025; height: 350px">
     <div class="w-full bg-fixed fixed" style={bgStyle}>
     </div>
@@ -23,7 +79,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     <div class="container mx-auto px-4 pt-12">
       <div class="grid grid-cols-12">
         <div class="col-span-5"></div>
-        <div class="col-span-7 p-12 text-white text-3xl" style="margin-top: -200px;">{headline}</div>
+        <div class="col-span-7 p-12 text-white text-3xl" style="margin-top: -200px;">{title}</div>
       </div>
       <div class="grid grid-cols-12 pb-12">
         <div class="md:col-span-5 col-span-12 bg-white rounded-md overflow-hidden z-10" style="box-shadow: 0px 1px 12px 0px rgba(0,0,0,0.32); margin-top: -300px">
@@ -31,7 +87,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
             <img class="absolute w-full h-full object-cover" src={image} alt=""/>
           </div>
           <ul class="divide-y divide-slate-400/25">
-            {track.map((track: any, index: number) =>
+            {tracks.map((track: any, index: number) =>
               <Track client:load playlist={playlist} track={index} />
             )}
           </ul>
@@ -42,4 +98,12 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
       </div>
     </div>
   </article>
+-->
 </Layout>
+
+
+<style>
+  .article {
+    font-family: 'Roboto', sans-serif;
+  }
+</style>
