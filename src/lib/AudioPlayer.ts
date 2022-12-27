@@ -6,15 +6,13 @@ export class MixAudioPlayer {
   private audio: HTMLAudioElement;
   private breakpoints: number[] = [];
 
-  private static instance: MixAudioPlayer;
+  private static instances: Record<string, MixAudioPlayer> = {};
 
   public static getInstance(playlist: MusicMix) {
-    console.log("get instance");
-    if (!this.instance) {
-      console.log("create instance");
-      this.instance = new MixAudioPlayer(playlist);
+    if (this.instances[playlist.audio] === undefined) {
+      this.instances[playlist.audio] = new MixAudioPlayer(playlist);
     }
-    return this.instance;
+    return this.instances[playlist.audio];
   }
 
   public constructor(private playlist: MusicMix) {
@@ -53,7 +51,6 @@ export class MixAudioPlayer {
     const currentTrack = this.getCurrentTrack();
 
     if (currentTrack >= this.playlist.tracks.length - 1) {
-      //this.currentTrack = 0;
       this.audio.currentTime = 0;
       this.audio.pause();
     } else {
