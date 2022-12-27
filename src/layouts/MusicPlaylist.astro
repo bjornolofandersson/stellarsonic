@@ -26,38 +26,42 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     <div class="w-full bg-fixed fixed" style={bgStyle}>
     </div>
     <div style="backdrop-filter: blur(4px);">
-    <div class="container mx-auto px-12 py-4 flex text-xs">
-      <a href="/" class="mr-4">Stellarsonic</a>
-      <a href="/blog" class="mr-4">Blog</a>
-      <div class="mr-4">About</div>
+
+    <div class="container mx-auto px-12">
+      <div class="py-4 flex text-xs">
+        <a href="/" class="mr-4">Stellarsonic</a>
+        <a href="/blog" class="mr-4">Blog</a>
+        <div class="mr-4">About</div>
+      </div>
+
+      <div class="py-6">
+        <section class="text-white">
+          <h1 class="text-5xl">{title}</h1>
+          <h2 class="text-xl" style={fgColor}>{subtitle}</h2>
+        </section>
+      </div>
+      <section class="py-12">
+        <div class="grid grid-cols-3 gap-4">
+          <div class="col-span-3 md:col-span-1">
+            <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%">
+              <img class="absolute w-full h-full object-cover" src={image} alt=""/>
+            </div>
+            <div class="mt-8">
+              <Controls client:only playlist={playlist} />
+            </div>
+          </div>
+          <div class="col-span-3 md:col-span-2">
+            <ul class="divide-y divide-slate-400/25 columns-2">
+              {tracks.map((track, index) =>
+                <Track client:only playlist={playlist} track={index} />
+              )}
+            </ul>
+          </div>
+        </div>
+      </section>
+      </div>
     </div>
 
-    <div class="container mx-auto px-12 py-6">
-      <section class="text-white">
-        <h1 class="text-5xl">{title}</h1>
-        <h2 class="text-xl" style={fgColor}>{subtitle}</h2>
-      </section>
-    </div>
-    <section class="container mx-auto p-12">
-      <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-3 md:col-span-1">
-          <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%">
-            <img class="absolute w-full h-full object-cover" src={image} alt=""/>
-          </div>
-          <div class="mt-8">
-            <Controls client:only playlist={playlist} />
-          </div>
-        </div>
-        <div class="col-span-3 md:col-span-2">
-          <ul class="divide-y divide-slate-400/25 columns-2">
-            {tracks.map((track, index) =>
-              <Track client:only playlist={playlist} track={index} />
-            )}
-          </ul>
-        </div>
-      </div>
-    </section>
-    </div>
   </div>
 
   <div class="bg-slate-200 relative">
