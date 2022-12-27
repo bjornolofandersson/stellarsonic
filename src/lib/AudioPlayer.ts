@@ -1,5 +1,6 @@
 import { toSeconds, parse } from 'iso8601-duration';
 import { MusicMix } from './interfaces';
+import { totalDuration } from './utils';
 
 
 export class MixAudioPlayer {
@@ -15,11 +16,12 @@ export class MixAudioPlayer {
     return this.instances[playlist.audio];
   }
 
-  public constructor(private playlist: MusicMix) {
+  public constructor(public readonly playlist: MusicMix) {
     this.audio = new Audio(playlist.audio);
     for (let i=0; i<playlist.tracks.length; i++) {
       this.breakpoints.push(this.getOffset(i));
     }
+    this.breakpoints.push(totalDuration(playlist));
   }
 
   private getOffset(track: number) {
