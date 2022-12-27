@@ -5,6 +5,8 @@ import Track from '../components/Track.svelte';
 //import Container from "../components/Container.astro";
 import Schema from '../components/MusicMixSchema.astro';
 import { MusicMix } from '../lib/interfaces';
+import Controls from '../components/Controls.svelte';
+//import { MixAudioPlayer } from '../lib/AudioPlayer';
 
 export interface Props {
   frontmatter: MusicMix;
@@ -14,7 +16,8 @@ const { frontmatter: playlist } = Astro.props;
 const { title, subtitle, image, tracks, genres, colors } = playlist
 const bgColor = `background: ${colors[0]}`;
 const fgColor = `color: ${colors[1]}`;
-const tagColor = `background: ${colors[1]}`;
+
+//const player = new MixAudioPlayer(playlist);
 
 const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 100vh`
 ---
@@ -24,7 +27,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     <Schema {...playlist} />
   </Fragment>
 
-  <div style={bgColor} class="text-white relative">
+  <div style={bgColor} class="text-white">
     <div class="w-full bg-fixed fixed" style={bgStyle}>
     </div>
     <div style="backdrop-filter: blur(4px);">
@@ -41,16 +44,19 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
           <div class="shadow-lg rounded-md overflow-hidden relative aspect-square" style="padding-bottom: 100%">
             <img class="absolute w-full h-full object-cover" src={image} alt=""/>
           </div>
-          <div class="mt-12">
+          <div class="mt-8">
+            <Controls client:only playlist={playlist} />
+            <!-- 
             <ul class="flex">
               {genres.map(genre => <li class="text-xs p-2" style={fgColor}>{genre}</li>)}
             </ul>
+          -->
           </div>
         </div>
         <div class="col-span-3 md:col-span-2">
           <ul class="divide-y divide-slate-400/25 columns-2">
             {tracks.map((track, index) =>
-              <Track client:load playlist={playlist} track={index} />
+              <Track client:only playlist={playlist} track={index} />
             )}
           </ul>
         </div>
@@ -69,36 +75,6 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
       </div>
     </div>
   </div>
-  <!--
-  <div class="w-full" style="background: #291025; height: 350px">
-    <div class="w-full bg-fixed fixed" style={bgStyle}>
-    </div>
-  </div>
-
-  <article class="bg-slate-100 relative">
-    <div class="container mx-auto px-4 pt-12">
-      <div class="grid grid-cols-12">
-        <div class="col-span-5"></div>
-        <div class="col-span-7 p-12 text-white text-3xl" style="margin-top: -200px;">{title}</div>
-      </div>
-      <div class="grid grid-cols-12 pb-12">
-        <div class="md:col-span-5 col-span-12 bg-white rounded-md overflow-hidden z-10" style="box-shadow: 0px 1px 12px 0px rgba(0,0,0,0.32); margin-top: -300px">
-          <div class="relative" style="padding-bottom: 100%">
-            <img class="absolute w-full h-full object-cover" src={image} alt=""/>
-          </div>
-          <ul class="divide-y divide-slate-400/25">
-            {tracks.map((track: any, index: number) =>
-              <Track client:load playlist={playlist} track={index} />
-            )}
-          </ul>
-        </div>
-        <div class="md:col-span-7 sm:col-span-12 xs:col-span-12 p-12">
-          <section><slot/></section>
-        </div>
-      </div>
-    </div>
-  </article>
--->
 </Layout>
 
 

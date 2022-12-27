@@ -1,53 +1,75 @@
 import { toSeconds, parse } from 'iso8601-duration';
 import { MusicMix } from './interfaces';
 
-let audio: HTMLAudioElement;
-let currentTrack: number;
 
-function getOffset(playlist: MusicMix, track: number) {
-  let offset = 0;
-  for (let i=0; i<track; i++) {
-    offset += toSeconds(parse(playlist.tracks[i].duration));
-  }
-  return offset;
-}
+export class MixAudioPlayer {
+  private audio: HTMLAudioElement;
+  private currentTrack: number = 0;
 
-export function play(playlist: MusicMix, track?: number) {
-  let playSrc;
-  if (track !== undefined) {
-    playSrc = playlist.audio;
-    /*
-    if (playlist.tracks[track]?.audio?.contentUrl !== undefined) {
-      playSrc = playlist.track[track].audio.contentUrl;
-    } else {
-      playSrc = playlist.audio.contentUrl;
+  private static instance: MixAudioPlayer;
+
+  public static getInstance(playlist: MusicMix) {
+    console.log("get instance");
+    if (!this.instance) {
+      console.log("create instance");
+      this.instance = new MixAudioPlayer(playlist);
     }
-    */
+    return this.instance;
   }
-  if (!audio) {
-    audio = new Audio(playSrc);
-  } else if (audio.src !== playSrc) {
-    audio.pause();
-    audio = new Audio(playSrc);
+
+  public constructor(private playlist: MusicMix) {
+    this.audio = new Audio(playlist.audio);
   }
-  currentTrack = track || 0;
 
-  audio.play();
-  audio.currentTime = getOffset(playlist, currentTrack);
-}
+  private getOffset(track: number) {
+    let offset = 0;
+    for (let i=0; i<track; i++) {
+      offset += toSeconds(parse(this.playlist.tracks[i].duration));
+    }
+    return offset;
+  }
 
-export function pause() {
-  audio.pause();
-}
+  public play(track?: number) {
+    if (track !== undefined) {
+      this.currentTrack = track;
+      this.audio.play();
+      this.audio.currentTime = this.getOffset(this.currentTrack);
+    } else {
+      this.audio.play();
+    }
+  }
 
-export function getCurrentTrack() {
-  return currentTrack;
-}
+  public pause() {
+    this.audio.pause();
+  }
 
-export function isPlaying(track?: number) {
-  const playing = audio && !audio.paused;
+  public skipNext() {
+    if (this.currentTrack >= this.playlist.tracks.length - 1) {
+      this.currentTrack = 0;
+      this.audio.currentTime = 0;
+      this.audio.pause();
+    } else {
+      this.play(this.currentTrack + 1);
+    }
+  }
 
-  return track !== undefined
-    ? playing && currentTrack == track
-    : playing;
+  public skipPrev() {
+    this.play(Math.max(this.currentTrack - 1, 0));
+  }
+
+  public getCurrentTrack() {
+    return this.currentTrack;
+  }
+
+  public getTrackData(track: number) {
+    return this.playlist.tracks[track];
+  }
+
+  public isPlaying(track?: number) {
+    const playing = this.audio && !this.audio.paused;
+
+    return track !== undefined
+      ? playing && this.currentTrack == track
+      : playing;
+  }
 }

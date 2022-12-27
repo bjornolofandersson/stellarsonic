@@ -1,22 +1,24 @@
-<script>
-  import * as AudioPlayer from "../lib/AudioPlayer";
+<script lang="ts">
+  import { MixAudioPlayer } from "../lib/AudioPlayer";
+  import { MusicMix } from "../lib/interfaces";
 
-  export let track;
-  export let playlist;
+  export let track: number;
+  export let playlist: MusicMix;
 
-  const {name, artist, year} = playlist.tracks[track];
+  const player = MixAudioPlayer.getInstance(playlist);
+  const {name, artist, year} = player.getTrackData(track);
   let isPlaying = false;
 
   function onClick() {
-    if (AudioPlayer.isPlaying(track)) {
-      AudioPlayer.pause();
+    if (player.isPlaying(track)) {
+      player.pause();
     } else {
-      AudioPlayer.play(playlist, track)
+      player.play(track)
     }
   }
 
   function checkIsPlaying() {
-    isPlaying = AudioPlayer.isPlaying(track);
+    isPlaying = player.isPlaying(track);
   }
 
   setInterval(checkIsPlaying, 100);
