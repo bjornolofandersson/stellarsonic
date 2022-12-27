@@ -1,0 +1,13 @@
+---
+import site from "../settings.yaml";
+export interface Props {
+  title: string;
+  description: string;
+  permalink: string;
+  publishDate: string;
+  ogImageUrl?: string;
+}
+const { ...schema } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline></script>
