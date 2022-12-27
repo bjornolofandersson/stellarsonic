@@ -1,6 +1,6 @@
 <script lang="ts">
   import { MixAudioPlayer } from "../lib/AudioPlayer";
-  import { MusicMix } from "../lib/interfaces";
+  import { MusicMix, MusicTrack } from "../lib/interfaces";
   import ProgressBar from "./ProgressBar.svelte";
 
   export let playlist: MusicMix;
@@ -8,17 +8,13 @@
   const player = MixAudioPlayer.getInstance(playlist);
 
   let isPlaying = false;
-
-  function onClick() {
-    if (player.isPlaying()) {
-      player.pause();
-    } else {
-      player.play()
-    }
-  }
+  let trackNr: number = 1;
+  let track: any = {};
 
   function update() {
     isPlaying = player.isPlaying();
+    trackNr = player.getCurrentTrack();
+    track = player.getTrackData(trackNr);
   }
 
   setInterval(update, 100);
@@ -27,26 +23,18 @@
 
 <div class="w-full">
   <div class="flex justify-between">
-    <button class="mt-2 px-2" on:click={() => player.skipPrev()}>
+    <button class="mt-2 text-slate-600" on:click={() => player.skipPrev()}>
       <span class="material-symbols-outlined">skip_previous</span> 
     </button>
 
-    {#if isPlaying}
-      <button class="mt-2 px-2" on:click={onClick}>
-        <span class="material-symbols-outlined">pause</span>
-      </button>
-    {:else}
-      <button class="mt-2 px-2" on:click={onClick}>
-        <span class="material-symbols-outlined">play_arrow</span>
-      </button>
-    {/if}
+    <div class="text-xs mt-2 opacity-30">{track.name}</div>
 
-    <button class="mt-2 px-2" on:click={() => player.skipNext()}>
+    <button class="mt-2 text-slate-600" on:click={() => player.skipNext()}>
       <span class="material-symbols-outlined">skip_next</span> 
     </button>
   </div>
 
-  <ProgressBar player={player} trackColor="#00000030" progressColor="#d77f7a"/>
+  <ProgressBar player={player} trackColor="#00000020" progressColor="#d77f7a"/>
 </div>
 
 <style>
