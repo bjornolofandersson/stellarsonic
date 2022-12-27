@@ -1,5 +1,6 @@
 <script lang="ts">
   import { MixAudioPlayer } from "../lib/AudioPlayer";
+    import { MusicTrack } from "../lib/interfaces";
 
   export let player: MixAudioPlayer;
   export let trackColor: string;
@@ -8,6 +9,7 @@
   let progress = 0;
   let duration = 0;
   let seekWidth: number;
+  let track: any = {};
 
   let progressStyle = `background: ${progressColor}; width: ${100 * progress}%`;
 
@@ -17,10 +19,15 @@
     player.skipTrackTo(seekSec);
   }
 
+  function onClickTrack(index: number) {
+    player.play(index);
+  }
+
   function update() {
     progress = player.getCurrentTrackProgress();
     duration = player.getCurrentTrackDuration();
     progressStyle = `background: ${progressColor}; width: ${100 * (progress / duration)}%`;
+    track = player.getTrackData(player.getCurrentTrack());
   }
 
   function formatTime(t: number) {
@@ -39,9 +46,19 @@
   <button bind:clientWidth={seekWidth} on:click={onSeek} class="w-full h-1 rounded-md overflow-hidden" style="background: {trackColor}">
     <div class="h-full" style={progressStyle}></div>
   </button>
+  <div class="flex justify-between pb-2">
+    {#each player.playlist.tracks as t, i}
+      {#if t === track}
+        <div class="w-full h-4 mr-1 last:mr-0 rounded-sm" style="background: {progressColor};"></div>
+      {:else}
+        <button class="w-full h-4 mr-1 last:mr-0 rounded-sm hover:bg-slate-200" style="border: 1px solid #00000030;" on:click={() => onClickTrack(i)}></button>
+      {/if}
+    {/each}
+  </div>
 
   <div class="flex justify-between">
     <div class="text-xs opacity-30">{formatTime(progress)}</div>
+    <div class="text-xs opacity-30">{track.artist} · {track.year}</div>
     <div class="text-xs opacity-30">{formatTime(duration)}</div>
   </div>
 </div>
