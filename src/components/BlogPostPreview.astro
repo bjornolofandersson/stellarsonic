@@ -3,15 +3,27 @@ export interface Props {
   post: any;
 }
 const { post } = Astro.props;
+
+const overlayStyle = `--tw-gradient-to: ${post.colors[0]}`;
+
 ---
 
-<article class="bg-white shadow-md rounded-md overflow-hidden">
+<article class="bg-white shadow-lg rounded-md overflow-hidden relative aspect-square" style="padding-bottom: 100%">
+  <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
   <a href={post.url}>
-    <img src={post.image} alt="" />
-    <div class="p-4">
-      <h1 class="text-xl">{post.headline}</h1>
-      <time>{post.datePublished}</time>
-      <p>{post.description}</p>
+    <div class="absolute w-full bottom-0 h-32 bg-gradient-to-b from-transparent" style={overlayStyle}>
+      <div class="grid grid-cols-3 h-full pb-4">
+        <div class="col-span-2 text-white px-6 py-4 text-xl">{post.title}</div>
+        <div class="text-white p-6 text-xs" style="border-left: 1px solid #FFFFFF30">
+          <span>45m</span>
+        </div>
+      </div>
     </div>
   </a>
 </article>
+
+<style>
+  body {
+    font-family: 'Raleway', sans-serif;
+  }
+</style>
