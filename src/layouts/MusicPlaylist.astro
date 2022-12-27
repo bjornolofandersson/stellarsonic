@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const { frontmatter: playlist } = Astro.props;
-const { title, subtitle, image, tracks, genres, colors } = playlist
+const { title, subtitle, description, image, tracks, genres, colors } = playlist
 const bgColor = `background: ${colors[0]}`;
 const fgColor = `color: ${colors[1]}`;
 
@@ -63,8 +63,18 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     </div>
 
   </div>
-
   <div class="bg-slate-200 relative">
+    <div class="container mx-auto p-12">
+      <div class="grid grid-cols-3 gap-4">
+        <div></div>
+        <div class="p-12 article col-span-2">
+          {description}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-slate-100 relative">
     <div class="container mx-auto p-12">
       <div class="grid grid-cols-3 gap-4">
         <div></div>
