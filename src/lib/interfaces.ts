@@ -7,6 +7,8 @@ export interface Article {
 
   image: string;
 
+  date: string;
+
   genres: string[];
 
   tags: string[];

@@ -11,6 +11,8 @@ export interface Props {
 
 const { frontmatter: playlist } = Astro.props;
 const { title, subtitle, description, image, tracks, genres, colors } = playlist
+          
+const date = new Date(playlist.date).toDateString();
 const bgColor = `background: ${colors[0]}`;
 const fgColor = `color: ${colors[2]}`;
 const bgColor2 = `background: ${colors[1]}`;
@@ -43,9 +45,9 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     </section>
     <section class="relative text-white" style={bgColor2}>
       <div class="container mx-auto px-8 grid">
-        <div class="grid grid-cols-12">
+        <div class="grid grid-cols-12 py-20">
           <div class="col-span-12 md:col-span-6 lg:col-span-4">
-            <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%; margin-top: -200px">
+            <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%; margin-top: -250px">
               <img class="absolute w-full h-full object-cover" src={image} alt=""/>
             </div>
             <section class="text-white mt-12 p-8">
@@ -55,7 +57,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
             </section>
           </div>
           <div class="col-span-12 md:col-span-6 lg:col-span-8">
-            <ul class="divide-y divide-slate-400/25 columns-1 lg:columns-2 p-8 py-20 lg:px-20">
+            <ul class="divide-y divide-slate-400/25 columns-1 lg:columns-2 px-8 lg:px-20">
               {tracks.map((track, index) =>
                 <Track client:only playlist={playlist} track={index} />
               )}
@@ -66,7 +68,9 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     </section>
     <section class="relative bg-slate-200 dark:bg-dark-base">
       <div class="container mx-auto px-8 grid grid-cols-12 text-slate-800">
-        <div class="col-span-12 lg:col-span-4 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300"></div>
+        <div class="col-span-12 lg:col-span-4 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 p-8 py-20 text-right">
+          <time class="text-lg text-slate-600 dark:text-white">{date}</time>
+        </div>
         <div class="col-span-12 lg:col-span-8 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20">
           <slot/>
         </div>
