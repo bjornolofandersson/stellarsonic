@@ -20,7 +20,7 @@
 
   function checkIsPlaying() {
     isPlaying = player.isPlaying(track);
-    color = player.getCurrentTrack() === track ? playlist.colors[1] : '#ffffff';
+    color = player.getCurrentTrack() === track ? playlist.colors[2] : '#ffffff';
   }
 
   setInterval(checkIsPlaying, 100);
@@ -28,7 +28,7 @@
 </script>
 
 <div>
-  <li class="p-4 text-sm flex" style="border-bottom: 1px solid #FFFFFF08">
+  <li class="py-4 text-sm flex">
     {#if isPlaying}
       <button class="mt-2 px-2 opacity-30" on:click={onClick}>
         <span class="material-symbols-outlined">pause</span>
@@ -39,8 +39,8 @@
       </button>
     {/if}
     <div>
-      <span class="text-sm" style="color: {color}">{name}</span><br/>
-      <span class="text-xs opacity-30">{artist} ({year})</span>
+      <span class="text-xs" style="color: {color}">{name}</span><br/>
+      <span class="text-xs opacity-30 -mt-0.1 block">{artist} ({year})</span>
     </div>
   </li>
 </div>

@@ -12,10 +12,10 @@ export interface Props {
 const { frontmatter: playlist } = Astro.props;
 const { title, subtitle, description, image, tracks, genres, colors } = playlist
 const bgColor = `background: ${colors[0]}`;
-const fgColor = `color: ${colors[1]}`;
+const fgColor = `color: ${colors[2]}`;
 const bgColor2 = `background: ${colors[1]}`;
 
-const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 100vh`
+const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 300px`
 ---
 
 <Layout title="Test">
@@ -23,67 +23,55 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     <Schema {...playlist} />
   </Fragment>
 
-  <div style={bgColor} class="text-white">
-    <div class="w-full bg-fixed fixed" style={bgStyle}>
+  <div style={bgColor} class="text-white relative">
+    <div class="w-full fixed bg-fixed" style={bgStyle}>
     </div>
-    <div style="backdrop-filter: blur(4px);">
-
-    <div class="container mx-auto px-12">
-      <div class="py-4 flex text-xs">
-        <a href="/" class="mr-4">Stellarsonic</a>
-        <a href="/blog" class="mr-4">Blog</a>
-        <div class="mr-4">About</div>
+    <section class="relative text-white" style="height: 300px;">
+      <div class="container mx-auto px-8">
+        <div class="p-8 flex text-xs">
+          <a href="/" class="mr-4">Stellarsonic</a>
+          <a href="/blog" class="mr-4">Blog</a>
+          <div class="mr-4">About</div>
+        </div>
+        <div class="grid grid-cols-12">
+          <div class="col-span-12 md:col-span-4">
+          </div>
+          <div class="col-span-12 md:col-span-8 p-20 mx-8">
+          </div>
+        </div>
       </div>
-
-      <div class="py-6">
-        <section class="text-white">
-          <h1 class="text-5xl">{title}</h1>
-          <h2 class="text-xl" style={fgColor}>{subtitle}</h2>
-        </section>
-      </div>
-      <section class="py-12">
-        <div class="grid grid-cols-3 gap-4">
-          <div class="col-span-3 md:col-span-1">
-            <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%">
+    </section>
+    <section class="relative text-white" style={bgColor2}>
+      <div class="container mx-auto px-8 grid">
+        <div class="grid grid-cols-12">
+          <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%; margin-top: -200px">
               <img class="absolute w-full h-full object-cover" src={image} alt=""/>
             </div>
-            <div class="mt-8">
-              <Controls client:only playlist={playlist} />
-            </div>
+            <section class="text-white mt-12 p-8">
+              <h1 class="text-4xl">{title}</h1>
+              <h2 class="text-xl" style={fgColor}>{subtitle}</h2>
+              <p class="text-white opacity-40 text-sm mt-8">{description}</p>
+            </section>
           </div>
-          <div class="col-span-3 md:col-span-2">
-            <ul class="divide-y divide-slate-400/25 columns-2">
+          <div class="col-span-12 md:col-span-6 lg:col-span-8">
+            <ul class="divide-y divide-slate-400/25 columns-1 lg:columns-2 p-8 py-20 lg:px-20">
               {tracks.map((track, index) =>
                 <Track client:only playlist={playlist} track={index} />
               )}
             </ul>
           </div>
         </div>
-      </section>
       </div>
-    </div>
-
-  </div>
-  <div class="bg-slate-200 relative" style={bgColor2}>
-    <div class="container mx-auto p-12">
-      <div class="grid grid-cols-3 gap-4">
-        <div></div>
-        <div class="p-12 article col-span-2">
-          {description}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bg-slate-100 dark:bg-dark-base dark:text-stone-300 relative">
-    <div class="container mx-auto p-12">
-      <div class="grid grid-cols-3 gap-4">
-        <div></div>
-        <div class="p-12 article col-span-2">
+    </section>
+    <section class="relative bg-slate-200 dark:bg-dark-base">
+      <div class="container mx-auto px-8 grid grid-cols-12 text-slate-800">
+        <div class="col-span-12 lg:col-span-4 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300"></div>
+        <div class="col-span-12 lg:col-span-8 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20">
           <slot/>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </Layout>
 
