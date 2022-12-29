@@ -1,9 +1,8 @@
 ---
 import Layout from './Layout.astro';
-import Track from '../components/Track.svelte';
 import Schema from '../components/MusicMixSchema.astro';
 import { MusicMix } from '../lib/interfaces';
-import Controls from '../components/Controls.svelte';
+import TrackList from '../components/TrackList.svelte';
 
 export interface Props {
   frontmatter: MusicMix;
@@ -57,11 +56,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
             </section>
           </div>
           <div class="col-span-12 md:col-span-6 lg:col-span-8">
-            <ul class="divide-y divide-slate-400/25 columns-1 lg:columns-2 px-8 lg:px-20">
-              {tracks.map((track, index) =>
-                <Track client:only playlist={playlist} track={index} />
-              )}
-            </ul>
+            <TrackList client:only playlist={playlist} />
           </div>
         </div>
       </div>
