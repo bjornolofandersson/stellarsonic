@@ -1,9 +1,9 @@
 ---
 import Layout from './Layout.astro';
-import Schema from '../components/playlist/Schema.astro';
 import { MusicMix } from '../lib/interfaces';
-import TrackList from '../components/TrackList.svelte';
-import Controls from '../components/Controls.svelte';
+import Schema from '../components/playlist/Schema.astro';
+import Tracks from '../components/playlist/Tracks.svelte';
+import Controls from '../components/playlist/Controls.svelte';
 import * as site from '../settings.yaml';
 
 export interface Props {
@@ -58,7 +58,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
               <Controls client:only playlist={playlist} progressColor={playlist.colors[2]} />
             </div>
             <div class="mt-8 md:mt-20">
-              <TrackList client:only playlist={playlist} />
+              <Tracks client:only playlist={playlist} />
             </div>
           </div>
         </div>
