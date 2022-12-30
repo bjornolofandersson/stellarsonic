@@ -31,7 +31,6 @@
   function formatTime(t: number) {
     const min = Math.floor(t / 60);
     const sec = Math.floor(t % 60);
-    console.log(t);
 
     return `${min}:${sec < 10 ? '0' + sec : sec}`;
   }
