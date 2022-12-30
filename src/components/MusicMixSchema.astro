@@ -4,18 +4,19 @@ import site from "../settings.yaml";
 
 export interface Props extends MusicMix {};
 
-const { title, image, date, tracks, genres, tags } = Astro.props;
+const { title, subtitle, description, image, date, tracks, genres, tags } = Astro.props as MusicMix;
 
 const ldData = {
   "@context": "https://schema.org",
   "@type": "MusicPlaylist",
-  headline: `${title}`,
+  headline: title,
+  alternativeHeadline: subtitle,
   datePublished: `${date}`,
   image: {
     "@type": "ImageObject",
     url: `${site.url}${image}`,
   },
-  //description: `${description}`,
+  description: `${description}`,
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id": `${site.url}/blog/`,
