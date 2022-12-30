@@ -1,5 +1,6 @@
 <script lang="ts">
   import { MixAudioPlayer } from "../../lib/AudioPlayer";
+  import { formatTime } from "../../lib/utils";
 
   export let player: MixAudioPlayer;
   export let trackColor: string;
@@ -29,12 +30,6 @@
     track = player.getTrackData(player.getCurrentTrack());
   }
 
-  function formatTime(t: number) {
-    const min = Math.floor(t / 60);
-    const sec = Math.floor(t % 60);
-
-    return `${min}:${sec < 10 ? '0' + sec : sec}`;
-  }
 
   setInterval(update, 100);
 

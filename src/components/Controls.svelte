@@ -1,6 +1,7 @@
 <script lang="ts">
   import { MixAudioPlayer } from "../lib/AudioPlayer";
   import { MusicMix } from "../lib/interfaces";
+  import { formatTime } from "../lib/utils";
   import ControlButton from "./ControlButton.svelte";
 
   export let playlist: MusicMix;
@@ -26,13 +27,6 @@
     duration = player.getCurrentTrackDuration();
     progressStyle = `background: ${progressColor}; width: ${100 * (progress / duration)}%;`;
     isPlaying = player.isPlaying();
-  }
-
-  function formatTime(t: number) {
-    const min = Math.floor(t / 60);
-    const sec = Math.floor(t % 60);
-
-    return `${min}:${sec < 10 ? '0' + sec : sec}`;
   }
 
   setInterval(update, 100);

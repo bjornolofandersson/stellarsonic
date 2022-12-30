@@ -16,3 +16,10 @@ export function uniqueGenres(posts: MusicMix[]) {
   }
   return Array.from(new Set(genres));
 }
+
+export function formatTime(t: number) {
+  const min = Math.floor(t / 60);
+  const sec = Math.floor(t % 60);
+
+  return `${min}:${sec < 10 ? '0' + sec : sec}`;
+}
