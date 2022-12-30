@@ -1,10 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import BlogPostPreview from '../../components/BlogPostPreview.astro';
 import { uniqueGenres } from '../../lib/utils';
 import * as site from '../../settings.yaml';
 import SiteHero from '../../components/SiteHero.astro';
 import Paginator from '../../components/Paginator.astro';
+import MusicPlaylistPreview from '../../components/playlist/Preview.astro';
  
 
 export async function getStaticPaths({ paginate }: any) {
@@ -40,7 +40,7 @@ const genres = await Astro.glob('./*.md').then(posts => {
 
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
       {page.data.map(({frontmatter, url}: any) =>
-        <BlogPostPreview post={{...frontmatter, url}} />
+        <MusicPlaylistPreview post={{...frontmatter, url}} />
       )}
     </section>
   </div>
