@@ -25,7 +25,7 @@
 </script>
 
 <div>
-  <ul class="columns-1 lg:columns-2 px-8 lg:px-20">
+  <ul class="columns-1 lg:columns-2">
     {#each playlist.tracks as track, index}
       <li class="py-4 text-sm flex">
         {#if (index === currentTrack) && isPlaying}

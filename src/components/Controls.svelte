@@ -1,50 +1,68 @@
 <script lang="ts">
   import { MixAudioPlayer } from "../lib/AudioPlayer";
   import { MusicMix } from "../lib/interfaces";
-  import ProgressBar from "./ProgressBar.svelte";
 
   export let playlist: MusicMix;
+  export let progressColor: string;
 
   const player = MixAudioPlayer.getInstance(playlist);
 
+  let progress = 0;
+  let duration = 0;
+  let seekWidth: number;
   let isPlaying = false;
 
-  function onClick() {
-    if (player.isPlaying()) {
-      player.pause();
-    } else {
-      player.play()
-    }
+  let progressStyle = `background: ${progressColor}; width: ${100 * progress}%`;
+
+  function onSeek(ev: any) {
+    const seek = ev.offsetX / seekWidth;
+    const seekSec = seek * player.getCurrentTrackDuration();
+    player.skipTrackTo(seekSec);
   }
 
   function update() {
+    progress = player.getCurrentTrackProgress();
+    duration = player.getCurrentTrackDuration();
+    progressStyle = `background: ${progressColor}; width: ${100 * (progress / duration)}%;`;
     isPlaying = player.isPlaying();
   }
 
-  setInterval(update, 100);
+  function formatTime(t: number) {
+    const min = Math.floor(t / 60);
+    const sec = Math.floor(t % 60);
+    console.log(t);
 
+    return `${min}:${sec < 10 ? '0' + sec : sec}`;
+  }
+
+  setInterval(update, 100);
 </script>
 
-<div class="w-full h-32 shadow-md p-4" style="background: #FFFFFF05">
+<div class="w-full h-20 relative">
+  <button bind:clientWidth={seekWidth} on:click={onSeek} class="w-full h-2 overflow-hidden absolute bottom-0" style="background: #ffffff06">
+    <div class="h-full" style={progressStyle}></div>
+  </button>
+  <div class="absolute w-full flex justify-between bottom-0 -mb-6">
+    <div class="text-xs opacity-30 dark:text-white">{formatTime(progress)}</div>
+    <div class="text-xs opacity-30 dark:text-white">{formatTime(duration)}</div>
+  </div>
   <div class="flex justify-between">
-    <button class="mt-2 px-2" on:click={() => player.skipPrev()}>
-      <span class="material-symbols-outlined">skip_previous</span> 
+    <button class="mt-2 p-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.skipPrev()}>
+      <span class="material-symbols-outlined mt-1">skip_previous</span> 
     </button>
 
     {#if isPlaying}
-      <button class="mt-2 px-2" on:click={onClick}>
-        <span class="material-symbols-outlined">pause</span>
+      <button class="mt-2 p-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.pause()}>
+        <span class="material-symbols-outlined mt-1">pause</span>
       </button>
     {:else}
-      <button class="mt-2 px-2" on:click={onClick}>
-        <span class="material-symbols-outlined">play_arrow</span>
+      <button class="mt-2 px-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.play()}>
+        <span class="material-symbols-outlined mt-1">play_arrow</span>
       </button>
     {/if}
 
-    <button class="mt-2 px-2" on:click={() => player.skipNext()}>
-      <span class="material-symbols-outlined">skip_next</span> 
+    <button class="mt-2 px-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.skipNext()}>
+      <span class="material-symbols-outlined mt-1">skip_next</span> 
     </button>
   </div>
-
-  <ProgressBar player={player} trackColor="#00000030" progressColor={playlist.colors[1]}/>
 </div>
