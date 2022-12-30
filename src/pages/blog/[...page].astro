@@ -1,36 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-//import Container from '../../components/Container.astro';
 import BlogPostPreview from '../../components/BlogPostPreview.astro';
 import { uniqueGenres } from '../../lib/utils';
-//import Paginator from '../../components/Paginator.astro'
-  
-  
-export async function getStaticPaths({paginate}: any) {
-  const posts = await Astro.glob('./*.md').then(posts =>
-	posts
-		.map(({ frontmatter, url }) => ({
-      url: url,
-      ...frontmatter,
-		}))
-		// .sort((a, b) => {
-		// 	new Date(b.publishDate) - new Date(a.publishDate)
-		// })
-	);
-  return paginate(posts, {pageSize: 10});
-}
-//// Component Script:
-//// You can write any JavaScript/TypeScript that you'd like here.
-//// It will run during the build, but never in the browser.
-//// All variables are available to use in the HTML template below.
-//const seo = {
-  //title: 'Example Blog',
-  //description: 'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.'
-//}
-const { page } = Astro.props;
-const genres = uniqueGenres(page.data).sort();
+import * as site from '../../settings.yaml';
+ 
 
-const [featured, ...posts] = page.data;
+export async function getStaticPaths({ paginate }: any) {
+  const sourcePosts = await Astro.glob('./**/*.md');
+  const posts = sourcePosts
+    .filter(p => p.url != null && p.url != '')
+    .sort((a, b) => {
+      return b.frontmatter.date.localeCompare(a.frontmatter.date);
+    });
+
+  return paginate(posts, { pageSize: site.blog.pageSize });
+}
+
+const { page } = Astro.props;
+const genres = await Astro.glob('./*.md').then(posts => {
+  return uniqueGenres(posts.map(({ frontmatter }) => frontmatter) as any);
+});
+const isCurrentPage = (i: number) => {
+  return (i + 1) === page.currentPage
+}
 ---
 
 
@@ -38,8 +30,8 @@ const [featured, ...posts] = page.data;
   <div class="w-full bg-light-accent-variant dark:bg-dark-accent-variant p-12">
     <div class="relative container mx-auto px-12 py-12">
       <div class="mb-10">
-        <h1 class="text-white text-6xl">Stellarsonic</h1>
-        <h2 class="text-xl text-accent">A record blog</h2>
+        <h1 class="text-white text-6xl">{site.title}</h1>
+        <h2 class="text-xl text-accent">{site.description}</h2>
       </div>
     </div>
   </div>
@@ -49,10 +41,20 @@ const [featured, ...posts] = page.data;
     </ul>
   </div>
 
-  <div class="container mx-auto py-12">
+  <div class="container mx-auto">
+    <section class="pb-20 pt-12">
+      <ul class="flex justify-center">
+        {[...Array(page.lastPage).keys()].map(k =>
+          <li class={`text-md m-2 text-center ${isCurrentPage(k) ? 'bg-light-accent text-white' : ''}`} style="border: 1px solid #00000030">
+            <a class="block h-12 w-12" href={`/blog/${k === 0 ? "" : k + 1}`}>{k + 1}</a>
+          </li>
+        )} 
+      </ul>
+    </section>
+
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
-      {page.data.map((post: any) =>
-        <BlogPostPreview post={post} />
+      {page.data.map(({frontmatter, url}: any) =>
+        <BlogPostPreview post={{...frontmatter, url}} />
       )}
     </section>
   </div>

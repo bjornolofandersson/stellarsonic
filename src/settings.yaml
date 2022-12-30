@@ -1,3 +1,5 @@
 title: Stellarsonic
-description: This is an example Stellarsonic site
+description: A record blog
 url: https://stellarsonic.netlify.app
+blog:
+  pageSize: 5
