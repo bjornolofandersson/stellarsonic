@@ -67,7 +67,13 @@ export class MixAudioPlayer {
   }
 
   public skipPrev() {
-    this.play(Math.max(this.getCurrentTrack() - 1, 0));
+    const i = this.getCurrentTrack();
+
+    if (i > 0) {
+      this.play(i - 1);
+    } else {
+      this.skipTrackTo(0);
+    }
   }
 
   public skipTrackTo(seconds: number) {
