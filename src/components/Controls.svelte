@@ -1,6 +1,7 @@
 <script lang="ts">
   import { MixAudioPlayer } from "../lib/AudioPlayer";
   import { MusicMix } from "../lib/interfaces";
+  import ControlButton from "./ControlButton.svelte";
 
   export let playlist: MusicMix;
   export let progressColor: string;
@@ -47,22 +48,14 @@
     <div class="text-xs opacity-30 dark:text-white">{formatTime(duration)}</div>
   </div>
   <div class="flex justify-between">
-    <button class="mt-2 p-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.skipPrev()}>
-      <span class="material-symbols-outlined mt-1">skip_previous</span> 
-    </button>
+    <ControlButton icon="skip_previous" onClick={() => player.skipPrev()} />
 
     {#if isPlaying}
-      <button class="mt-2 p-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.pause()}>
-        <span class="material-symbols-outlined mt-1">pause</span>
-      </button>
+      <ControlButton icon="pause" onClick={() => player.pause()} />
     {:else}
-      <button class="mt-2 px-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.play()}>
-        <span class="material-symbols-outlined mt-1">play_arrow</span>
-      </button>
+      <ControlButton icon="play_arrow" onClick={() => player.play()} />
     {/if}
 
-    <button class="mt-2 px-2 w-14" style="border: 1px solid #ffffff30" on:click={() => player.skipNext()}>
-      <span class="material-symbols-outlined mt-1">skip_next</span> 
-    </button>
+    <ControlButton icon="skip_next" onClick={() => player.skipNext()} />
   </div>
 </div>
