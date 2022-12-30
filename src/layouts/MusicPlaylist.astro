@@ -11,12 +11,8 @@ export interface Props {
 
 const { frontmatter: playlist } = Astro.props;
 const { title, subtitle, description, image, tracks, genres, colors } = playlist
-          
-const date = new Date(playlist.date).toDateString();
-const bgColor = `background: ${colors[0]}`;
-const fgColor = `color: ${colors[2]}`;
-const bgColor2 = `background: ${colors[1]}`;
 
+const date = new Date(playlist.date).toDateString();
 const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 300px`
 ---
 
@@ -25,7 +21,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     <Schema {...playlist} />
   </Fragment>
 
-  <div style={bgColor} class="text-white relative">
+  <div style={`background: ${colors[0]}`} class="text-white relative">
     <div class="w-full fixed bg-fixed" style={bgStyle}>
     </div>
     <section class="relative text-white" style="height: 300px;">
@@ -43,7 +39,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
         </div>
       </div>
     </section>
-    <section class="relative text-white" style={bgColor2}>
+    <section class="relative text-white" style={`background: ${colors[1]}`}>
       <div class="container mx-auto px-8 grid">
         <div class="grid grid-cols-12 py-20">
           <div class="col-span-12 md:col-span-6 lg:col-span-4">
@@ -52,7 +48,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
             </div>
             <section class="text-white mt-12 md:px-8 py-8">
               <h1 class="text-4xl">{title}</h1>
-              <h2 class="text-xl" style={fgColor}>{subtitle}</h2>
+              <h2 class="text-xl" style={`color: ${colors[2]}`}>{subtitle}</h2>
               <p class="text-white opacity-40 text-sm mt-8">{description}</p>
             </section>
           </div>
