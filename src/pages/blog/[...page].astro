@@ -25,7 +25,7 @@ const genres = await Astro.glob('./*.md').then(posts => {
 ---
 
 
-<Layout title="Hello">
+<Layout title={site.title}>
   <SiteHero />
   <div class="w-full py-12 bg-light-accent dark:bg-dark-accent">
     <ul class="flex justify-center text-white text-l">

@@ -4,6 +4,7 @@ import Schema from '../components/MusicMixSchema.astro';
 import { MusicMix } from '../lib/interfaces';
 import TrackList from '../components/TrackList.svelte';
 import Controls from '../components/Controls.svelte';
+import * as site from '../settings.yaml';
 
 export interface Props {
   frontmatter: MusicMix;
@@ -16,7 +17,7 @@ const date = new Date(playlist.date).toDateString();
 const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 300px`
 ---
 
-<Layout title="Test">
+<Layout title={`${title} - ${site.title}`}>
   <Fragment slot="head-bottom">
     <Schema {...playlist} />
   </Fragment>
