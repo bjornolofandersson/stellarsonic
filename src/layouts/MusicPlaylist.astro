@@ -5,6 +5,7 @@ import Schema from '../components/playlist/Schema.astro';
 import Tracks from '../components/playlist/Tracks.svelte';
 import Controls from '../components/playlist/Controls.svelte';
 import * as site from '../settings.yaml';
+import MenuBar from '../components/MenuBar.astro';
 
 export interface Props {
   frontmatter: MusicMix;
@@ -26,13 +27,9 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     <div class="w-full fixed bg-fixed" style={bgStyle}>
     </div>
     <section class="relative text-white" style="height: 300px;">
-      <div class="container mx-auto px-8">
-        <div class="p-8 flex text-xs">
-          <a href="/" class="mr-4">Stellarsonic</a>
-          <a href="/blog" class="mr-4">Blog</a>
-          <div class="mr-4">About</div>
-        </div>
-        <div class="grid grid-cols-12">
+      <div class="container mx-auto">
+        <MenuBar />
+        <div class="grid grid-cols-12 px-8">
           <div class="col-span-12 md:col-span-4">
           </div>
           <div class="col-span-12 md:col-span-8 p-20 mx-8">

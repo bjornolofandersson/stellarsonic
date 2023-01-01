@@ -20,5 +20,5 @@ pnpm-debug.log*
 .DS_Store
 
 # blog posts
-src/pages/blog/*.md
+src/pages/**/*.md
 public
