@@ -2,22 +2,26 @@
 const { posts, title, icon } = Astro.props;
 ---
 
-<div class="w-full" style="border-top: 1px solid #00000030">
-  <div class="container mx-auto">
-    <div class="text-xl py-4 mb-12 flex">
-      <span class="material-symbols-outlined mr-4">{icon}</span>
-      <span class="block font-primary">{title}</span>
-    </div>
-
-    <div class="w-full overflow-hidden bg-white">
-      <ul class="grid grid-cols-2">
+<div class="w-full">
+  <div class="container mx-auto dark:text-white">
+    <div class="w-full overflow-hidden bg-white dark:bg-dark-base">
+      <div class="text-xl p-20 flex">
+        <span class="material-symbols-outlined mr-4">{icon}</span>
+        <span class="block font-primary">{title}</span>
+      </div>
+      <ul class="grid grid-cols-3 gap-24 p-20">
         {posts.map((post: any) => 
-          <li class="w-full p-20">
+          <li class="w-full">
+            <div>
+              <h1 class="text-4xl text-black dark:text-white font-title">{post.frontmatter.title}</h1>
+              <h2 class="text-md -mt-2 mb-12 font-primary opacity-40">{post.frontmatter.subtitle}</h2>
             <a href={post.url} class="block relative aspect-square">
               <img class="absolute w-full h-full object-cover" src={post.frontmatter.image} alt=""/>
             </a>
-            <h1 class="text-4xl mt-12 font-title">{post.frontmatter.title}</h1>
-            <p class="text-md mt-12 font-primary">{post.frontmatter.description}</p>
+              <p class="text-sm mt-12 p-4 font-primary">{post.frontmatter.description}</p>
+            </div>
+            <div class="p-12">
+            </div>
           </li>
         )}
       </ul>

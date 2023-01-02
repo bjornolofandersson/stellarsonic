@@ -11,18 +11,15 @@ let icon = '';
 if (post.url.startsWith('/mixes/')) {
   icon = 'graphic_eq';
 }
-
 ---
 
 <div class="container mx-auto">
-  <div class="w-full overflow-hidden mb-20">
-    <div class="grid grid-cols-12 grid-rows-6 py-12">
-      <div class="col-start-1 col-end-8 row-start-1 row-end-7">
-        <a href={post.url} class="block relative aspect-square">
-          <img class="absolute w-full h-full object-cover" src={image} alt=""/>
-        </a>
+  <div class="w-full overflow-hidden">
+    <div class="grid grid-cols-12 py-12">
+      <div class="col-span-12 lg:col-span-6">
+        <img class="w-full h-full object-cover" src={image} alt=""/>
       </div>
-      <div class="bg-white row-start-2 row-end-6 col-start-7 col-end-13 z-10 p-20 relative">
+      <div class="bg-white col-span-12 lg:col-span-6 z-10 p-20 relative">
         <span class="material-symbols-outlined absolute top-0 right-0 p-8">
           {icon}
         </span>

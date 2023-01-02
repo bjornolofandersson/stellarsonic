@@ -7,9 +7,9 @@ import * as site from '../settings.yaml';
     <a href="/" class="mr-4 site-title text-4xl">{site.title}</a>
   </div>
   <div class="grow"></div>
-  <ul class="flex text-md justify-right font-primary">
+  <ul class="flex text-xs font-bold justify-right font-primary">
     {site.navigation.map((nav: any) =>
-      <li><a href={nav.path} class="mr-4 hover:border-b border-black dark:border-white">{nav.name}</a></li>
+      <li><a href={nav.path} class="mr-4 hover:border-b-2 border-black dark:border-white">{nav.name}</a></li>
     )}
   </ul>
 </div>

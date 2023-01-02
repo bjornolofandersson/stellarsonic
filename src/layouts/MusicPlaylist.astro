@@ -15,7 +15,7 @@ const { frontmatter: playlist } = Astro.props;
 const { title, subtitle, description, image, tracks, genres, colors } = playlist
 
 const date = new Date(playlist.date).toDateString();
-const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 300px`
+const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 350px`
 ---
 
 <Layout title={`${title} - ${site.title}`}>
@@ -26,7 +26,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
   <div style={`background: ${colors[0]}`} class="text-white relative">
     <div class="w-full fixed bg-fixed" style={bgStyle}>
     </div>
-    <section class="relative text-white" style="height: 300px;">
+    <section class="relative text-white" style="height: 350px;">
       <div class="container mx-auto dark">
         <MenuBar />
         <div class="grid grid-cols-12 px-8">
