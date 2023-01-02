@@ -1,5 +1,10 @@
 title: Stellarsonic
 description: A record blog
 url: https://stellarsonic.netlify.app
+navigation:
+  - name: Mixtapes
+    path: /mixes
+  - name: About
+    path: /about
 blog:
   pageSize: 5
