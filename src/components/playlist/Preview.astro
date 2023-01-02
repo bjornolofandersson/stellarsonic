@@ -27,18 +27,21 @@ const date = new Date(post.date).toDateString();
       <div class="flex">
         <PreviewPlayButton client:only playlist={post} />
         <div>
-          <h1 class="text-slate-600 dark:text-slate-200 text-2xl">{post.title}</h1>
+          <h1 class="text-slate-600 dark:text-slate-200 text-3xl">{post.title}</h1>
           <h2 class="text-l text-accent">{post.subtitle}</h2>
         </div>
       </div>
-      <p class="text-xs py-6 opacity-60 dark:text-slate-200">{post.description}</p>
+      <p class="text-md py-6 opacity-60 dark:text-slate-200">{post.description}</p>
       <Controls client:only playlist={post} />
     </div>
   </div>
 </div>
 
 <style>
-  body {
-    font-family: 'Raleway', sans-serif;
+  h1 {
+    font-family: 'Cinzel', serif;
+  }
+  p {
+    font-family: 'Roboto', sans-serif;
   }
 </style>

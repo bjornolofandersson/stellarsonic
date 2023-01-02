@@ -1,0 +1,40 @@
+---
+import Controls from './playlist/PreviewControls.svelte';
+//import PreviewPlayButton from '../PreviewPlayButton.svelte';
+
+const { posts }  = Astro.props;
+---
+
+<div class="w-full" style="border-top: 1px solid #00000030">
+  <div class="container mx-auto">
+    <div class="text-xl py-4 mb-12 flex">
+      <span class="material-symbols-outlined">
+        graphic_eq
+      </span>
+      <span class="block ml-4">Recent mixtapes</span>
+    </div>
+
+    <div class="w-full overflow-hidden bg-white">
+      <ul class="grid grid-cols-2">
+        {posts.map((post: any) => 
+          <li class="w-full p-20">
+            <a href={post.url} class="block relative aspect-square">
+              <img class="absolute w-full h-full object-cover" src={post.frontmatter.image} alt=""/>
+            </a>
+            <h1 class="text-4xl mt-12">{post.frontmatter.title}</h1>
+            <p class="text-md mt-12">{post.frontmatter.description}</p>
+          </li>
+        )}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  h1 {
+    font-family: 'Cinzel', serif;
+  }
+  p, a, span {
+    font-family: 'Roboto', serif;
+  }
+</style>

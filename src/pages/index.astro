@@ -1,11 +1,23 @@
 ---
+import Featured from '../components/Featured.astro';
+import Recent from '../components/Recent.astro';
+import SiteHero from '../components/SiteHero.astro';
 import Layout from '../layouts/Layout.astro';
+import * as site from '../settings.yaml';
+
+const sourcePosts = await Astro.glob('./**/*.md');
+const posts = sourcePosts
+	.filter(p => p.url != null && p.url != '')
+	.sort((a, b) => {
+		return b.frontmatter.date.localeCompare(a.frontmatter.date);
+	});
+
+const [featured, ...rest] = posts;
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1 class="text-center text-3xl my-12">Stellarsonic</h1>
+<Layout title={site.title}>
+  <SiteHero />
 
-    <a href="/mixes">Browse mixtapes</a>
-	</main>
+	<Featured post={featured} />
+	<Recent posts={rest.slice(0, 2)}/>
 </Layout>
