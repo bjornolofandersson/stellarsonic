@@ -17,7 +17,6 @@ const [featured, ...rest] = posts;
 
 <Layout title={site.title}>
   <SiteHero />
-
 	<Featured post={featured} />
-	<Recent posts={rest.slice(0, 2)}/>
+	<Recent posts={rest.slice(0, 2)} title="Recent mixtapes" icon="graphic_eq"/>
 </Layout>
