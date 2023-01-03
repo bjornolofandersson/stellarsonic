@@ -20,5 +20,6 @@ pnpm-debug.log*
 .DS_Store
 
 # blog posts
-src/content
+src/content/types.generated.d.ts
+src/content/**/*.md
 public
