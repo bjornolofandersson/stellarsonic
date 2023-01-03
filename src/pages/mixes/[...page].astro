@@ -1,26 +1,25 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro'
 import { uniqueGenres } from '../../lib/utils';
 import * as site from '../../settings.yaml';
 import SiteHero from '../../components/SiteHero.astro';
 import Paginator from '../../components/Paginator.astro';
 import MusicPlaylistPreview from '../../components/playlist/Preview.astro';
- 
+
 
 export async function getStaticPaths({ paginate }: any) {
-  const sourcePosts = await Astro.glob('./**/*.md');
-  const posts = sourcePosts
-    .filter(p => p.url != null && p.url != '')
-    .sort((a, b) => {
-      return b.frontmatter.date.localeCompare(a.frontmatter.date);
-    });
+  const posts = await getCollection('mixes');
+  const sortedPosts = posts.sort((a, b) => {
+    return b.data.date.localeCompare(a.data.date);
+  });
 
-  return paginate(posts, { pageSize: site.blog.pageSize });
+  return paginate(sortedPosts, { pageSize: site.blog.pageSize });
 }
 
 const { page } = Astro.props;
-const genres = await Astro.glob('./*.md').then(posts => {
-  return uniqueGenres(posts.map(({ frontmatter }) => frontmatter) as any);
+const genres = await getCollection('mixes').then(posts => {
+  return uniqueGenres(posts.map(({ data }) => data) as any);
 });
 ---
 
@@ -39,8 +38,8 @@ const genres = await Astro.glob('./*.md').then(posts => {
     </section>
 
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
-      {page.data.map(({frontmatter, url}: any) =>
-        <MusicPlaylistPreview post={{...frontmatter, url}} />
+      {page.data.map(({data, slug}: any) =>
+        <MusicPlaylistPreview post={data} slug={slug} />
       )}
     </section>
   </div>

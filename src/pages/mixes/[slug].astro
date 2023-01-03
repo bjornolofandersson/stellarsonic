@@ -1,0 +1,23 @@
+---
+import { getCollection, CollectionEntry } from 'astro:content';
+import MusicPlaylist from '../../layouts/MusicPlaylist.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('mixes');
+  return docs.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+interface Props {
+  // Optionally use `CollectionEntry` for type safety
+  entry: CollectionEntry<'mixes'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<MusicPlaylist post={entry.data}>
+  <Content/>
+</MusicPlaylist>

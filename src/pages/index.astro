@@ -1,18 +1,18 @@
 ---
+import { getCollection } from 'astro:content';
 import Featured from '../components/Featured.astro';
 import Recent from '../components/Recent.astro';
 import SiteHero from '../components/SiteHero.astro';
 import Layout from '../layouts/Layout.astro';
 import * as site from '../settings.yaml';
 
-const sourcePosts = await Astro.glob('./**/*.md');
-const posts = sourcePosts
-	.filter(p => p.url != null && p.url != '')
-	.sort((a, b) => {
-		return b.frontmatter.date.localeCompare(a.frontmatter.date);
-	});
 
-const [featured, ...rest] = posts;
+const posts = await getCollection('mixes');
+const sortedPosts = posts.sort((a, b) => {
+  return b.data.date.localeCompare(a.data.date);
+});
+
+const [featured, ...rest] = sortedPosts;
 ---
 
 <Layout title={site.title}>

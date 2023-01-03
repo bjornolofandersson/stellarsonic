@@ -4,8 +4,10 @@ import PreviewPlayButton from '../PreviewPlayButton.svelte';
 
 export interface Props {
   post: any;
+
+  slug: string;
 }
-const { post } = Astro.props;
+const { post, slug } = Astro.props;
 
 const date = new Date(post.date).toDateString();
 ---
@@ -19,7 +21,7 @@ const date = new Date(post.date).toDateString();
       </ul>
     </div>
     <div class="w-full px-20 md:pl-0 lg:px-0">
-      <a href={post.url} class="block relative aspect-square shadow-lg">
+      <a href={`/mixes/${slug}`} class="block relative aspect-square shadow-lg">
         <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
       </a>
     </div>

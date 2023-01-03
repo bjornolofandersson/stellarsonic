@@ -6,21 +6,23 @@ import Tracks from '../components/playlist/Tracks.svelte';
 import Controls from '../components/playlist/Controls.svelte';
 import * as site from '../settings.yaml';
 import MenuBar from '../components/MenuBar.astro';
+import { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  frontmatter: MusicMix;
+  post: MusicMix;
 }
 
-const { frontmatter: playlist } = Astro.props;
-const { title, subtitle, description, image, tracks, genres, colors } = playlist
+const { post } = Astro.props;
+const { title, subtitle, description, image, tracks, genres, colors } = post;
 
-const date = new Date(playlist.date).toDateString();
-const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 350px`
+const date = new Date(post.date).toDateString();
+const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 350px`;
+
 ---
 
 <Layout title={`${title} - ${site.title}`}>
   <Fragment slot="head-bottom">
-    <Schema {...playlist} />
+    <Schema {...post} />
   </Fragment>
 
   <div style={`background: ${colors[0]}`} class="text-white relative">
@@ -52,10 +54,10 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
           </div>
           <div class="relative col-span-12 md:col-span-6 lg:col-span-8 md:px-8 lg:px-20">
             <div class="md:-mt-40">
-              <Controls client:only playlist={playlist} progressColor={playlist.colors[2]} />
+              <Controls client:only playlist={post} progressColor={colors[2]} />
             </div>
             <div class="mt-8 md:mt-20">
-              <Tracks client:only playlist={playlist} />
+              <Tracks client:only playlist={post} />
             </div>
           </div>
         </div>

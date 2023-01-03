@@ -14,5 +14,8 @@ export default defineConfig({
   integrations: [tailwind(), svelte()],
   vite: {
     plugins: [yaml()]
-  }
+  },
+  experimental: {
+    contentCollections: true,
+  },
 });

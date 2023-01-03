@@ -4,11 +4,11 @@ export interface Props {
 }
 
 const { post } = Astro.props;
-const { image, title, subtitle, description } = post.frontmatter;
+const { image, title, subtitle, description } = post.data;
 
 let icon = '';
 
-if (post.url.startsWith('/mixes/')) {
+if (post.collection === 'mixes') {
   icon = 'graphic_eq';
 }
 ---
