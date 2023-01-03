@@ -1,14 +1,17 @@
 ---
 export interface Props {
-  post: any;
+  collection: string;
+
+  slug: string;
+
+  image: string;
 }
 
-const { post } = Astro.props;
-const { image, title, subtitle, description } = post.data;
+const { collection, slug, image } = Astro.props;
 
 let icon = '';
 
-if (post.collection === 'mixes') {
+if (collection === 'mixes') {
   icon = 'graphic_eq';
 }
 ---
@@ -23,10 +26,8 @@ if (post.collection === 'mixes') {
         <span class="material-symbols-outlined absolute top-0 right-0 p-8">
           {icon}
         </span>
-        <h1 class="text-6xl font-title">{title}</h1>
-        <h2 class="text-xl text-accent">{subtitle}</h2>
-        <p class="text-lg block mt-12 font-primary">{description}</p>
-        <a class="block mt-12 p-8 font-primary" href={post.url} style="border: 1px solid #00000020">Read more</a>
+        <slot />
+        <a class="block mt-12 p-8 font-primary" href={`${collection}/${slug}`} style="border: 1px solid #00000020">Read more</a>
       </div>
     </div>
   </div>
