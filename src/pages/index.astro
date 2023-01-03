@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Featured from '../layouts/PostFeatured.astro';
-import Recent from '../components/Recent.astro';
 import SiteHero from '../components/SiteHero.astro';
 import Layout from '../layouts/Layout.astro';
+import MusicPlaylistPreview from '../components/playlist/Preview.astro';
 import * as site from '../settings.yaml';
 
 
@@ -24,5 +24,16 @@ const [featured, ...rest] = sortedPosts;
     <p class="text-lg block mt-12 font-primary">{featured.data.description}</p>
   </Featured>
 
-	<Recent posts={rest.slice(0, 3)} title="Recent mixtapes" icon="graphic_eq"/>
+  <section class="container mx-auto">
+    <div class="text-xl py-20 flex">
+      <span class="material-symbols-outlined mr-4">graphic_eq</span>
+      <span class="block font-primary">Recent mixtapes</span>
+    </div>
+
+    <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
+      {rest.slice(0, 3).map(({data, slug}: any) =>
+        <MusicPlaylistPreview post={data} slug={slug} />
+      )}
+    </div>
+  </section>
 </Layout>
