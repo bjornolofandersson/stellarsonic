@@ -48,10 +48,7 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
     </section>
     <section class="relative bg-slate-200 dark:bg-dark-base">
       <div class="container mx-auto px-8 grid grid-cols-12 text-slate-800">
-        <div class="col-span-12 lg:col-span-4 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 p-8 py-20 text-right">
-          <time class="text-lg text-slate-600 dark:text-white">{date}</time>
-        </div>
-        <div class="col-span-12 lg:col-span-8 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary">
+        <div class="col-span-12 lg:col-span-12 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary columns-1 lg:columns-2 gap-20">
           <slot/>
         </div>
       </div>
