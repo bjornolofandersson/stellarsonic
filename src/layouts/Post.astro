@@ -1,0 +1,60 @@
+---
+import Layout from './Layout.astro';
+import * as site from '../settings.yaml';
+import MenuBar from '../components/MenuBar.astro';
+
+export interface Props {
+  image: string;
+
+  title: string;
+
+  colors: string[];
+
+  date: string;
+}
+
+const { title, image, date, colors } = Astro.props;
+const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 350px`;
+
+---
+
+<Layout title={`${title} - ${site.title}`}>
+  <Fragment slot="head-bottom">
+    <slot name="head-bottom"/>
+  </Fragment>
+
+  <div style={`background: ${colors[0]}`} class="text-white relative">
+    <div class="w-full fixed bg-fixed" style={bgStyle}>
+    </div>
+    <section class="relative text-white" style="height: 350px;">
+      <div class="container mx-auto dark">
+        <MenuBar />
+      </div>
+    </section>
+    <section class="relative text-white" style={`background: ${colors[1]}`}>
+      <div class="container mx-auto px-8 grid">
+        <div class="grid grid-cols-12 py-20">
+          <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%; margin-top: -250px">
+              <img class="absolute w-full h-full object-cover" src={image} alt=""/>
+            </div>
+            <slot name="header-left"/>
+          </div>
+          <div class="relative col-span-12 md:col-span-6 lg:col-span-8 md:px-8 lg:px-20">
+            <slot name="header-right"/>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="relative bg-slate-200 dark:bg-dark-base">
+      <div class="container mx-auto px-8 grid grid-cols-12 text-slate-800">
+        <div class="col-span-12 lg:col-span-4 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 p-8 py-20 text-right">
+          <time class="text-lg text-slate-600 dark:text-white">{date}</time>
+        </div>
+        <div class="col-span-12 lg:col-span-8 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary">
+          <slot/>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

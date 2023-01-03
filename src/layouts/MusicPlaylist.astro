@@ -1,87 +1,36 @@
 ---
-import Layout from './Layout.astro';
 import { MusicMix } from '../lib/interfaces';
 import Schema from '../components/playlist/Schema.astro';
 import Tracks from '../components/playlist/Tracks.svelte';
 import Controls from '../components/playlist/Controls.svelte';
-import * as site from '../settings.yaml';
-import MenuBar from '../components/MenuBar.astro';
-import { CollectionEntry } from 'astro:content';
+import Post from './Post.astro';
 
 export interface Props {
   post: MusicMix;
 }
 
 const { post } = Astro.props;
-const { title, subtitle, description, image, tracks, genres, colors } = post;
+const { title, subtitle, description, image, colors } = post;
 
 const date = new Date(post.date).toDateString();
-const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.04; transform: scaleX(-1); height: 350px`;
-
 ---
 
-<Layout title={`${title} - ${site.title}`}>
+<Post title={title} image={image} colors={colors} date={date}>
   <Fragment slot="head-bottom">
     <Schema {...post} />
   </Fragment>
-
-  <div style={`background: ${colors[0]}`} class="text-white relative">
-    <div class="w-full fixed bg-fixed" style={bgStyle}>
+  <slot/>
+  <section slot="header-left" class="text-white mt-12 md:px-8 py-8">
+    <h1 class="text-4xl font-title">{title}</h1>
+    <h2 class="text-xl" style={`color: ${colors[2]}`}>{subtitle}</h2>
+    <p class="text-white opacity-40 text-sm mt-8">{description}</p>
+  </section>
+  <section slot="header-right">
+    <div class="md:-mt-40">
+      <Controls client:only playlist={post} progressColor={colors[2]} />
     </div>
-    <section class="relative text-white" style="height: 350px;">
-      <div class="container mx-auto dark">
-        <MenuBar />
-        <div class="grid grid-cols-12 px-8">
-          <div class="col-span-12 md:col-span-4">
-          </div>
-          <div class="col-span-12 md:col-span-8 p-20 mx-8">
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="relative text-white" style={`background: ${colors[1]}`}>
-      <div class="container mx-auto px-8 grid">
-        <div class="grid grid-cols-12 py-20">
-          <div class="col-span-12 md:col-span-6 lg:col-span-4">
-            <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%; margin-top: -250px">
-              <img class="absolute w-full h-full object-cover" src={image} alt=""/>
-            </div>
-            <section class="text-white mt-12 md:px-8 py-8">
-              <h1 class="text-4xl">{title}</h1>
-              <h2 class="text-xl" style={`color: ${colors[2]}`}>{subtitle}</h2>
-              <p class="text-white opacity-40 text-sm mt-8">{description}</p>
-            </section>
-          </div>
-          <div class="relative col-span-12 md:col-span-6 lg:col-span-8 md:px-8 lg:px-20">
-            <div class="md:-mt-40">
-              <Controls client:only playlist={post} progressColor={colors[2]} />
-            </div>
-            <div class="mt-8 md:mt-20">
-              <Tracks client:only playlist={post} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="relative bg-slate-200 dark:bg-dark-base">
-      <div class="container mx-auto px-8 grid grid-cols-12 text-slate-800">
-        <div class="col-span-12 lg:col-span-4 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 p-8 py-20 text-right">
-          <time class="text-lg text-slate-600 dark:text-white">{date}</time>
-        </div>
-        <div class="col-span-12 lg:col-span-8 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20">
-          <slot/>
-        </div>
-      </div>
-    </section>
-  </div>
-</Layout>
-
-
-<style>
-  h1 {
-    font-family: 'Cinzel', serif;
-  }
-  .article {
-    font-family: 'Roboto', sans-serif;
-  }
-</style>
+    <div class="mt-8 md:mt-20">
+      <Tracks client:only playlist={post} />
+    </div>
+  </section>
+</Post>
