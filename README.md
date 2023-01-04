@@ -1,50 +1,55 @@
-# Welcome to [Astro](https://astro.build)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/withastro/astro/tree/latest/examples/basics)
+# Stellarsonic
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Description
+Stellarsonic is a blog website template for showcasing music mixes in a similar fashion to Mixcloud, except you get to have full control both over your content as well as styling if you choose to modify the code.
 
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+The project is built using Astro with some client-side code in Svelte. This means that you will get an incredibly fast, mostly statically generated site with a minimal footprint.
 
+## Getting started
+To get started, simply clone this repo and install dependencies:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
+```bash
+npm install
 ```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Development mode
+When writing content and/or making changes to the code you can simply start the server in development mode.
+
+```bash
+npm run dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Building
+When you are ready to build the site run:
+```bash
+npm run build
+```
+Once that is complete you can preview the result:
+```bash
+npm run preview
+```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Writing content
+Content is written in markdown and stored in the `src/content` folder.
+If you choose too host your images and audio tracks along with the site, they go into the `public/assets` folder.
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Mixes
 
-## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+```yaml
+---
+title: A new mix
+subtitle: Optional subtitle
+description: A short description
+image: /assets/cover.jpg
+tracks:
+  - name: First track
+    artist: Name of artist
+    year: 2023
+    duration: PT3M29S
+  -
+    ...
+---
 
-| Command                | Action                                             |
-| :--------------------- | :------------------------------------------------- |
-| `npm install`          | Installs dependencies                              |
-| `npm run dev`          | Starts local dev server at `localhost:3000`        |
-| `npm run build`        | Build your production site to `./dist/`            |
-| `npm run preview`      | Preview your build locally, before deploying       |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro preview` |
-| `npm run astro --help` | Get help using the Astro CLI                       |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+An article written in markdown
+```
