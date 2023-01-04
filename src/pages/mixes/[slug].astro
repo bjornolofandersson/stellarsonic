@@ -1,6 +1,6 @@
 ---
 import { getCollection, CollectionEntry } from 'astro:content';
-import MusicPlaylist from '../../layouts/MusicPlaylist.astro';
+import MusicPlaylist from '@layouts/MusicPlaylist.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('mixes');

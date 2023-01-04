@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { MixAudioPlayer } from "../../lib/AudioPlayer";
-  import { formatTime } from "../../lib/utils";
+  import { MixAudioPlayer } from "@lib/AudioPlayer";
+  import { formatTime } from "@lib/utils";
 
   export let player: MixAudioPlayer;
   export let trackColor: string;

@@ -1,11 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro'
-import { uniqueGenres } from '../../lib/utils';
+import Layout from '@layouts/Layout.astro'
+import { uniqueGenres } from '@lib/utils';
+import SiteHero from '@components/SiteHero.astro';
+import Paginator from '@components/Paginator.astro';
+import MusicPlaylistPreview from '@components/playlist/Preview.astro';
 import * as site from '../../settings.yaml';
-import SiteHero from '../../components/SiteHero.astro';
-import Paginator from '../../components/Paginator.astro';
-import MusicPlaylistPreview from '../../components/playlist/Preview.astro';
 
 
 export async function getStaticPaths({ paginate }: any) {
