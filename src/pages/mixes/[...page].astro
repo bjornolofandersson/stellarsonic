@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '@theme/layouts/Layout.astro'
+import Page from '@theme/layouts/Page.astro'
 import { uniqueGenres } from '@lib/utils';
 import SiteHero from '@theme/components/SiteHero.astro';
 import Paginator from '@theme/components/Paginator.astro';
@@ -24,7 +24,7 @@ const genres = await getCollection('mixes').then(posts => {
 ---
 
 
-<Layout title={site.title}>
+<Page title={site.title}>
   <SiteHero />
   <div class="w-full py-12 bg-light-accent dark:bg-dark-accent">
     <ul class="flex justify-center text-white text-l">
@@ -43,4 +43,4 @@ const genres = await getCollection('mixes').then(posts => {
       )}
     </section>
   </div>
-</Layout>
+</Page>
