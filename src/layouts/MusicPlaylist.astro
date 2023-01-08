@@ -22,12 +22,12 @@ const date = new Date(post.date).toDateString();
   <slot/>
   <section slot="header-left" class="text-white mt-12 md:px-8 py-8">
     <h1 class="text-4xl font-title">{title}</h1>
-    <h2 class="text-xl" style={`color: ${colors[2]}`}>{subtitle}</h2>
+    <h2 class="text-xl" style={`color: ${colors[1]}`}>{subtitle}</h2>
     <p class="text-white opacity-40 text-sm mt-8">{description}</p>
   </section>
   <section slot="header-right">
     <div class="md:-mt-40">
-      <Controls client:only playlist={post} progressColor={colors[2]} />
+      <Controls client:only playlist={post} progressColor={colors[1]} />
     </div>
     <div class="mt-8 md:mt-20">
       <Tracks client:only playlist={post} />
