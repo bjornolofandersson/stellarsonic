@@ -2,7 +2,7 @@
   import { MixAudioPlayer } from "@lib/AudioPlayer";
   import { MusicMix } from "@lib/interfaces";
   import { formatTime } from "@lib/utils";
-  import ControlButton from "@components/ControlButton.svelte";
+  import ControlButton from "../ControlButton.svelte";
 
   export let playlist: MusicMix;
   export let progressColor: string;

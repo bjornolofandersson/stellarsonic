@@ -6,8 +6,9 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@lib/*": ["src/lib/*"]
+      "@lib/*": ["src/lib/*"],
+      "@theme/*": ["src/themes/standard/*"],
+      "@settings": ["src/settings.yaml"],
     }
   }
 }

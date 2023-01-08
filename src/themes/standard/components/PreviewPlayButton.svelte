@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { MixAudioPlayer } from "../lib/AudioPlayer";
-  import { MusicMix } from "../lib/interfaces";
+  import { MixAudioPlayer } from "@lib/AudioPlayer";
+  import { MusicMix } from "@lib/interfaces";
 
   export let playlist: MusicMix;
 
