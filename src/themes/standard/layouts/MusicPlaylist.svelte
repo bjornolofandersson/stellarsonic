@@ -3,8 +3,9 @@
   import Post from './Post.svelte';
 
   export let post: any;
+  export let slug: string;
 
-  initialize(post);
+  initialize(post, slug);
 
 </script>
 

@@ -6,6 +6,6 @@
 
   fetch(`/${collection}/${slug}.json`).then(async resp => {
     const post = await resp.json();
-    initialize(post);
+    initialize(post, slug);
   });
 </script>

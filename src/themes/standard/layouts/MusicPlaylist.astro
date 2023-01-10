@@ -26,7 +26,7 @@ const { post, slug } = Astro.props;
 
   {isDev ?
     <Editor client:load>
-      <MusicPlaylist post={post} client:load>
+      <MusicPlaylist post={post} slug={slug} client:load>
         <Tracks slot="tracks" client:only />
         <Controls slot="controls" client:only />
 
@@ -36,7 +36,7 @@ const { post, slug } = Astro.props;
       </MusicPlaylist>
     </Editor>
   :
-    <MusicPlaylist post={post}>
+    <MusicPlaylist post={post} slug={slug}>
       <Tracks slot="tracks" client:only />
       <Controls slot="controls" client:only />
 

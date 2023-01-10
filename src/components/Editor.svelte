@@ -1,13 +1,19 @@
 <script lang="ts">
-  import { title, subtitle, description, image, colorPrimary, colorSecondary } from '@lib/MixStore';
+  import { slug, title, subtitle, description, image, colorPrimary, colorSecondary } from '@lib/MixStore';
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
-    import EditorPanel from './EditorPanel.svelte';
+  import EditorPanel from './EditorPanel.svelte';
 
   function onSave() {
-    fetch(`/mixes/${'okinawa.json'}`, {
+    fetch('/mixes/' + $slug + '.json', {
       method: 'POST',
-      body: JSON.stringify({ title: $title }),
+      body: JSON.stringify({
+        title: $title,
+        subtitle: $subtitle,
+        description: $description,
+        image: $image,
+        colors: [$colorPrimary, $colorSecondary],
+      }),
     });
   }
 
