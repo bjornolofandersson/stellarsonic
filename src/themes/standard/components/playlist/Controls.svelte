@@ -2,8 +2,8 @@
   import { MixAudioPlayer } from "@lib/AudioPlayer";
   import { MusicMix } from "@lib/interfaces";
   import { formatTime } from "@lib/utils";
+  import { title, tracks, audio, colorSecondary } from '@lib/MixStore';
   import ControlButton from "../ControlButton.svelte";
-  import { title, tracks, audio, colorSecondary } from '../../layouts/MixStore';
 
   let player: MixAudioPlayer;
 

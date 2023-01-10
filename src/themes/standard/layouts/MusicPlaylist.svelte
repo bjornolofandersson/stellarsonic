@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { title, subtitle, description, colorSecondary, initialize } from './MixStore';
+  import { title, subtitle, description, colorSecondary, initialize } from '@lib/MixStore';
   import Post from './Post.svelte';
 
   export let post: any;

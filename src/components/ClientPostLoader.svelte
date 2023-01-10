@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { initialize } from './MixStore';
+  import { initialize } from '@lib/MixStore';
 
   export let collection: string;
   export let slug: string;

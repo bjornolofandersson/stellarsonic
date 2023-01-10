@@ -1,6 +1,6 @@
 <script lang="ts">
   import { MixAudioPlayer } from "@lib/AudioPlayer";
-  import { colorSecondary, tracks, audio } from '../../layouts/MixStore';
+  import { colorSecondary, tracks, audio } from '@lib/MixStore';
 
   let player: MixAudioPlayer;
   let currentTrack: number = 0;

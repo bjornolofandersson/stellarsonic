@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { title, subtitle, description, image, tracks } from './MixStore';
+  import { title, subtitle, description, image, tracks } from '@lib/MixStore';
   import { fade, blur, fly, slide, scale } from "svelte/transition";
   import { quintOut } from "svelte/easing";
 
