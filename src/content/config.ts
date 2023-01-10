@@ -4,7 +4,7 @@ const mixSchema = {
   title: z.string(),
   subtitle: z.string().optional(),
   description: z.string(),
-  date: z.string(),
+  date: z.date(),
   image: z.string(),
   colors: z.array(z.string()),
   genres: z.array(z.string()),

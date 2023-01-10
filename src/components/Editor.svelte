@@ -6,7 +6,7 @@
 
   function onSave() {
     fetch('/mixes/' + $slug + '.json', {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify({
         title: $title,
         subtitle: $subtitle,
