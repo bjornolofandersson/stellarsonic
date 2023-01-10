@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { slug, title, subtitle, description, image, audio, colorPrimary, colorSecondary } from '@lib/MixStore';
+  import { slug, title, subtitle, description, image, audio, colorPrimary, colorSecondary, tracks } from '@lib/MixStore';
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import EditorPanel from './EditorPanel.svelte';
+  import Timeline from './Timeline.svelte';
+
+  let selectedTrack = 0;
 
   function onSave() {
     fetch('/mixes/' + $slug + '.json', {
@@ -14,21 +17,26 @@
         image: $image,
         audio: $audio,
         colors: [$colorPrimary, $colorSecondary],
+        tracks: $tracks,
       }),
     });
+  }
+
+  function onSelectTrack(track: number) {
+    selectedTrack = track;
   }
 
   let selected: any = undefined;
 </script>
 
-<div class="bg-stone-300 py-12 relative" style="height: 100vw">
+<div class="bg-stone-300 relative" style="height: 100vw">
   {#if selected === 'tracks'}
   <div class="w-full h-20 absolute" transition:fly={{y: -80, duration: 500, easing: quintOut}}>
-    Track view
+    <Timeline audio={$audio} bind:tracks={$tracks} onSelect={onSelectTrack} />
   </div>
   {/if}
   <div>
-    <div class="w-[512px] absolute mt-20">
+    <div class="w-[512px] absolute mt-24">
       {#if !selected}
       <div class="absolute w-full" transition:fly={{ x: -512, duration: 500, easing: quintOut }}>
         <ul class="text-center font-primary mt-20 text-2xl text-stone-500">
@@ -78,6 +86,18 @@
 
       {#if selected === 'tracks'}
       <EditorPanel onBack={() => {selected = undefined}} onSave={onSave}>
+        <div class="p-4 px-8">
+          <label for="trackName" class="text-xs text-stone-700 font-primary">Name</label>
+          <input id="trackName" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$tracks[selectedTrack].name}>
+        </div>
+        <div class="p-4 px-8">
+          <label for="trackArtist" class="text-xs text-stone-700 font-primary">Artist</label>
+          <input id="trackArtist" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$tracks[selectedTrack].artist}>
+        </div>
+        <div class="p-4 px-8">
+          <label for="trackYear" class="text-xs text-stone-700 font-primary">Year</label>
+          <input id="trackYear" class="w-full bg-[#ffffff60] p-2 font-primary" type="number" bind:value={$tracks[selectedTrack].year}>
+        </div>
       </EditorPanel>
       {/if}
 
@@ -95,7 +115,7 @@
       {/if}
     </div>
 
-  <div class="w-full shadow-lg absolute" style="width: calc(100vw - 570px); top: {selected === 'tracks' ? 8 : 2}rem; right: 2rem; transition: top 0.5s">
+  <div class="w-full shadow-lg absolute" style="width: calc(100vw - 570px); top: {selected === 'tracks' ? 6 : 2}rem; right: 2rem; transition: top 0.5s">
     <slot/>
   </div>
   </div>
