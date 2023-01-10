@@ -16,8 +16,8 @@ export const get: APIRoute = async ({ params, request }) => {
   }
 };
 
-export const post: APIRoute = ({ request }) => {
-  console.log('got post request');
+export const post: APIRoute = async ({ request }) => {
+  console.log(await request.json());
   return {
     body: JSON.stringify({
       message: "This was a POST!"

@@ -1,24 +1,97 @@
 <script lang="ts">
-  import { title, subtitle, description } from './MixStore';
+  import { title, subtitle, description, image, tracks } from './MixStore';
+  import { fade, blur, fly, slide, scale } from "svelte/transition";
+  import { quintOut } from "svelte/easing";
+
+  function onSave() {
+    fetch(`/mixes/${'okinawa.json'}`, {
+      method: 'POST',
+      body: JSON.stringify({ title: $title }),
+    });
+  }
+
+  let selected: any = undefined;
 </script>
 
-<div class="bg-stone-300 flex py-12 pr-8">
-  <div class="w-[32rem]">
-    <div class="p-4 px-8">
-      <label for="title" class="text-xs text-stone-700 font-primary">Title</label>
-      <input id="title" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$title}>
-    </div>
-    <div class="p-4 px-8">
-      <label for="subtitle" class="text-xs text-slate-700 font-primary">Subtitle</label>
-      <input id="subtitle" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$subtitle}>
-    </div>
-    <div class="p-4 px-8">
-      <label for="description" class="text-xs text-slate-700 font-primary">Description</label>
-      <textarea id="description" class="w-full bg-[#ffffff60] p-4 font-primary" rows="20" bind:value={$description} />
-    </div>
+<div class="bg-stone-300 py-12 relative" style="height: 100vw">
+  {#if selected === 'tracks'}
+  <div class="w-full h-20 absolute" transition:fly={{y: -80, duration: 500, easing: quintOut}}>
+    Track view
   </div>
+  {/if}
+  <div>
+    <div class="w-[512px] absolute mt-20">
+      {#if !selected}
+      <div class="absolute w-full" transition:fly={{ x: -512, duration: 500, easing: quintOut }}>
+        <ul class="text-center font-primary mt-20 text-2xl text-stone-500">
+          <li class="py-2"><button on:click={() => selected = 'post'} class="hover:text-stone-700">Post</button></li>
+          <li class="py-2"><button on:click={() => selected = 'image'} class="hover:text-stone-700">Image</button></li>
+          <li class="py-2"><button on:click={() => selected = 'tracks'} class="hover:text-stone-700">Tracks</button></li>
+          <li class="py-2">Colors</li>
+        </ul>
+      </div>
+      {/if}
 
-  <div class="w-full shadow-lg">
+      {#if selected === 'post'}
+      <div class="absolute w-full" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
+        <div class="px-8 flex justify-between">
+          <button class="text-stone-400 hover:text-stone-700" on:click={() => selected = undefined}>
+            <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
+          </button>
+          <button class="text-stone-400 hover:text-stone-700 ml-4" on:click={onSave}>
+            <span class="material-symbols-outlined text-4xl">save_as</span>
+          </button>
+        </div>
+
+        <div class="p-4 px-8">
+          <label for="title" class="text-xs text-stone-700 font-primary">Title</label>
+          <input id="title" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$title}>
+        </div>
+        <div class="p-4 px-8">
+          <label for="subtitle" class="text-xs text-slate-700 font-primary">Subtitle</label>
+          <input id="subtitle" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$subtitle}>
+        </div>
+        <div class="p-4 px-8">
+          <label for="description" class="text-xs text-slate-700 font-primary">Description</label>
+          <textarea id="description" class="w-full bg-[#ffffff60] p-4 font-primary" rows="20" bind:value={$description} />
+        </div>
+      </div>
+      {/if}
+
+      {#if selected === 'image'}
+      <div class="absolute w-full" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
+        <div class="px-8 flex justify-between">
+          <button class="text-stone-400 hover:text-stone-700" on:click={() => selected = undefined}>
+            <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
+          </button>
+          <button class="text-stone-400 hover:text-stone-700 ml-4" on:click={onSave}>
+            <span class="material-symbols-outlined text-4xl">save_as</span>
+          </button>
+        </div>
+
+        <div class="p-4 px-8">
+          <label for="image" class="text-xs text-stone-700 font-primary">Image</label>
+          <input id="image" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$image}>
+        </div>
+      </div>
+      {/if}
+
+      {#if selected === 'tracks'}
+      <div class="absolute w-full" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
+        <div class="px-8 flex justify-between">
+          <button class="text-stone-400 hover:text-stone-700" on:click={() => selected = undefined}>
+            <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
+          </button>
+          <button class="text-stone-400 hover:text-stone-700 ml-4" on:click={onSave}>
+            <span class="material-symbols-outlined text-4xl">save_as</span>
+          </button>
+        </div>
+      </div>
+      {/if}
+    </div>
+
+  <div class="w-full shadow-lg absolute" style="width: calc(100vw - 570px); top: {selected === 'tracks' ? 8 : 2}rem; right: 2rem; transition: top 0.5s">
     <slot/>
+  </div>
   </div>
 </div>
