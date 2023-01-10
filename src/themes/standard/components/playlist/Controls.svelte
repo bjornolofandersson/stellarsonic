@@ -4,10 +4,20 @@
   import { formatTime } from "@lib/utils";
   import ControlButton from "../ControlButton.svelte";
 
-  export let playlist: MusicMix;
+  export let slug: string;
+  //export let playlist: MusicMix;
   export let progressColor: string;
 
-  const player = MixAudioPlayer.getInstance(playlist);
+  let player: MixAudioPlayer;
+
+  fetch(`/mixes/${slug}.json`).then(async resp => {
+    const playlist = await resp.json();
+    //tracks = playlist.tracks;
+    player = MixAudioPlayer.getInstance(playlist);
+    setInterval(update, 100);
+  });
+
+  //const player = MixAudioPlayer.getInstance(playlist);
 
   let progress = 0;
   let duration = 0;
@@ -29,10 +39,11 @@
     isPlaying = player.isPlaying();
   }
 
-  setInterval(update, 100);
+  //setInterval(update, 100);
 </script>
 
 <div class="w-full h-20 relative">
+  {#if player}
   <button bind:clientWidth={seekWidth} on:click={onSeek} class="w-full h-2 overflow-hidden absolute bottom-0" style="background: #ffffff06">
     <div class="h-full" style={progressStyle}></div>
   </button>
@@ -51,4 +62,5 @@
 
     <ControlButton icon="skip_next" onClick={() => player.skipNext()} />
   </div>
+  {/if}
 </div>

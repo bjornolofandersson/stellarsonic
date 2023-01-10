@@ -2,9 +2,11 @@
   import { MixAudioPlayer } from "@lib/AudioPlayer";
   import { MusicMix } from "@lib/interfaces";
 
-  export let playlist: MusicMix;
+  export let slug: string;
 
-  const player = MixAudioPlayer.getInstance(playlist);
+  let tracks: any[] = [];
+  let highlightColor = '#ffffff';
+  let player: MixAudioPlayer;
   let currentTrack: number = 0;
   let isPlaying: boolean = false;
 
@@ -13,11 +15,18 @@
     isPlaying = player.isPlaying(currentTrack);
   }
 
-  setInterval(update, 100);
+  fetch(`/mixes/${slug}.json`).then(async resp => {
+    const playlist: MusicMix = await resp.json();
+    tracks = playlist.tracks;
+    highlightColor = playlist.colors[1];
+    player = MixAudioPlayer.getInstance(playlist);
+    setInterval(update, 100);
+  });
 </script>
 
 <ul class="columns-1 lg:columns-2">
-  {#each playlist.tracks as track, index}
+  {#if player}
+  {#each tracks as track, index}
     <li class="py-4 text-sm flex">
       {#if (index === currentTrack) && isPlaying}
         <button class="mt-2 px-2 opacity-30" on:click={() => player.pause()}>
@@ -29,9 +38,10 @@
         </button>
       {/if}
       <div>
-        <span class="text-xs" style="color: {currentTrack === index ? playlist.colors[2] : 'white'}">{track.name}</span><br/>
+        <span class="text-xs" style="color: {currentTrack === index ? highlightColor : 'white'}">{track.name}</span><br/>
         <span class="text-xs opacity-30 -mt-0.1 block">{track.artist} ({track.year})</span>
       </div>
     </li>
   {/each}
+  {/if}
 </ul>

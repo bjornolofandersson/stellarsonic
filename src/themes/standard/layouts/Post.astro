@@ -18,12 +18,13 @@ const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.0
 
 ---
 
-<Page title={`${title} - ${site.title}`}>
+<Page>
   <Fragment slot="head-bottom">
     <slot name="head-bottom"/>
+		<title>{`${title} - ${site.title}`}</title>
   </Fragment>
 
-  <div style={`background: ${colors[0]}`} class="text-white relative">
+  <div style={`background: ${colors[0]}f2`} class="text-white relative">
     <div class="w-full fixed bg-fixed" style={bgStyle}>
     </div>
     <section class="relative text-white" style="height: 350px;">

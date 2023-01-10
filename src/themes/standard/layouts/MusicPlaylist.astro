@@ -7,9 +7,11 @@ import Post from './Post.astro';
 
 export interface Props {
   post: MusicMix;
+
+  slug: string;
 }
 
-const { post } = Astro.props;
+const { post, slug } = Astro.props;
 const { title, subtitle, description, image, colors } = post;
 
 const date = new Date(post.date).toDateString();
@@ -27,10 +29,10 @@ const date = new Date(post.date).toDateString();
   </section>
   <section slot="header-right">
     <div class="md:-mt-40">
-      <Controls client:only playlist={post} progressColor={colors[1]} />
+      <Controls client:only slug={slug} progressColor={colors[1]} />
     </div>
     <div class="mt-8 md:mt-20">
-      <Tracks client:only playlist={post} />
+      <Tracks client:only slug={slug} />
     </div>
   </section>
 </Post>
