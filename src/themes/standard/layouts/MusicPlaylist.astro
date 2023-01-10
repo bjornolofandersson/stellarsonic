@@ -3,7 +3,10 @@ import { MusicMix } from '@lib/interfaces';
 import Schema from '@components/MusicPlaylistSchema.astro';
 import Tracks from '../components/playlist/Tracks.svelte';
 import Controls from '../components/playlist/Controls.svelte';
-import Post from './Post.astro';
+import MusicPlaylist from './MusicPlaylist.svelte';
+import Editor from './Editor.svelte';
+import ClientPostLoader from './ClientPostLoader.svelte';
+import Page from './Page.astro';
 
 export interface Props {
   post: MusicMix;
@@ -11,28 +14,35 @@ export interface Props {
   slug: string;
 }
 
+const isDev = import.meta.env.MODE === 'development';
+
 const { post, slug } = Astro.props;
-const { title, subtitle, description, image, colors } = post;
-
-const date = new Date(post.date).toDateString();
 ---
-
-<Post title={title} image={image} colors={colors} date={date}>
+<Page>
   <Fragment slot="head-bottom">
     <Schema {...post} />
   </Fragment>
-  <slot/>
-  <section slot="header-left" class="text-white mt-12 md:px-8 py-8">
-    <h1 class="text-4xl font-title">{title}</h1>
-    <h2 class="text-xl" style={`color: ${colors[1]}`}>{subtitle}</h2>
-    <p class="text-white opacity-40 text-sm mt-8">{description}</p>
-  </section>
-  <section slot="header-right">
-    <div class="md:-mt-40">
-      <Controls client:only slug={slug} progressColor={colors[1]} />
-    </div>
-    <div class="mt-8 md:mt-20">
-      <Tracks client:only slug={slug} />
-    </div>
-  </section>
-</Post>
+  <ClientPostLoader collection="mixes" slug={slug} client:only/>
+
+  {isDev ?
+    <Editor client:load>
+      <MusicPlaylist post={post} client:load>
+        <Tracks slot="tracks" client:only />
+        <Controls slot="controls" client:only />
+
+        <Fragment slot="article">
+          <slot/>
+        </Fragment>
+      </MusicPlaylist>
+    </Editor>
+  :
+    <MusicPlaylist post={post}>
+      <Tracks slot="tracks" client:only />
+      <Controls slot="controls" client:only />
+
+      <Fragment slot="article">
+        <slot/>
+      </Fragment>
+    </MusicPlaylist>
+  }
+</Page>

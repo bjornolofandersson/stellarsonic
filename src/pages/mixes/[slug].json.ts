@@ -15,3 +15,12 @@ export const get: APIRoute = async ({ params, request }) => {
     body: JSON.stringify(entry.data)
   }
 };
+
+export const post: APIRoute = ({ request }) => {
+  console.log('got post request');
+  return {
+    body: JSON.stringify({
+      message: "This was a POST!"
+    })
+  }
+};

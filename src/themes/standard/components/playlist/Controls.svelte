@@ -3,19 +3,16 @@
   import { MusicMix } from "@lib/interfaces";
   import { formatTime } from "@lib/utils";
   import ControlButton from "../ControlButton.svelte";
-
-  export let slug: string;
-  //export let playlist: MusicMix;
-  export let progressColor: string;
+  import { title, tracks, audio, colorSecondary } from '../../layouts/MixStore';
 
   let player: MixAudioPlayer;
 
-  fetch(`/mixes/${slug}.json`).then(async resp => {
-    const playlist = await resp.json();
-    //tracks = playlist.tracks;
-    player = MixAudioPlayer.getInstance(playlist);
-    setInterval(update, 100);
-  });
+  audio.subscribe(a => {
+    if (a) {
+      player = MixAudioPlayer.getInstance({audio: a, tracks: $tracks} as any);
+      setInterval(update, 100);
+    }
+  })
 
   //const player = MixAudioPlayer.getInstance(playlist);
 
@@ -24,7 +21,7 @@
   let seekWidth: number;
   let isPlaying = false;
 
-  let progressStyle = `background: ${progressColor}; width: ${100 * progress}%`;
+  let progressStyle = `background: ${$colorSecondary}; width: ${100 * progress}%`;
 
   function onSeek(ev: any) {
     const seek = ev.offsetX / seekWidth;
@@ -35,7 +32,7 @@
   function update() {
     progress = player.getCurrentTrackProgress();
     duration = player.getCurrentTrackDuration();
-    progressStyle = `background: ${progressColor}; width: ${100 * (progress / duration)}%;`;
+    progressStyle = `background: ${$colorSecondary}; width: ${100 * (progress / duration)}%;`;
     isPlaying = player.isPlaying();
   }
 
