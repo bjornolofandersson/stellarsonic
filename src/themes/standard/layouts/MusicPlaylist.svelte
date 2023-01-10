@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { title, subtitle, description, colorSecondary, initialize } from '@lib/MixStore';
+  import { title, subtitle, description, colorPrimary, colorSecondary, initialize } from '@lib/MixStore';
   import Post from './Post.svelte';
 
   export let post: any;
@@ -8,7 +8,7 @@
 
 </script>
 
-<Post image={post.image} colors={post.colors}>
+<Post image={post.image} colorPrimary={$colorPrimary}>
   <article>
     <slot name="article"/>
   </article>

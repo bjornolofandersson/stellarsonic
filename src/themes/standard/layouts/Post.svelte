@@ -1,12 +1,12 @@
 <script>
   export let image;
-  export let colors;
+  export let colorPrimary;
 
   const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.02; transform: scaleX(-1); height: 350px`;
 
 </script>
 
-<div style={`background: ${colors[0]}f2`} class="text-white relative">
+<div style={`background: ${colorPrimary}f2`} class="text-white relative">
   <div class="w-full fixed bg-fixed" style={bgStyle}>
   </div>
   <section class="relative text-white" style="height: 350px;">
@@ -18,7 +18,7 @@
       </div>
     </div>
   </section>
-  <section class="relative text-white" style={`background: ${colors[0]}`}>
+  <section class="relative text-white" style={`background: ${colorPrimary}`}>
     <div class="container mx-auto px-8 grid">
       <div class="grid grid-cols-12 py-20">
         <div class="col-span-12 md:col-span-6 lg:col-span-4">
