@@ -107,6 +107,18 @@ export class MixAudioPlayer {
     return this.playlist.tracks[track];
   }
 
+  public getProgress() {
+    return this.audio.currentTime;
+  }
+
+  public getAudioDuration() {
+    return this.audio.duration;
+  }
+
+  public getMixDuration() {
+    return this.breakpoints[this.breakpoints.length - 1];
+  }
+
   public isPlaying(track?: number) {
     const playing = this.audio && !this.audio.paused;
 
