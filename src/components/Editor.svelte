@@ -1,7 +1,8 @@
 <script lang="ts">
   import { title, subtitle, description, image, tracks } from '@lib/MixStore';
-  import { fade, blur, fly, slide, scale } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
+    import EditorPanel from './EditorPanel.svelte';
 
   function onSave() {
     fetch(`/mixes/${'okinawa.json'}`, {
@@ -33,16 +34,7 @@
       {/if}
 
       {#if selected === 'post'}
-      <div class="absolute w-full" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
-        <div class="px-8 flex justify-between">
-          <button class="text-stone-400 hover:text-stone-700" on:click={() => selected = undefined}>
-            <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
-          </button>
-          <button class="text-stone-400 hover:text-stone-700 ml-4" on:click={onSave}>
-            <span class="material-symbols-outlined text-4xl">save_as</span>
-          </button>
-        </div>
-
+      <EditorPanel onBack={() => {selected = undefined}} onSave={onSave}>
         <div class="p-4 px-8">
           <label for="title" class="text-xs text-stone-700 font-primary">Title</label>
           <input id="title" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$title}>
@@ -55,38 +47,21 @@
           <label for="description" class="text-xs text-slate-700 font-primary">Description</label>
           <textarea id="description" class="w-full bg-[#ffffff60] p-4 font-primary" rows="20" bind:value={$description} />
         </div>
-      </div>
+      </EditorPanel>
       {/if}
 
       {#if selected === 'image'}
-      <div class="absolute w-full" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
-        <div class="px-8 flex justify-between">
-          <button class="text-stone-400 hover:text-stone-700" on:click={() => selected = undefined}>
-            <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
-          </button>
-          <button class="text-stone-400 hover:text-stone-700 ml-4" on:click={onSave}>
-            <span class="material-symbols-outlined text-4xl">save_as</span>
-          </button>
-        </div>
-
+      <EditorPanel onBack={() => {selected = undefined}} onSave={onSave}>
         <div class="p-4 px-8">
           <label for="image" class="text-xs text-stone-700 font-primary">Image</label>
           <input id="image" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$image}>
         </div>
-      </div>
+      </EditorPanel>
       {/if}
 
       {#if selected === 'tracks'}
-      <div class="absolute w-full" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
-        <div class="px-8 flex justify-between">
-          <button class="text-stone-400 hover:text-stone-700" on:click={() => selected = undefined}>
-            <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
-          </button>
-          <button class="text-stone-400 hover:text-stone-700 ml-4" on:click={onSave}>
-            <span class="material-symbols-outlined text-4xl">save_as</span>
-          </button>
-        </div>
-      </div>
+      <EditorPanel onBack={() => {selected = undefined}} onSave={onSave}>
+      </EditorPanel>
       {/if}
     </div>
 
