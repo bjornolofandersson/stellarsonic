@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { title, subtitle, description, image, tracks } from '@lib/MixStore';
+  import { title, subtitle, description, image, colorPrimary, colorSecondary } from '@lib/MixStore';
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
     import EditorPanel from './EditorPanel.svelte';
@@ -28,7 +28,7 @@
           <li class="py-2"><button on:click={() => selected = 'post'} class="hover:text-stone-700">Post</button></li>
           <li class="py-2"><button on:click={() => selected = 'image'} class="hover:text-stone-700">Image</button></li>
           <li class="py-2"><button on:click={() => selected = 'tracks'} class="hover:text-stone-700">Tracks</button></li>
-          <li class="py-2">Colors</li>
+          <li class="py-2"><button on:click={() => selected = 'colors'} class="hover:text-stone-700">Colors</button></li>
         </ul>
       </div>
       {/if}
@@ -61,6 +61,19 @@
 
       {#if selected === 'tracks'}
       <EditorPanel onBack={() => {selected = undefined}} onSave={onSave}>
+      </EditorPanel>
+      {/if}
+
+      {#if selected === 'colors'}
+      <EditorPanel onBack={() => {selected = undefined}} onSave={onSave}>
+        <div class="p-4 px-8">
+          <label for="primaryColor" class="text-xs text-stone-700 font-primary">Primary</label>
+          <input id="primaryColor" class="w-full h-12" type="color" bind:value={$colorPrimary}>
+        </div>
+        <div class="p-4 px-8">
+          <label for="secondaryColor" class="text-xs text-stone-700 font-primary">Secondary</label>
+          <input id="secondaryColor" class="w-full h-12" type="color" bind:value={$colorSecondary}>
+        </div>
       </EditorPanel>
       {/if}
     </div>
