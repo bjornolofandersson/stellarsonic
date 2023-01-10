@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { slug, title, subtitle, description, image, colorPrimary, colorSecondary } from '@lib/MixStore';
+  import { slug, title, subtitle, description, image, audio, colorPrimary, colorSecondary } from '@lib/MixStore';
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import EditorPanel from './EditorPanel.svelte';
@@ -12,6 +12,7 @@
         subtitle: $subtitle,
         description: $description,
         image: $image,
+        audio: $audio,
         colors: [$colorPrimary, $colorSecondary],
       }),
     });
@@ -33,6 +34,7 @@
         <ul class="text-center font-primary mt-20 text-2xl text-stone-500">
           <li class="py-2"><button on:click={() => selected = 'post'} class="hover:text-stone-700">Post</button></li>
           <li class="py-2"><button on:click={() => selected = 'image'} class="hover:text-stone-700">Image</button></li>
+          <li class="py-2"><button on:click={() => selected = 'audio'} class="hover:text-stone-700">Audio</button></li>
           <li class="py-2"><button on:click={() => selected = 'tracks'} class="hover:text-stone-700">Tracks</button></li>
           <li class="py-2"><button on:click={() => selected = 'colors'} class="hover:text-stone-700">Colors</button></li>
         </ul>
@@ -61,6 +63,15 @@
         <div class="p-4 px-8">
           <label for="image" class="text-xs text-stone-700 font-primary">Image</label>
           <input id="image" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$image}>
+        </div>
+      </EditorPanel>
+      {/if}
+
+      {#if selected === 'audio'}
+      <EditorPanel onBack={() => {selected = undefined}} onSave={onSave}>
+        <div class="p-4 px-8">
+          <label for="audio" class="text-xs text-stone-700 font-primary">Audio</label>
+          <input id="audio" class="w-full bg-[#ffffff60] p-2 font-primary" type="text" bind:value={$audio}>
         </div>
       </EditorPanel>
       {/if}
