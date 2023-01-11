@@ -1,27 +1,24 @@
 <script lang="ts">
   import { MixAudioPlayer } from "@lib/AudioPlayer";
-  import { MusicMix } from "@lib/interfaces";
   import { formatTime } from "@lib/utils";
-  import { title, tracks, audio, colorSecondary } from '@lib/MixStore';
+  import { post } from '@lib/MixStore';
   import ControlButton from "../ControlButton.svelte";
 
   let player: MixAudioPlayer;
 
-  audio.subscribe(a => {
-    if (a) {
-      player = MixAudioPlayer.getInstance({audio: a, tracks: $tracks} as any);
+  post.subscribe(p => {
+    if (p.audio) {
+      player = MixAudioPlayer.getInstance({audio: p.audio, tracks: p.tracks} as any);
       setInterval(update, 100);
     }
-  })
-
-  //const player = MixAudioPlayer.getInstance(playlist);
+  });
 
   let progress = 0;
   let duration = 0;
   let seekWidth: number;
   let isPlaying = false;
 
-  let progressStyle = `background: ${$colorSecondary}; width: ${100 * progress}%`;
+  let progressStyle = `background: ${$post.colors[1]}; width: ${100 * progress}%`;
 
   function onSeek(ev: any) {
     const seek = ev.offsetX / seekWidth;
@@ -32,11 +29,9 @@
   function update() {
     progress = player.getCurrentTrackProgress();
     duration = player.getCurrentTrackDuration();
-    progressStyle = `background: ${$colorSecondary}; width: ${100 * (progress / duration)}%;`;
+    progressStyle = `background: ${$post.colors[1]}; width: ${100 * (progress / duration)}%;`;
     isPlaying = player.isPlaying();
   }
-
-  //setInterval(update, 100);
 </script>
 
 <div class="w-full h-20 relative">

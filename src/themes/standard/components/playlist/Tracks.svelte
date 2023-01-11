@@ -1,6 +1,6 @@
 <script lang="ts">
   import { MixAudioPlayer } from "@lib/AudioPlayer";
-  import { colorSecondary, tracks, audio } from '@lib/MixStore';
+  import { post } from '@lib/MixStore';
 
   let player: MixAudioPlayer;
   let currentTrack: number = 0;
@@ -11,9 +11,9 @@
     isPlaying = player.isPlaying(currentTrack);
   }
 
-  audio.subscribe(a => {
-    if (a) {
-      player = MixAudioPlayer.getInstance({audio: a, tracks: $tracks} as any);
+  post.subscribe(p => {
+    if (p.audio) {
+      player = MixAudioPlayer.getInstance({audio: p.audio, tracks: $post.tracks} as any);
       setInterval(update, 100);
     }
   });
@@ -21,7 +21,7 @@
 
 <ul class="columns-1 lg:columns-2">
   {#if player}
-  {#each $tracks as track, index}
+  {#each $post.tracks as track, index}
     <li class="py-4 text-sm flex">
       {#if (index === currentTrack) && isPlaying}
         <button class="mt-2 px-2 opacity-30" on:click={() => player.pause()}>
@@ -33,7 +33,7 @@
         </button>
       {/if}
       <div>
-        <span class="text-xs" style="color: {currentTrack === index ? $colorSecondary : 'white'}">{track.name}</span><br/>
+        <span class="text-xs" style="color: {currentTrack === index ? $post.colors[1] : 'white'}">{track.name}</span><br/>
         <span class="text-xs opacity-30 -mt-0.1 block">{track.artist} ({track.year})</span>
       </div>
     </li>
