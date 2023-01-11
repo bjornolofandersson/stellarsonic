@@ -25,7 +25,7 @@
 
   let selected: any = undefined;
 
-  const menuItems = ['Post', 'Image', 'Audio', 'Tracks', 'Style'];
+  const menuItems = ['Content', 'Assets', 'Tracks', 'Style'];
 </script>
 
 <div class="bg-stone-300 fixed w-screen h-screen">
@@ -48,25 +48,23 @@
     </div>
     {/if}
 
-    {#if selected === 'Post'}
-    <EditorPanel title="Post" onBack={() => {selected = undefined}}>
+    {#if selected === 'Content'}
+    <EditorPanel title="Content" onBack={() => {selected = undefined}}>
       <TextInput id="title" label="Title" bind:value={$post.title} />
       <TextInput id="subtitle" label="Subtitle" bind:value={$post.subtitle} />
       <TextArea id="description" label="Description" rows={20} bind:value={$post.description} />
     </EditorPanel>
     {/if}
 
-    {#if selected === 'Image'}
-    <EditorPanel title="Image" onBack={() => {selected = undefined}}>
+    {#if selected === 'Assets'}
+    <EditorPanel title="Assets" onBack={() => {selected = undefined}}>
+      <h2 class="mt-8 text-xl border-b border-stone-400">Image</h2>
       <div class="py-4 grid grid-cols-3">
         <img class="w-full" src={$post.image} alt=""/>
       </div>
       <TextInput id="image" label="URL" bind:value={$post.image} />
-    </EditorPanel>
-    {/if}
 
-    {#if selected === 'Audio'}
-    <EditorPanel title="Audio" onBack={() => {selected = undefined}}>
+      <h2 class="mt-8 text-xl border-b border-stone-400">Audio</h2>
       <TextInput id="audio" label="URL" bind:value={$post.audio} />
     </EditorPanel>
     {/if}
@@ -88,8 +86,8 @@
 
     {#if selected === 'Style'}
     <EditorPanel title="Style" onBack={() => {selected = undefined}}>
-      <ColorInput id="color-primary" label="Primary" bind:value={$post.colors[0]} />
-      <ColorInput id="color-secondary" label="Secondary" bind:value={$post.colors[1]} />
+      <ColorInput id="color-primary" label="Primary color" bind:value={$post.colors[0]} />
+      <ColorInput id="color-secondary" label="Secondary color" bind:value={$post.colors[1]} />
     </EditorPanel>
     {/if}
   </div>

@@ -4,7 +4,7 @@
   export let value: string | undefined;
 </script>
 
-<div class="py-4">
-  <label for={id} class="text-xs">{label}</label>
-  <input id={id} class="w-full h-12" type="color" bind:value={value}>
+<div class="py-4 flex">
+  <input id={id} class="w-12 h-12" type="color" bind:value={value}>
+  <label for={id} class="text-md py-3 px-4 w-full bg-stone-200">{label}</label>
 </div>
