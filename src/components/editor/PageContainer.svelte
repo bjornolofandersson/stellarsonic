@@ -12,7 +12,7 @@
   </button>
 {/if}
 
-<div class="w-full absolute shadow-2xl" style={ edit ? 'width: calc(100vw - 570px); top: 6rem; right: 2rem; height: calc(100vh - 11rem);' : ''}>
+<div class="w-full absolute shadow-2xl" style={ edit ? 'width: calc(100vw - 570px); top: 2rem; right: 2rem; bottom: 6rem' : ''}>
   {#if edit}
     <div class="w-full bg-white px-8 py-2 flex justify-between">
       <div class="font-editor">

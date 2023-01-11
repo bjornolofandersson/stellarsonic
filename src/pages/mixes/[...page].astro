@@ -11,7 +11,8 @@ import * as site from '@settings';
 export async function getStaticPaths({ paginate }: any) {
   const posts = await getCollection('mixes');
   const sortedPosts = posts.sort((a, b) => {
-    return b.data.date.localeCompare(a.data.date);
+    //return b.data.date.localeCompare(a.data.date);
+    return 1;
   });
 
   return paginate(sortedPosts, { pageSize: site.blog.pageSize });

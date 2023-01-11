@@ -25,7 +25,7 @@ const { post, slug } = Astro.props;
   <ClientPostLoader collection="mixes" slug={slug} client:only/>
 
   {isDev ?
-    <Editor client:load>
+    <Editor client:only>
       <MusicPlaylist post={post} slug={slug} client:load>
         <Tracks slot="tracks" client:only />
         <Controls slot="controls" client:only />
