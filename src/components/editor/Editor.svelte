@@ -7,7 +7,8 @@
   import TextInput from './TextInput.svelte';
   import NumberInput from './NumberInput.svelte';
   import ColorInput from './ColorInput.svelte';
-    import TextArea from './TextArea.svelte';
+  import TextArea from './TextArea.svelte';
+  import PageContainer from './PageContainer.svelte';
 
   let selectedTrack = 0;
   let active = false;
@@ -91,21 +92,8 @@
       {/if}
     </div>
 
-  <div class="w-full shadow-lg absolute" style="width: calc(100vw - 570px); top: {selected === 'Tracks' ? 6 : 2}rem; right: 2rem; transition: top 0.3s">
-    <div class="w-full bg-white px-8 py-2 flex justify-between">
-      <div class="font-editor">
-        <button class="p-2 text-stone-500 bg-white hover:text-stone-700" on:click={onSave}>
-          <span class="material-symbols-outlined text-3xl">save_as</span>
-        </button>
-      </div>
-      <div class="font-editor mt-4">{$post.title}</div>
-      <div class="font-editor">
-        <button class="p-2 text-stone-500 bg-white hover:text-stone-700" on:click={() => active = !active}>
-          <span class="material-symbols-outlined text-3xl">fullscreen</span>
-        </button>
-      </div>
-    </div>
-    <slot/>
-  </div>
+    <PageContainer bind:title={$post.title} onSave={onSave}>
+      <slot/>
+    </PageContainer>
   </div>
 </div>
