@@ -3,6 +3,7 @@
   export let onSave: () => void;
   
   let edit = false;
+
 </script>
 
 {#if !edit}
@@ -11,7 +12,7 @@
   </button>
 {/if}
 
-<div class="w-full shadow-lg absolute" style={ edit ? 'width: calc(100vw - 570px); top: 6rem; right: 2rem;' : ''}>
+<div class="w-full absolute shadow-2xl" style={ edit ? 'width: calc(100vw - 570px); top: 6rem; right: 2rem; height: calc(100vh - 11rem);' : ''}>
   {#if edit}
     <div class="w-full bg-white px-8 py-2 flex justify-between">
       <div class="font-editor">
@@ -28,5 +29,7 @@
     </div>
   {/if}
 
-  <slot/>
+  <div class="overflow-y-scroll {edit ? 'h-full' : 'h-screen'}">
+    <slot/>
+  </div>
 </div>

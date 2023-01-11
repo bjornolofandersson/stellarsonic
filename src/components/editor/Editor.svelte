@@ -11,7 +11,6 @@
   import PageContainer from './PageContainer.svelte';
 
   let selectedTrack = 0;
-  let active = false;
 
   function onSave() {
     fetch('/mixes/' + $slug + '.json', {
@@ -29,9 +28,9 @@
   const menuItems = ['Post', 'Image', 'Audio', 'Tracks', 'Style'];
 </script>
 
-<div class="bg-stone-300 relative" style="height: 100vw">
+<div class="bg-stone-300 fixed w-screen h-screen">
   {#if selected === 'Tracks'}
-  <div class="w-full h-20 absolute" transition:fly={{y: -80, duration: 500, easing: quintOut}}>
+  <div class="w-full h-20 absolute" transition:fly={{y: -80, delay: 300, duration: 500, easing: quintOut}}>
     <Timeline audio={$post.audio} bind:tracks={$post.tracks} onSelect={onSelectTrack} />
   </div>
   {/if}
