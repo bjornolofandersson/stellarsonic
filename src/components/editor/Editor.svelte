@@ -59,6 +59,9 @@
 
       {#if selected === 'Image'}
       <EditorPanel title="Image" onBack={() => {selected = undefined}}>
+        <div class="p-8 grid grid-cols-3">
+          <img class="w-full" src={$post.image} alt=""/>
+        </div>
         <TextInput id="image" label="URL" bind:value={$post.image} />
       </EditorPanel>
       {/if}
@@ -97,3 +100,4 @@
     </PageContainer>
   </div>
 </div>
+
