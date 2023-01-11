@@ -2,7 +2,7 @@
   export let title: string;
   export let onSave: () => void;
   
-  let edit = false;
+  let edit = true;
 
 </script>
 

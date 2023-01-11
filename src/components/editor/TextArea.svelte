@@ -5,7 +5,7 @@
   export let rows: number;
 </script>
 
-<div class="p-4 px-8">
+<div class="py-4">
   <label for={id} class="text-xs">{label}</label>
   <textarea id={id} class="w-full bg-[#ffffff60] p-4" rows={rows} bind:value={value} />
 </div>
