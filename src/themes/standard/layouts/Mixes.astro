@@ -1,0 +1,32 @@
+---
+import Paginator from '@theme/components/Paginator.astro';
+import SiteHero from '@theme/components/SiteHero.astro';
+import MusicPlaylistPreview from '@theme/components/playlist/Preview.astro';
+
+export interface Props {
+  page: any;
+  genres: string[];
+}
+
+const { page, genres } = Astro.props;
+---
+<div class="bg-white">
+  <SiteHero />
+  <div class="w-full py-12 bg-light-accent dark:bg-dark-accent">
+    <ul class="flex justify-center text-white text-l">
+      {genres.map(genre => <li class="px-4">{genre}</li> )}
+    </ul>
+  </div>
+
+  <div class="container mx-auto">
+    <section class="pb-20 pt-12">
+      {page.lastPage !== 1 && <Paginator page={page} path="/mixes" />}
+    </section>
+
+    <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
+      {page.data.map(({data, slug}: any) =>
+        <MusicPlaylistPreview post={data} slug={slug} />
+      )}
+    </section>
+  </div>
+</div>

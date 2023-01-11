@@ -6,6 +6,8 @@ import SiteHero from '@theme/components/SiteHero.astro';
 import Paginator from '@theme/components/Paginator.astro';
 import MusicPlaylistPreview from '@theme/components/playlist/Preview.astro';
 import * as site from '@settings';
+import Mixes from '@theme/layouts/Mixes.astro';
+import MixListEditor from '@components/editor/MixListEditor.svelte';
 
 
 export async function getStaticPaths({ paginate }: any) {
@@ -18,30 +20,19 @@ export async function getStaticPaths({ paginate }: any) {
   return paginate(sortedPosts, { pageSize: site.blog.pageSize });
 }
 
+const isDev = import.meta.env.MODE === 'development';
 const { page } = Astro.props;
 const genres = await getCollection('mixes').then(posts => {
   return uniqueGenres(posts.map(({ data }) => data) as any);
 });
 ---
 
-
-<Page title={site.title}>
-  <SiteHero />
-  <div class="w-full py-12 bg-light-accent dark:bg-dark-accent">
-    <ul class="flex justify-center text-white text-l">
-      {genres.map(genre => <li class="px-4">{genre}</li> )}
-    </ul>
-  </div>
-
-  <div class="container mx-auto">
-    <section class="pb-20 pt-12">
-      {page.lastPage !== 1 && <Paginator page={page} path="/mixes" />}
-    </section>
-
-    <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
-      {page.data.map(({data, slug}: any) =>
-        <MusicPlaylistPreview post={data} slug={slug} />
-      )}
-    </section>
-  </div>
+<Page>
+  {isDev ?
+    <MixListEditor>
+      <Mixes page={page} genres={genres} />
+    </MixListEditor>
+  :
+    <Mixes page={page} genres={genres} />
+  }
 </Page>
