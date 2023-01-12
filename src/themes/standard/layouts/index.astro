@@ -1,0 +1,39 @@
+---
+import Featured from '@theme/layouts/PostFeatured.astro';
+import Page from '@theme/layouts/Page.astro';
+import SiteHero from '@theme/components/SiteHero.astro';
+import MusicPlaylistPreview from '@theme/components/playlist/Preview.astro';
+import * as site from '@settings';
+
+
+export interface Props {
+  posts: any[];
+}
+
+const {posts : [featured, ...rest]} = Astro.props;
+---
+
+<Page title={site.title}>
+  <div class="bg-white">
+    <SiteHero />
+
+    <Featured image={featured.data.image} slug={featured.slug} collection={featured.collection}>
+      <h1 class="text-6xl font-title">{featured.data.title}</h1>
+      <h2 class="text-xl text-accent">{featured.data.subtitle}</h2>
+      <p class="text-lg block mt-12 font-primary">{featured.data.description}</p>
+    </Featured>
+
+    <section class="container mx-auto">
+      <div class="text-xl py-20 flex">
+        <span class="material-symbols-outlined mr-4">graphic_eq</span>
+        <span class="block font-primary">Recent mixtapes</span>
+      </div>
+
+      <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
+        {rest.slice(0, 3).map(({data, slug}: any) =>
+          <MusicPlaylistPreview post={data} slug={slug} />
+        )}
+      </div>
+    </section>
+  </div>
+</Page>

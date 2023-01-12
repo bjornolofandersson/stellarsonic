@@ -1,40 +1,23 @@
 ---
 import { getCollection } from 'astro:content';
-import Featured from '@theme/layouts/PostFeatured.astro';
+import Index from '@theme/layouts/index.astro';
 import Page from '@theme/layouts/Page.astro';
-import SiteHero from '@theme/components/SiteHero.astro';
-import MusicPlaylistPreview from '@theme/components/playlist/Preview.astro';
-import * as site from '../settings.yaml';
-
+import HomeEditor from '@components/editor/HomeEditor.svelte';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {
   //return b.data.date.localeCompare(a.data.date);
   return 1;
 });
-
-const [featured, ...rest] = sortedPosts;
+const isDev = import.meta.env.MODE === 'development';
 ---
 
-<Page title={site.title}>
-  <SiteHero />
-
-	<Featured image={featured.data.image} slug={featured.slug} collection={featured.collection}>
-    <h1 class="text-6xl font-title">{featured.data.title}</h1>
-    <h2 class="text-xl text-accent">{featured.data.subtitle}</h2>
-    <p class="text-lg block mt-12 font-primary">{featured.data.description}</p>
-  </Featured>
-
-  <section class="container mx-auto">
-    <div class="text-xl py-20 flex">
-      <span class="material-symbols-outlined mr-4">graphic_eq</span>
-      <span class="block font-primary">Recent mixtapes</span>
-    </div>
-
-    <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
-      {rest.slice(0, 3).map(({data, slug}: any) =>
-        <MusicPlaylistPreview post={data} slug={slug} />
-      )}
-    </div>
-  </section>
+<Page>
+  {isDev ?
+    <HomeEditor client:only>
+      <Index posts={sortedPosts} />
+    </HomeEditor>
+  :
+    <Index posts={sortedPosts} />
+  }
 </Page>
