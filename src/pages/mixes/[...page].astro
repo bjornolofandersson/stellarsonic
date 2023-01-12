@@ -33,7 +33,7 @@ if (isDev) {
 
 <Page>
   {isDev ?
-    <MixListEditor slugs={slugs}>
+    <MixListEditor slugs={slugs} client:only>
       <Mixes page={page} genres={genres} />
     </MixListEditor>
   :
