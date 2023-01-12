@@ -1,13 +1,10 @@
 <script lang="ts">
-  import { post as storedPost, slug as storedSlug } from '@lib/MixStore';
+  import { post as storedPost } from '@lib/MixStore';
   import Post from './Post.svelte';
 
   export let post: any;
-  export let slug: string;
 
   storedPost.set(post);
-  storedSlug.set(slug);
-
 </script>
 
 <Post image={$storedPost.image} colorPrimary={$storedPost.colors[0]}>
