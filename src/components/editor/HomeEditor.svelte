@@ -6,7 +6,7 @@
 
 <Editor pageTitle="Home" onSave={onSave}>
   <div class="px-8 mb-8">
-    <div class="border border-stone-500 p-8">
+    <div class="border-b border-[#00000020] p-8">
       <h1 class="text-2xl">
         <span class="material-symbols-outlined">queue_music</span>
         <a class="text-cyan-700" href="/mixes">Mixes</a>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="px-8 mb-8">
-    <div class="border border-stone-500 p-8">
+    <div class="border-b border-[#00000020] p-8">
       <h1 class="text-2xl">
         <span class="material-symbols-outlined">library_music</span>
         Albums / Playlists
@@ -26,7 +26,7 @@
   </div>
 
   <div class="px-8 mb-8">
-    <div class="border border-stone-500 p-8">
+    <div class="border-b border-[#00000020] p-8">
       <h1 class="text-2xl">
         <span class="material-symbols-outlined">music_note</span>
         Recording
@@ -36,7 +36,7 @@
   </div>
 
   <div class="px-8 mb-8">
-    <div class="border border-stone-500 p-8">
+    <div class="border-b border-[#00000020] p-8">
       <h1 class="text-2xl">
         <span class="material-symbols-outlined">podcasts</span>
         Podcasts

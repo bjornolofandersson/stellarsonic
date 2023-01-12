@@ -34,7 +34,12 @@
 
   let selected: any = undefined;
 
-  const menuItems = ['Content', 'Assets', 'Tracks', 'Style'];
+  const menuItems = [
+    {name: 'Content', icon: 'article'},
+    {name: 'Assets', icon: 'perm_media'}, 
+    {name: 'Tracks', icon: 'queue_music'},
+    {name: 'Style', icon: 'format_paint'}
+  ];
 </script>
 
 <Editor bind:pageTitle={$post.title} onSave={onSave}>
