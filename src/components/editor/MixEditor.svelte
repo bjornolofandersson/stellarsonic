@@ -6,8 +6,8 @@
   import NumberInput from './NumberInput.svelte';
   import ColorInput from './ColorInput.svelte';
   import TextArea from './TextArea.svelte';
-  import PageContainer from './PageContainer.svelte';
   import Menu from './Menu.svelte';
+  import Editor from './Editor.svelte';
 
   export let slug: string;
 
@@ -29,58 +29,54 @@
   const menuItems = ['Content', 'Assets', 'Tracks', 'Style'];
 </script>
 
-<div class="bg-stone-300 fixed w-screen h-screen">
-  <div class="w-[512px] absolute mt-12 text-stone-700 font-editor">
-    {#if !selected}
-      <Menu items={menuItems} onSelect={item => {selected = item}}/>
-    {/if}
+<Editor bind:pageTitle={$post.title} onSave={onSave}>
+  {#if !selected}
+    <Menu items={menuItems} onSelect={item => {selected = item}}/>
+  {/if}
 
-    {#if selected === 'Content'}
-    <EditorPanel title="Content" onBack={() => {selected = undefined}}>
-      <TextInput id="title" label="Title" bind:value={$post.title} />
-      <TextInput id="subtitle" label="Subtitle" bind:value={$post.subtitle} />
-      <TextArea id="description" label="Description" rows={20} bind:value={$post.description} />
-    </EditorPanel>
-    {/if}
+  {#if selected === 'Content'}
+  <EditorPanel title="Content" onBack={() => {selected = undefined}}>
+    <TextInput id="title" label="Title" bind:value={$post.title} />
+    <TextInput id="subtitle" label="Subtitle" bind:value={$post.subtitle} />
+    <TextArea id="description" label="Description" rows={20} bind:value={$post.description} />
+  </EditorPanel>
+  {/if}
 
-    {#if selected === 'Assets'}
-    <EditorPanel title="Assets" onBack={() => {selected = undefined}}>
-      <h2 class="mt-8 text-xl border-b border-stone-400">Image</h2>
-      <div class="py-4 grid grid-cols-3">
-        <img class="w-full" src={$post.image} alt=""/>
-      </div>
-      <TextInput id="image" label="URL" bind:value={$post.image} />
+  {#if selected === 'Assets'}
+  <EditorPanel title="Assets" onBack={() => {selected = undefined}}>
+    <h2 class="mt-8 text-xl border-b border-stone-400">Image</h2>
+    <div class="py-4 grid grid-cols-3">
+      <img class="w-full" src={$post.image} alt=""/>
+    </div>
+    <TextInput id="image" label="URL" bind:value={$post.image} />
 
-      <h2 class="mt-8 text-xl border-b border-stone-400">Audio</h2>
-      <TextInput id="audio" label="URL" bind:value={$post.audio} />
-    </EditorPanel>
-    {/if}
+    <h2 class="mt-8 text-xl border-b border-stone-400">Audio</h2>
+    <TextInput id="audio" label="URL" bind:value={$post.audio} />
+  </EditorPanel>
+  {/if}
 
-    {#if selected === 'Tracks'}
-    <EditorPanel title="Tracks" onBack={() => {selected = undefined}}>
-      <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
-      <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
-      <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
-    </EditorPanel>
-    {/if}
+  {#if selected === 'Tracks'}
+  <EditorPanel title="Tracks" onBack={() => {selected = undefined}}>
+    <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
+    <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
+    <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
+  </EditorPanel>
+  {/if}
 
-    {#if selected === 'Tags'}
-    <EditorPanel title="Tags" onBack={() => {selected = undefined}}>
-      <ul>
-      </ul>
-    </EditorPanel>
-    {/if}
+  {#if selected === 'Tags'}
+  <EditorPanel title="Tags" onBack={() => {selected = undefined}}>
+    <ul>
+    </ul>
+  </EditorPanel>
+  {/if}
 
-    {#if selected === 'Style'}
-    <EditorPanel title="Style" onBack={() => {selected = undefined}}>
-      <ColorInput id="color-primary" label="Primary color" bind:value={$post.colors[0]} />
-      <ColorInput id="color-secondary" label="Secondary color" bind:value={$post.colors[1]} />
-    </EditorPanel>
-    {/if}
-  </div>
+  {#if selected === 'Style'}
+  <EditorPanel title="Style" onBack={() => {selected = undefined}}>
+    <ColorInput id="color-primary" label="Primary color" bind:value={$post.colors[0]} />
+    <ColorInput id="color-secondary" label="Secondary color" bind:value={$post.colors[1]} />
+  </EditorPanel>
+  {/if}
 
-  <PageContainer bind:title={$post.title} onSave={onSave}>
-    <slot/>
-  </PageContainer>
-</div>
+  <div slot="preview"><slot/></div>
+</Editor>
 
