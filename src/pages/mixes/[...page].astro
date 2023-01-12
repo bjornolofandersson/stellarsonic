@@ -19,14 +19,21 @@ export async function getStaticPaths({ paginate }: any) {
 
 const isDev = import.meta.env.MODE === 'development';
 const { page } = Astro.props;
+
 const genres = await getCollection('mixes').then(posts => {
   return uniqueGenres(posts.map(({ data }) => data) as any);
 });
+
+let slugs: string[] = [];
+if (isDev) {
+  const posts = await getCollection('mixes');
+  slugs = posts.map(p => p.slug);
+}
 ---
 
 <Page>
   {isDev ?
-    <MixListEditor>
+    <MixListEditor slugs={slugs}>
       <Mixes page={page} genres={genres} />
     </MixListEditor>
   :
