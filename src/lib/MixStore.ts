@@ -4,7 +4,7 @@ import { writable } from "svelte/store";
 export const post = writable<MusicMix>({
   title: '',
   image: '',
-  date: '',
+  date: new Date().toISOString(),
   audio: '',
   description: '',
   tracks: [],

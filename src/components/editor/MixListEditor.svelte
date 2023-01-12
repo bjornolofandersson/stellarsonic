@@ -1,16 +1,24 @@
 <script lang="ts">
-    import { quintOut } from 'svelte/easing';
-    import { fly } from 'svelte/transition';
+  import { quintOut } from 'svelte/easing';
+  import { fly } from 'svelte/transition';
   import Editor from './Editor.svelte';
   import EditorPanel from './EditorPanel.svelte';
+  import TextInput from './TextInput.svelte';
+  import { post } from '@lib/MixStore';
 
   export let slugs: string[];
 
   let showCreate = false;
 
   function onCreate() {
-    console.log('onCreate')
     showCreate = true
+  }
+
+  function onSavePost() {
+    fetch('/mixes.json', {
+      method: 'POST',
+      body: JSON.stringify($post),
+    });
   }
 
   function onSave() {
@@ -43,6 +51,8 @@
     </div>
   {:else}
     <EditorPanel title="New mix" onBack={() => {showCreate = false}}>
+      <TextInput id="title" label="Title" bind:value={$post.title} />
+      <button class="mt-4 p-4 border border-stone-400" on:click={onSavePost}>Create</button>
     </EditorPanel>
   {/if}
 
