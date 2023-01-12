@@ -1,13 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import Page from '@theme/layouts/Page.astro'
 import { uniqueGenres } from '@lib/utils';
-import SiteHero from '@theme/components/SiteHero.astro';
-import Paginator from '@theme/components/Paginator.astro';
-import MusicPlaylistPreview from '@theme/components/playlist/Preview.astro';
 import * as site from '@settings';
-import Mixes from '@theme/layouts/Mixes.astro';
 import MixListEditor from '@components/editor/MixListEditor.svelte';
+import Mixes from '@theme/layouts/Mixes.astro';
+import Page from '@theme/layouts/Page.astro'
 
 
 export async function getStaticPaths({ paginate }: any) {
