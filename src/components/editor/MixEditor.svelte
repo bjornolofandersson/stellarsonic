@@ -30,6 +30,14 @@
 </script>
 
 <Editor bind:pageTitle={$post.title} onSave={onSave}>
+  <ul class="my-8 flex mx-8 border-b border-stone-400">
+    <li class="px-2 text-cyan-700"><a href="/">Home</a></li>
+    <li class="px-2">/</li>
+    <li class="px-2 text-cyan-700"><a href="/mixes">Mixes</a></li>
+    <li class="px-2">/</li>
+    <li class="px-2 text-stone-500">{slug}</li>
+  </ul>
+
   {#if !selected}
     <Menu items={menuItems} onSelect={item => {selected = item}}/>
   {/if}
