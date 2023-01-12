@@ -29,7 +29,7 @@
     </div>
   {/if}
 
-  <div class="overflow-y-scroll {edit ? 'h-full' : 'h-screen'}">
+  <div class="bg-stone-800 overflow-y-scroll {edit ? 'h-full' : 'h-screen'}">
     <slot/>
   </div>
 </div>

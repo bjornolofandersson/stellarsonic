@@ -16,7 +16,7 @@
   function onSave() {
     fetch('/mixes/' + slug + '.json', {
       method: 'PUT',
-      body: JSON.stringify(post),
+      body: JSON.stringify($post),
     });
   }
 

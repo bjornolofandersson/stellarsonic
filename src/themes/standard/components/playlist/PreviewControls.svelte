@@ -5,7 +5,16 @@
 
   export let playlist: MusicMix;
 
-  const player = MixAudioPlayer.getInstance(playlist);
+  let player: MixAudioPlayer;
+
+  try {
+    if (playlist.audio !== '') {
+      player = MixAudioPlayer.getInstance(playlist);
+      setInterval(update, 100);
+    }
+  } catch (err) {
+    // do nothing
+  }
 
   let trackNr: number = 1;
   let track: any = {};
@@ -14,10 +23,9 @@
     trackNr = player.getCurrentTrack();
     track = player.getTrackData(trackNr);
   }
-
-  setInterval(update, 100);
 </script>
 
+{#if player}
 <div class="w-full">
   <div class="flex justify-between">
     <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => player.skipPrev()}>
@@ -33,3 +41,4 @@
 
   <ProgressBar player={player} trackColor="#00000020" progressColor="#d77f7a"/>
 </div>
+{/if}
