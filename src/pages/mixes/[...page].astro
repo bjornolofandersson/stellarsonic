@@ -5,6 +5,8 @@ import * as site from '@settings';
 import MixListEditor from '@components/editor/MixListEditor.svelte';
 import Mixes from '@theme/layouts/Mixes.astro';
 import Page from '@theme/layouts/Page.astro'
+import SiteHero from '@theme/components/SiteHero.svelte';
+import SettingsLoader from '@components/SettingsLoader.svelte';
 
 
 export async function getStaticPaths({ paginate }: any) {
@@ -32,11 +34,17 @@ if (isDev) {
 ---
 
 <Page>
+  <SettingsLoader settings={site} client:load/>
+
   {isDev ?
     <MixListEditor slugs={slugs} client:only>
-      <Mixes page={page} genres={genres} />
+      <Mixes page={page} genres={genres}>
+        <SiteHero slot="header"/>
+      </Mixes>
     </MixListEditor>
   :
-    <Mixes page={page} genres={genres} />
+    <Mixes page={page} genres={genres}>
+      <SiteHero slot="header"/>
+    </Mixes>
   }
 </Page>

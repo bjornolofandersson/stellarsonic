@@ -3,9 +3,8 @@
   import Menu from './Menu.svelte';
   import PanelLeft from './PanelLeft.svelte';
   import PanelRight from './PanelRight.svelte';
-    import TextInput from './TextInput.svelte';
-
-  export let settings: any;
+  import TextInput from './TextInput.svelte';
+  import { settings } from '@lib/SettingsStore';
 
   function onSave() {}
 
@@ -16,7 +15,7 @@
   ];
 </script>
 
-<Editor pageTitle="Home" onSave={onSave}>
+<Editor pageTitle={$settings.title} onSave={onSave}>
   {#if selected === undefined}
     <PanelLeft>
       <Menu items={menuItems} onSelect={item => {selected = item}} />
@@ -70,9 +69,9 @@
   {#if selected === 'Settings'}
     <PanelRight title="Settings" onBack={() => {selected = undefined}}>
       <h2>Site</h2>
-      <TextInput id="name" label="Title" bind:value={settings.title}/>
-      <TextInput id="description" label="Description" bind:value={settings.description}/>
-      <TextInput id="url" label="URL" bind:value={settings.url}/>
+      <TextInput id="name" label="Title" bind:value={$settings.title}/>
+      <TextInput id="description" label="Description" bind:value={$settings.description}/>
+      <TextInput id="url" label="URL" bind:value={$settings.url}/>
     </PanelRight>
   {/if}
 

@@ -1,6 +1,5 @@
 ---
 import Paginator from '@theme/components/Paginator.astro';
-import SiteHero from '@theme/components/SiteHero.astro';
 import MusicPlaylistPreview from '@theme/components/playlist/Preview.astro';
 
 export interface Props {
@@ -11,7 +10,8 @@ export interface Props {
 const { page, genres } = Astro.props;
 ---
 <div class="bg-white">
-  <SiteHero />
+  <slot name="header"/>
+
   <div class="w-full py-12 bg-light-accent dark:bg-dark-accent">
     <ul class="flex justify-center text-white text-l">
       {genres.map(genre => <li class="px-4">{genre}</li> )}

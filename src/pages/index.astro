@@ -4,6 +4,8 @@ import Index from '@theme/layouts/index.astro';
 import Page from '@theme/layouts/Page.astro';
 import HomeEditor from '@components/editor/HomeEditor.svelte';
 import * as settings from '@settings';
+import SiteHero from '@theme/components/SiteHero.svelte';
+import SettingsLoader from '@components/SettingsLoader.svelte';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {
@@ -13,12 +15,18 @@ const sortedPosts = posts.sort((a, b) => {
 const isDev = import.meta.env.MODE === 'development';
 ---
 
-<Page>
+<Page title={settings.title}>
+  <SettingsLoader settings={settings} client:load/>
+
   {isDev ?
     <HomeEditor settings={settings} client:only>
-      <Index posts={sortedPosts} />
+      <Index posts={sortedPosts}>
+        <SiteHero slot="header" client:load/>
+      </Index>
     </HomeEditor>
   :
-    <Index posts={sortedPosts} />
+    <Index posts={sortedPosts}>
+      <SiteHero slot="header"/>
+    </Index>
   }
 </Page>
