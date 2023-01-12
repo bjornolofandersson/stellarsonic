@@ -1,8 +1,11 @@
 <script lang="ts">
   import Editor from './Editor.svelte';
-    import Menu from './Menu.svelte';
-    import PanelLeft from './PanelLeft.svelte';
-    import PanelRight from './PanelRight.svelte';
+  import Menu from './Menu.svelte';
+  import PanelLeft from './PanelLeft.svelte';
+  import PanelRight from './PanelRight.svelte';
+    import TextInput from './TextInput.svelte';
+
+  export let settings: any;
 
   function onSave() {}
 
@@ -66,7 +69,10 @@
 
   {#if selected === 'Settings'}
     <PanelRight title="Settings" onBack={() => {selected = undefined}}>
-
+      <h2>Site</h2>
+      <TextInput id="name" label="Title" bind:value={settings.title}/>
+      <TextInput id="description" label="Description" bind:value={settings.description}/>
+      <TextInput id="url" label="URL" bind:value={settings.url}/>
     </PanelRight>
   {/if}
 
