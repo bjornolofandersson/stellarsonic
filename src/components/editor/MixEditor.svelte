@@ -10,6 +10,7 @@
   import Editor from './Editor.svelte';
 
   export let slug: string;
+  export let assets: string[];
 
   let selectedTrack = 0;
 
@@ -19,6 +20,13 @@
       body: JSON.stringify($post),
     });
   }
+
+  function selectImage(url: string) {
+    $post.image = url;
+  }
+
+  let images = assets.filter(file => ['jpg', 'png'].includes(file.split('.').pop() as string));
+  console.log(images);
 
   function onSelectTrack(track: number) {
     selectedTrack = track;
@@ -53,8 +61,14 @@
   {#if selected === 'Assets'}
   <EditorPanel title="Assets" onBack={() => {selected = undefined}}>
     <h2 class="mt-8 text-xl border-b border-stone-400">Image</h2>
-    <div class="py-4 grid grid-cols-3">
-      <img class="w-full" src={$post.image} alt=""/>
+    <div class="py-4 grid grid-cols-3 gap-4">
+      {#each images as image}
+        <button on:click={() => selectImage(image)}
+          class="overflow-hidden relative aspect-square border-4 {image === $post.image ? 'border-white' : 'border-transparent'}"
+          style="padding-bottom: 100%">
+          <img class="absolute w-full h-full object-cover" src={image} alt=""/>
+        </button>
+      {/each}
     </div>
     <TextInput id="image" label="URL" bind:value={$post.image} />
 
