@@ -10,6 +10,10 @@ export async function getStaticPaths() {
   }));
 }
 
+export function slugToPath(slug: string) {
+  return `/src/content/mixes/${slug}.md`;
+}
+
 export const get: APIRoute = async ({ params }) => {
   const slug = params.slug;
   const entry = await getEntry('mixes', `${slug}.md` as any);
@@ -27,7 +31,7 @@ export const put: APIRoute = async ({ params, request }) => {
   const output = '---\n' + frontmatter + '---\n' + entry.body;
 
   try {
-    fs.writeFileSync(`src/content/mixes/${params.slug}.md`, output);
+    fs.writeFileSync(slugToPath(params.slug), output);
     // file written successfully
   } catch (err) {
     console.error(err);
@@ -38,10 +42,10 @@ export const put: APIRoute = async ({ params, request }) => {
   }
 };
 
-export const del: APIRoute = ({ params }) => {
-  const slug = params.slug;
+export const del: APIRoute = async ({ params }) => {
+  const path = slugToPath(params.slug as string);
 
-  console.log('Request to delete: ' + slug);
+  await fs.rmSync(path);
 
   return {
     body: JSON.stringify({
