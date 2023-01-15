@@ -32,8 +32,8 @@ post.set(entry.data as any);
 let assets: string[] = [];
 if (isDev) {
   try {
-    assets = fs.readdirSync(`public/assets/blog/${entry.slug}`)
-      .map(file => `/assets/blog/${entry.slug}/${file}`);
+    assets = fs.readdirSync(`public/assets/mixes/${entry.slug}`)
+      .map(file => `/assets/mixes/${entry.slug}/${file}`);
   } catch (err) {
     // no such directory. create it?
   }

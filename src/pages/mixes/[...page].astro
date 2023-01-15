@@ -7,17 +7,9 @@ import SettingsLoader from '@components/SettingsLoader.svelte';
 import Page from '@layouts/Page.astro'
 import Mixes from '@theme/layouts/Mixes.astro';
 import SiteHero from '@theme/components/SiteHero.svelte';
+import { blogCollectionPaths, collectionSlugs } from '@lib/server';
 
-
-export async function getStaticPaths({ paginate }: any) {
-  const posts = await getCollection('mixes');
-  const sortedPosts = posts.sort((a, b) => {
-    //return b.data.date.localeCompare(a.data.date);
-    return 1;
-  });
-
-  return paginate(sortedPosts, { pageSize: site.blog.pageSize });
-}
+export const getStaticPaths = blogCollectionPaths('mixes', site.blog.pageSize);
 
 const isDev = import.meta.env.MODE === 'development';
 const { page } = Astro.props;
@@ -28,8 +20,7 @@ const genres = await getCollection('mixes').then(posts => {
 
 let slugs: string[] = [];
 if (isDev) {
-  const posts = await getCollection('mixes');
-  slugs = posts.map(p => p.slug);
+  slugs = await collectionSlugs('mixes');
 }
 const pageTitle = `Mixtapes | ${site.title}`
 ---
