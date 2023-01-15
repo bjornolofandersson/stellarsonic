@@ -6,11 +6,6 @@
 
 </script>
 
-{#if !edit}
-  <button class="fixed right-0 w-20 h-20 z-10 p-2 text-white" on:click={() => {edit = true}}>
-    <span class="material-symbols-outlined text-3xl">tune</span>
-  </button>
-{/if}
 
 <div class="w-full absolute shadow-2xl" style={ edit ? 'width: calc(100vw - 570px); top: 2rem; right: 2rem; bottom: 6rem' : ''}>
   {#if edit}
@@ -30,6 +25,11 @@
   {/if}
 
   <div class="bg-stone-800 overflow-y-scroll {edit ? 'h-full' : 'h-screen'}">
+    {#if !edit}
+      <button class="fixed w-20 h-20 z-10 p-2 rounded-br-2xl bg-white text-stone-800" on:click={() => {edit = true}}>
+        <span class="material-symbols-outlined text-3xl">tune</span>
+      </button>
+    {/if}
     <slot/>
   </div>
 </div>
