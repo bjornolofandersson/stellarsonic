@@ -5,8 +5,8 @@
   import PanelRight from './PanelRight.svelte';
   import TextInput from './TextInput.svelte';
   import { post } from '@lib/MixStore';
-    import PanelLeft from './PanelLeft.svelte';
-    import Button from './Button.svelte';
+  import PanelLeft from './PanelLeft.svelte';
+  import Button from './Button.svelte';
 
   export let slugs: string[];
 
@@ -24,6 +24,12 @@
   }
 
   function onSave() {
+  }
+  
+  function onDeletePost(slug: string) {
+    fetch(`/mixes/${slug}.json`, {
+      method: 'DELETE',
+    });
   }
 </script>
 
@@ -43,7 +49,9 @@
           <li class="px-4 py-4 w-full border-b border-[#00000020] flex justify-between">
             <a class="text-stone-700" 
               href="/mixes/{slug}"><span class="material-symbols-outlined">edit_note</span> {slug}</a>
-            <button class="text-stone-700" ><span class="material-symbols-outlined">delete</span></button>
+            <button on:click={() => onDeletePost(slug)} class="text-stone-700">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
           </li>
         {/each}
       </ul>

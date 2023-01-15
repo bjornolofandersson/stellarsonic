@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   }));
 }
 
-export const get: APIRoute = async ({ params, request }) => {
+export const get: APIRoute = async ({ params }) => {
   const slug = params.slug;
   const entry = await getEntry('mixes', `${slug}.md` as any);
   return {
@@ -37,3 +37,15 @@ export const put: APIRoute = async ({ params, request }) => {
     body: JSON.stringify(result)
   }
 };
+
+export const del: APIRoute = ({ params }) => {
+  const slug = params.slug;
+
+  console.log('Request to delete: ' + slug);
+
+  return {
+    body: JSON.stringify({
+      message: "This was a DELETE!"
+    })
+  }
+}
