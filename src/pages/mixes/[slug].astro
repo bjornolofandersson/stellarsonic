@@ -1,16 +1,16 @@
 ---
+import * as fs from 'fs';
 import { getCollection, CollectionEntry } from 'astro:content';
-import MusicPlaylist from '@theme/layouts/MusicPlaylist.svelte';
-import Schema from '@components/MusicPlaylistSchema.astro'
-import Page from '@theme/layouts/Page.astro'
+import Page from '@layouts/Page.astro'
 import ClientPostLoader from '@components/ClientPostLoader.svelte';
 import MixEditor from '@components/editor/MixEditor.svelte';
+import Schema from '@components/MusicPlaylistSchema.astro'
+import { post } from '@lib/MixStore';
+import * as settings from '@settings';
+import MenuBar from '@theme/components/MenuBar.svelte';
 import Tracks from '@theme/components/playlist/Tracks.svelte';
 import Controls from '@theme/components/playlist/Controls.svelte';
-import * as fs from 'fs';
-import { post } from '@lib/MixStore';
-import MenuBar from '@theme/components/MenuBar.svelte';
-import * as settings from '@settings';
+import MusicPlaylist from '@theme/layouts/MusicPlaylist.svelte';
 
 export async function getStaticPaths() {
   const docs = await getCollection('mixes');

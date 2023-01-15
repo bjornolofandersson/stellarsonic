@@ -3,10 +3,10 @@ import { getCollection } from 'astro:content';
 import { uniqueGenres } from '@lib/utils';
 import * as site from '@settings';
 import MixListEditor from '@components/editor/MixListEditor.svelte';
-import Mixes from '@theme/layouts/Mixes.astro';
-import Page from '@theme/layouts/Page.astro'
-import SiteHero from '@theme/components/SiteHero.svelte';
 import SettingsLoader from '@components/SettingsLoader.svelte';
+import Page from '@layouts/Page.astro'
+import Mixes from '@theme/layouts/Mixes.astro';
+import SiteHero from '@theme/components/SiteHero.svelte';
 
 
 export async function getStaticPaths({ paginate }: any) {
@@ -34,6 +34,10 @@ if (isDev) {
 ---
 
 <Page>
+  <Fragment slot="head-bottom">
+    <title>Mixes | {site.title}</title>
+  </Fragment>
+
   <SettingsLoader settings={site} client:load/>
 
   {isDev ?

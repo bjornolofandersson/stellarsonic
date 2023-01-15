@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Index from '@theme/layouts/index.astro';
-import Page from '@theme/layouts/Page.astro';
+import Page from '@layouts/Page.astro';
 import HomeEditor from '@components/editor/HomeEditor.svelte';
 import * as settings from '@settings';
 import SiteHero from '@theme/components/SiteHero.svelte';
@@ -15,7 +15,11 @@ const sortedPosts = posts.sort((a, b) => {
 const isDev = import.meta.env.MODE === 'development';
 ---
 
-<Page title={settings.title}>
+<Page>
+  <Fragment slot="head-bottom">
+    <title>{settings.title}</title>
+  </Fragment>
+
   <SettingsLoader settings={settings} client:load/>
 
   {isDev ?
