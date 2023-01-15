@@ -3,7 +3,6 @@
   export let colorPrimary;
 
   const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.02; transform: scaleX(-1); height: 350px`;
-
 </script>
 
 <div style={`background: ${colorPrimary}f2`} class="text-white relative">
@@ -11,11 +10,7 @@
   </div>
   <section class="relative text-white" style="height: 350px;">
     <div class="container mx-auto dark">
-      <div class="flex space-between text-black dark:text-white px-8 py-12">
-        <div class="flex">
-          <a href="/" class="mr-4 site-title text-4xl">Stellarsonic</a>
-        </div>
-      </div>
+      <slot name="menu"/>
     </div>
   </section>
   <section class="relative text-white" style={`background: ${colorPrimary}`}>

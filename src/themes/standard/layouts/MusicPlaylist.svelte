@@ -4,6 +4,9 @@
 </script>
 
 <Post image={$post.image} colorPrimary={$post.colors[0]}>
+  <div slot="menu">
+    <slot name="menu"/>
+  </div>
   <article>
     <slot name="article"/>
   </article>

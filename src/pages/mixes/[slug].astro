@@ -9,6 +9,8 @@ import Tracks from '@theme/components/playlist/Tracks.svelte';
 import Controls from '@theme/components/playlist/Controls.svelte';
 import * as fs from 'fs';
 import { post } from '@lib/MixStore';
+import MenuBar from '@theme/components/MenuBar.svelte';
+import * as settings from '@settings';
 
 export async function getStaticPaths() {
   const docs = await getCollection('mixes');
@@ -36,14 +38,14 @@ if (isDev) {
     // no such directory. create it?
   }
 }
-
-
 ---
 
 <Page>
   <Fragment slot="head-bottom">
     <Schema {...entry.data as any} />
+    <title>{entry.data.title}</title>
   </Fragment>
+
   <ClientPostLoader collection="mixes" slug={entry.slug} client:only/>
 
   {isDev ?
@@ -51,6 +53,7 @@ if (isDev) {
       <MusicPlaylist client:load>
         <Tracks slot="tracks" client:only />
         <Controls slot="controls" client:only />
+        <MenuBar settings={settings} slot="menu" />
 
         <Fragment slot="article">
           <Content/>
@@ -61,6 +64,7 @@ if (isDev) {
     <MusicPlaylist>
       <Tracks slot="tracks" client:only />
       <Controls slot="controls" client:only />
+      <MenuBar settings={settings} slot="menu" />
 
       <Fragment slot="article">
         <Content/>
