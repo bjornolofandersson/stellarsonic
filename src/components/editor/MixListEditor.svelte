@@ -7,6 +7,7 @@
   import Button from './Button.svelte';
 
   export let slugs: string[];
+  export let pageTitle: string;
 
   let showCreate = false;
   let confirmDelete: string | undefined = undefined;
@@ -33,7 +34,7 @@
   }
 </script>
 
-<Editor pageTitle="mixes" onSave={onSave}>
+<Editor pageTitle={pageTitle} onSave={onSave}>
   <ul class="my-8 flex mx-8 border-b border-stone-400">
     <li class="px-2 text-cyan-700"><a href="/">Home</a></li>
     <li class="px-2">/</li>

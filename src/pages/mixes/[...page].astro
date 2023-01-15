@@ -31,17 +31,18 @@ if (isDev) {
   const posts = await getCollection('mixes');
   slugs = posts.map(p => p.slug);
 }
+const pageTitle = `Mixtapes | ${site.title}`
 ---
 
 <Page>
   <Fragment slot="head-bottom">
-    <title>Mixes | {site.title}</title>
+    <title>{pageTitle}</title>
   </Fragment>
 
   <SettingsLoader settings={site} client:load/>
 
   {isDev ?
-    <MixListEditor slugs={slugs} client:only>
+    <MixListEditor pageTitle={pageTitle} slugs={slugs} client:only>
       <Mixes page={page} genres={genres}>
         <SiteHero slot="header"/>
       </Mixes>
