@@ -11,8 +11,3 @@ export function blogCollectionPaths(collection: string, pageSize: number) {
     return paginate(sortedPosts, { pageSize });
   }
 }
-
-export async function collectionSlugs(collection: string): Promise<string[]> {
-  const posts = await getCollection(collection as any);
-  return posts.map(p => p.slug);
-}

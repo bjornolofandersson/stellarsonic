@@ -1,4 +1,4 @@
-import { CollectionEntry, getEntry } from "astro:content";
+import { CollectionEntry, getCollection, getEntry } from "astro:content";
 import * as yaml from 'yaml';
 import * as fs from 'fs';
 import slugify from 'slugify';
@@ -31,6 +31,15 @@ export class PostController<T extends {title: string} = {title: string}> {
 
   public async getBySlug(slug: string): Promise<CollectionEntry<any>> {
     return getEntry(this.collection as any, `${slug}.md` as any);
+  }
+
+  public getAllEntries(): Promise<CollectionEntry<any>> {
+    return getCollection(this.collection as any);
+  }
+
+  public getAssetPaths(slug: string) {
+    return fs.readdirSync(`public/assets/${this.collection}/${slug}`)
+      .map(file => `/assets/${this.collection}/${slug}/${file}`);
   }
 
   private slugToPath(slug: string) {

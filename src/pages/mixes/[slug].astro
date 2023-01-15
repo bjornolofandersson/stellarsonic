@@ -1,6 +1,5 @@
 ---
-import * as fs from 'fs';
-import { getCollection, CollectionEntry } from 'astro:content';
+import { CollectionEntry, getCollection } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import ClientPostLoader from '@components/ClientPostLoader.svelte';
 import MixEditor from '@components/editor/MixEditor.svelte';
@@ -11,9 +10,10 @@ import MenuBar from '@theme/components/MenuBar.svelte';
 import Tracks from '@theme/components/playlist/Tracks.svelte';
 import Controls from '@theme/components/playlist/Controls.svelte';
 import MusicPlaylist from '@theme/layouts/MusicPlaylist.svelte';
+import { PostController } from '@lib/PostController';
 
 export async function getStaticPaths() {
-  const docs = await getCollection('mixes');
+  const docs = await getCollection('mixes')
   return docs.map(entry => ({
     params: { slug: entry.slug }, props: { entry },
   }));
@@ -26,18 +26,9 @@ interface Props {
 const isDev = import.meta.env.MODE === 'development';
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+const col = new PostController('mixes');
 
 post.set(entry.data as any);
-
-let assets: string[] = [];
-if (isDev) {
-  try {
-    assets = fs.readdirSync(`public/assets/mixes/${entry.slug}`)
-      .map(file => `/assets/mixes/${entry.slug}/${file}`);
-  } catch (err) {
-    // no such directory. create it?
-  }
-}
 ---
 
 <Page>
@@ -49,7 +40,7 @@ if (isDev) {
   <ClientPostLoader collection="mixes" slug={entry.slug} client:only/>
 
   {isDev ?
-    <MixEditor slug={entry.slug} assets={assets} client:only>
+    <MixEditor slug={entry.slug} assets={col.getAssetPaths(entry.slug)} client:only>
       <MusicPlaylist client:load>
         <Tracks slot="tracks" client:only />
         <Controls slot="controls" client:only />
