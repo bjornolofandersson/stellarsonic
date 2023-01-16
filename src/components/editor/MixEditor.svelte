@@ -5,11 +5,12 @@
   import TextInput from './TextInput.svelte';
   import NumberInput from './NumberInput.svelte';
   import ColorInput from './ColorInput.svelte';
-  import TextArea from './TextArea.svelte';
   import Menu from './Menu.svelte';
   import Editor from './Editor.svelte';
   import PanelLeft from './PanelLeft.svelte';
   import Button from './Button.svelte';
+  import AssetsForm from './forms/AssetsForm.svelte';
+  import ContentForm from './forms/ContentForm.svelte';
 
   export let slug: string;
   export let assets: string[];
@@ -53,65 +54,38 @@
     <li class="px-2 text-stone-500">{slug}</li>
   </ul>
 
-  {#if !selected}
-    <PanelLeft>
-      <div class="my-4 flex gap-4">
-        <Button label="Draft" icon="edit_document" onClick={() => {}}/>
-        <Button label="Publish" icon="send" onClick={() => {}}/>
-      </div>
+  <PanelLeft show={selected === undefined}>
+    <div class="my-4 flex gap-4">
+      <Button label="Draft" icon="edit_document" onClick={() => {}}/>
+      <Button label="Publish" icon="send" onClick={() => {}}/>
+    </div>
 
-      <Menu items={menuItems} onSelect={item => {selected = item}}/>
-    </PanelLeft>
-  {/if}
+    <Menu items={menuItems} onSelect={item => {selected = item}}/>
+  </PanelLeft>
 
-  {#if selected === 'Content'}
-    <PanelRight title="Content" onBack={() => {selected = undefined}}>
-      <TextInput id="title" label="Title" bind:value={$post.title} />
-      <TextInput id="subtitle" label="Subtitle" bind:value={$post.subtitle} />
-      <TextArea id="description" label="Description" rows={20} bind:value={$post.description} />
-    </PanelRight>
-  {/if}
+  <PanelRight show={selected === 'Content'} title="Content" onBack={() => {selected = undefined}}>
+    <ContentForm bind:post={$post} />
+  </PanelRight>
 
-  {#if selected === 'Assets'}
-    <PanelRight title="Assets" onBack={() => {selected = undefined}}>
-      <h2 class="mt-8 text-xl border-b border-stone-400">Image</h2>
-      <div class="py-4 grid grid-cols-3 gap-4">
-        {#each images as image}
-          <button on:click={() => selectImage(image)}
-            class="overflow-hidden relative aspect-square border-4 {image === $post.image ? 'border-white' : 'border-transparent'}"
-            style="padding-bottom: 100%">
-            <img class="absolute w-full h-full object-cover" src={image} alt=""/>
-          </button>
-        {/each}
-      </div>
-      <TextInput id="image" label="URL" bind:value={$post.image} />
+  <PanelRight show={selected === 'Assets'} title="Assets" onBack={() => {selected = undefined}}>
+    <AssetsForm bind:post={$post} assets={assets} />
+  </PanelRight>
 
-      <h2 class="mt-8 text-xl border-b border-stone-400">Audio</h2>
-      <TextInput id="audio" label="URL" bind:value={$post.audio} />
-    </PanelRight>
-  {/if}
+  <PanelRight show={selected === 'Tracks'} title="Tracks" onBack={() => {selected = undefined}}>
+    <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
+    <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
+    <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
+  </PanelRight>
 
-  {#if selected === 'Tracks'}
-    <PanelRight title="Tracks" onBack={() => {selected = undefined}}>
-      <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
-      <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
-      <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
-    </PanelRight>
-  {/if}
+  <PanelRight show={selected === 'Tags'} title="Tags" onBack={() => {selected = undefined}}>
+    <ul>
+    </ul>
+  </PanelRight>
 
-  {#if selected === 'Tags'}
-    <PanelRight title="Tags" onBack={() => {selected = undefined}}>
-      <ul>
-      </ul>
-    </PanelRight>
-  {/if}
-
-  {#if selected === 'Style'}
-    <PanelRight title="Style" onBack={() => {selected = undefined}}>
-      <ColorInput id="color-primary" label="Primary color" bind:value={$post.colors[0]} />
-      <ColorInput id="color-secondary" label="Secondary color" bind:value={$post.colors[1]} />
-    </PanelRight>
-  {/if}
+  <PanelRight show={selected === 'Style'} title="Style" onBack={() => {selected = undefined}}>
+    <ColorInput id="color-primary" label="Primary color" bind:value={$post.colors[0]} />
+    <ColorInput id="color-secondary" label="Secondary color" bind:value={$post.colors[1]} />
+  </PanelRight>
 
   <div slot="preview"><slot/></div>
 </Editor>

@@ -41,28 +41,26 @@
     <li class="px-2 text-stone-500">Mixes</li>
   </ul>
 
-  {#if !showCreate}
-    <PanelLeft>
-      <Button label="Create mix" icon="add" onClick={onCreate}/>
+  <PanelLeft show={!showCreate}>
+    <Button label="Create mix" icon="add" onClick={onCreate}/>
 
-      <ul class="py-8">
-        {#each slugs as slug}
-          <li class="px-4 py-4 w-full border-b border-[#00000020] flex justify-between">
-            <a class="text-stone-700" 
-              href="/mixes/{slug}"><span class="material-symbols-outlined">edit_note</span> {slug}</a>
-            <button on:click={() => {confirmDelete = slug}} class="text-stone-700">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </li>
-        {/each}
-      </ul>
-    </PanelLeft>
-  {:else}
-    <PanelRight title="New mix" onBack={() => {showCreate = false}}>
-      <TextInput id="title" label="Title" bind:value={$post.title} />
-      <button class="mt-4 p-4 border border-stone-400" on:click={onSavePost}>Create</button>
-    </PanelRight>
-  {/if}
+    <ul class="py-8">
+      {#each slugs as slug}
+        <li class="px-4 py-4 w-full border-b border-[#00000020] flex justify-between">
+          <a class="text-stone-700" 
+            href="/mixes/{slug}"><span class="material-symbols-outlined">edit_note</span> {slug}</a>
+          <button on:click={() => {confirmDelete = slug}} class="text-stone-700">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </PanelLeft>
+
+  <PanelRight show={showCreate} title="New mix" onBack={() => {showCreate = false}}>
+    <TextInput id="title" label="Title" bind:value={$post.title} />
+    <button class="mt-4 p-4 border border-stone-400" on:click={onSavePost}>Create</button>
+  </PanelRight>
 
   <div slot="preview"><slot/></div>
 
