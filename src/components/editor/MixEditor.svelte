@@ -11,6 +11,7 @@
   import Button from './Button.svelte';
   import AssetsForm from './forms/AssetsForm.svelte';
   import ContentForm from './forms/ContentForm.svelte';
+  import Breadcrumbs from './Breadcrumbs.svelte';
 
   export let slug: string;
   export let assets: string[];
@@ -24,13 +25,6 @@
     });
   }
 
-  function selectImage(url: string) {
-    $post.image = url;
-  }
-
-  let images = assets.filter(file => ['jpg', 'png'].includes(file.split('.').pop() as string));
-  console.log(images);
-
   function onSelectTrack(track: number) {
     selectedTrack = track;
   }
@@ -43,16 +37,16 @@
     {name: 'Tracks', icon: 'queue_music'},
     {name: 'Style', icon: 'format_paint'}
   ];
+
+  const breadcrumbs = [
+    {label: 'Home', href: '/'},
+    {label: 'Mixes', href: '/mixes'},
+    {label: slug},
+  ]
 </script>
 
 <Editor bind:pageTitle={$post.title} onSave={onSave}>
-  <ul class="my-8 flex mx-8 border-b border-stone-400">
-    <li class="px-2 text-stone-800"><a href="/">Home</a></li>
-    <li class="px-2">/</li>
-    <li class="px-2 text-stone-800"><a href="/mixes">Mixes</a></li>
-    <li class="px-2">/</li>
-    <li class="px-2 text-stone-500">{slug}</li>
-  </ul>
+  <Breadcrumbs trail={breadcrumbs} />
 
   <PanelLeft show={selected === undefined}>
     <div class="my-4 flex gap-4">

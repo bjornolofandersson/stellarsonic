@@ -5,6 +5,7 @@
   import { post } from '@lib/MixStore';
   import PanelLeft from './PanelLeft.svelte';
   import Button from './Button.svelte';
+    import Breadcrumbs from './Breadcrumbs.svelte';
 
   export let slugs: string[];
   export let pageTitle: string;
@@ -32,14 +33,15 @@
     });
     confirmDelete = undefined;
   }
+
+  const breadcrumbs = [
+    {label: 'Home', href: '/'},
+    {label: 'Mixes'},
+  ]
 </script>
 
 <Editor pageTitle={pageTitle} onSave={onSave}>
-  <ul class="my-8 flex mx-8 border-b border-stone-400">
-    <li class="px-2 text-cyan-700"><a href="/">Home</a></li>
-    <li class="px-2">/</li>
-    <li class="px-2 text-stone-500">Mixes</li>
-  </ul>
+  <Breadcrumbs trail={breadcrumbs} />
 
   <PanelLeft show={!showCreate}>
     <Button label="Create mix" icon="add" onClick={onCreate}/>
