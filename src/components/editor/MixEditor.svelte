@@ -12,18 +12,12 @@
   import AssetsForm from './forms/AssetsForm.svelte';
   import ContentForm from './forms/ContentForm.svelte';
   import Breadcrumbs from './Breadcrumbs.svelte';
+  import { savePost } from '@lib/editor';
 
   export let slug: string;
   export let assets: string[];
 
   let selectedTrack = 0;
-
-  function onSave() {
-    fetch('/mixes/' + slug + '.json', {
-      method: 'PUT',
-      body: JSON.stringify($post),
-    });
-  }
 
   function onSelectTrack(track: number) {
     selectedTrack = track;
@@ -45,7 +39,7 @@
   ]
 </script>
 
-<Editor bind:pageTitle={$post.title} onSave={onSave}>
+<Editor bind:pageTitle={$post.title} onSave={() => savePost('mixes', slug, $post)}>
   <Breadcrumbs trail={breadcrumbs} />
 
   <PanelLeft show={selected === undefined}>
