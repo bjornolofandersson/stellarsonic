@@ -1,12 +1,12 @@
 <script lang="ts">
   import { post } from '@lib/MixStore';
-  import PanelRight from './PanelRight.svelte';
+  import SubPanel from './SubPanel.svelte';
   import Timeline from './Timeline.svelte';
   import TextInput from './TextInput.svelte';
   import NumberInput from './NumberInput.svelte';
   import Menu from './Menu.svelte';
   import Editor from './Editor.svelte';
-  import PanelLeft from './PanelLeft.svelte';
+  import MainPanel from './MainPanel.svelte';
   import AssetsForm from './forms/AssetsForm.svelte';
   import ContentForm from './forms/ContentForm.svelte';
   import Breadcrumbs from './Breadcrumbs.svelte';
@@ -44,33 +44,33 @@
 <Editor bind:pageTitle={$post.title} onSave={() => savePost('mixes', slug, $post)}>
   <Breadcrumbs trail={breadcrumbs} />
 
-  <PanelLeft show={selected === undefined}>
+  <MainPanel show={selected === undefined}>
     <PostForm>
       <Menu items={menuItems} onSelect={item => {selected = item}}/>
     </PostForm>
-  </PanelLeft>
+  </MainPanel>
 
-  <PanelRight show={selected === 'Content'} title="Content" onBack={() => {selected = undefined}}>
+  <SubPanel show={selected === 'Content'} title="Content" onBack={() => {selected = undefined}}>
     <ContentForm bind:post={$post} />
-  </PanelRight>
+  </SubPanel>
 
-  <PanelRight show={selected === 'Assets'} title="Assets" onBack={() => {selected = undefined}}>
+  <SubPanel show={selected === 'Assets'} title="Assets" onBack={() => {selected = undefined}}>
     <AssetsForm bind:post={$post} assets={assets} />
-  </PanelRight>
+  </SubPanel>
 
-  <PanelRight show={selected === 'Tracks'} title="Tracks" onBack={() => {selected = undefined}}>
+  <SubPanel show={selected === 'Tracks'} title="Tracks" onBack={() => {selected = undefined}}>
     <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
     <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
     <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
-  </PanelRight>
+  </SubPanel>
 
-  <PanelRight show={selected === 'Tags'} title="Tags" onBack={() => {selected = undefined}}>
+  <SubPanel show={selected === 'Tags'} title="Tags" onBack={() => {selected = undefined}}>
     <TagsForm bind:post={$post} />
-  </PanelRight>
+  </SubPanel>
 
-  <PanelRight show={selected === 'Style'} title="Style" onBack={() => {selected = undefined}}>
+  <SubPanel show={selected === 'Style'} title="Style" onBack={() => {selected = undefined}}>
     <StyleForm bind:post={$post} />
-  </PanelRight>
+  </SubPanel>
 
   <div slot="preview"><slot/></div>
 </Editor>

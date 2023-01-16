@@ -1,9 +1,9 @@
 <script lang="ts">
   import Editor from './Editor.svelte';
-  import PanelRight from './PanelRight.svelte';
+  import SubPanel from './SubPanel.svelte';
   import TextInput from './TextInput.svelte';
   import { post } from '@lib/MixStore';
-  import PanelLeft from './PanelLeft.svelte';
+  import MainPanel from './MainPanel.svelte';
   import Button from './Button.svelte';
     import Breadcrumbs from './Breadcrumbs.svelte';
 
@@ -43,7 +43,7 @@
 <Editor pageTitle={pageTitle} onSave={onSave}>
   <Breadcrumbs trail={breadcrumbs} />
 
-  <PanelLeft show={!showCreate}>
+  <MainPanel show={!showCreate}>
     <Button label="Create mix" icon="add" onClick={onCreate}/>
 
     <ul class="py-8">
@@ -57,12 +57,12 @@
         </li>
       {/each}
     </ul>
-  </PanelLeft>
+  </MainPanel>
 
-  <PanelRight show={showCreate} title="New mix" onBack={() => {showCreate = false}}>
+  <SubPanel show={showCreate} title="New mix" onBack={() => {showCreate = false}}>
     <TextInput id="title" label="Title" bind:value={$post.title} />
     <button class="mt-4 p-4 border border-stone-400" on:click={onSavePost}>Create</button>
-  </PanelRight>
+  </SubPanel>
 
   <div slot="preview"><slot/></div>
 
