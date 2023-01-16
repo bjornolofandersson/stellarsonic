@@ -4,15 +4,16 @@
   import Timeline from './Timeline.svelte';
   import TextInput from './TextInput.svelte';
   import NumberInput from './NumberInput.svelte';
-  import ColorInput from './ColorInput.svelte';
   import Menu from './Menu.svelte';
   import Editor from './Editor.svelte';
   import PanelLeft from './PanelLeft.svelte';
-  import Button from './Button.svelte';
   import AssetsForm from './forms/AssetsForm.svelte';
   import ContentForm from './forms/ContentForm.svelte';
   import Breadcrumbs from './Breadcrumbs.svelte';
   import { savePost } from '@lib/editor';
+  import StyleForm from './forms/StyleForm.svelte';
+  import TagsForm from './forms/TagsForm.svelte';
+  import PostForm from './forms/PostForm.svelte';
 
   export let slug: string;
   export let assets: string[];
@@ -27,6 +28,7 @@
 
   const menuItems = [
     {name: 'Content', icon: 'article'},
+    {name: 'Tags', icon: 'tag'}, 
     {name: 'Assets', icon: 'perm_media'}, 
     {name: 'Tracks', icon: 'queue_music'},
     {name: 'Style', icon: 'format_paint'}
@@ -43,12 +45,9 @@
   <Breadcrumbs trail={breadcrumbs} />
 
   <PanelLeft show={selected === undefined}>
-    <div class="my-4 flex gap-4">
-      <Button label="Draft" icon="edit_document" onClick={() => {}}/>
-      <Button label="Publish" icon="send" onClick={() => {}}/>
-    </div>
-
-    <Menu items={menuItems} onSelect={item => {selected = item}}/>
+    <PostForm>
+      <Menu items={menuItems} onSelect={item => {selected = item}}/>
+    </PostForm>
   </PanelLeft>
 
   <PanelRight show={selected === 'Content'} title="Content" onBack={() => {selected = undefined}}>
@@ -66,13 +65,11 @@
   </PanelRight>
 
   <PanelRight show={selected === 'Tags'} title="Tags" onBack={() => {selected = undefined}}>
-    <ul>
-    </ul>
+    <TagsForm bind:post={$post} />
   </PanelRight>
 
   <PanelRight show={selected === 'Style'} title="Style" onBack={() => {selected = undefined}}>
-    <ColorInput id="color-primary" label="Primary color" bind:value={$post.colors[0]} />
-    <ColorInput id="color-secondary" label="Secondary color" bind:value={$post.colors[1]} />
+    <StyleForm bind:post={$post} />
   </PanelRight>
 
   <div slot="preview"><slot/></div>
