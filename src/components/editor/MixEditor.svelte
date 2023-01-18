@@ -1,16 +1,16 @@
 <script lang="ts">
   import { post } from '@lib/MixStore';
-  import SubPanel from './SubPanel.svelte';
-  import Timeline from './Timeline.svelte';
-  import TextInput from './TextInput.svelte';
-  import NumberInput from './NumberInput.svelte';
-  import Menu from './Menu.svelte';
-  import Editor from './Editor.svelte';
-  import MainPanel from './MainPanel.svelte';
+  import { savePost } from '@lib/editor';
+  import Editor from './common/Editor.svelte';
+  import SubPanel from './common/SubPanel.svelte';
+  import Timeline from './common/Timeline.svelte';
+  import TextInput from './common/TextInput.svelte';
+  import NumberInput from './common/NumberInput.svelte';
+  import Menu from './common/Menu.svelte';
+  import MainPanel from './common/MainPanel.svelte';
+  import Breadcrumbs from './common/Breadcrumbs.svelte';
   import AssetsForm from './forms/AssetsForm.svelte';
   import ContentForm from './forms/ContentForm.svelte';
-  import Breadcrumbs from './Breadcrumbs.svelte';
-  import { savePost } from '@lib/editor';
   import StyleForm from './forms/StyleForm.svelte';
   import TagsForm from './forms/TagsForm.svelte';
   import PostForm from './forms/PostForm.svelte';

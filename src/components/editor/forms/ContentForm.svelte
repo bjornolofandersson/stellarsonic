@@ -1,6 +1,6 @@
 <script lang="ts">
-  import TextArea from '../TextArea.svelte';
-  import TextInput from '../TextInput.svelte';
+  import TextArea from '../common/TextArea.svelte';
+  import TextInput from '../common/TextInput.svelte';
 
   export let post: any;
 </script>

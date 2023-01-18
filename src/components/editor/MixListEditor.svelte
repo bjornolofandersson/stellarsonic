@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Editor from './Editor.svelte';
-  import SubPanel from './SubPanel.svelte';
-  import TextInput from './TextInput.svelte';
   import { post } from '@lib/MixStore';
-  import MainPanel from './MainPanel.svelte';
-  import Button from './Button.svelte';
-    import Breadcrumbs from './Breadcrumbs.svelte';
+  import Editor from './common/Editor.svelte';
+  import SubPanel from './common/SubPanel.svelte';
+  import TextInput from './common/TextInput.svelte';
+  import MainPanel from './common/MainPanel.svelte';
+  import Button from './common/Button.svelte';
+  import Breadcrumbs from './common/Breadcrumbs.svelte';
 
   export let slugs: string[];
   export let pageTitle: string;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from "../Button.svelte";
+  import Button from "../common/Button.svelte";
 </script>
 
 <div class="my-4 flex gap-4">

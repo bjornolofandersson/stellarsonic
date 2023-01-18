@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ColorInput from '../ColorInput.svelte';
+  import ColorInput from '../common/ColorInput.svelte';
 
   export let post: any;
 </script>
