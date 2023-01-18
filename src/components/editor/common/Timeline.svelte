@@ -3,9 +3,9 @@
 
   export let audio: string;
   export let tracks: any[];
-  export let onSelect: any;
+  export let onSelect: (track: number) => void;
+  export let selected = 0;
 
-  let selected = 0;
   let progress = 0;
 
   function onSelectTrack(track: number) {
@@ -27,7 +27,9 @@
     {#each tracks as track, i}
       <button on:click={() => onSelectTrack(i)}
         class="border-stone-700 text-stone-300 text-left border-r px-2 py-8 {selected === i ? 'bg-amber-700' : 'hover:bg-stone-700'}"
-        style="width: {(player.getTrackDuration(i) / player.getMixDuration()) * 100}%;">{i + 1}</button>
+        style="width: {(player.getTrackDuration(i) / player.getMixDuration()) * 100}%;">
+        {i + 1}
+      </button>
     {/each}
   </div>
   <div class="w-full h-4 bg-stone-900 relative">

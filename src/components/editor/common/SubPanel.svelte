@@ -8,7 +8,7 @@
 </script>
 
 {#if show}
-  <div class="absolute w-full px-8" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
+  <div class="absolute w-full px-8 overflow-y-auto" style="height: calc(100vh - 150px)" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
     <div class="flex justify-between">
       <button class="text-stone-400 hover:text-stone-700" on:click={onBack}>
         <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>

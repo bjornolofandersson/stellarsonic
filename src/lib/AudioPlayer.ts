@@ -103,6 +103,10 @@ export class MixAudioPlayer {
     return this.breakpoints[track + 1] - this.breakpoints[track];
   }
 
+  public getTrackTimestamp(track: number) {
+    return this.breakpoints[track];
+  }
+
   public getTrackData(track: number) {
     return this.playlist.tracks[track];
   }
