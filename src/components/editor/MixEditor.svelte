@@ -41,7 +41,7 @@
   ]
 </script>
 
-<Editor bind:pageTitle={$post.title} onSave={() => savePost('mixes', slug, $post)}>
+<Editor bind:pageTitle={$post.title} onSave={() => savePost('mixes', slug, $post)} showPreview={selected !== 'Tracks'}>
   <Breadcrumbs trail={breadcrumbs} />
 
   <MainPanel show={selected === undefined}>
@@ -71,6 +71,24 @@
   <SubPanel show={selected === 'Style'} title="Style" onBack={() => {selected = undefined}}>
     <StyleForm bind:post={$post} />
   </SubPanel>
+
+  {#if selected === 'Tracks'}
+    <div class="fixed top-0 right-0 bottom-0 left-[512px] bg-stone-800">
+      <Timeline audio={$post.audio} tracks={$post.tracks} onSelect={() => {}} />
+
+      <div class="container mx-auto text-stone-100 p-20 dark overflow-y-auto" style="height: calc(100vh - 100px)">
+        <ul class="w-full">
+          {#each $post.tracks as track}
+          <li class="flex gap-5 w-full">
+            <div class="flex-1"><TextInput id="track-name" bind:value={track.name} /></div>
+            <div class="flex-1"><TextInput id="track-artist" bind:value={track.artist} /></div>
+            <div class="flex-initial"><NumberInput id="track-year" bind:value={track.year} /></div>
+          </li>
+          {/each}
+        </ul>
+      </div>
+    </div>
+  {/if}
 
   <div slot="preview"><slot/></div>
 </Editor>
