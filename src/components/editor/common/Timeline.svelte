@@ -13,7 +13,8 @@
     onSelect(track);
   }
 
-  let player = MixAudioPlayer.getInstance({audio, tracks} as any);
+  let player = MixAudioPlayer.getInstance(audio);
+  player.setTracks(tracks);
 
   function update() {
     progress = player.getProgress() / player.getMixDuration();

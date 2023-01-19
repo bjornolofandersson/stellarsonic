@@ -8,7 +8,8 @@
 
   post.subscribe(p => {
     if (p.audio) {
-      player = MixAudioPlayer.getInstance({audio: p.audio, tracks: p.tracks} as any);
+      player = MixAudioPlayer.getInstance(p.audio);
+      player.setTracks(p.tracks);
       setInterval(update, 100);
     }
   });

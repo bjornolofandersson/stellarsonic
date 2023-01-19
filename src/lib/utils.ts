@@ -1,9 +1,9 @@
 import { toSeconds, parse } from 'iso8601-duration';
-import { MusicMix } from './interfaces';
+import { MusicMix, MusicMixTrack } from './interfaces';
 
-export function totalDuration(mix: MusicMix) {
+export function totalDuration(tracks: MusicMixTrack[]) {
   let duration = 0;
-  for (const track of mix.tracks) {
+  for (const track of tracks) {
     duration += toSeconds(parse(track.duration));
   }
   return duration;

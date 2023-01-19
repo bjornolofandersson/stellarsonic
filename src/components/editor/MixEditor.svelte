@@ -22,10 +22,24 @@
   export let assets: string[];
 
   let selectedTrack = 0;
-  let player = MixAudioPlayer.getInstance({audio: $post.audio, tracks: $post.tracks} as any);
+  let player = MixAudioPlayer.getInstance($post.audio);
+  player.setTracks($post.tracks);
 
   let tStart = 0;
   let tEnd = 0;
+
+  //$: {
+    //console.log(tStart);
+    //player.updateStart(selectedTrack, tStart);
+    //player.updateEnd(selectedTrack, tEnd);
+  //}
+
+  function onUpdateStart(amount: number) {
+    //console.log(amount);
+    tStart += amount;
+    player.updateStart(selectedTrack, tStart);
+  }
+
 
   function onSelectTrack(track: number) {
     selectedTrack = track;
@@ -89,18 +103,28 @@
     <StyleForm bind:post={$post} />
   </SubPanel>
 
-  {#if selected === 'Tracks'}
+  {#if selected === 'Tracks' && player}
     <div class="fixed top-0 right-0 bottom-0 left-[512px] bg-stone-800">
       <Timeline audio={$post.audio} tracks={$post.tracks} onSelect={onSelectTrack} selected={selectedTrack} />
 
       <div class="container mx-auto text-stone-100 px-20 py-8 dark overflow-y-auto" style="height: calc(100vh - 100px)">
+        <button on:click={() => {}}>
+          <span class="material-symbols-outlined">skip_next</span>
+        </button>
+        <button on:click={() => {}}>
+          <span class="material-symbols-outlined">play_arrow</span>
+        </button>
+        <button on:click={() => {}}>
+          <span class="material-symbols-outlined">skip_previous</span>
+        </button>
+
         <div class="grid grid-cols-2 gap-4">
           <div class="p-10 bg-[#00000030] rounded-md mt-10 relative">
             <div class="absolute right-4 text-amber-600">
-              <button on:click={() => {tStart -= 1}}>
+              <button on:click={() => onUpdateStart(-1)}>
                 <span class="material-symbols-outlined">first_page</span>
               </button>
-              <button on:click={() => {tStart += 1}}>
+              <button on:click={() => onUpdateStart(1)}>
                 <span class="material-symbols-outlined">last_page</span>
               </button>
             </div>

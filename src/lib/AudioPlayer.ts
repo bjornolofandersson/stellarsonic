@@ -1,33 +1,46 @@
 import { toSeconds, parse } from 'iso8601-duration';
-import { MusicMix } from './interfaces';
+import { MusicMixTrack } from './interfaces';
 import { totalDuration } from './utils';
 
 
 export class MixAudioPlayer {
   private audio: HTMLAudioElement;
   private breakpoints: number[] = [];
+  private tracks: MusicMixTrack[] = [];
 
   private static instances: Record<string, MixAudioPlayer> = {};
 
-  public static getInstance(playlist: MusicMix) {
-    if (this.instances[playlist.audio] === undefined) {
-      this.instances[playlist.audio] = new MixAudioPlayer(playlist);
+  public static getInstance(audio: string) {
+    if (this.instances[audio] === undefined) {
+      this.instances[audio] = new MixAudioPlayer(audio);
     }
-    return this.instances[playlist.audio];
+    return this.instances[audio];
   }
 
-  public constructor(public readonly playlist: MusicMix) {
-    this.audio = new Audio(playlist.audio);
-    for (let i=0; i<playlist.tracks.length; i++) {
+  public constructor(src: string) {
+    this.audio = new Audio(src);
+  }
+
+  public setTracks(tracks: MusicMixTrack[]) {
+    this.tracks = tracks;
+    for (let i=0; i<tracks.length; i++) {
       this.breakpoints.push(this.getOffset(i));
     }
-    this.breakpoints.push(totalDuration(playlist));
+    this.breakpoints.push(totalDuration(tracks));
+  }
+
+  public updateStart(track: number, t: number) {
+    this.breakpoints[track] = t;
+  }
+
+  public updateEnd(track: number, t: number) {
+    this.breakpoints[track + 1] = t;
   }
 
   private getOffset(track: number) {
     let offset = 0;
     for (let i=0; i<track; i++) {
-      offset += toSeconds(parse(this.playlist.tracks[i].duration));
+      offset += toSeconds(parse(this.tracks[i].duration));
     }
     return offset;
   }
@@ -58,7 +71,7 @@ export class MixAudioPlayer {
   public skipNext() {
     const currentTrack = this.getCurrentTrack();
 
-    if (currentTrack >= this.playlist.tracks.length - 1) {
+    if (currentTrack >= this.tracks.length - 1) {
       this.audio.currentTime = 0;
       this.audio.pause();
     } else {
@@ -87,7 +100,7 @@ export class MixAudioPlayer {
         return i - 1;
       }
     }
-    return this.playlist.tracks.length - 1;
+    return this.tracks.length - 1;
   }
 
   public getCurrentTrackProgress() {
@@ -108,7 +121,7 @@ export class MixAudioPlayer {
   }
 
   public getTrackData(track: number) {
-    return this.playlist.tracks[track];
+    return this.tracks[track];
   }
 
   public getProgress() {
