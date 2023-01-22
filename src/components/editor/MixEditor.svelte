@@ -1,9 +1,10 @@
 <script lang="ts">
   import { post } from '@lib/MixStore';
   import { savePost } from '@lib/editor';
+  import { MixPlaylist } from '@lib/media/MixPlaylist';
+  import { Stellarsonic } from '@lib/media/Stellarsonic';
   import Editor from './common/Editor.svelte';
   import SubPanel from './common/SubPanel.svelte';
-  import Timeline from './common/Timeline.svelte';
   import TextInput from './common/TextInput.svelte';
   import NumberInput from './common/NumberInput.svelte';
   import Menu from './common/Menu.svelte';
@@ -14,10 +15,8 @@
   import StyleForm from './forms/StyleForm.svelte';
   import TagsForm from './forms/TagsForm.svelte';
   import PostForm from './forms/PostForm.svelte';
-  import { MixPlaylist } from '@lib/media/MixPlaylist';
-  import { Stellarsonic } from '@lib/media/Stellarsonic';
   import TrackList from './forms/TrackList.svelte';
-  import Timestamp from './common/Timestamp.svelte';
+  import PlaylistForm from './forms/PlaylistForm.svelte';
 
   export let slug: string;
   export let assets: string[];
@@ -30,17 +29,6 @@
       playlist = Stellarsonic.mixPlaylist(p.audio, p.tracks);
     }
   });
-
-  function onUpdateBegin(amount: number) {
-    playlist.trackBegin(selectedTrack, playlist.trackBegin(selectedTrack) + amount);
-    $post.tracks[selectedTrack].duration = "";
-  }
-  function onUpdateEnd(amount: number) {
-    playlist.trackEnd(selectedTrack, playlist.trackEnd(selectedTrack) + amount);
-    $post.tracks[selectedTrack].duration = "";
-  }
-
-  let timerID: any;
 
   function onSelectTrack(track: number) {
     selectedTrack = track;
@@ -63,7 +51,6 @@
   ]
 </script>
 
-<div on:mouseup={() => clearInterval(timerID) }>
 <Editor bind:pageTitle={$post.title} onSave={() => savePost('mixes', slug, $post)} showPreview={selected !== 'Tracks'}>
   <Breadcrumbs trail={breadcrumbs} />
 
@@ -95,34 +82,14 @@
 
   {#if selected === 'Tracks' && playlist}
     <div class="fixed top-0 right-0 bottom-0 left-[512px] bg-stone-800">
-      <Timeline playlist={playlist} onSelect={onSelectTrack} selected={selectedTrack} />
-
-      <div class="container mx-auto text-stone-100 px-20 py-8 dark overflow-y-auto" style="height: calc(100vh - 100px)">
-        <button on:click={() => {}}>
-          <span class="material-symbols-outlined">skip_next</span>
-        </button>
-        <button on:click={() => {}}>
-          <span class="material-symbols-outlined">play_arrow</span>
-        </button>
-        <button on:click={() => {}}>
-          <span class="material-symbols-outlined">skip_previous</span>
-        </button>
-
-        <div class="grid grid-cols-2 gap-4">
-          <Timestamp label="From" time={playlist.trackBegin(selectedTrack)} onUpdate={onUpdateBegin} bind:timerId={timerID} editable={selectedTrack > 0}/>
-          <Timestamp label="To" time={playlist.trackEnd(selectedTrack)} onUpdate={onUpdateEnd} bind:timerId={timerID} />
-        </div>
-
-        <div class="mt-8">
-          <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
-          <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
-          <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
-        </div>
-      </div>
+      <PlaylistForm bind:post={$post} playlist={playlist} track={selectedTrack} onSelect={onSelectTrack}>
+        <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
+        <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
+        <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
+      </PlaylistForm>
     </div>
   {/if}
 
   <div slot="preview"><slot/></div>
 </Editor>
-</div>
 
