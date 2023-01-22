@@ -1,8 +1,16 @@
 <script lang="ts">
+  import { MixPlaylist } from "@lib/media/MixPlaylist";
   import { Stellarsonic } from "@lib/media/Stellarsonic";
 
-  export let post: any;
-  const playlist = Stellarsonic.mixPlaylist(post.audio, post.tracks);
+  export let slug: string;
+  let playlist: MixPlaylist;
+
+  Stellarsonic
+    .mixPlaylist(slug)
+    .then(p => {
+      playlist = p;
+      setInterval(update, 100);
+    });
 
   let isPlaying = false;
 
@@ -15,7 +23,7 @@
   }
 
   function update() {
-    isPlaying = !playlist.player.isPaused;
+    isPlaying = playlist.isPlaying;
   }
 
   setInterval(update, 100);

@@ -22,6 +22,10 @@ export class AudioPlayer implements MediaPlayer {
     this.audio.pause();
   }
 
+  public get src(): string {
+    return this.audio.src;
+  }
+
   public get progress() {
     return this.audio.currentTime;
   }

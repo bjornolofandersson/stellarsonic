@@ -15,6 +15,10 @@ export class MixPlaylist implements Playlist<MusicMixTrack> {
     }
   }
 
+  public get isPlaying(): boolean {
+    return this.player.src === this.audio && !this.player.isPaused;
+  }
+
   public get currentTrack() {
     const t = this.player.progress;
     for (let i=0; i<this.breakpoints.length; i++) {

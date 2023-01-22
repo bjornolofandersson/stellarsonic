@@ -37,6 +37,7 @@ export interface MusicMix extends Article {
 }
 
 export interface MediaPlayer {
+  readonly src: string;
   readonly progress: number;
   readonly duration: number;
 

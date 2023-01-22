@@ -8,9 +8,9 @@
   let player = Stellarsonic.audioPlayer();
   let playlist: MixPlaylist;
 
-  post.subscribe(p => {
+  post.subscribe(async p => {
     if (p.audio) {
-      playlist = Stellarsonic.mixPlaylist(p.audio, p.tracks);
+      playlist = await Stellarsonic.mixPlaylist(p);
       setInterval(update, 100);
     }
   });
