@@ -14,10 +14,10 @@
   import StyleForm from './forms/StyleForm.svelte';
   import TagsForm from './forms/TagsForm.svelte';
   import PostForm from './forms/PostForm.svelte';
-  import Button from './common/Button.svelte';
   import { hours, minutes, seconds } from '@lib/utils';
   import { MixPlaylist } from '@lib/media/MixPlaylist';
   import { Stellarsonic } from '@lib/media/Stellarsonic';
+  import TrackList from './forms/TrackList.svelte';
 
   export let slug: string;
   export let assets: string[];
@@ -97,14 +97,7 @@
   </SubPanel>
 
   <SubPanel show={selected === 'Tracks'} title="Tracks" onBack={() => {selected = undefined}}>
-    <Button label="Add" icon="add" onClick={() => {}} />
-
-    <ul class="mt-8">
-      {#each $post.tracks as track, i}
-        <li class="px-4 rounded-md {selectedTrack === i ? 'bg-[#ffffff60]' : 'hover:bg-[#ffffff40]'}">
-          <button on:click={() => onSelectTrack(i)} class="w-full py-3 text-left">{i + 1}. {track.name}</button></li>
-      {/each}
-    </ul>
+    <TrackList bind:post={$post} selected={selectedTrack} onSelect={onSelectTrack} onAdd={() => {}} />
   </SubPanel>
 
   <SubPanel show={selected === 'Tags'} title="Tags" onBack={() => {selected = undefined}}>
