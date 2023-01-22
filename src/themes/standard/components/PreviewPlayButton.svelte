@@ -1,27 +1,24 @@
 <script lang="ts">
-  import { MixAudioPlayer } from "@lib/AudioPlayer";
-  import { MusicMix } from "@lib/interfaces";
+  import { Stellarsonic } from "@lib/media/Stellarsonic";
 
-  export let playlist: MusicMix;
-
-  const player = MixAudioPlayer.getInstance(playlist);
+  export let post: any;
+  const playlist = Stellarsonic.mixPlaylist(post.audio, post.tracks);
 
   let isPlaying = false;
 
   function onClick() {
-    if (player.isPlaying()) {
-      player.pause();
+    if (!playlist.player.isPaused) {
+      playlist.player.pause();
     } else {
-      player.play()
+      playlist.play()
     }
   }
 
   function update() {
-    isPlaying = player.isPlaying();
+    isPlaying = !playlist.player.isPaused;
   }
 
   setInterval(update, 100);
-
 </script>
 
 <div>

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { MixAudioPlayer } from "@lib/AudioPlayer";
+  import { MusicMixTrack, Playlist } from "@lib/interfaces";
   import { formatTime } from "@lib/utils";
 
-  export let player: MixAudioPlayer;
+  export let playlist: Playlist<MusicMixTrack>;
   export let trackColor: string;
   export let progressColor: string;
 
@@ -15,24 +15,22 @@
 
   function onSeek(ev: any) {
     const seek = ev.offsetX / seekWidth;
-    const seekSec = seek * player.getCurrentTrackDuration();
-    player.skipTrackTo(seekSec);
+    const seekSec = seek * playlist.currentTrackDuration;
+    playlist.skipTrackTo(seekSec);
   }
 
   function onClickTrack(index: number) {
-    player.play(index);
+    playlist.play(index);
   }
 
   function update() {
-    progress = player.getCurrentTrackProgress();
-    duration = player.getCurrentTrackDuration();
+    progress = playlist.currentTrackProgress;
+    duration = playlist.currentTrackDuration;
     progressStyle = `background: ${progressColor}; width: ${100 * (progress / duration)}%`;
-    track = player.getTrackData(player.getCurrentTrack());
+    track = playlist.currentTrackData;
   }
 
-
   setInterval(update, 100);
-
 </script>
 
 <div class="w-full" style="margin-top: -10px;">
@@ -40,7 +38,7 @@
     <div class="h-full" style={progressStyle}></div>
   </button>
   <div class="flex justify-between pb-2">
-    {#each player.playlist.tracks as t, i}
+    {#each playlist.tracks as t, i}
       {#if t === track}
         <div class="w-full h-4 mr-1 last:mr-0 rounded-sm bg-light-accent dark:bg-dark-accent"></div>
       {:else}

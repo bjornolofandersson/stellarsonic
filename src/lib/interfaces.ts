@@ -49,14 +49,18 @@ export interface MediaPlayer {
   skipTo(time: number): void;
 }
 
-export interface Playlist {
+export interface Playlist<T> {
+  readonly player: MediaPlayer;
+  readonly tracks: T[];
   readonly currentTrack: number;
+  readonly currentTrackData: T;
   readonly currentTrackDuration: number;
   readonly currentTrackProgress: number;
 
-  play(track: number): void;
+  play(track?: number): void;
   skipNext(): void;
   skipPrev(): void;
+  skipTrackTo(time: number): void;
 
   trackBegin(track: number): number;
   trackEnd(track: number): number;

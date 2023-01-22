@@ -1,7 +1,7 @@
 import { parse, toSeconds } from 'iso8601-duration';
 import { MediaPlayer, MusicMixTrack, Playlist } from '../interfaces';
 
-export class MixPlaylist implements Playlist {
+export class MixPlaylist implements Playlist<MusicMixTrack> {
   private breakpoints: number[] = [];
 
   public constructor(
@@ -71,6 +71,10 @@ export class MixPlaylist implements Playlist {
 
   public get currentTrackProgress() {
     return this.player.progress - this.breakpoints[this.currentTrack];
+  }
+
+  public get currentTrackData() {
+    return this.tracks[this.currentTrack];
   }
 
   public trackBegin(track: number, time?: number) {

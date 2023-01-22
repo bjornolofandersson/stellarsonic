@@ -1,44 +1,30 @@
 <script lang="ts">
-  import { MixAudioPlayer } from "@lib/AudioPlayer";
-  import { MusicMix } from "@lib/interfaces";
+  import { Stellarsonic } from "@lib/media/Stellarsonic";
   import ProgressBar from "./PreviewProgressBar.svelte";
 
-  export let playlist: MusicMix;
+  export let post: any;
+  const playlist = Stellarsonic.mixPlaylist(post.audio, post.tracks);
 
-  let player: MixAudioPlayer;
-
-  try {
-    if (playlist.audio !== '') {
-      player = MixAudioPlayer.getInstance(playlist);
-      setInterval(update, 100);
-    }
-  } catch (err) {
-    // do nothing
-  }
-
-  let trackNr: number = 1;
   let track: any = {};
 
   function update() {
-    trackNr = player.getCurrentTrack();
-    track = player.getTrackData(trackNr);
+    track = playlist.currentTrackData;
   }
+  setInterval(update, 100);
 </script>
 
-{#if player}
 <div class="w-full">
   <div class="flex justify-between">
-    <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => player.skipPrev()}>
+    <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => playlist.skipPrev()}>
       <span class="material-symbols-outlined text-md">skip_previous</span> 
     </button>
 
     <div class="text-xs mt-2 opacity-30 dark:text-white">{track.name}</div>
 
-    <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => player.skipNext()}>
+    <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => playlist.skipNext()}>
       <span class="material-symbols-outlined text-md">skip_next</span> 
     </button>
   </div>
 
-  <ProgressBar player={player} trackColor="#00000020" progressColor="#d77f7a"/>
+  <ProgressBar playlist={playlist} trackColor="#00000020" progressColor="#d77f7a"/>
 </div>
-{/if}
