@@ -1,7 +1,6 @@
 <script lang="ts">
   import { post } from '@lib/MixStore';
   import { savePost } from '@lib/editor';
-  import { MixAudioPlayer } from "@lib/AudioPlayer";
   import Editor from './common/Editor.svelte';
   import SubPanel from './common/SubPanel.svelte';
   import Timeline from './common/Timeline.svelte';
@@ -17,35 +16,47 @@
   import PostForm from './forms/PostForm.svelte';
   import Button from './common/Button.svelte';
   import { hours, minutes, seconds } from '@lib/utils';
+  import { MixPlaylist } from '@lib/media/MixPlaylist';
+  import { Stellarsonic } from '@lib/media/Stellarsonic';
 
   export let slug: string;
   export let assets: string[];
 
   let selectedTrack = 0;
-  let player = MixAudioPlayer.getInstance($post.audio);
-  player.setTracks($post.tracks);
+  let playlist: MixPlaylist;
 
-  let tStart = 0;
-  let tEnd = 0;
+  post.subscribe(p => {
+    if (p.audio) {
+      playlist = Stellarsonic.mixPlaylist(p.audio, p.tracks);
+    }
+  });
 
-  //$: {
-    //console.log(tStart);
-    //player.updateStart(selectedTrack, tStart);
-    //player.updateEnd(selectedTrack, tEnd);
-  //}
-
-  function onUpdateStart(amount: number) {
-    //console.log(amount);
-    tStart += amount;
-    player.updateStart(selectedTrack, tStart);
+  function onUpdateBegin(amount: number) {
+    playlist.trackBegin(selectedTrack, playlist.trackBegin(selectedTrack) + amount);
+    $post.tracks[selectedTrack].duration = "";
+  }
+  function onUpdateEnd(amount: number) {
+    playlist.trackEnd(selectedTrack, playlist.trackEnd(selectedTrack) + amount);
+    $post.tracks[selectedTrack].duration = "";
   }
 
+  let timerID: any;
+
+  function onBeginDown(amount: number) {
+    timerID = setTimeout(() => {
+      timerID = setInterval(() => onUpdateBegin(amount), 100);
+    }, 400);
+  }
+  function onEndDown(amount: number) {
+    timerID = setTimeout(() => {
+      timerID = setInterval(() => onUpdateEnd(amount), 100);
+    }, 400);
+  }
 
   function onSelectTrack(track: number) {
     selectedTrack = track;
-    tStart = player.getTrackTimestamp(track);
-    tEnd = tStart + player.getTrackDuration(track);
   }
+
   let selected: any = undefined;
 
   const menuItems = [
@@ -67,6 +78,7 @@
   }
 </script>
 
+<div on:mouseup={() => clearInterval(timerID) }>
 <Editor bind:pageTitle={$post.title} onSave={() => savePost('mixes', slug, $post)} showPreview={selected !== 'Tracks'}>
   <Breadcrumbs trail={breadcrumbs} />
 
@@ -103,9 +115,9 @@
     <StyleForm bind:post={$post} />
   </SubPanel>
 
-  {#if selected === 'Tracks' && player}
+  {#if selected === 'Tracks' && playlist}
     <div class="fixed top-0 right-0 bottom-0 left-[512px] bg-stone-800">
-      <Timeline audio={$post.audio} tracks={$post.tracks} onSelect={onSelectTrack} selected={selectedTrack} />
+      <Timeline playlist={playlist} onSelect={onSelectTrack} selected={selectedTrack} />
 
       <div class="container mx-auto text-stone-100 px-20 py-8 dark overflow-y-auto" style="height: calc(100vh - 100px)">
         <button on:click={() => {}}>
@@ -120,39 +132,41 @@
 
         <div class="grid grid-cols-2 gap-4">
           <div class="p-10 bg-[#00000030] rounded-md mt-10 relative">
+            {#if selectedTrack > 0}
             <div class="absolute right-4 text-amber-600">
-              <button on:click={() => onUpdateStart(-1)}>
+              <button on:mousedown={() => onBeginDown(-1)} on:click={() => onUpdateBegin(-1)}>
                 <span class="material-symbols-outlined">first_page</span>
               </button>
-              <button on:click={() => onUpdateStart(1)}>
+              <button on:mousedown={() => onBeginDown(1)} on:click={() => onUpdateBegin(1)}>
                 <span class="material-symbols-outlined">last_page</span>
               </button>
             </div>
+            {/if}
             <h3>From</h3>
             <div class="flex gap-2 text-6xl">
-              <span>{pad(hours(tStart))}</span>
+              <span>{pad(hours(playlist.trackBegin(selectedTrack)))}</span>
               <span>:</span>
-              <span>{pad(minutes(tStart))}</span>
+              <span>{pad(minutes(playlist.trackBegin(selectedTrack)))}</span>
               <span>:</span>
-              <span>{pad(seconds(tStart))}</span>
+              <span>{pad(seconds(playlist.trackBegin(selectedTrack)))}</span>
             </div>
           </div>
           <div class="p-10 bg-[#00000030] rounded-md mt-10 relative">
             <div class="absolute right-4 text-amber-600">
-              <button on:click={() => {tEnd -= 1}}>
+              <button on:mousedown={() => onEndDown(-1)} on:click={() => onUpdateEnd(-1)}>
                 <span class="material-symbols-outlined">first_page</span>
               </button>
-              <button on:click={() => {tEnd += 1}}>
+              <button on:mousedown={() => onEndDown(1)} on:click={() => onUpdateEnd(1)}>
                 <span class="material-symbols-outlined">last_page</span>
               </button>
             </div>
             <h3>To</h3>
             <div class="flex gap-2 text-6xl">
-              <span>{pad(hours(tEnd))}</span>
+              <span>{pad(hours(playlist.trackEnd(selectedTrack)))}</span>
               <span>:</span>
-              <span>{pad(minutes(tEnd))}</span>
+              <span>{pad(minutes(playlist.trackEnd(selectedTrack)))}</span>
               <span>:</span>
-              <span>{pad(seconds(tEnd))}</span>
+              <span>{pad(seconds(playlist.trackEnd(selectedTrack)))}</span>
             </div>
           </div>
         </div>
@@ -167,4 +181,5 @@
 
   <div slot="preview"><slot/></div>
 </Editor>
+</div>
 

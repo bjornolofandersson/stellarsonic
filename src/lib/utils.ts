@@ -33,5 +33,5 @@ export function minutes(t: number) {
 }
 
 export function seconds(t: number) {
-  return Math.floor(t % 60);
+  return Math.round((t % 60) * 10) / 10;
 }

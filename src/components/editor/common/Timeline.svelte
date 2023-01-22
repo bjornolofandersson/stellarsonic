@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { MixAudioPlayer } from "@lib/AudioPlayer";
+  import { MixPlaylist } from "@lib/media/MixPlaylist";
+  import { post } from '@lib/MixStore';
 
-  export let audio: string;
-  export let tracks: any[];
+  export let playlist: MixPlaylist;
   export let onSelect: (track: number) => void;
   export let selected = 0;
 
@@ -13,11 +13,8 @@
     onSelect(track);
   }
 
-  let player = MixAudioPlayer.getInstance(audio);
-  player.setTracks(tracks);
-
   function update() {
-    progress = player.getProgress() / player.getMixDuration();
+    progress = playlist.player.progress / playlist.duration;
   }
 
   setInterval(update, 100);
@@ -25,10 +22,10 @@
 
 <div class="w-full">
   <div class="w-full flex justify-start">
-    {#each tracks as track, i}
+    {#each playlist.tracks as track, i}
       <button on:click={() => onSelectTrack(i)}
         class="border-stone-700 text-stone-300 text-left border-r px-2 py-8 {selected === i ? 'bg-amber-700' : 'hover:bg-stone-700'}"
-        style="width: {(player.getTrackDuration(i) / player.getMixDuration()) * 100}%;">
+        style="width: {(playlist.trackDuration(i) / playlist.duration) * 100}%;">
         {i + 1}
       </button>
     {/each}

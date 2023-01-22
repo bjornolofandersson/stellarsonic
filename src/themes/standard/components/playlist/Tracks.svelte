@@ -1,35 +1,34 @@
 <script lang="ts">
-  import { MixAudioPlayer } from "@lib/AudioPlayer";
+  import { MixPlaylist } from '@lib/media/MixPlaylist';
+  import { Stellarsonic } from '@lib/media/Stellarsonic';
   import { post } from '@lib/MixStore';
 
-  let player: MixAudioPlayer;
+  let player = Stellarsonic.audioPlayer();
+  let playlist: MixPlaylist;
   let currentTrack: number = 0;
-  let isPlaying: boolean = false;
   
   function update() {
-    currentTrack = player.getCurrentTrack();
-    isPlaying = player.isPlaying(currentTrack);
+    currentTrack = playlist.currentTrack;
   }
 
   post.subscribe(p => {
     if (p.audio) {
-      player = MixAudioPlayer.getInstance(p.audio);
-      player.setTracks(p.tracks);
+      playlist = Stellarsonic.mixPlaylist(p.audio, p.tracks);
       setInterval(update, 100);
     }
   });
 </script>
 
 <ul class="columns-1 lg:columns-2">
-  {#if player}
+  {#if playlist}
   {#each $post.tracks as track, index}
     <li class="py-4 text-sm flex">
-      {#if (index === currentTrack) && isPlaying}
+      {#if (index === currentTrack) && !player.isPaused}
         <button class="mt-2 px-2 opacity-30" on:click={() => player.pause()}>
           <span class="material-symbols-outlined">pause</span>
         </button>
       {:else}
-        <button class="mt-2 px-2 opacity-30" on:click={() => player.play(index) }>
+        <button class="mt-2 px-2 opacity-30" on:click={() => playlist.play(index) }>
           <span class="material-symbols-outlined">play_arrow</span>
         </button>
       {/if}
