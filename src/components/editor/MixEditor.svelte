@@ -73,7 +73,8 @@
   </SubPanel>
 
   <SubPanel show={selected === 'Tags'} title="Tags" onBack={() => {selected = undefined}}>
-    <TagsForm bind:post={$post} />
+    <TagsForm bind:post={$post} title="GENRES" key="genres" />
+    <TagsForm bind:post={$post} title="TAGS" key="tags" />
   </SubPanel>
 
   <SubPanel show={selected === 'Style'} title="Style" onBack={() => {selected = undefined}}>

@@ -13,6 +13,11 @@
   let showCreate = false;
   let confirmDelete: string | undefined = undefined;
 
+  function showConfirmDelete(slug: string) {
+    confirmDelete = slug;
+    console.log(confirmDelete);
+  }
+
   function onCreate() {
     showCreate = true
   }
@@ -48,10 +53,13 @@
 
     <ul class="py-8">
       {#each slugs as slug}
-        <li class="px-4 py-4 w-full border-b border-[#00000020] flex justify-between">
+        <li class="px-4 py-2 w-full flex justify-between">
           <a class="text-stone-700" 
-            href="/mixes/{slug}"><span class="material-symbols-outlined">edit_note</span> {slug}</a>
-          <button on:click={() => {confirmDelete = slug}} class="text-stone-700">
+            href="/mixes/{slug}">
+            <span class="inline-block mr-4 material-symbols-outlined">edit_note</span>
+            <span class="inline-block">{slug}</span>
+          </a>
+          <button on:click={() => showConfirmDelete(slug)} class="text-stone-700">
             <span class="material-symbols-outlined">delete</span>
           </button>
         </li>

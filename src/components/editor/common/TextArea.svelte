@@ -7,5 +7,5 @@
 
 <div class="py-4">
   <label for={id} class="text-xs">{label}</label>
-  <textarea id={id} class="w-full bg-[#ffffff60] p-4" rows={rows} bind:value={value} />
+  <textarea id={id} class="w-full bg-[#00000010] p-4 rounded-md" rows={rows} bind:value={value} />
 </div>
