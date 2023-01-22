@@ -14,10 +14,10 @@
   import StyleForm from './forms/StyleForm.svelte';
   import TagsForm from './forms/TagsForm.svelte';
   import PostForm from './forms/PostForm.svelte';
-  import { hours, minutes, seconds } from '@lib/utils';
   import { MixPlaylist } from '@lib/media/MixPlaylist';
   import { Stellarsonic } from '@lib/media/Stellarsonic';
   import TrackList from './forms/TrackList.svelte';
+  import Timestamp from './common/Timestamp.svelte';
 
   export let slug: string;
   export let assets: string[];
@@ -42,17 +42,6 @@
 
   let timerID: any;
 
-  function onBeginDown(amount: number) {
-    timerID = setTimeout(() => {
-      timerID = setInterval(() => onUpdateBegin(amount), 100);
-    }, 400);
-  }
-  function onEndDown(amount: number) {
-    timerID = setTimeout(() => {
-      timerID = setInterval(() => onUpdateEnd(amount), 100);
-    }, 400);
-  }
-
   function onSelectTrack(track: number) {
     selectedTrack = track;
   }
@@ -72,10 +61,6 @@
     {label: 'Mixes', href: '/mixes'},
     {label: slug},
   ]
-
-  function pad(value: number) {
-    return value < 10 ? '0' + value : value;
-  }
 </script>
 
 <div on:mouseup={() => clearInterval(timerID) }>
@@ -124,50 +109,15 @@
         </button>
 
         <div class="grid grid-cols-2 gap-4">
-          <div class="p-10 bg-[#00000030] rounded-md mt-10 relative">
-            {#if selectedTrack > 0}
-            <div class="absolute right-4 text-amber-600">
-              <button on:mousedown={() => onBeginDown(-1)} on:click={() => onUpdateBegin(-1)}>
-                <span class="material-symbols-outlined">first_page</span>
-              </button>
-              <button on:mousedown={() => onBeginDown(1)} on:click={() => onUpdateBegin(1)}>
-                <span class="material-symbols-outlined">last_page</span>
-              </button>
-            </div>
-            {/if}
-            <h3>From</h3>
-            <div class="flex gap-2 text-6xl">
-              <span>{pad(hours(playlist.trackBegin(selectedTrack)))}</span>
-              <span>:</span>
-              <span>{pad(minutes(playlist.trackBegin(selectedTrack)))}</span>
-              <span>:</span>
-              <span>{pad(seconds(playlist.trackBegin(selectedTrack)))}</span>
-            </div>
-          </div>
-          <div class="p-10 bg-[#00000030] rounded-md mt-10 relative">
-            <div class="absolute right-4 text-amber-600">
-              <button on:mousedown={() => onEndDown(-1)} on:click={() => onUpdateEnd(-1)}>
-                <span class="material-symbols-outlined">first_page</span>
-              </button>
-              <button on:mousedown={() => onEndDown(1)} on:click={() => onUpdateEnd(1)}>
-                <span class="material-symbols-outlined">last_page</span>
-              </button>
-            </div>
-            <h3>To</h3>
-            <div class="flex gap-2 text-6xl">
-              <span>{pad(hours(playlist.trackEnd(selectedTrack)))}</span>
-              <span>:</span>
-              <span>{pad(minutes(playlist.trackEnd(selectedTrack)))}</span>
-              <span>:</span>
-              <span>{pad(seconds(playlist.trackEnd(selectedTrack)))}</span>
-            </div>
-          </div>
+          <Timestamp label="From" time={playlist.trackBegin(selectedTrack)} onUpdate={onUpdateBegin} bind:timerId={timerID} editable={selectedTrack > 0}/>
+          <Timestamp label="To" time={playlist.trackEnd(selectedTrack)} onUpdate={onUpdateEnd} bind:timerId={timerID} />
         </div>
-          <div class="mt-8">
-            <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
-            <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
-            <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
-          </div>
+
+        <div class="mt-8">
+          <TextInput id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
+          <TextInput id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
+          <NumberInput id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
+        </div>
       </div>
     </div>
   {/if}
