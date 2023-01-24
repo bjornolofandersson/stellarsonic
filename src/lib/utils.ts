@@ -1,5 +1,5 @@
 import { toSeconds, parse } from 'iso8601-duration';
-import { MusicMix, MusicMixTrack } from './interfaces';
+import { MusicMixPost, MusicMixTrack } from './interfaces';
 
 export function totalDuration(tracks: MusicMixTrack[]) {
   let duration = 0;
@@ -9,7 +9,7 @@ export function totalDuration(tracks: MusicMixTrack[]) {
   return duration;
 }
 
-export function uniqueGenres(posts: MusicMix[]) {
+export function uniqueGenres(posts: MusicMixPost[]) {
   const genres: string[] = [];
   for (let post of posts) {
     genres.push(...post.genres);

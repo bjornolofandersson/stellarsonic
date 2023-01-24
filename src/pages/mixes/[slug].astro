@@ -4,13 +4,13 @@ import Page from '@layouts/Page.astro'
 import ClientPostLoader from '@components/ClientPostLoader.svelte';
 import MixEditor from '@components/editor/MixEditor.svelte';
 import Schema from '@components/MusicPlaylistSchema.astro'
-import { post } from '@lib/MixStore';
 import * as settings from '@settings';
 import MenuBar from '@theme/components/MenuBar.svelte';
 import Tracks from '@theme/components/playlist/Tracks.svelte';
 import Controls from '@theme/components/playlist/Controls.svelte';
 import MusicPlaylist from '@theme/layouts/MusicPlaylist.svelte';
 import { PostController } from '@lib/PostController';
+import { Stellarsonic } from '@lib/media/Stellarsonic';
 
 export async function getStaticPaths() {
   const docs = await getCollection('mixes')
@@ -28,7 +28,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 const col = new PostController('mixes');
 
-post.set(entry.data as any);
+Stellarsonic.cachePost('mixes', entry.slug, entry.data);
 ---
 
 <Page>
@@ -37,11 +37,11 @@ post.set(entry.data as any);
     <title>{entry.data.title}</title>
   </Fragment>
 
-  <ClientPostLoader collection="mixes" slug={entry.slug} client:only/>
+  <!--<ClientPostLoader collection="mixes" slug={entry.slug} client:only/>-->
 
   {isDev ?
     <MixEditor slug={entry.slug} assets={col.getAssetPaths(entry.slug)} client:only>
-      <MusicPlaylist client:load>
+      <MusicPlaylist slug={entry.slug} client:load>
         <Tracks slot="tracks" client:only />
         <Controls slot="controls" client:only />
         <MenuBar settings={settings} slot="menu" />
@@ -52,7 +52,7 @@ post.set(entry.data as any);
       </MusicPlaylist>
     </MixEditor>
   :
-    <MusicPlaylist>
+    <MusicPlaylist slug={entry.slug}>
       <Tracks slot="tracks" client:only />
       <Controls slot="controls" client:only />
       <MenuBar settings={settings} slot="menu" />

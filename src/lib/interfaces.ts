@@ -1,4 +1,4 @@
-export interface Article {
+export interface Post {
   title: string;
 
   subtitle?: string;
@@ -30,7 +30,7 @@ export interface MusicTrack extends MusicMixTrack {
   audio: string;
 }
 
-export interface MusicMix extends Article {
+export interface MusicMixPost extends Post {
   audio: string;
 
   tracks: MusicTrack[];

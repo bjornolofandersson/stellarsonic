@@ -1,6 +1,10 @@
 <script lang="ts">
-  import { post } from '@lib/MixStore';
+  import { Stellarsonic } from '@lib/media/Stellarsonic';
   import Post from './Post.svelte';
+
+  export let slug: string;
+
+  let post = Stellarsonic.readablePost('mixes', slug);
 </script>
 
 <Post image={$post.image} colorPrimary={$post.colors[0]}>

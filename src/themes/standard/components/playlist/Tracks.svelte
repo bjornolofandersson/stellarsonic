@@ -3,28 +3,26 @@
   import { Stellarsonic } from '@lib/media/Stellarsonic';
   import { post } from '@lib/MixStore';
 
-  let player = Stellarsonic.audioPlayer();
+  export let slug: string;
+
   let playlist: MixPlaylist;
   let currentTrack: number = 0;
-  
-  function update() {
-    currentTrack = playlist.currentTrack;
-  }
 
-  post.subscribe(async p => {
-    if (p.audio) {
-      playlist = await Stellarsonic.mixPlaylist(p);
-      setInterval(update, 100);
-    }
+  const post = Stellarsonic.readablePost('mixes', slug);
+  /*
+  Stellarsonic.watchCurrentMixPlaylist(p => {
+    playlist = p;
+    currentTrack = playlist.currentTrack;
   });
+  */
 </script>
 
 <ul class="columns-1 lg:columns-2">
   {#if playlist}
-  {#each $post.tracks as track, index}
+  {#each playlist.tracks as track, index}
     <li class="py-4 text-sm flex">
-      {#if (index === currentTrack) && !player.isPaused}
-        <button class="mt-2 px-2 opacity-30" on:click={() => player.pause()}>
+      {#if (index === currentTrack) && !playlist.player.isPaused}
+        <button class="mt-2 px-2 opacity-30" on:click={() => playlist.player.pause()}>
           <span class="material-symbols-outlined">pause</span>
         </button>
       {:else}

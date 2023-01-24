@@ -1,10 +1,10 @@
 ---
-import type { MusicMix } from "@lib/interfaces";
+import type { MusicMixPost } from "@lib/interfaces";
 import site from "@settings";
 
-export interface Props extends MusicMix {};
+export interface Props extends MusicMixPost {};
 
-const { title, subtitle, description, image, date, tracks, genres, tags } = Astro.props as MusicMix;
+const { title, subtitle, description, image, date, tracks, genres, tags } = Astro.props as MusicMixPost;
 
 const ldData = {
   "@context": "https://schema.org",

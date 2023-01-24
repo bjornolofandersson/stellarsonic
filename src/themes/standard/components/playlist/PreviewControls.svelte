@@ -6,12 +6,10 @@
   export let slug: string;
   let playlist: MixPlaylist;
 
-  Stellarsonic
-    .mixPlaylist(slug)
-    .then(p => {
-      playlist = p;
-      setInterval(update, 100);
-    });
+  Stellarsonic.mixPlaylist(slug).then(p => {
+    playlist = p;
+    setInterval(update, 100);
+  });
 
   let track: any = {};
 
@@ -20,7 +18,7 @@
   }
 </script>
 
-{#if playlist}
+{#if playlist && playlist.audio && playlist.tracks.length > 0}
 <div class="w-full">
   <div class="flex justify-between">
     <button class="mt-2 text-slate-600 dark:text-slate-200" on:click={() => playlist.skipPrev()}>

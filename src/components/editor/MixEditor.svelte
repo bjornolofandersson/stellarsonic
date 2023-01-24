@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { post } from '@lib/MixStore';
+  //import { post } from '@lib/MixStore';
   import { savePost } from '@lib/editor';
   import { MixPlaylist } from '@lib/media/MixPlaylist';
   import { Stellarsonic } from '@lib/media/Stellarsonic';
@@ -23,6 +23,8 @@
 
   let selectedTrack = 0;
   let playlist: MixPlaylist;
+
+  let post = Stellarsonic.writablePost('mixes', slug);
 
   post.subscribe(async p => {
     if (p.audio) {
