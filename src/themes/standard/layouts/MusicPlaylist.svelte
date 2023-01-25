@@ -1,10 +1,13 @@
 <script lang="ts">
-  import { Stellarsonic } from '@lib/media/Stellarsonic';
+  import { MixStore } from '@lib/media/Stellarsonic';
+  import Controls from '@theme/components/playlist/Controls.svelte';
+  import Tracks from '@theme/components/playlist/Tracks.svelte';
   import Post from './Post.svelte';
 
   export let slug: string;
+  export let data: any;
 
-  let post = Stellarsonic.readablePost('mixes', slug);
+  let {post, playlist} = MixStore.instance(slug, data);
 </script>
 
 <Post image={$post.image} colorPrimary={$post.colors[0]}>
@@ -21,10 +24,10 @@
   </section>
   <section slot="header-right">
     <div class="md:-mt-40">
-      <slot name="controls"/>
+      <Controls playlist={playlist} bind:post={post}/>
     </div>
     <div class="mt-8 md:mt-20">
-      <slot name="tracks"/>
+      <Tracks playlist={playlist} bind:post={post} />
     </div>
   </section>
 </Post>

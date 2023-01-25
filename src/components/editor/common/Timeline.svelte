@@ -1,6 +1,5 @@
 <script lang="ts">
   import { MixPlaylist } from "@lib/media/MixPlaylist";
-  import { post } from '@lib/MixStore';
 
   export let playlist: MixPlaylist;
   export let onSelect: (track: number) => void;

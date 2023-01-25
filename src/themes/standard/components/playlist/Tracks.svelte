@@ -1,24 +1,19 @@
 <script lang="ts">
   import { MixPlaylist } from '@lib/media/MixPlaylist';
-  import { Stellarsonic } from '@lib/media/Stellarsonic';
-  import { post } from '@lib/MixStore';
 
-  export let slug: string;
+  export let playlist: MixPlaylist;
+  export let post: any;
 
-  let playlist: MixPlaylist;
   let currentTrack: number = 0;
 
-  const post = Stellarsonic.readablePost('mixes', slug);
-  /*
-  Stellarsonic.watchCurrentMixPlaylist(p => {
-    playlist = p;
+  function update() {
     currentTrack = playlist.currentTrack;
-  });
-  */
+  }
+
+  setInterval(update, 100);
 </script>
 
 <ul class="columns-1 lg:columns-2">
-  {#if playlist}
   {#each playlist.tracks as track, index}
     <li class="py-4 text-sm flex">
       {#if (index === currentTrack) && !playlist.player.isPaused}
@@ -36,5 +31,4 @@
       </div>
     </li>
   {/each}
-  {/if}
 </ul>

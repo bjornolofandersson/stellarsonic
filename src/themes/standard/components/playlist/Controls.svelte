@@ -1,22 +1,22 @@
 <script lang="ts">
   import { formatTime } from "@lib/utils";
-  import { post } from '@lib/MixStore';
-  import { Stellarsonic } from "@lib/media/Stellarsonic";
   import { MixPlaylist } from "@lib/media/MixPlaylist";
   import ControlButton from "../ControlButton.svelte";
   import ProgressBar from "@components/common/ProgressBar.svelte";
 
+  export let playlist: MixPlaylist;
+  export let post: any;
+
   let progress = 0;
   let duration = 0;
   let isPlaying = false;
-  let playlist: MixPlaylist;
 
-  Stellarsonic.watchCurrentMixPlaylist(p => {
-    playlist = p;
+  function update() {
     progress = playlist.currentTrackProgress;
     duration = playlist.currentTrackDuration;
     isPlaying = !playlist.player.isPaused;
-  });
+  }
+  setInterval(update, 100);
 
   function onSeek(seek: number) {
     playlist.skipTrackTo(seek * playlist.currentTrackDuration);

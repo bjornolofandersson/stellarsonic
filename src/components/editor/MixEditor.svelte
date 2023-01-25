@@ -1,8 +1,5 @@
 <script lang="ts">
-  //import { post } from '@lib/MixStore';
-  import { savePost } from '@lib/editor';
-  import { MixPlaylist } from '@lib/media/MixPlaylist';
-  import { Stellarsonic } from '@lib/media/Stellarsonic';
+  import { MixStore, Stellarsonic } from '@lib/media/Stellarsonic';
   import Editor from './common/Editor.svelte';
   import SubPanel from './common/SubPanel.svelte';
   import TextInput from './common/TextInput.svelte';
@@ -19,18 +16,12 @@
   import PlaylistForm from './forms/PlaylistForm.svelte';
 
   export let slug: string;
+  export let data: any;
   export let assets: string[];
 
   let selectedTrack = 0;
-  let playlist: MixPlaylist;
 
-  let post = Stellarsonic.writablePost('mixes', slug);
-
-  post.subscribe(async p => {
-    if (p.audio) {
-      playlist = await Stellarsonic.mixPlaylist(p);
-    }
-  });
+  let {post, playlist, save} = MixStore.instance(slug, data);
 
   function onSelectTrack(track: number) {
     selectedTrack = track;
@@ -53,7 +44,7 @@
   ]
 </script>
 
-<Editor bind:pageTitle={$post.title} onSave={() => savePost('mixes', slug, $post)} showPreview={selected !== 'Tracks'}>
+<Editor bind:pageTitle={$post.title} onSave={save} showPreview={selected !== 'Tracks'}>
   <Breadcrumbs trail={breadcrumbs} />
 
   <MainPanel show={selected === undefined}>
@@ -95,4 +86,3 @@
 
   <div slot="preview"><slot/></div>
 </Editor>
-

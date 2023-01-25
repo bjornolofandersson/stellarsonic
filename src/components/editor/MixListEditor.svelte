@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { post } from '@lib/MixStore';
   import Editor from './common/Editor.svelte';
   import SubPanel from './common/SubPanel.svelte';
   import TextInput from './common/TextInput.svelte';
   import MainPanel from './common/MainPanel.svelte';
   import Button from './common/Button.svelte';
   import Breadcrumbs from './common/Breadcrumbs.svelte';
+  import { writable } from 'svelte/store';
 
   export let slugs: string[];
   export let pageTitle: string;
 
   let showCreate = false;
   let confirmDelete: string | undefined = undefined;
+  let post = writable({title: ''});
 
   function showConfirmDelete(slug: string) {
     confirmDelete = slug;
-    console.log(confirmDelete);
   }
 
   function onCreate() {
