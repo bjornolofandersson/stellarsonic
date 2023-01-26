@@ -1,11 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import Index from '@theme/layouts/index.astro';
+import Index from '@theme/layouts/index.svelte';
 import Page from '@layouts/Page.astro';
 import HomeEditor from '@components/editor/HomeEditor.svelte';
 import * as settings from '@settings';
 import SiteHero from '@theme/components/SiteHero.svelte';
 import SettingsLoader from '@components/SettingsLoader.svelte';
+import MusicPlaylistPreview from '@theme/components/playlist/Preview.svelte';
+import Featured from '@theme/components/playlist/Featured.svelte';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {
@@ -13,6 +15,7 @@ const sortedPosts = posts.sort((a, b) => {
   return 1;
 });
 const isDev = import.meta.env.MODE === 'development';
+const [featured, ...rest] = sortedPosts;
 ---
 
 <Page>
@@ -24,12 +27,18 @@ const isDev = import.meta.env.MODE === 'development';
 
   {isDev ?
     <HomeEditor settings={settings} client:only>
-      <Index posts={sortedPosts}>
+      <Index>
         <SiteHero slot="header" client:load/>
+        <Featured slot="featured" data={featured.data} slug={featured.slug}/>
+        <Fragment slot="mixes">
+          {rest.slice(0, 3).map(({data, slug}: any) =>
+            <MusicPlaylistPreview data={data} slug={slug} client:visible />
+          )}
+        </Fragment>
       </Index>
     </HomeEditor>
   :
-    <Index posts={sortedPosts}>
+    <Index>
       <SiteHero slot="header"/>
     </Index>
   }

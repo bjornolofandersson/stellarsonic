@@ -2,52 +2,29 @@
 import { getCollection } from 'astro:content';
 import { uniqueGenres } from '@lib/utils';
 import * as site from '@settings';
-import MixListEditor from '@components/editor/MixListEditor.svelte';
-import SettingsLoader from '@components/SettingsLoader.svelte';
-import Page from '@layouts/Page.astro'
 import Mixes from '@theme/layouts/Mixes.svelte';
 import Preview from '@theme/components/playlist/Preview.svelte';
 import SiteHero from '@theme/components/SiteHero.svelte';
 import { blogCollectionPaths } from '@lib/server';
+import Archive from '@layouts/Archive.astro';
 
 export const getStaticPaths = blogCollectionPaths('mixes', site.blog.pageSize);
 
-const isDev = import.meta.env.MODE === 'development';
 const { page } = Astro.props;
 
 const posts = await getCollection('mixes');
 const genres = uniqueGenres(posts.map(({ data }) => data) as any);
 
-const pageTitle = `Mixtapes | ${site.title}`
 const {data, ...pageInfo} = page;
 ---
 
-<Page>
-  <Fragment slot="head-bottom">
-    <title>{pageTitle}</title>
-  </Fragment>
-
-  <SettingsLoader settings={site} client:load/>
-
-  {isDev ?
-    <MixListEditor pageTitle={pageTitle} slugs={posts.map(p => p.slug)} client:only>
-      <Mixes page={pageInfo} genres={genres}>
-        <SiteHero slot="header"/>
-        <Fragment slot="posts">
-          {page.data.map(({data, slug}: any) =>
-            <Preview data={data} slug={slug} client:visible />
-          )}
-        </Fragment>
-      </Mixes>
-    </MixListEditor>
-  :
-    <Mixes page={pageInfo} genres={genres}>
-      <SiteHero slot="header"/>
-      <Fragment slot="posts">
-        {page.data.map(({data, slug}: any) =>
-          <Preview data={data} slug={slug} client:visible />
-        )}
-      </Fragment>
-    </Mixes>
-  }
-</Page>
+<Archive collection="mixes" posts={posts}>
+  <Mixes page={pageInfo} genres={genres}>
+    <SiteHero slot="header"/>
+    <Fragment slot="posts">
+      {page.data.map(({data, slug}: any) =>
+        <Preview data={data} slug={slug} client:visible />
+      )}
+    </Fragment>
+  </Mixes>
+</Archive>

@@ -1,0 +1,32 @@
+---
+import { CollectionEntry } from 'astro:content';
+import Page from '@layouts/Page.astro'
+import MixEditor from '@components/editor/MixEditor.svelte';
+import Schema from '@components/MusicPlaylistSchema.astro'
+import { PostController } from '@lib/PostController';
+
+interface Props {
+  collection: string;
+
+  entry: CollectionEntry<any>;
+}
+
+const isDev = import.meta.env.MODE === 'development';
+const { entry, collection } = Astro.props;
+const col = new PostController(collection);
+---
+
+<Page>
+  <Fragment slot="head-bottom">
+    <Schema {...entry.data as any} />
+    <title>{entry.data.title}</title>
+  </Fragment>
+
+  {isDev && collection === 'mixes' ?
+    <MixEditor slug={entry.slug} data={entry.data} assets={col.getAssetPaths(entry.slug)} client:only>
+      <slot/>
+    </MixEditor>
+  :
+    <slot/>
+  }
+</Page>

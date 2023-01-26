@@ -1,13 +1,9 @@
 ---
 import { CollectionEntry, getCollection } from 'astro:content';
-import Page from '@layouts/Page.astro'
-import MixEditor from '@components/editor/MixEditor.svelte';
-import Schema from '@components/MusicPlaylistSchema.astro'
 import * as settings from '@settings';
 import MenuBar from '@theme/components/MenuBar.svelte';
 import MusicPlaylist from '@theme/layouts/MusicPlaylist.svelte';
-import { PostController } from '@lib/PostController';
-import { Stellarsonic } from '@lib/media/Stellarsonic';
+import Post from '@layouts/Post.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('mixes')
@@ -20,35 +16,16 @@ interface Props {
   entry: CollectionEntry<'mixes'>;
 }
 
-const isDev = import.meta.env.MODE === 'development';
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const col = new PostController('mixes');
 ---
 
-<Page>
-  <Fragment slot="head-bottom">
-    <Schema {...entry.data as any} />
-    <title>{entry.data.title}</title>
-  </Fragment>
+<Post entry={entry} collection="mixes">
+  <MusicPlaylist slug={entry.slug} data={entry.data} client:load>
+    <MenuBar settings={settings} slot="menu" />
 
-  {isDev ?
-    <MixEditor slug={entry.slug} data={entry.data} assets={col.getAssetPaths(entry.slug)} client:only>
-      <MusicPlaylist slug={entry.slug} data={entry.data} client:load>
-        <MenuBar settings={settings} slot="menu" />
-
-        <Fragment slot="article">
-          <Content/>
-        </Fragment>
-      </MusicPlaylist>
-    </MixEditor>
-  :
-    <MusicPlaylist slug={entry.slug} data={entry.data} client:load>
-      <MenuBar settings={settings} slot="menu" />
-
-      <Fragment slot="article">
-        <Content/>
-      </Fragment>
-    </MusicPlaylist>
-  }
-</Page>
+    <Fragment slot="article">
+      <Content/>
+    </Fragment>
+  </MusicPlaylist>
+</Post>
