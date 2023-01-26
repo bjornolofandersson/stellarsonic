@@ -1,16 +1,7 @@
 <script lang="ts">
   import { MixPlaylist } from "@lib/media/MixPlaylist";
-  import { Stellarsonic } from "@lib/media/Stellarsonic";
 
-  export let slug: string;
-  let playlist: MixPlaylist;
-
-  Stellarsonic
-    .mixPlaylist(slug)
-    .then(p => {
-      playlist = p;
-      setInterval(update, 100);
-    });
+  export let playlist: MixPlaylist;
 
   let isPlaying = false;
 

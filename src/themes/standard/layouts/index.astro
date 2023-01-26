@@ -1,6 +1,6 @@
 ---
 import Featured from '@theme/layouts/PostFeatured.astro';
-import MusicPlaylistPreview from '@theme/components/playlist/Preview.astro';
+import MusicPlaylistPreview from '@theme/components/playlist/Preview.svelte';
 
 export interface Props {
   posts: any[];
@@ -26,7 +26,7 @@ const {posts : [featured, ...rest]} = Astro.props;
 
     <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
       {rest.slice(0, 3).map(({data, slug}: any) =>
-        <MusicPlaylistPreview post={data} slug={slug} />
+        <MusicPlaylistPreview data={data} slug={slug} />
       )}
     </div>
   </section>

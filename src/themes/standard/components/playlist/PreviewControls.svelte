@@ -1,21 +1,15 @@
 <script lang="ts">
   import { MixPlaylist } from "@lib/media/MixPlaylist";
-  import { Stellarsonic } from "@lib/media/Stellarsonic";
   import ProgressBar from "./PreviewProgressBar.svelte";
 
-  export let slug: string;
-  let playlist: MixPlaylist;
-
-  Stellarsonic.mixPlaylist(slug).then(p => {
-    playlist = p;
-    setInterval(update, 100);
-  });
+  export let playlist: MixPlaylist;
 
   let track: any = {};
 
   function update() {
     track = playlist.currentTrackData;
   }
+  setInterval(update, 100);
 </script>
 
 {#if playlist && playlist.audio && playlist.tracks.length > 0}

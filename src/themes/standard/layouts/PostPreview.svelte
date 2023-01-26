@@ -1,14 +1,10 @@
----
-export interface Props {
-  image: string;
+<script lang="ts">
+  export let image: string;
+  export let url: string;
+  export let date: string;
+  export let categories: string[];
 
-  url: string;
-
-  date: string;
-
-  categories: string[];
-}
-const { image, url, date, categories } = Astro.props;
+</script>
 ---
 
 <div class="w-full overflow-hidden odd:bg-light-base-variant dark:odd:bg-dark-base-variant">
@@ -16,7 +12,9 @@ const { image, url, date, categories } = Astro.props;
     <div class="text-right px-20">
       <time class="text-sm p-2 text-slate-600 dark:text-white" style="border-bottom: 1px solid #00000012">{date}</time>
       <ul class="flex justify-end">
-        {categories.map((cat: any) => <li class="px-1 py-2 mt-2 text-xs text-accent">{cat}</li>)}
+        {#each categories as cat}
+          <li class="px-1 py-2 mt-2 text-xs text-accent">{cat}</li>
+        {/each}
       </ul>
     </div>
     <div class="w-full px-20 md:pl-0 lg:px-0">
