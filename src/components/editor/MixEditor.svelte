@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MixStore, Stellarsonic } from '@lib/media/Stellarsonic';
+  import { MixStore } from '@lib/media/Stellarsonic';
   import Editor from './common/Editor.svelte';
   import SubPanel from './common/SubPanel.svelte';
   import TextInput from './common/TextInput.svelte';

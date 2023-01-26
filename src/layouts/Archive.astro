@@ -1,6 +1,6 @@
 ---
 import * as site from '@settings';
-import MixListEditor from '@components/editor/MixListEditor.svelte';
+import ArchiveEditor from '@components/editor/ArchiveEditor.svelte';
 import SettingsLoader from '@components/SettingsLoader.svelte';
 import Page from '@layouts/Page.astro'
 
@@ -23,10 +23,10 @@ const pageTitle = `Mixtapes | ${site.title}`
 
   <SettingsLoader settings={site} client:load/>
 
-  {isDev && collection === 'mixes' ?
-    <MixListEditor pageTitle={pageTitle} slugs={posts.map(p => p.slug)} client:only>
+  {isDev ?
+    <ArchiveEditor collection={collection} pageTitle={pageTitle} slugs={posts.map(p => p.slug)} client:only>
       <slot/>
-    </MixListEditor>
+    </ArchiveEditor>
   :
     <slot/>
   }

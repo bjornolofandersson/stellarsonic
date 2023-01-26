@@ -7,6 +7,7 @@
   import Breadcrumbs from './common/Breadcrumbs.svelte';
   import { writable } from 'svelte/store';
 
+  export let collection: string;
   export let slugs: string[];
   export let pageTitle: string;
 
@@ -23,7 +24,7 @@
   }
 
   function onSavePost() {
-    fetch('/mixes.json', {
+    fetch(`/${collection}.json`, {
       method: 'POST',
       body: JSON.stringify($post),
     });
@@ -33,7 +34,7 @@
   }
   
   async function onDeletePost() {
-    await fetch(`/mixes/${confirmDelete}.json`, {
+    await fetch(`/${collection}/${confirmDelete}.json`, {
       method: 'DELETE',
     });
     confirmDelete = undefined;
@@ -41,7 +42,7 @@
 
   const breadcrumbs = [
     {label: 'Home', href: '/'},
-    {label: 'Mixes'},
+    {label: collection},
   ]
 </script>
 
@@ -49,7 +50,7 @@
   <Breadcrumbs trail={breadcrumbs} />
 
   <MainPanel show={!showCreate}>
-    <Button label="Create mix" icon="add" onClick={onCreate}/>
+    <Button label="Create post" icon="add" onClick={onCreate}/>
 
     <ul class="py-8">
       {#each slugs as slug}
@@ -67,7 +68,7 @@
     </ul>
   </MainPanel>
 
-  <SubPanel show={showCreate} title="New mix" onBack={() => {showCreate = false}}>
+  <SubPanel show={showCreate} title="New post" onBack={() => {showCreate = false}}>
     <TextInput id="title" label="Title" bind:value={$post.title} />
     <button class="mt-4 p-4 border border-stone-400" on:click={onSavePost}>Create</button>
   </SubPanel>
