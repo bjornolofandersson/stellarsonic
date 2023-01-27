@@ -3,11 +3,6 @@
 
   export let post: any;
   export let context: {selectedTrack: number};
-  /*
-  export let selected: number = 0;
-  export let onSelect: (track: number) => void;
-  export let onAdd: () => void;
-  */
 </script>
 
 <Button label="Add" icon="add" onClick={() => {}} />

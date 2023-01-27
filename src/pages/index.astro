@@ -6,8 +6,8 @@ import HomeEditor from '@components/editor/HomeEditor.svelte';
 import * as settings from '@settings';
 import SiteHero from '@theme/components/SiteHero.svelte';
 import SettingsLoader from '@components/SettingsLoader.svelte';
-import MusicPlaylistPreview from '@theme/components/playlist/Preview.svelte';
-import Featured from '@theme/components/playlist/Featured.svelte';
+import PostPreview from '@theme/components/PostPreview.svelte';
+import PostFeatured from '@theme/components/PostFeatured.svelte';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {
@@ -29,10 +29,10 @@ const [featured, ...rest] = sortedPosts;
     <HomeEditor settings={settings} client:only>
       <Index>
         <SiteHero slot="header" client:load/>
-        <Featured slot="featured" data={featured.data} slug={featured.slug}/>
+        <PostFeatured slot="featured" collection={featured.collection} post={featured.data} slug={featured.slug}/>
         <Fragment slot="mixes">
           {rest.slice(0, 3).map(({data, slug}: any) =>
-            <MusicPlaylistPreview data={data} slug={slug} client:visible />
+            <PostPreview collection="mixes" post={data} slug={slug}/>
           )}
         </Fragment>
       </Index>
