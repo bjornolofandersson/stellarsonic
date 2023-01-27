@@ -1,7 +1,7 @@
 ---
 import { CollectionEntry } from 'astro:content';
 import Page from '@layouts/Page.astro'
-import MixEditor from '@components/editor/MixEditor.svelte';
+import PostEditor from '@components/editor/PostEditor.svelte';
 import Schema from '@components/Schema.astro'
 import { PostController } from '@lib/PostController';
 
@@ -22,10 +22,10 @@ const col = new PostController(collection);
     <title>{entry.data.title}</title>
   </Fragment>
 
-  {isDev && collection === 'mixes' ?
-    <MixEditor slug={entry.slug} data={entry.data} assets={col.getAssetPaths(entry.slug)} client:only>
+  {isDev ?
+    <PostEditor collection={collection} slug={entry.slug} data={entry.data} assets={col.getAssetPaths(entry.slug)} client:only>
       <slot/>
-    </MixEditor>
+    </PostEditor>
   :
     <slot/>
   }
