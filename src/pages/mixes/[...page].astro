@@ -1,12 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import { uniqueGenres } from '@lib/utils';
-import * as site from '@settings';
-import Mixes from '@theme/layouts/Mixes.svelte';
-import PostPreview from '@theme/components/PostPreview.svelte';
-import SiteHero from '@theme/components/SiteHero.svelte';
 import { blogCollectionPaths } from '@lib/server';
-import Archive from '@layouts/Archive.astro';
+import ArchiveContainer from '@layouts/Archive.astro';
+import * as site from '@settings';
+import Archive from '@theme/Archive.svelte';
+import PostPreview from '@theme/PostPreview.svelte';
+import SiteHero from '@theme/SiteHero.svelte';
 
 export const getStaticPaths = blogCollectionPaths('mixes', site.blog.pageSize);
 
@@ -18,13 +18,13 @@ const genres = uniqueGenres(posts.map(({ data }) => data) as any);
 const {data, ...pageInfo} = page;
 ---
 
-<Archive collection="mixes" posts={posts}>
-  <Mixes page={pageInfo} genres={genres}>
+<ArchiveContainer collection="mixes" posts={posts}>
+  <Archive page={pageInfo} genres={genres}>
     <SiteHero slot="header"/>
     <Fragment slot="posts">
       {page.data.map(({data, slug}: any) =>
         <PostPreview collection="mixes" post={data} slug={slug} />
       )}
     </Fragment>
-  </Mixes>
-</Archive>
+  </Archive>
+</ArchiveContainer>

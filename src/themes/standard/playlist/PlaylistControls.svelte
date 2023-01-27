@@ -1,7 +1,7 @@
 <script lang="ts">
   import { formatTime } from "@lib/utils";
   import { MixPlaylist } from "@lib/media/MixPlaylist";
-  import ControlButton from "../ControlButton.svelte";
+  import ControlButton from "../common/ControlButton.svelte";
   import ProgressBar from "@components/common/ProgressBar.svelte";
 
   export let playlist: MixPlaylist;

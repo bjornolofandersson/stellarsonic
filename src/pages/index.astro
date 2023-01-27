@@ -1,13 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import Index from '@theme/layouts/index.svelte';
 import Page from '@layouts/Page.astro';
 import HomeEditor from '@components/editor/HomeEditor.svelte';
 import * as settings from '@settings';
-import SiteHero from '@theme/components/SiteHero.svelte';
+import Index from '@theme/index.svelte';
+import SiteHero from '@theme/SiteHero.svelte';
 import SettingsLoader from '@components/SettingsLoader.svelte';
-import PostPreview from '@theme/components/PostPreview.svelte';
-import PostFeatured from '@theme/components/PostFeatured.svelte';
+import PostPreview from '@theme/PostPreview.svelte';
+import PostFeatured from '@theme/PostFeatured.svelte';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {

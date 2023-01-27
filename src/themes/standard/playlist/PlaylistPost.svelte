@@ -1,8 +1,8 @@
 <script lang="ts">
   import { MixStore } from '@lib/media/Stellarsonic';
-  import Controls from '@theme/components/playlist/Controls.svelte';
-  import Tracks from '@theme/components/playlist/Tracks.svelte';
-  import Post from './Post.svelte';
+  import Controls from '@theme/playlist/PlaylistControls.svelte';
+  import Tracks from '@theme/playlist/PlaylistTracks.svelte';
+  import Post from '../common/Post.svelte';
 
   export let slug: string;
   export let data: any;

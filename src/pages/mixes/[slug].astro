@@ -1,9 +1,9 @@
 ---
 import { CollectionEntry, getCollection } from 'astro:content';
 import * as settings from '@settings';
-import MenuBar from '@theme/components/MenuBar.svelte';
-import MusicPlaylist from '@theme/layouts/MusicPlaylist.svelte';
-import Post from '@layouts/Post.astro';
+import MenuBar from '@theme/MenuBar.svelte';
+import PlaylistPost from '@theme/playlist/PlaylistPost.svelte';
+import PostContainer from '@layouts/Post.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('mixes')
@@ -20,12 +20,12 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Post entry={entry} collection="mixes">
-  <MusicPlaylist slug={entry.slug} data={entry.data} client:load>
+<PostContainer entry={entry} collection="mixes">
+  <PlaylistPost slug={entry.slug} data={entry.data} client:load>
     <MenuBar settings={settings} slot="menu" />
 
     <Fragment slot="article">
       <Content/>
     </Fragment>
-  </MusicPlaylist>
-</Post>
+  </PlaylistPost>
+</PostContainer>
