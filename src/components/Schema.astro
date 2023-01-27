@@ -1,0 +1,18 @@
+---
+import { musicMixSchema } from "@lib/seo";
+
+export interface Props {
+  collection: any,
+
+  post: any,
+};
+
+const { post, collection } = Astro.props;
+let ldData = {};
+
+switch (collection) {
+  case 'mixes': ldData = musicMixSchema(post); break;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(ldData)} is:inline></script>

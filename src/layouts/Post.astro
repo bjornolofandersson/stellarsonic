@@ -2,7 +2,7 @@
 import { CollectionEntry } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import MixEditor from '@components/editor/MixEditor.svelte';
-import Schema from '@components/MusicPlaylistSchema.astro'
+import Schema from '@components/Schema.astro'
 import { PostController } from '@lib/PostController';
 
 interface Props {
@@ -18,7 +18,7 @@ const col = new PostController(collection);
 
 <Page>
   <Fragment slot="head-bottom">
-    <Schema {...entry.data as any} />
+    <Schema post={entry.data} collection={entry.collection} />
     <title>{entry.data.title}</title>
   </Fragment>
 
