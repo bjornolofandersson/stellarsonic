@@ -3,6 +3,7 @@
   import TextInput from '../common/TextInput.svelte';
 
   export let post: any;
+  export let context: any;
 </script>
 
 <TextInput id="title" label="Title" bind:value={post.title} />

@@ -2,17 +2,20 @@
   import Button from "../common/Button.svelte";
 
   export let post: any;
+  export let context: {selectedTrack: number};
+  /*
   export let selected: number = 0;
   export let onSelect: (track: number) => void;
   export let onAdd: () => void;
+  */
 </script>
 
-<Button label="Add" icon="add" onClick={onAdd} />
+<Button label="Add" icon="add" onClick={() => {}} />
 
 <ul class="mt-8 h-[600px] overflow-y-auto -mr-8 -ml-8 p-8">
   {#each post.tracks as track, i}
-    <li class="px-4 rounded-md {selected === i ? 'bg-[#ffffff60]' : 'hover:bg-[#ffffff40]'}">
-      <button on:click={() => onSelect(i)} class="w-full py-3 text-left flex">
+    <li class="px-4 rounded-md {context.selectedTrack === i ? 'bg-[#ffffff60]' : 'hover:bg-[#ffffff40]'}">
+      <button on:click={() => {context.selectedTrack = i}} class="w-full py-3 text-left flex">
         <span class="inline-block p-2 w-10 mr-4 bg-stone-700 rounded text-stone-100 text-center">{i + 1}</span>
         <span class="inline-block">{track.name}</span>
       </button>

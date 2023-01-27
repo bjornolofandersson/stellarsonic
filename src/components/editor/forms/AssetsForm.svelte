@@ -2,13 +2,13 @@
   import TextInput from '../common/TextInput.svelte';
 
   export let post: any;
-  export let assets: string[];
+  export let context: {assets: string[]};
 
   function selectImage(url: string) {
     post.image = url;
   }
 
-  let images = assets.filter(file => ['jpg', 'png'].includes(file.split('.').pop() as string));
+  let images = context.assets.filter(file => ['jpg', 'png'].includes(file.split('.').pop() as string));
 </script>
 
 <div class="bg-stone-200 shadow-md rounded-md p-4 mt-8">
