@@ -1,20 +1,18 @@
 ---
-import { getModule } from '@modules/index';
+import { getModuleStaticPaths } from '@modules/index';
+import { SitePage } from '@modules/interfaces';
 import * as site from '@settings';
 
-export interface Page {
-  path: string;
-  title: string;
-  type: string;
-}
 
 export async function getStaticPaths() {
-  return site.pages.map(({ path, title, type, ...props }: Page) => {
-    return {
-      params: { path },
-      props: { title, Module: getModule(type), props },
-    };
-  });
+  const pages = site.pages as SitePage[];
+  let paths: any[] = [];
+
+  for (const page of pages) {
+    paths = paths.concat(await getModuleStaticPaths(page));
+  }
+
+  return paths;
 }
 
 interface Props {

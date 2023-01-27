@@ -18,9 +18,7 @@
 
   <div class="container mx-auto">
     <section class="pb-20 pt-12">
-      {#if page.lastPage !== 1}
-        <Paginator page={page} path="/mixes" />
-      {/if}
+      <slot name="paginator"/>
     </section>
 
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">

@@ -7,12 +7,4 @@ pages:
     type: gallery
     collection: mixes
     limit: 4
-
-
-navigation:
-  - name: Mixtapes
-    path: /mixes
-  - name: About
-    path: /about
-blog:
-  pageSize: 5
+    pagination: true

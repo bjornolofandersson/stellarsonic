@@ -8,8 +8,8 @@
   </div>
   <div class="grow"></div>
   <ul class="flex text-xs font-bold justify-right font-primary">
-    {#each settings.navigation as nav}
-      <li><a href={nav.path} class="mr-4 hover:border-b-2 border-black dark:border-white">{nav.name}</a></li>
+    {#each settings.pages as page}
+      <li><a href="/{page.path}" class="mr-4 hover:border-b-2 border-black dark:border-white">{page.title}</a></li>
     {/each}
   </ul>
 </div>

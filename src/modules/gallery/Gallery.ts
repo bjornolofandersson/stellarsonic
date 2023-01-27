@@ -4,4 +4,6 @@ export interface Gallery {
   collection: string;
 
   limit: number;
+
+  pagination: boolean;
 }
