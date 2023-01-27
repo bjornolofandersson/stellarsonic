@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Archive from '@theme/Archive.svelte';
+import PostPreview from '@theme/PostPreview.svelte';
+import SiteHero from '@theme/SiteHero.svelte';
+import { Gallery } from './Gallery';
+import GalleryContainer from './GalleryContainer.astro';
+
+interface Props extends Gallery {}
+
+const config = Astro.props;
+const { title, collection, limit } = config;
+
+//export const getStaticPaths = blogCollectionPaths(collection, site.blog.pageSize);
+
+//const { page } = Astro.props;
+
+const entries = await getCollection(collection as any);
+//const genres = uniqueGenres(posts.map(({ data }) => data) as any);
+
+//const {data, ...pageInfo} = page;
+const items = entries.slice(0, limit)
+---
+
+<GalleryContainer {...config}>
+  <Archive page={{}} genres={[]}>
+    <SiteHero slot="header"/>
+    <Fragment slot="posts">
+      {items.map(({data, slug}: any) =>
+        <PostPreview collection="mixes" post={data} slug={slug} />
+      )}
+    </Fragment>
+  </Archive>
+</GalleryContainer>

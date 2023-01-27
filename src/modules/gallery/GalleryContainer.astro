@@ -1,0 +1,25 @@
+---
+import Page from '@layouts/Page.astro'
+import GalleryEditor from './GalleryEditor.svelte';
+import { Gallery } from './Gallery';
+
+interface Props extends Gallery {}
+
+const config = Astro.props;
+
+const isDev = import.meta.env.MODE === 'development';
+---
+
+<Page>
+  <Fragment slot="head-bottom">
+    <title>{config.title}</title>
+  </Fragment>
+
+  {isDev ?
+    <GalleryEditor {...config} client:only>
+      <slot/>
+    </GalleryEditor>
+  :
+    <slot/>
+  }
+</Page>

@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
 
-  export let show: boolean = false;
+  export let show: boolean = true;
 </script>
 
 

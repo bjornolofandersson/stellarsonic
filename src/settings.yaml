@@ -1,6 +1,14 @@
 title: Stellarsonic
 description: A record blog
 url: https://stellarsonic.netlify.app
+pages:
+  - path: mixtapes
+    title: Mixtapes
+    type: gallery
+    collection: mixes
+    limit: 4
+
+
 navigation:
   - name: Mixtapes
     path: /mixes

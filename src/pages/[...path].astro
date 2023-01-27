@@ -1,0 +1,31 @@
+---
+import { getModule } from '@modules/index';
+import * as site from '@settings';
+
+export interface Page {
+  path: string;
+  title: string;
+  type: string;
+}
+
+export async function getStaticPaths() {
+  return site.pages.map(({ path, title, type, ...props }: Page) => {
+    return {
+      params: { path },
+      props: { title, Module: getModule(type), props },
+    };
+  });
+}
+
+interface Props {
+  Module: any;
+
+  title: string;
+
+  props: any;
+}
+
+const { title, Module, props } = Astro.props;
+---
+
+<Module title={title} {...props} />
