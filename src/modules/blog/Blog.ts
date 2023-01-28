@@ -47,7 +47,7 @@ export async function getBlogStaticPaths({path, title, collection, limit, pagina
   function getPath(page: number) {
     return {
       params: { path: page > 0 ? `${path}/${page + 1}` : path },
-      props: { title, Module: BlogPage, props: {path, limit, pagination, page: getPage(page)} },
+      props: { title, Module: BlogPage, props: {path, collection, limit, pagination, page: getPage(page)} },
     }
   }
 

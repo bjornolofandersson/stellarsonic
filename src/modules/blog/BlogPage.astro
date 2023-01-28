@@ -14,9 +14,12 @@ interface Props extends Blog {
 
 const config = Astro.props;
 const { collection, pagination, page, path } = config;
+
+const posts = await getCollection(collection as any);
+console.log(collection);
 ---
 
-<BlogContainer {...config}>
+<BlogContainer {...config} posts={posts}>
   <Archive page={{}} genres={[]}>
     <SiteHero slot="header"/>
 
