@@ -13,14 +13,14 @@ interface Props extends Gallery {
 }
 
 const config = Astro.props;
-const { collection, pagination, page } = config;
+const { collection, pagination, page, path } = config;
 ---
 
 <GalleryContainer {...config}>
   <Archive page={{}} genres={[]}>
     <SiteHero slot="header"/>
 
-    {pagination && <Paginator slot="paginator" page={page} path="/mixtapes"/>}
+    {pagination && <Paginator slot="paginator" page={page} path={path}/>}
 
     <Fragment slot="posts">
       {page.data.map(({data, slug}: any) =>

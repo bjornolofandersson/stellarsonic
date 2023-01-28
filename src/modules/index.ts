@@ -12,7 +12,7 @@ export function getModuleStaticPaths(page: SitePage) {
   }
 }
 
-export async function getGalleryStaticPaths({path, title, type, collection, limit, pagination}: Gallery & SitePage) {
+export async function getGalleryStaticPaths({path, title, collection, limit, pagination}: Gallery & SitePage) {
   const entries = await getCollection(collection as any);
   const sortedEntries = entries.sort((a, b) => {
     //return b.data.date.localeCompare(a.data.date);
@@ -43,7 +43,7 @@ export async function getGalleryStaticPaths({path, title, type, collection, limi
   function getPath(page: number) {
     return {
       params: { path: page > 0 ? `${path}/${page + 1}` : path },
-      props: { title, Module: GalleryPage, props: {limit, pagination, page: getPage(page)} },
+      props: { title, Module: GalleryPage, props: {path, limit, pagination, page: getPage(page)} },
     }
   }
 

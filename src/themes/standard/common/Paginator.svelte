@@ -12,7 +12,7 @@
 <ul class="flex justify-center">
   {#each pageRange as k}
     <li class={`text-md m-2 text-center ${isCurrentPage(k) ? 'bg-light-accent text-white' : ''}`} style="border: 1px solid #00000030">
-      <a class="block py-4 w-12" href={`${path}/${k === 1 ? "" : k}`}>{k}</a>
+      <a class="block py-4 w-12" href={`/${path}/${k === 1 ? "" : k}`}>{k}</a>
     </li>
   {/each}
 </ul>
