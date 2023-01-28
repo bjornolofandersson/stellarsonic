@@ -5,14 +5,15 @@
   export let context: {selectedTrack: number};
 </script>
 
-<Button label="Add" icon="add" onClick={() => {}} />
-
-<ul class="mt-8 h-[600px] overflow-y-auto -mr-8 -ml-8 p-8">
+<ul class="h-[550px] overflow-y-auto -mr-8 -ml-8 py-8">
   {#each post.tracks as track, i}
-    <li class="px-4 rounded-md {context.selectedTrack === i ? 'bg-[#ffffff60]' : 'hover:bg-[#ffffff40]'}">
+    <li class="px-8 {context.selectedTrack === i ? 'bg-[#ffffff60]' : 'hover:bg-[#ffffff40]'}">
       <button on:click={() => {context.selectedTrack = i}} class="w-full py-3 text-left flex">
         <span class="inline-block p-2 w-10 mr-4 bg-stone-700 rounded text-stone-100 text-center">{i + 1}</span>
-        <span class="inline-block">{track.name}</span>
+        <div>
+          <span class="block text-sm">{track.name}</span>
+          <span class="block text-xs opacity-50">{track.artist}</span>
+        </div>
       </button>
     </li>
   {/each}

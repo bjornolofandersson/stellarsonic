@@ -13,7 +13,7 @@
 
   import {createPostEditor} from './factory';
 
-  let {editor, layout} = createPostEditor(collection, slug, data, assets);
+  let {editor, layout, views} = createPostEditor(collection, slug, data, assets);
   const post = editor.post;
 
   let selected: any = undefined;
@@ -28,25 +28,43 @@
 <Editor 
   bind:pageTitle={$post.title}
   onSave={() => editor.save()}
-  showPreview={layout.find(i => i.name === selected && i.view !== undefined) === undefined}
+  showPreview={selected === undefined}
 >
-  <Breadcrumbs trail={breadcrumbs} />
+  <!--<Breadcrumbs trail={breadcrumbs} />-->
 
   <MainPanel show={selected === undefined}>
-    <PostForm>
-      <Menu items={layout} onSelect={item => {selected = item}}/>
-    </PostForm>
+    <div class="flex">
+      <button class="text-stone-400 hover:text-stone-700" on:click={() => {}}>
+        <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
+      </button>
+    </div>
+
+    <div class="flex justify-between text-xl">
+      <h2 class="mt-8 text-lg font-[500]">{$post.title.toUpperCase()}</h2>
+      <div class="flex">
+        <button on:click={() => {}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
+          <span class="material-symbols-outlined">tune</span>
+        </button>
+        {#each views as view}
+          <button on:click={() => {selected = view.name}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
+            <span class="material-symbols-outlined">{view.icon}</span>
+          </button>
+        {/each}
+      </div>
+    </div>
+
+    <Menu bind:post={$post} bind:context={editor} items={layout} onSelect={item => {selected = item}}/>
   </MainPanel>
 
-  {#each layout as item}
+  {#each views as item}
     {#if item.panel}
       <SubPanel show={selected === item.name} title={item.name} onBack={() => {selected = undefined}}>
         <svelte:component this={item.panel} bind:post={$post} bind:context={editor} />
       </SubPanel>
     {/if}
-    {#if item.view && selected === item.name}
+    {#if item.component && selected === item.name}
       <div class="fixed top-0 right-0 bottom-0 left-[512px] bg-stone-800">
-        <svelte:component this={item.view} bind:post={$post} bind:context={editor} />
+        <svelte:component this={item.component} bind:post={$post} bind:context={editor} />
       </div>
     {/if}
   {/each}

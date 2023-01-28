@@ -9,11 +9,17 @@
 
 {#if show}
   <div class="absolute w-full px-8 overflow-y-auto" style="height: calc(100vh - 150px)" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
-    <div class="flex justify-between">
+    <div class="flex">
       <button class="text-stone-400 hover:text-stone-700" on:click={onBack}>
         <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
       </button>
-      <h1 class="font-bold text-2xl">{title}</h1>
+    </div>
+
+    <div class="flex justify-between text-xl">
+      <h2 class="mt-8 text-lg font-[500]">{title.toUpperCase()}</h2>
+      <div class="flex">
+        <slot name="actions"/>
+      </div>
     </div>
     <slot/>
   </div>

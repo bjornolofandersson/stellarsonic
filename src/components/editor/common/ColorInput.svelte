@@ -5,6 +5,6 @@
 </script>
 
 <div class="py-4 flex">
-  <input id={id} class="w-12 h-12" type="color" bind:value={value}>
-  <label for={id} class="text-md py-3 px-4 w-full bg-stone-200">{label}</label>
+  <input id={id} class="w-12 h-12 border-0 p-0 m-0 bg-stone-300" type="color" style="border: none!important; appearance: none;" bind:value={value}>
+  <label for={id} class="text-md py-3 px-4 w-full bg-stone-300 rounded">{label}</label>
 </div>
