@@ -7,7 +7,7 @@
 
 
 {#if show}
-  <div class="absolute w-full px-8" transition:fly={{ x: -512, duration: 500, easing: quintOut }}>
+  <div class="absolute w-full h-screen px-8" transition:fly={{ x: -512, duration: 500, easing: quintOut }}>
     <slot/>
   </div>
 {/if}
