@@ -4,7 +4,7 @@ url: https://stellarsonic.netlify.app
 pages:
   - path: mixtapes
     title: Mixtapes
-    type: gallery
+    type: blog
     collection: mixes
     limit: 4
     pagination: true

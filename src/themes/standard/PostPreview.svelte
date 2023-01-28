@@ -1,6 +1,7 @@
 <script lang="ts">
   export let collection: string;
   export let slug: string;
+  export let url: string;
   export let post: any;
 
   const date = new Date(post.date).toDateString();
@@ -17,7 +18,7 @@
       </ul>
     </div>
     <div class="w-full px-20 md:pl-0 lg:px-0">
-      <a href="/{collection}/{slug}" class="block relative aspect-square shadow-lg">
+      <a href={url} class="block relative aspect-square shadow-lg">
         <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
       </a>
     </div>

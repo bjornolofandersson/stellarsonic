@@ -3,12 +3,12 @@ import { CollectionEntry, getCollection } from 'astro:content';
 import Archive from '@theme/Archive.svelte';
 import PostPreview from '@theme/PostPreview.svelte';
 import SiteHero from '@theme/SiteHero.svelte';
-import { Gallery } from './Gallery';
-import GalleryContainer from './GalleryContainer.astro';
+import { Blog } from './Blog';
+import BlogContainer from './BlogContainer.astro';
 import Paginator from '@theme/common/Paginator.svelte';
 import { Page } from 'astro';
 
-interface Props extends Gallery {
+interface Props extends Blog {
   page: Page;
 }
 
@@ -16,7 +16,7 @@ const config = Astro.props;
 const { collection, pagination, page, path } = config;
 ---
 
-<GalleryContainer {...config}>
+<BlogContainer {...config}>
   <Archive page={{}} genres={[]}>
     <SiteHero slot="header"/>
 
@@ -24,8 +24,8 @@ const { collection, pagination, page, path } = config;
 
     <Fragment slot="posts">
       {page.data.map(({data, slug}: any) =>
-        <PostPreview collection={collection} post={data} slug={slug} />
+        <PostPreview collection={collection} post={data} slug={slug} url={`/${path}/${slug}`} />
       )}
     </Fragment>
   </Archive>
-</GalleryContainer>
+</BlogContainer>

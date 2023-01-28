@@ -1,9 +1,9 @@
 ---
 import Page from '@layouts/Page.astro'
-import GalleryEditor from './GalleryEditor.svelte';
-import { Gallery } from './Gallery';
+import BlogEditor from './BlogEditor.svelte';
+import { Blog } from './Blog';
 
-interface Props extends Gallery {}
+interface Props extends Blog {}
 
 const config = Astro.props;
 
@@ -16,9 +16,9 @@ const isDev = import.meta.env.MODE === 'development';
   </Fragment>
 
   {isDev ?
-    <GalleryEditor {...config} client:only>
+    <BlogEditor {...config} client:only>
       <slot/>
-    </GalleryEditor>
+    </BlogEditor>
   :
     <slot/>
   }

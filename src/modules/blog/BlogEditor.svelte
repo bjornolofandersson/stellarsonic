@@ -9,7 +9,7 @@
 
 <Editor pageTitle={title} onSave={() => {}}>
   <MainPanel>
-    Gallery editor
+    Blog editor
 
     <TextInput label="Page title" bind:value={title}></TextInput>
   </MainPanel>
