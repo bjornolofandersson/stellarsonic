@@ -1,12 +1,6 @@
 <script lang="ts">
-  export let id: string;
-  export let label: string | undefined;
   export let value: string | undefined;
 </script>
 
-<div class="py-4">
-  {#if label}
-    <label for={id} class="text-xs">{label}</label>
-  {/if}
-  <input id={id} class="w-full rounded-md bg-[#00000010] p-3 text-stone-600 dark:text-[#ffffffa0]" type="text" bind:value={value}>
-</div>
+<input class="mb-4 w-full p-4 pb-2 bg-transparent border-b border-[#00000020] placeholder-stone-400 rounded focus:outline-none focus:border-stone-700 focus:text-stone-700"
+   bind:value={value} {...$$restProps}>

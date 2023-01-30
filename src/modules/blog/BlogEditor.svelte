@@ -1,5 +1,7 @@
 <script lang="ts">
   import Editor from '@components/editor/common/Editor.svelte';
+    import LinkListItem from '@components/editor/common/LinkListItem.svelte';
+    import List from '@components/editor/common/List.svelte';
   import MainPanel from '@components/editor/common/MainPanel.svelte';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
@@ -23,7 +25,7 @@
 <Editor pageTitle={title} onSave={() => {}}>
   <MainPanel>
     <div class="h-full flex flex-col flex-auto">
-      <div class="flex">
+      <div class="flex mt-8">
         <button class="text-stone-400 hover:text-stone-700" on:click={() => {}}>
           <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
         </button>
@@ -61,60 +63,18 @@
       <input type="search" class="w-full p-4 mt-4 bg-transparent border-b border-stone-400 focus:border-stone-700 focus:text-stone-700 focus:outline-none placeholder-stone-400"
         placeholder="Search posts" aria-label="Search" bind:value={search}>
       
-      <ul class="p-8 overflow-y-auto -ml-8 -mr-8">
+      <List>
         {#each filteredPosts as post}
-          <li class="px-4 py-2 w-full flex justify-between border-b border-[#00000010]">
-            <a class="text-stone-700" 
-              href="/{path}/{post.slug}">
-              <div class="flex">
-                <span class="inline-block mr-4 material-symbols-outlined">edit_note</span>
-                <div class="inline-block">
-                  <span class="block text-sm">{post.data.title}</span>
-                  <span class="block text-stone-500 text-xs">{new Date(post.data.date).toLocaleDateString()}</span>
-                </div>
-              </div>
-            </a>
-          </li>
+        <LinkListItem icon="edit_note" url="/{path}/{post.slug}">
+          <div class="inline-block">
+            <span class="block text-sm">{post.data.title}</span>
+            <span class="block text-stone-500 text-xs">{new Date(post.data.date).toLocaleDateString()}</span>
+          </div>
+        </LinkListItem>
         {/each}
-      </ul>
+      </List>
     </div>
   </MainPanel>
 
   <div slot="preview"><slot/></div>
 </Editor>
-
-<style>
-  ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-::-webkit-scrollbar-button {
-  width: 0px;
-  height: 0px;
-}
-::-webkit-scrollbar-thumb {
-  background: #e1e1e1;
-  border: 0px none #ffffff;
-  border-radius: 50px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #ffffff;
-}
-::-webkit-scrollbar-thumb:active {
-  background: #000000;
-}
-::-webkit-scrollbar-track {
-  background: #666666;
-  border: 0px none #ffffff;
-  border-radius: 50px;
-}
-::-webkit-scrollbar-track:hover {
-  background: #666666;
-}
-::-webkit-scrollbar-track:active {
-  background: #333333;
-}
-::-webkit-scrollbar-corner {
-  background: transparent;
-}
-</style>
