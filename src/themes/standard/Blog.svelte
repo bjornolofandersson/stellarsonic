@@ -1,8 +1,5 @@
 <script lang="ts">
-  import Paginator from '@theme/common/Paginator.svelte';
-
   export let genres: string[];
-  export let page: any;
 </script>
 
 <div class="bg-white">

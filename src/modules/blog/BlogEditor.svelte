@@ -1,7 +1,7 @@
 <script lang="ts">
   import Editor from '@components/editor/common/Editor.svelte';
-    import LinkListItem from '@components/editor/common/LinkListItem.svelte';
-    import List from '@components/editor/common/List.svelte';
+  import LinkListItem from '@components/editor/common/LinkListItem.svelte';
+  import List from '@components/editor/common/List.svelte';
   import MainPanel from '@components/editor/common/MainPanel.svelte';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
@@ -22,7 +22,7 @@
   let showAdd = false;
 </script>
 
-<Editor pageTitle={title} onSave={() => {}}>
+<Editor pageTitle={"Hello"} onSave={() => {}}>
   <MainPanel>
     <div class="h-full flex flex-col flex-auto">
       <div class="flex mt-8">

@@ -2,7 +2,7 @@ import { SitePage } from "@modules/interfaces";
 import { Page } from "astro";
 import { getCollection } from "astro:content";
 import BlogPage from './BlogPage.astro';
-import PlaylistPage from '../playlist/PlaylistPage.astro';
+import PlaylistPage from '../playlist/Playlist.astro';
 
 export interface Blog {
   title: string;
@@ -62,7 +62,11 @@ export async function getBlogStaticPaths({path, title, collection, limit, pagina
   for (let entry of entries) {
     paths.push({
       params: { path: `${path}/${entry.slug}`},
-      props: { title: entry.data.title, Module: PlaylistPage, props: {entry}}
+      props: {
+        title: entry.data.title,
+        Module: PlaylistPage,
+        props: {entry, collection: 'mixes'}
+      }
     });
   }
 

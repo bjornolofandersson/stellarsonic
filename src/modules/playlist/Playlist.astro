@@ -1,0 +1,39 @@
+---
+import { CollectionEntry } from 'astro:content';
+import Page from '@layouts/Page.astro'
+import Schema from '@components/Schema.astro'
+import { PostController } from '@lib/PostController';
+import PlaylistPost from '@theme/playlist/PlaylistPost.svelte';
+
+interface Props {
+  collection: string;
+
+  entry: CollectionEntry<any>;
+}
+
+const { entry, collection } = Astro.props;
+const { Content } = await entry.render();
+const col = new PostController(collection);
+
+const editorProps = {
+  collection,
+  slug: entry.slug,
+  data: entry.data,
+  assets: col.getAssetPaths(entry.slug),
+};
+---
+
+<Page editor="playlist" editorProps={editorProps}>
+  <Fragment slot="head-bottom">
+    <Schema post={entry.data} collection={entry.collection} />
+    <title>{entry.data.title}</title>
+  </Fragment>
+
+  <PlaylistPost slug={entry.slug} data={entry.data} client:load>
+    <!--<MenuBar settings={settings} slot="menu" />-->
+
+    <Fragment slot="article">
+      <Content/>
+    </Fragment>
+  </PlaylistPost>
+</Page>

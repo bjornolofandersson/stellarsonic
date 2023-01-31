@@ -1,28 +1,33 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content';
-import Archive from '@theme/Archive.svelte';
+import { getCollection } from 'astro:content';
+import Page from '@layouts/Page.astro'
+import BlogTheme from '@theme/Blog.svelte';
 import PostPreview from '@theme/PostPreview.svelte';
 import SiteHero from '@theme/SiteHero.svelte';
 import { Blog } from './Blog';
-import BlogContainer from './BlogContainer.astro';
 import Paginator from '@theme/common/Paginator.svelte';
-import { Page } from 'astro';
+import { Page as AstroPage } from 'astro';
 
 interface Props extends Blog {
-  page: Page;
+  page: AstroPage;
 }
 
 const config = Astro.props;
 const { collection, pagination, page, path } = config;
 
 const posts = await getCollection(collection as any);
-console.log(collection);
 ---
 
-<BlogContainer {...config} posts={posts}>
-  <Archive page={{}} genres={[]}>
+<Page editor="blog" editorProps={{...config, posts}}>
+  <Fragment slot="head-bottom">
+    <title>{config.title}</title>
+  </Fragment>
+
+  <BlogTheme genres={[]} client:load>
+  <!--
     <SiteHero slot="header"/>
 
+-->
     {pagination && <Paginator slot="paginator" page={page} path={path}/>}
 
     <Fragment slot="posts">
@@ -30,5 +35,5 @@ console.log(collection);
         <PostPreview collection={collection} post={data} slug={slug} url={`/${path}/${slug}`} />
       )}
     </Fragment>
-  </Archive>
-</BlogContainer>
+  </BlogTheme>
+</Page>

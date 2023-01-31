@@ -1,3 +1,11 @@
+---
+import EditorLoader from "@modules/EditorLoader.svelte";
+
+const isDev = import.meta.env.MODE === 'development';
+
+const {editor, editorProps} = Astro.props;
+---
+
 <!DOCTYPE html>
 <html lang="en" class="light">
 	<head>
@@ -15,6 +23,13 @@
     <slot name="head-bottom" />
 	</head>
 	<body class="bg-slate-100 dark:bg-dark-base">
+    {isDev ?
+      <EditorLoader module={editor} props={editorProps} client:only>
+        <slot/>
+      </EditorLoader>
+    :
+      <slot/>
+    }
 		<slot />
 	</body>
 </html>
