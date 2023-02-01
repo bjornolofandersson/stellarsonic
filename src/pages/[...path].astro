@@ -1,15 +1,18 @@
 ---
-import { getModuleStaticPaths } from '@modules/index';
-import { SitePage } from '@modules/interfaces';
+//import { getModuleStaticPaths } from '@modules/index';
+import { SitePage } from '@lib/interfaces';
 import * as site from '@settings';
 
-
 export async function getStaticPaths() {
+  const modules = import.meta.glob('../modules/*/*.server.ts', {eager: true});
+
   const pages = site.pages as SitePage[];
   let paths: any[] = [];
 
   for (const page of pages) {
-    paths = paths.concat(await getModuleStaticPaths(page));
+    const type = page.type;
+    const module = modules[`../modules/${type}/${type}.server.ts`] as any;
+    paths = paths.concat(await module.getStaticPaths(page));
   }
 
   return paths;

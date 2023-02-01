@@ -1,4 +1,5 @@
 ---
+import * as site from '@settings';
 import { CollectionEntry } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import Schema from '@components/Schema.astro'
@@ -8,7 +9,7 @@ import PlaylistPost from '@theme/playlist/PlaylistPost.svelte';
 interface Props {
   collection: string;
 
-  entry: CollectionEntry<any>;
+  entry: CollectionEntry<'mixes'>;
 }
 
 const { entry, collection } = Astro.props;
@@ -21,11 +22,40 @@ const editorProps = {
   data: entry.data,
   assets: col.getAssetPaths(entry.slug),
 };
+
+
+const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "MusicPlaylist",
+  headline: title,
+  alternativeHeadline: subtitle,
+  datePublished: `${date}`,
+  image: {
+    "@type": "ImageObject",
+    url: `${site.url}${image}`,
+  },
+  description: `${description}`,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `${site.url}/mixes/`,
+  },
+  track: tracks.map(({name, artist, year, duration}) => ({
+    "@type": "MusicRecording",
+    name,
+    byArtist: artist,
+    copyrightYear: year,
+    duration,
+  })),
+  genre: genres,
+  keywords: tags.join(', '),
+}
 ---
 
 <Page editor="playlist" editorProps={editorProps}>
   <Fragment slot="head-bottom">
-    <Schema post={entry.data} collection={entry.collection} />
+    <Schema data={schema}/>
     <title>{entry.data.title}</title>
   </Fragment>
 

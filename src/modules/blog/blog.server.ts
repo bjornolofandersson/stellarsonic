@@ -1,4 +1,4 @@
-import { SitePage } from "@modules/interfaces";
+import { SitePage } from "@lib/interfaces";
 import { Page } from "astro";
 import { getCollection } from "astro:content";
 import BlogPage from './BlogPage.astro';
@@ -16,7 +16,7 @@ export interface Blog {
   pagination: boolean;
 }
 
-export async function getBlogStaticPaths({path, title, collection, limit, pagination}: Blog & SitePage) {
+export async function getStaticPaths({path, title, collection, limit, pagination}: Blog & SitePage) {
   const entries = await getCollection(collection as any);
   const sortedEntries = entries.sort((a, b) => {
     //return b.data.date.localeCompare(a.data.date);

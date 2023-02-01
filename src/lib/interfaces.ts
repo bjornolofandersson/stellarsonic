@@ -67,3 +67,9 @@ export interface Playlist<T> {
   trackEnd(track: number): number;
   trackDuration(track: number): number;
 }
+
+export interface SitePage {
+  path: string;
+  title: string;
+  type: string;
+}

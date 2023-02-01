@@ -38,8 +38,12 @@ export class PostController<T extends {title: string} = {title: string}> {
   }
 
   public getAssetPaths(slug: string) {
-    return fs.readdirSync(`public/assets/${this.collection}/${slug}`)
-      .map(file => `/assets/${this.collection}/${slug}/${file}`);
+    try {
+      return fs.readdirSync(`public/assets/${this.collection}/${slug}`)
+        .map(file => `/assets/${this.collection}/${slug}/${file}`);
+    } catch (err) {
+      return [];
+    }
   }
 
   private slugToPath(slug: string) {
