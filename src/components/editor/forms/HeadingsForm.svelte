@@ -2,7 +2,6 @@
   import TextInput from "../common/TextInput.svelte";
 
   export let post: any;
-  export let context: any;
 </script>
 
 <label for="title" class="text-xs">H1</label>
