@@ -11,8 +11,7 @@
   export let data: any;
   export let assets: string[];
 
-  import {createPostEditor} from './factory';
-
+  /*
   let {editor, layout, views} = createPostEditor(collection, slug, data, assets);
   const post = editor.post;
 
@@ -23,14 +22,15 @@
     {label: editor.collection, href: `/${editor.collection}`},
     {label: editor.slug},
   ]
+  */
 </script>
 
+<!--
 <Editor 
   bind:pageTitle={$post.title}
   onSave={() => editor.save()}
   showPreview={selected === undefined}
 >
-  <!--<Breadcrumbs trail={breadcrumbs} />-->
 
   <MainPanel show={selected === undefined}>
     <div class="flex">
@@ -71,3 +71,4 @@
 
   <div slot="preview"><slot/></div>
 </Editor>
+-->

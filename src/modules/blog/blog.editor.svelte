@@ -22,7 +22,7 @@
   let showAdd = false;
 </script>
 
-<Editor pageTitle={"Hello"} onSave={() => {}}>
+<Editor pageTitle={title} onSave={() => {}}>
   <MainPanel>
     <div class="h-full flex flex-col flex-auto">
       <div class="flex mt-8">

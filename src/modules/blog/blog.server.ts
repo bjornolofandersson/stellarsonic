@@ -1,7 +1,7 @@
 import { SitePage } from "@lib/interfaces";
 import { Page } from "astro";
 import { getCollection } from "astro:content";
-import BlogPage from './BlogPage.astro';
+import BlogPage from './blog.astro';
 
 export interface BlogPost {
   path: string;

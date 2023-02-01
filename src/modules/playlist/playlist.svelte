@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MixStore } from '@lib/media/Stellarsonic';
+  import { MixStore } from './playlist';
   import Playlist from '@theme/playlist/PlaylistPost.svelte';
 
   export let slug: string;
