@@ -4,7 +4,8 @@ import { CollectionEntry } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import Schema from '@components/Schema.astro'
 import { PostController } from '@lib/PostController';
-import PlaylistPost from '@theme/playlist/PlaylistPost.svelte';
+//import PlaylistPost from '@theme/playlist/PlaylistPost.svelte';
+import Playlist from './playlist.svelte';
 
 interface Props {
   collection: string;
@@ -59,11 +60,18 @@ const schema = {
     <title>{entry.data.title}</title>
   </Fragment>
 
+  <Playlist slug={entry.slug} data={entry.data} client:load>
+    <Fragment slot="article">
+      <Content/>
+    </Fragment>
+  </Playlist>
+  <!--
   <PlaylistPost slug={entry.slug} data={entry.data} client:load>
-    <!--<MenuBar settings={settings} slot="menu" />-->
+    <MenuBar settings={settings} slot="menu" />
 
     <Fragment slot="article">
       <Content/>
     </Fragment>
   </PlaylistPost>
+-->
 </Page>

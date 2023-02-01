@@ -25,7 +25,7 @@
 
 <div class="w-full h-20 relative">
   {#if playlist}
-  <ProgressBar onSeek={onSeek} colorProgress={$post.colors[1]} progress={progress / duration} />
+  <ProgressBar onSeek={onSeek} colorProgress={post.colors[1]} progress={progress / duration} />
 
   <div class="absolute w-full flex justify-between bottom-0 -mb-6">
     <div class="text-xs opacity-30 dark:text-white">{formatTime(progress)}</div>

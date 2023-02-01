@@ -13,9 +13,9 @@ interface Props extends Blog {
 }
 
 const config = Astro.props;
-const { collection, pagination, page, path } = config;
+const { pagination, page, path } = config;
 
-const posts = await getCollection(collection as any);
+const posts = await getCollection(config.posts.collection as any);
 ---
 
 <Page editor="blog" editorProps={{...config, posts}}>
@@ -32,7 +32,7 @@ const posts = await getCollection(collection as any);
 
     <Fragment slot="posts">
       {page.data.map(({data, slug}: any) =>
-        <PostPreview collection={collection} post={data} slug={slug} url={`/${path}/${slug}`} />
+        <PostPreview collection={config.posts.collection} post={data} slug={slug} url={`/${path}/${slug}`} />
       )}
     </Fragment>
   </BlogTheme>
