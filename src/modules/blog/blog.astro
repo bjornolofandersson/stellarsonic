@@ -1,12 +1,13 @@
 ---
+import * as site from '@settings';
 import { getCollection } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import BlogTheme from '@theme/Blog.svelte';
 import PostPreview from '@theme/PostPreview.svelte';
-import SiteHero from '@theme/SiteHero.svelte';
 import { Blog } from './blog.server';
 import Paginator from '@theme/common/Paginator.svelte';
 import { Page as AstroPage } from 'astro';
+import MenuBar from '@theme/MenuBar.svelte';
 
 interface Props extends Blog {
   page: AstroPage;
@@ -24,10 +25,8 @@ const posts = await getCollection(config.posts.collection as any);
   </Fragment>
 
   <BlogTheme genres={[]} client:load>
-  <!--
-    <SiteHero slot="header"/>
+    <MenuBar slot="header" settings={site} />
 
--->
     {pagination && <Paginator slot="paginator" page={page} path={path}/>}
 
     <Fragment slot="posts">

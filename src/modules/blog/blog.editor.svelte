@@ -3,6 +3,7 @@
   import LinkListItem from '@components/editor/common/LinkListItem.svelte';
   import List from '@components/editor/common/List.svelte';
   import MainPanel from '@components/editor/common/MainPanel.svelte';
+  import Scrollable from '@components/editor/common/Scrollable.svelte';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
 
@@ -63,16 +64,18 @@
       <input type="search" class="w-full p-4 mt-4 bg-transparent border-b border-stone-400 focus:border-stone-700 focus:text-stone-700 focus:outline-none placeholder-stone-400"
         placeholder="Search posts" aria-label="Search" bind:value={search}>
       
-      <List>
-        {#each filteredPosts as post}
-        <LinkListItem icon="edit_note" url="/{path}/{post.slug}">
-          <div class="inline-block">
-            <span class="block text-sm">{post.data.title}</span>
-            <span class="block text-stone-500 text-xs">{new Date(post.data.date).toLocaleDateString()}</span>
-          </div>
-        </LinkListItem>
-        {/each}
-      </List>
+      <Scrollable>
+        <List>
+          {#each filteredPosts as post}
+          <LinkListItem icon="edit_note" url="/{path}/{post.slug}">
+            <div class="inline-block">
+              <span class="block text-sm">{post.data.title}</span>
+              <span class="block text-stone-500 text-xs">{new Date(post.data.date).toLocaleDateString()}</span>
+            </div>
+          </LinkListItem>
+          {/each}
+        </List>
+      </Scrollable>
     </div>
   </MainPanel>
 
