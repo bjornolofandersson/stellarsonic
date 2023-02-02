@@ -35,7 +35,7 @@
 </script>
 
 <Editor pageTitle={$settings.title} onSave={onSave}>
-  <MainPanel show={selected === undefined}>
+  <MainPanel>
     <div class="h-full flex flex-col flex-auto">
       <div class="flex mt-8">
         <button class="text-stone-400 hover:text-stone-700" on:click={() => {}}>
@@ -54,7 +54,7 @@
     </div>
   </MainPanel>
 
-  <SubPanel show={selected === 'Content'} title="Content" onBack={() => {selected = undefined}}>
+  <SubPanel name="content">
     {#each contentCollections as item}
     <div class="mb-4">
       <div class="border-b border-[#00000020] p-8">
@@ -68,7 +68,7 @@
     {/each}
   </SubPanel>
 
-  <SubPanel show={selected === 'Settings'} title="Settings" onBack={() => {selected = undefined}}>
+  <SubPanel name="settings">
     <h2>Site</h2>
     <TextInput id="name" label="Title" bind:value={$settings.title}/>
     <TextInput id="description" label="Description" bind:value={$settings.description}/>

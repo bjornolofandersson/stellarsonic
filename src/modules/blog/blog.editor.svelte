@@ -4,6 +4,7 @@
   import List from '@components/editor/common/List.svelte';
   import MainPanel from '@components/editor/common/MainPanel.svelte';
   import Scrollable from '@components/editor/common/Scrollable.svelte';
+    import SubPanel from '@components/editor/common/SubPanel.svelte';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
 
@@ -18,6 +19,7 @@
   let showAdd = false;
   let addDisabled = true;
   let postTitleInput: any;
+  let panel: string | undefined = undefined;
 
   $: {
     filteredPosts = posts.filter(p => p.data.title.toLowerCase().includes(search.toLowerCase()));
@@ -28,7 +30,7 @@
   }
 </script>
 
-<Editor pageTitle={title} onSave={() => {}}>
+<Editor pageTitle={title} onSave={() => {}} bind:panel={panel}>
   <MainPanel>
     <div class="h-full flex flex-col flex-auto">
       <div class="flex mt-8">
@@ -40,7 +42,7 @@
       <div class="flex justify-between text-xl">
         <h2 class="mt-8 text-lg font-[500]">{title.toUpperCase()}</h2>
         <div class="flex">
-          <button on:click={() => {}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
+          <button on:click={() => {panel = 'settings'}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
             <span class="material-symbols-outlined">tune</span>
           </button>
           <button on:click={() => {showAdd = !showAdd}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
@@ -84,6 +86,10 @@
       </Scrollable>
     </div>
   </MainPanel>
+
+  <SubPanel name="settings">
+
+  </SubPanel>
 
   <div slot="preview"><slot/></div>
 </Editor>
