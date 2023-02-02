@@ -13,7 +13,7 @@
         <div class="h-full w-[50%] bg-stone-100 p-8 flex flex-col">
           <div class="flex-grow">
             <div class="flex text-stone-400 mb-8">
-              <span class="material-symbols-outlined block mr-4 py-1">tune</span>
+              <span class="material-symbols-outlined block mr-4 py-1">settings</span>
               <h1 class="text-2xl">Settings</h1>
             </div>
             <ul class="text-stone-500 text-md text-right">

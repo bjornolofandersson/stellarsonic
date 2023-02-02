@@ -1,10 +1,12 @@
 <script lang="ts">
+  import Action from '@components/editor/common/Action.svelte';
   import Editor from '@components/editor/common/Editor.svelte';
   import LinkListItem from '@components/editor/common/LinkListItem.svelte';
   import List from '@components/editor/common/List.svelte';
   import MainPanel from '@components/editor/common/MainPanel.svelte';
   import Scrollable from '@components/editor/common/Scrollable.svelte';
   import SettingsModal from '@components/editor/common/SettingsModal.svelte';
+  import TitleBar from '@components/editor/common/TitleBar.svelte';
   import { SiteStore } from '@modules/site/site';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
@@ -51,17 +53,10 @@
         </button>
       </div>
 
-      <div class="flex justify-between text-xl">
-        <h2 class="mt-8 text-lg font-[500]">{title.toUpperCase()}</h2>
-        <div class="flex">
-          <button on:click={() => {showSettings = true}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
-            <span class="material-symbols-outlined">tune</span>
-          </button>
-          <button on:click={() => {showAdd = !showAdd}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
-            <span class="material-symbols-outlined">{showAdd ? 'expand_less' : 'add'}</span>
-          </button>
-        </div>
-      </div>
+      <TitleBar title={title}>
+        <Action icon="settings" onClick={() => {showSettings = true}}/>
+        <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
+      </TitleBar>
 
       {#if showAdd}
         <div class="mt-4 px-8 py-8 -ml-8 -mr-8 bg-[#00000007]"  transition:slide={{ duration: 200, easing: quintOut }}>
