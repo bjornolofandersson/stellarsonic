@@ -61,8 +61,6 @@ const schema = {
 
   <Playlist slug={entry.slug} data={entry.data} client:load>
     <MenuBar settings={site} slot="menu" />
-    <Fragment slot="article">
-      <Content/>
-    </Fragment>
+    <Content slot="article"/>
   </Playlist>
 </Page>

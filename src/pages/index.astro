@@ -14,7 +14,7 @@ const sortedPosts = posts.sort((a, b) => {
 const [featured, ...rest] = sortedPosts;
 ---
 
-<Page editor="site" editorProps={{settings}}>
+<Page editor="site" editorProps={{data: settings}}>
   <Fragment slot="head-bottom">
     <title>{settings.title}</title>
   </Fragment>

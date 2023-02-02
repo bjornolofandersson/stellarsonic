@@ -4,7 +4,8 @@
   import List from '@components/editor/common/List.svelte';
   import MainPanel from '@components/editor/common/MainPanel.svelte';
   import Scrollable from '@components/editor/common/Scrollable.svelte';
-    import SubPanel from '@components/editor/common/SubPanel.svelte';
+  import SettingsModal from '@components/editor/common/SettingsModal.svelte';
+  import { SiteStore } from '@modules/site/site';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
 
@@ -12,10 +13,16 @@
   export let title: string;
   export let posts: any[];
   export let path: string;
+  export let settings: any;
+
+  let store = SiteStore.instance(settings);
+  let {site} = store;
+  let blog = $site.pages.find((p: any) => p.path === path)
 
   let filteredPosts = posts;
   let search: string = '';
   let postTitle: string = '';
+  let showSettings: boolean = false;
   let showAdd = false;
   let addDisabled = true;
   let postTitleInput: any;
@@ -27,6 +34,11 @@
     if (showAdd && postTitleInput) {
       postTitleInput.focus();
     }
+  }
+
+  async function onSaveSettings() {
+    await store.save();
+    showSettings = false;
   }
 </script>
 
@@ -42,7 +54,7 @@
       <div class="flex justify-between text-xl">
         <h2 class="mt-8 text-lg font-[500]">{title.toUpperCase()}</h2>
         <div class="flex">
-          <button on:click={() => {panel = 'settings'}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
+          <button on:click={() => {showSettings = true}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
             <span class="material-symbols-outlined">tune</span>
           </button>
           <button on:click={() => {showAdd = !showAdd}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
@@ -87,9 +99,7 @@
     </div>
   </MainPanel>
 
-  <SubPanel name="settings">
-
-  </SubPanel>
+  <SettingsModal bind:show={showSettings} bind:settings={blog} onSave={onSaveSettings}/>
 
   <div slot="preview"><slot/></div>
 </Editor>
