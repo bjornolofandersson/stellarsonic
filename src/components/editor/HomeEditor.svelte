@@ -1,6 +1,6 @@
 <script lang="ts">
   import Editor from './common/Editor.svelte';
-  import Menu from './common/Menu.svelte';
+  //import Menu from './common/Menu.svelte';
   import MainPanel from './common/MainPanel.svelte';
   import SubPanel from './common/SubPanel.svelte';
   import TextInput from './common/TextInput.svelte';
@@ -40,7 +40,7 @@
 
 <Editor pageTitle={$settings.title} onSave={onSave}>
   <MainPanel show={selected === undefined}>
-    <Menu items={menuItems} onSelect={item => {selected = item}} />
+    <!--<Menu items={menuItems} onSelect={item => {selected = item}} />-->
   </MainPanel>
 
   <SubPanel show={selected === 'Content'} title="Content" onBack={() => {selected = undefined}}>
