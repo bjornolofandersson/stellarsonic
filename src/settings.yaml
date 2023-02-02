@@ -5,7 +5,7 @@ pages:
   - path: mixtapes
     title: Mixtapes
     type: blog
-    limit: 5
+    limit: 3
     pagination: true
     posts:
       path: mixtapes/{slug}
