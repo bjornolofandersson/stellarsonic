@@ -13,14 +13,19 @@
   export let path: string;
 
   let filteredPosts = posts;
-
-  $: {
-    filteredPosts = posts.filter(p => p.data.title.toLowerCase().includes(search.toLowerCase()));
-  }
-
   let search: string = '';
   let postTitle: string = '';
   let showAdd = false;
+  let addDisabled = true;
+  let postTitleInput: any;
+
+  $: {
+    filteredPosts = posts.filter(p => p.data.title.toLowerCase().includes(search.toLowerCase()));
+    addDisabled = postTitle === '';
+    if (showAdd && postTitleInput) {
+      postTitleInput.focus();
+    }
+  }
 </script>
 
 <Editor pageTitle={title} onSave={() => {}}>
@@ -53,8 +58,9 @@
             <h1 class="text-sm text-stone-700">New post</h1>
           </div>
           <div class="flex gap-8">
-            <input class="w-full p-4 bg-transparent border-b border-[#00000010] placeholder-stone-400 focus:outline-none" placeholder="Title" bind:value={postTitle}>
-            <button on:click={() => {}} class="text-stone-700 disabled:text-stone-400 px-4 bg-stone-300 rounded hover:bg-stone-200">
+            <input class="w-full p-4 bg-transparent border-b border-[#00000010] placeholder-stone-400 focus:outline-none"
+              placeholder="Title" bind:this={postTitleInput} bind:value={postTitle}>
+            <button on:click={() => {}} class="text-stone-700 disabled:text-stone-400 px-4 bg-stone-300 rounded enabled:hover:bg-stone-200" disabled={addDisabled}>
               <span class="material-symbols-outlined">add</span>
             </button>
           </div>
