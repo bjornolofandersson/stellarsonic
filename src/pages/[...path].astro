@@ -1,17 +1,25 @@
 ---
-import { SitePage } from '@lib/interfaces';
+import { ServerModule, SitePage } from '@lib/interfaces';
 import * as site from '@settings';
 
+
 export async function getStaticPaths() {
-  const modules = import.meta.glob('../modules/*/*.server.ts', {eager: true});
+  function getServerModules() {
+    const modules = import.meta.glob('../modules/*/*.server.ts', {eager: true, });
+    const result: Record<string, ServerModule> = {};
+    for (const path in modules) {
+      const name = path.substring(path.lastIndexOf('/') + 1).replace('.server.ts', '');
+      result[name] = modules[path] as ServerModule;
+    }
+    return result;
+  }
 
   const pages = site.pages as SitePage[];
   let paths: any[] = [];
 
   for (const page of pages) {
-    const type = page.type;
-    const module = modules[`../modules/${type}/${type}.server.ts`] as any;
-    paths = paths.concat(await module.getStaticPaths(page));
+    const modules = getServerModules();
+    paths = paths.concat(await modules[page.type].getStaticPaths(page));
   }
 
   return paths;

@@ -1,18 +1,14 @@
 <script lang="ts">
-  import Editor from './common/Editor.svelte';
+  import Editor from '@components/editor/common/Editor.svelte';
   //import Menu from './common/Menu.svelte';
-  import MainPanel from './common/MainPanel.svelte';
-  import SubPanel from './common/SubPanel.svelte';
-  import TextInput from './common/TextInput.svelte';
+  import MainPanel from '@components/editor/common/MainPanel.svelte';
+  import SubPanel from '@components/editor/common/SubPanel.svelte';
+  import TextInput from '@components/editor/common/TextInput.svelte';
   import { settings } from '@lib/SettingsStore';
 
   function onSave() {}
 
   let selected: any = undefined;
-  const menuItems = [
-    {name: 'Content', icon: 'article'},
-    {name: 'Settings', icon: 'settings'}, 
-  ];
   const contentCollections = [
     {
       name: 'Mixes',
@@ -40,7 +36,22 @@
 
 <Editor pageTitle={$settings.title} onSave={onSave}>
   <MainPanel show={selected === undefined}>
-    <!--<Menu items={menuItems} onSelect={item => {selected = item}} />-->
+    <div class="h-full flex flex-col flex-auto">
+      <div class="flex mt-8">
+        <button class="text-stone-400 hover:text-stone-700" on:click={() => {}}>
+          <span class="material-symbols-outlined text-4xl">keyboard_backspace</span>
+        </button>
+      </div>
+
+      <div class="flex justify-between text-xl">
+        <h2 class="mt-8 text-lg font-[500]">SITE</h2>
+        <div class="flex">
+          <button on:click={() => {}} class="text-stone-700 disabled:text-stone-400 -mb-8 mr-4">
+            <span class="material-symbols-outlined">tune</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </MainPanel>
 
   <SubPanel show={selected === 'Content'} title="Content" onBack={() => {selected = undefined}}>

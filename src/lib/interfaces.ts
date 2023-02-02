@@ -73,3 +73,7 @@ export interface SitePage {
   title: string;
   type: string;
 }
+
+export interface ServerModule {
+  getStaticPaths(config: any): any;
+}

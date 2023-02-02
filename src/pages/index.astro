@@ -1,45 +1,33 @@
 ---
 import { getCollection } from 'astro:content';
 import Page from '@layouts/Page.astro';
-import HomeEditor from '@components/editor/HomeEditor.svelte';
 import * as settings from '@settings';
 import Index from '@theme/index.svelte';
-import SiteHero from '@theme/SiteHero.svelte';
-import SettingsLoader from '@components/SettingsLoader.svelte';
-import PostPreview from '@theme/PostPreview.svelte';
 import PostFeatured from '@theme/PostFeatured.svelte';
+import MenuBar from '@theme/MenuBar.svelte';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {
   //return b.data.date.localeCompare(a.data.date);
   return 1;
 });
-const isDev = import.meta.env.MODE === 'development';
 const [featured, ...rest] = sortedPosts;
 ---
 
-<Page>
+<Page editor="site" editorProps={{settings}}>
   <Fragment slot="head-bottom">
     <title>{settings.title}</title>
   </Fragment>
 
-  <SettingsLoader settings={settings} client:load/>
-
-  {isDev ?
-    <HomeEditor settings={settings} client:only>
-      <Index>
-        <SiteHero slot="header" client:load/>
-        <PostFeatured slot="featured" collection={featured.collection} post={featured.data} slug={featured.slug}/>
-        <Fragment slot="mixes">
-          {rest.slice(0, 3).map(({data, slug}: any) =>
-            <PostPreview collection="mixes" post={data} slug={slug}/>
-          )}
-        </Fragment>
-      </Index>
-    </HomeEditor>
-  :
-    <Index>
-      <SiteHero slot="header"/>
+  <Index>
+    <MenuBar slot="header" settings={settings} client:load/>
+    <PostFeatured slot="featured" collection={featured.collection} post={featured.data} slug={featured.slug}/>
+    <!--
+    <Fragment slot="mixes">
+      {rest.slice(0, 3).map(({data, slug}: any) =>
+        <PostPreview collection="mixes" post={data} slug={slug}/>
+      )}
+    </Fragment>
+    -->
     </Index>
-  }
 </Page>
