@@ -5,10 +5,11 @@
   import LinkListItem from '@components/editor/common/LinkListItem.svelte';
   import List from '@components/editor/common/List.svelte';
   import MainPanel from '@components/editor/common/MainPanel.svelte';
-    import NumberInput from '@components/editor/common/NumberInput.svelte';
+  import NumberInput from '@components/editor/common/NumberInput.svelte';
   import Scrollable from '@components/editor/common/Scrollable.svelte';
   import SettingsModal from '@components/editor/common/SettingsModal.svelte';
-    import TextInput from '@components/editor/common/TextInput.svelte';
+  import SettingsPanel from '@components/editor/common/SettingsPanel.svelte';
+  import TextInput from '@components/editor/common/TextInput.svelte';
   import TitleBar from '@components/editor/common/TitleBar.svelte';
   import { SiteStore } from '@modules/site/site';
   import { quintOut } from 'svelte/easing';
@@ -92,16 +93,34 @@
   </MainPanel>
 
   <SettingsModal bind:show={showSettings} onSave={onSaveSettings}>
-    <ul class="mt-20">
-      <li>
-        <label for="title" class="text-xs opacity-50">Page title</label>
-        <TextInput id="title" bind:value={blog.title} />
-      </li>
-      <li>
-        <label for="limit" class="text-xs opacity-50">Posts per page</label>
-        <NumberInput id="limit" bind:value={blog.limit} />
-      </li>
-    </ul>
+    <SettingsPanel name="General">
+      <ul class="mt-8">
+        <li>
+          <label for="title" class="text-xs opacity-50">Page title</label>
+          <TextInput id="title" bind:value={blog.title} />
+        </li>
+        <li>
+          <label for="limit" class="text-xs opacity-50">Posts per page</label>
+          <NumberInput id="limit" bind:value={blog.limit} />
+        </li>
+      </ul>
+    </SettingsPanel>
+    <SettingsPanel name="Posts">
+      <ul class="mt-8">
+        <li>
+          <label for="path" class="text-xs opacity-50">Path</label>
+          <TextInput id="path" bind:value={blog.posts.path} />
+        </li>
+        <li>
+          <label for="module" class="text-xs opacity-50">Module</label>
+          <TextInput id="module" bind:value={blog.posts.type} />
+        </li>
+        <li>
+          <label for="collection" class="text-xs opacity-50">Collection</label>
+          <TextInput id="collection" bind:value={blog.posts.collection} />
+        </li>
+      </ul>
+    </SettingsPanel>
   </SettingsModal>
 
   <div slot="preview"><slot/></div>
