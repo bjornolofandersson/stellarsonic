@@ -1,3 +1,5 @@
+import { writable, Writable } from "svelte/store";
+
 export interface BlogPost<TPost> {
   slug: string;
 
@@ -33,4 +35,19 @@ export interface BlogPage<TPost = any> {
   currentPage: number;
   size: number;
   lastPage: number;
+}
+
+export class BlogStore {
+  private static _instance: BlogStore;
+
+  public constructor(
+    public readonly theme: Writable<any>,
+  ) {}
+
+  public static instance(data: any): BlogStore {
+    if (!this._instance) {
+      this._instance = new BlogStore(writable(data));
+    }
+    return this._instance;
+  }
 }

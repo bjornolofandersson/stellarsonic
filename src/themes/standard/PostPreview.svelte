@@ -3,11 +3,12 @@
   export let slug: string;
   export let url: string;
   export let post: any;
+  export let background: boolean;
 
   const date = new Date(post.date).toDateString();
 </script>
 
-<div class="w-full overflow-hidden odd:bg-light-base-variant dark:odd:bg-dark-base-variant">
+<div class="w-full overflow-hidden {background ? 'odd:bg-stone-100 dark:odd:bg-dark-base-variant' : ''}">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-12">
     <div class="text-right px-20">
       <time class="text-sm p-2 text-slate-600 dark:text-white" style="border-bottom: 1px solid #00000012">{date}</time>

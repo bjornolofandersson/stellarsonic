@@ -2,10 +2,11 @@
 import site from '@settings';
 import { getCollection } from 'astro:content';
 import Page from '@layouts/Page.astro'
-import BlogTheme from '@theme/Blog.svelte';
+import BlogTheme from './blog.svelte';
 import { Blog } from './blog.server';
 import { Page as AstroPage } from 'astro';
 import { BlogPage } from './blog';
+import theme from '@theme/index';
 
 interface Props extends Blog {
   page: AstroPage;
@@ -30,16 +31,21 @@ const blogPage: BlogPage = {
   lastPage: page.lastPage,
 }
 
+const themeSettings = theme.modules.blog;
+const style = {
+  layout: 'alternate',
+}
+
 const posts = await getCollection(config.posts.collection as any);
 ---
 
-<Page editor="blog" editorProps={{...config, posts, settings: site}}>
+<Page editor="blog" editorProps={{...config, posts, settings: site, themeData: style}}>
   <Fragment slot="head-bottom">
     <title>{config.title}</title>
   </Fragment>
 
-  {isDev
-    ? <BlogTheme page={blogPage} client:load />
-    : <BlogTheme page={blogPage} />
+  {isDev || themeSettings.client
+    ? <BlogTheme page={blogPage} themeData={style} client:load />
+    : <BlogTheme page={blogPage} themeData={style} />
   }
 </Page>

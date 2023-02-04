@@ -3,8 +3,12 @@
   import Paginator from "./common/Paginator.svelte";
   import PostPreview from "./PostPreview.svelte";
 
-  //export let genres: string[];
   export let page: BlogPage<any>;
+  export let theme: any;
+
+  $: {
+    console.log(theme.layout);
+  }
 </script>
 
 <div class="bg-white">
@@ -26,8 +30,8 @@
     </section>
 
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
-      {#each page.posts as {url, slug, data, collection}}
-        <PostPreview url={url} post={data} slug={slug} collection={collection} />
+      {#each page.posts as {url, slug, data, collection}, i}
+        <PostPreview url={url} post={data} slug={slug} collection={collection} background={theme.layout === 'alternate'} />
       {/each}
     </section>
   </div>

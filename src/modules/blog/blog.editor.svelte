@@ -9,19 +9,26 @@
   import Scrollable from '@components/editor/common/Scrollable.svelte';
   import SettingsModal from '@components/editor/common/SettingsModal.svelte';
   import SettingsPanel from '@components/editor/common/SettingsPanel.svelte';
+  import SubPanel from '@components/editor/common/SubPanel.svelte';
   import TextInput from '@components/editor/common/TextInput.svelte';
   import TitleBar from '@components/editor/common/TitleBar.svelte';
   import { SiteStore } from '@modules/site/site';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
+  import themeDef from '@theme/index';
+  import { BlogStore } from './blog';
+  import ThemeSettings from '@components/editor/ThemeSettings.svelte';
 
   export let collection: string;
   export let title: string;
   export let posts: any[];
   export let path: string;
   export let settings: any;
+  export let themeData: any;
 
   let store = SiteStore.instance(settings);
+  let blogStore = BlogStore.instance(themeData);
+  let {theme} = blogStore;
   let {site} = store;
   let blog = $site.pages.find((p: any) => p.path === path)
 
@@ -46,6 +53,7 @@
     await store.save();
     showSettings = false;
   }
+
 </script>
 
 <Editor pageTitle={title} onSave={() => {}} bind:panel={panel}>
@@ -53,6 +61,7 @@
     <BackArrow onClick={() => {}}/>
 
     <TitleBar title={title}>
+      <Action icon="tune" onClick={() => {panel = 'theme'}}/>
       <Action icon="settings" onClick={() => {showSettings = true}}/>
       <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
     </TitleBar>
@@ -91,6 +100,10 @@
       </List>
     </Scrollable>
   </MainPanel>
+
+  <SubPanel name="theme">
+    <ThemeSettings bind:theme={$theme} items={themeDef.modules.blog.options} />
+  </SubPanel>
 
   <SettingsModal bind:show={showSettings} onSave={onSaveSettings}>
     <SettingsPanel name="General">
