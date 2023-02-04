@@ -1,5 +1,5 @@
 <script lang="ts">
-  import TextInput from "../common/TextInput.svelte";
+  import { TextInput } from "src/editor";
 
   export let post: any;
 </script>

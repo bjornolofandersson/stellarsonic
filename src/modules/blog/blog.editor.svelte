@@ -1,17 +1,5 @@
 <script lang="ts">
-  import Action from '@components/editor/common/Action.svelte';
-  import BackArrow from '@components/editor/common/BackArrow.svelte';
-  import Editor from '@components/editor/common/Editor.svelte';
-  import LinkListItem from '@components/editor/common/LinkListItem.svelte';
-  import List from '@components/editor/common/List.svelte';
-  import MainPanel from '@components/editor/common/MainPanel.svelte';
-  import NumberInput from '@components/editor/common/NumberInput.svelte';
-  import Scrollable from '@components/editor/common/Scrollable.svelte';
-  import SettingsModal from '@components/editor/common/SettingsModal.svelte';
-  import SettingsPanel from '@components/editor/common/SettingsPanel.svelte';
-  import SubPanel from '@components/editor/common/SubPanel.svelte';
-  import TextInput from '@components/editor/common/TextInput.svelte';
-  import TitleBar from '@components/editor/common/TitleBar.svelte';
+  import { Action, BackArrow, Editor, LinkListItem, List, MainPanel, NumberInput, Scrollable, SettingsModal, SettingsPanel, SubPanel, TextInput, TitleBar } from 'src/editor';
   import { SiteStore } from '@modules/site/site';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MultiButton from "./common/MultiButton.svelte";
+  import { MultiButton } from "src/editor";
 
   export let theme: any;
   export let items: any;

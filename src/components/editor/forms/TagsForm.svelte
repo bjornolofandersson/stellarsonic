@@ -1,6 +1,5 @@
 <script lang="ts">
-  import ListItem from "../common/ListItem.svelte";
-  import TextInput from "../common/TextInput.svelte";
+  import { ListItem, TextInput } from "src/editor";
 
   export let post: any;
   export let key: string;

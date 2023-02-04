@@ -1,7 +1,6 @@
 <script lang="ts">
   import { MixPlaylist } from "@lib/media/MixPlaylist";
-  import NumberInput from "../common/NumberInput.svelte";
-  import TextInput from "../common/TextInput.svelte";
+  import { NumberInput, TextInput } from "src/editor";
   import PlaylistForm from "./PlaylistForm.svelte";
 
   export let post: any;

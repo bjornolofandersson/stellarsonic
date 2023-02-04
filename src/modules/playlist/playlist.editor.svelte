@@ -1,12 +1,5 @@
 <script lang="ts">
-  import Accordion from '@components/editor/common/Accordion.svelte';
-  import AccordionItem from '@components/editor/common/AccordionItem.svelte';
-  import Action from '@components/editor/common/Action.svelte';
-  import BackArrow from '@components/editor/common/BackArrow.svelte';
-  import Editor from '@components/editor/common/Editor.svelte';
-  import MainPanel from '@components/editor/common/MainPanel.svelte';
-  import Scrollable from '@components/editor/common/Scrollable.svelte';
-  import TitleBar from '@components/editor/common/TitleBar.svelte';
+  import { Accordion, AccordionItem, Action, BackArrow, Editor, MainPanel, Scrollable, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
