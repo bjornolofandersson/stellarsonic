@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex justify-between text-xl">
-  <h2 class="mt-8 text-lg font-[500]">{title.toUpperCase()}</h2>
+  <h2 class="text-lg font-[500]">{title.toUpperCase()}</h2>
   <div class="flex">
     <slot/>
   </div>

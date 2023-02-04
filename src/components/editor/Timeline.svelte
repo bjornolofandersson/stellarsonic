@@ -23,13 +23,13 @@
   <div class="w-full flex justify-start">
     {#each playlist.tracks as track, i}
       <button on:click={() => onSelectTrack(i)}
-        class="border-stone-700 text-stone-300 text-left border-r px-2 py-8 {selected === i ? 'bg-amber-700' : 'hover:bg-stone-700'}"
+        class="border-stone-700 text-stone-300 text-left border-r px-2 py-7 {selected === i ? 'bg-amber-600' : 'hover:bg-stone-700'}"
         style="width: {(playlist.trackDuration(i) / playlist.duration) * 100}%;">
         {i + 1}
       </button>
     {/each}
   </div>
-  <div class="w-full h-4 bg-stone-900 relative">
+  <div class="w-full h-3 bg-stone-900 relative">
     <div class="bg-stone-500 h-full" style="width: {progress * 100}%"></div>
   </div>
 </div>

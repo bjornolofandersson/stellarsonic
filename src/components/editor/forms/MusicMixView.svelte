@@ -4,11 +4,12 @@
   import PlaylistForm from "./PlaylistForm.svelte";
 
   export let post: any;
-  export let context: {playlist: MixPlaylist, selectedTrack: number};
+  export let playlist: MixPlaylist;
+  export let track: number;
 </script>
 
-<PlaylistForm bind:post={post} bind:context={context}>
-  <TextInput id="track-name" label="Name" bind:value={post.tracks[context.selectedTrack].name} />
-  <TextInput id="track-artist" label="Artist" bind:value={post.tracks[context.selectedTrack].artist} />
-  <NumberInput id="track-year" label="Year" bind:value={post.tracks[context.selectedTrack].year} />
+<PlaylistForm bind:post={post} bind:playlist={playlist} bind:track={track} >
+  <TextInput id="track-name" label="Name" bind:value={post.tracks[track].name} />
+  <TextInput id="track-artist" label="Artist" bind:value={post.tracks[track].artist} />
+  <NumberInput id="track-year" label="Year" bind:value={post.tracks[track].year} />
 </PlaylistForm>

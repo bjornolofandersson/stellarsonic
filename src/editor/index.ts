@@ -13,6 +13,7 @@ import NumberInput from "./NumberInput.svelte";
 import PageContainer from "./PageContainer.svelte";
 import Scrollable from "./Scrollable.svelte";
 import SettingsModal from "./SettingsModal.svelte";
+import SplitModal from "./SplitModal.svelte";
 import SettingsPanel from "./SettingsPanel.svelte";
 import SubPanel from "./SubPanel.svelte";
 import TextArea from "./TextArea.svelte";
@@ -35,6 +36,7 @@ export {
   PageContainer,
   Scrollable,
   SettingsModal,
+  SplitModal,
   SettingsPanel,
   SubPanel,
   TextArea,
