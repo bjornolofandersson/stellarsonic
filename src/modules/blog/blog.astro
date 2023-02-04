@@ -18,9 +18,9 @@ const isDev = import.meta.env.MODE === 'development';
 
 const blogPage: BlogPage = {
   title,
-  url: path,
+  url: `/${path}`,
   posts: page.data.map(({slug, data, collection}) => ({
-    slug, url: `${path}/${slug}`, data, collection
+    slug, url: `/${path}/${slug}`, data, collection
   })),
   theme: {},
   currentPage: page.currentPage,
