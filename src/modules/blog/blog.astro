@@ -3,18 +3,32 @@ import site from '@settings';
 import { getCollection } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import BlogTheme from '@theme/Blog.svelte';
-import PostPreview from '@theme/PostPreview.svelte';
 import { Blog } from './blog.server';
-import Paginator from '@theme/common/Paginator.svelte';
 import { Page as AstroPage } from 'astro';
-import MenuBar from '@theme/MenuBar.svelte';
+import { BlogPage } from './blog';
 
 interface Props extends Blog {
   page: AstroPage;
 }
 
 const config = Astro.props;
-const { pagination, page, path } = config;
+const { pagination, page, path, title } = config;
+const isDev = import.meta.env.MODE === 'development';
+
+const blogPage: BlogPage = {
+  title,
+  url: path,
+  posts: page.data.map(({slug, data, collection}) => ({
+    slug, url: `${path}/${slug}`, data, collection
+  })),
+  theme: {},
+  currentPage: page.currentPage,
+  start: page.start,
+  end: page.end,
+  total: page.total,
+  size: page.size,
+  lastPage: page.lastPage,
+}
 
 const posts = await getCollection(config.posts.collection as any);
 ---
@@ -24,15 +38,8 @@ const posts = await getCollection(config.posts.collection as any);
     <title>{config.title}</title>
   </Fragment>
 
-  <BlogTheme genres={[]} client:load>
-    <MenuBar slot="header" settings={site} />
-
-    {pagination && <Paginator slot="paginator" page={page} path={path}/>}
-
-    <Fragment slot="posts">
-      {page.data.map(({data, slug}: any) =>
-        <PostPreview collection={config.posts.collection} post={data} slug={slug} url={`/${path}/${slug}`} />
-      )}
-    </Fragment>
-  </BlogTheme>
+  {isDev
+    ? <BlogTheme page={blogPage} client:load />
+    : <BlogTheme page={blogPage} />
+  }
 </Page>

@@ -1,5 +1,10 @@
 <script lang="ts">
-  export let genres: string[];
+  import { BlogPage } from "@modules/blog/blog";
+  import Paginator from "./common/Paginator.svelte";
+  import PostPreview from "./PostPreview.svelte";
+
+  //export let genres: string[];
+  export let page: BlogPage<any>;
 </script>
 
 <div class="bg-white">
@@ -7,19 +12,23 @@
 
   <div class="w-full py-12 bg-light-accent dark:bg-dark-accent">
     <ul class="flex justify-center text-white text-l">
+      <!--
       {#each genres as genre}
         <li class="px-4">{genre}</li>
       {/each}
+      -->
     </ul>
   </div>
 
   <div class="container mx-auto">
     <section class="pb-20 pt-12">
-      <slot name="paginator"/>
+      <Paginator page={page}/>
     </section>
 
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
-      <slot name="posts"/>
+      {#each page.posts as {url, slug, data, collection}}
+        <PostPreview url={url} post={data} slug={slug} collection={collection} />
+      {/each}
     </section>
   </div>
 </div>
