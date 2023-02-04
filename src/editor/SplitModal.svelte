@@ -1,8 +1,6 @@
 <script lang="ts">
-    import Scrollable from "./Scrollable.svelte";
+  import Scrollable from "./Scrollable.svelte";
 
-  export let title: string;
-  export let icon: string;
   export let show: boolean = false;
   export let expand: boolean = false;
 </script>
@@ -21,9 +19,11 @@
             <Scrollable>
               <slot name="sidebar"/>
             </Scrollable>
-            <div class="pt-4">
-              <slot name="footer"/>
-            </div>
+            {#if $$slots.footer}
+              <div class="pt-4">
+                <slot name="footer"/>
+              </div>
+            {/if}
           </div>
           <div class="flex-col">
             <slot name="content"/>

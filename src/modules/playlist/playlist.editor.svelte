@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, Action, BackArrow, Editor, MainPanel, Scrollable, TitleBar } from 'src/editor';
+  import { Accordion, AccordionItem, Action, BackArrow, Editor, Input, MainPanel, Scrollable, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
   import StyleForm from '@components/editor/forms/StyleForm.svelte';
   import { MixStore } from './playlist';
   import SplitModal from 'src/editor/SplitModal.svelte';
-  import Timeline from '@components/editor/Timeline.svelte';
-    import MusicMixView from '@components/editor/forms/MusicMixView.svelte';
+  import PlaylistForm from '@components/editor/forms/PlaylistForm.svelte';
 
   export let slug: string;
   export let data: any;
@@ -71,14 +70,19 @@
       </ul>
     </div>
 
-    <div slot="footer" class="">
-      <button on:click={() => store.save()} type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-stone-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto sm:text-sm">Save</button>
-      <button on:click={() => {showPlaylist = false}} type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
-    </div>
-
     <div slot="content" class="bg-stone-800 h-full">
-      <MusicMixView bind:post={$post} playlist={playlist} bind:track={selectedTrack} />
-      <!---<Timeline playlist={playlist} onSelect={t => {selectedTrack = t}} selected={selectedTrack}/>-->
+      <PlaylistForm bind:post={post} bind:playlist={playlist} bind:track={selectedTrack} >
+        <Input type="text" id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
+        <Input type="text" id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
+        <Input type="number" id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
+
+        <div slot="actions">
+          <button on:click={() => store.save()} type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-stone-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto sm:text-sm">Save</button>
+          <button class="" on:click={() => {showPlaylist = false}}>
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      </PlaylistForm>
     </div>
   </SplitModal>
 
