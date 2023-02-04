@@ -19,9 +19,9 @@
 </script>
 
 
-<div class="bg-amber-800 rounded-md mt-10 relative overflow-hidden">
+<div class="bg-[#000000010] rounded-md mt-10 relative overflow-hidden">
   {#if editable}
-    <div class="absolute right-0 h-full bg-amber-700 text-white">
+    <div class="absolute right-0 h-full bg-[#00000010] text-white">
       <div class="flex flex-col h-full">
         <button class="p-6 h-1/2 hover:bg-[#ffffff20]" on:mousedown={() => onDown(1)} on:click={() => onUpdate(1)}>
           <span class="material-symbols-outlined">expand_less</span>
@@ -33,8 +33,8 @@
     </div>
   {/if}
   <div class="p-10">
-    <h3>{label}</h3>
-    <div class="flex gap-2 text-6xl">
+    <h3 class="text-sm opacity-50">{label}</h3>
+    <div class="flex gap-2 text-5xl">
       <span>{pad(hours(time))}</span>
       <span>:</span>
       <span>{pad(minutes(time))}</span>

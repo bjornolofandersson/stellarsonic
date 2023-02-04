@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, Action, Editor, MainPanel, Scrollable, SubPanel, TextInput, TitleBar} from 'src/editor';
+  import { Accordion, AccordionItem, Action, Editor, MainPanel, Scrollable, SubPanel, Input, TitleBar} from 'src/editor';
   import { SiteStore } from './site';
 
   export let data: any;
@@ -71,9 +71,9 @@
 
   <SubPanel name="settings">
     <h2>Site</h2>
-    <TextInput id="name" label="Title" bind:value={$site.title}/>
-    <TextInput id="description" label="Description" bind:value={$site.description}/>
-    <TextInput id="url" label="URL" bind:value={$site.url}/>
+    <Input type="text" id="name" label="Title" bind:value={$site.title}/>
+    <Input type="text" id="description" label="Description" bind:value={$site.description}/>
+    <Input type="text" id="url" label="URL" bind:value={$site.url}/>
   </SubPanel>
 
   <div slot="preview"><slot/></div>

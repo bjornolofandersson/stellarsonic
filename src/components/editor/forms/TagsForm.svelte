@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ListItem, TextInput } from "src/editor";
+  import { ListItem, Input } from "src/editor";
 
   export let post: any;
   export let key: string;
@@ -30,7 +30,7 @@
       <span class="material-symbols-outlined">add</span>
     </button>
   </div>
-  <TextInput bind:value={tag}/>
+  <Input type="text" bind:value={tag}/>
   <ul class="py-2">
     {#each post[key] as tag}
       <ListItem icon="tag">

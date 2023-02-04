@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Action, BackArrow, Editor, LinkListItem, List, MainPanel, NumberInput, Scrollable, SettingsModal, SettingsPanel, SubPanel, TextInput, TitleBar } from 'src/editor';
+  import { Action, BackArrow, Editor, LinkListItem, List, MainPanel, Scrollable, SettingsModal, SettingsPanel, SubPanel, Input, TitleBar } from 'src/editor';
   import { SiteStore } from '@modules/site/site';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
@@ -98,11 +98,11 @@
       <ul class="mt-8">
         <li>
           <label for="title" class="text-xs opacity-50">Page title</label>
-          <TextInput id="title" bind:value={blog.title} />
+          <Input type="text" id="title" bind:value={blog.title} />
         </li>
         <li>
           <label for="limit" class="text-xs opacity-50">Posts per page</label>
-          <NumberInput id="limit" bind:value={blog.limit} />
+          <Input type="number" id="limit" bind:value={blog.limit} />
         </li>
       </ul>
     </SettingsPanel>
@@ -110,15 +110,15 @@
       <ul class="mt-8">
         <li>
           <label for="path" class="text-xs opacity-50">Path</label>
-          <TextInput id="path" bind:value={blog.posts.path} />
+          <Input type="text" id="path" bind:value={blog.posts.path} />
         </li>
         <li>
           <label for="module" class="text-xs opacity-50">Module</label>
-          <TextInput id="module" bind:value={blog.posts.type} />
+          <Input type="text" id="module" bind:value={blog.posts.type} />
         </li>
         <li>
           <label for="collection" class="text-xs opacity-50">Collection</label>
-          <TextInput id="collection" bind:value={blog.posts.collection} />
+          <Input type="text" id="collection" bind:value={blog.posts.collection} />
         </li>
       </ul>
     </SettingsPanel>

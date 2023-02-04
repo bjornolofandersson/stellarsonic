@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { TextInput } from "src/editor/";
+  import { Input } from "src/editor/";
 
   export let post: any;
   export let context: {assets: string[]};
@@ -22,10 +22,10 @@
       </button>
     {/each}
   </div>
-  <TextInput id="image" label="URL" bind:value={post.image} />
+  <Input type="text" id="image" label="URL" bind:value={post.image} />
 </div>
 
 <div class="bg-stone-200 shadow-md rounded-md p-4 mt-8">
   <h2 class="text-xl pb-4">Audio</h2>
-  <TextInput id="audio" label="URL" bind:value={post.audio} />
+  <Input type="text" id="audio" label="URL" bind:value={post.audio} />
 </div>

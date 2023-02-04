@@ -4,12 +4,12 @@ import Action from './Action.svelte';
 import BackArrow from './BackArrow.svelte';
 import ColorInput from "./ColorInput.svelte";
 import Editor from './Editor.svelte';
+import Input from "./Input.svelte";
 import LinkListItem from "./LinkListItem.svelte";
 import List from "./List.svelte";
 import ListItem from "./ListItem.svelte";
 import MainPanel from "./MainPanel.svelte";
 import MultiButton from "./MultiButton.svelte";
-import NumberInput from "./NumberInput.svelte";
 import PageContainer from "./PageContainer.svelte";
 import Scrollable from "./Scrollable.svelte";
 import SettingsModal from "./SettingsModal.svelte";
@@ -17,7 +17,6 @@ import SplitModal from "./SplitModal.svelte";
 import SettingsPanel from "./SettingsPanel.svelte";
 import SubPanel from "./SubPanel.svelte";
 import TextArea from "./TextArea.svelte";
-import TextInput from "./TextInput.svelte";
 import TitleBar from "./TitleBar.svelte";
 
 export {
@@ -27,12 +26,12 @@ export {
   BackArrow,
   ColorInput,
   Editor,
+  Input,
   LinkListItem,
   List,
   ListItem,
   MainPanel,
   MultiButton,
-  NumberInput,
   PageContainer,
   Scrollable,
   SettingsModal,
@@ -40,6 +39,5 @@ export {
   SettingsPanel,
   SubPanel,
   TextArea,
-  TextInput,
   TitleBar
 }
