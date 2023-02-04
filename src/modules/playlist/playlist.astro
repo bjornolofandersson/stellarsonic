@@ -11,13 +11,16 @@ interface Props {
   collection: string;
 
   entry: CollectionEntry<'mixes'>;
+
+  parentUrl: string;
 }
 
-const { entry, collection } = Astro.props;
+const { entry, collection, parentUrl } = Astro.props;
 const { Content } = await entry.render();
 const col = new PostController(collection);
 
 const editorProps = {
+  parentUrl: parentUrl,
   collection,
   slug: entry.slug,
   data: entry.data,

@@ -2,7 +2,7 @@ import { SitePage } from "@lib/interfaces";
 import { getCollection } from "astro:content";
 import Playlist from './playlist.astro';
 
-export async function getStaticPaths({path, collection}: SitePage & any) {
+export async function getStaticPaths({path, collection, parent}: SitePage & any) {
   const entries = await getCollection(collection as any);
   let paths: any[] = [];
   
@@ -12,7 +12,7 @@ export async function getStaticPaths({path, collection}: SitePage & any) {
       props: {
         title: entry.data.title,
         Module: Playlist,
-        props: {entry, collection}
+        props: {entry, collection, parentUrl: `/${parent}`}
       }
     });
   }

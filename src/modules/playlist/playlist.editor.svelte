@@ -9,13 +9,14 @@
   export let slug: string;
   export let data: any;
   export let assets: string[];
+  export let parentUrl: string;
 
   let {post, playlist} = MixStore.instance(slug, data);
 </script>
 
 <Editor pageTitle={$post.title} onSave={() => {}}>
   <MainPanel>
-    <BackArrow onClick={() => {}} />
+    <BackArrow url={parentUrl} />
 
     <TitleBar title={$post.title}>
       <Action icon="settings" onClick={() => {}} />

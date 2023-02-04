@@ -69,5 +69,5 @@ export async function getStaticPaths({path, title, posts, limit, pagination}: Bl
   const modules = import.meta.glob('../*/*.server.ts', {eager: true});
   const module = modules[`../${posts.type}/${posts.type}.server.ts`] as any;
 
-  return [...paths, ...(await module.getStaticPaths(posts))];
+  return [...paths, ...(await module.getStaticPaths({...posts, parent: path}))];
 }
