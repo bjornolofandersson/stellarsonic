@@ -8,6 +8,7 @@
   export let track: number;
 
   let timerId: any;
+  let isPlaying: boolean = false;
 
   function onUpdateBegin(amount: number) {
     playlist.trackBegin(track, playlist.trackBegin(track) + amount);
@@ -17,19 +18,27 @@
     playlist.trackEnd(track, playlist.trackEnd(track) + amount);
     post.tracks[track].duration = "";
   }
+
+  setInterval(() => { isPlaying = !playlist.player.isPaused}, 100);
 </script>
 
 <div on:mouseup={() => clearInterval(timerId) } class="text-stone-100 dark flex flex-col h-full">
   <div class="w-full border-b border-stone-900">
-    <div class="w-full py-4 px-8 flex justify-between">
+    <div class="w-full mt-2 py-3 px-8 flex justify-between">
       <div class="flex">
-        <button class="m-3" on:click={() => {}}>
+        <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {}}>
           <span class="material-symbols-outlined">skip_previous</span>
         </button>
-        <button class="m-3" on:click={() => {}}>
-          <span class="material-symbols-outlined">play_arrow</span>
-        </button>
-        <button class="m-3" on:click={() => {}}>
+        {#if !isPlaying }
+          <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {playlist.play()}}>
+            <span class="material-symbols-outlined">play_arrow</span>
+          </button>
+        {:else}
+          <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {playlist.player.pause()}}>
+            <span class="material-symbols-outlined">pause</span>
+          </button>
+        {/if}
+        <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {}}>
           <span class="material-symbols-outlined">skip_next</span>
         </button>
       </div>

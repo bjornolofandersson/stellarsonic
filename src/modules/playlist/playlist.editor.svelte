@@ -77,8 +77,10 @@
         <Input type="number" id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
 
         <div slot="actions">
-          <button on:click={() => store.save()} type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-stone-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto sm:text-sm">Save</button>
-          <button class="" on:click={() => {showPlaylist = false}}>
+          <button class="px-4 py-2" on:click={() => store.save()}>
+            Save
+          </button>
+          <button class="px-4 py-2" on:click={() => {showPlaylist = false}}>
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>

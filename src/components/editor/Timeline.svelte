@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ProgressBar from "@components/common/ProgressBar.svelte";
   import { MixPlaylist } from "@lib/media/MixPlaylist";
 
   export let playlist: MixPlaylist;
@@ -30,6 +31,7 @@
     {/each}
   </div>
   <div class="w-full h-3 bg-stone-900 relative">
-    <div class="bg-stone-500 h-full" style="width: {progress * 100}%"></div>
+    <ProgressBar progress={progress} colorProgress="#67b9b5" onSeek={t => playlist.player.skipTo(t * playlist.player.duration)} />
+    <!--<div class="bg-stone-500 h-full" style="width: {progress * 100}%"></div>-->
   </div>
 </div>
