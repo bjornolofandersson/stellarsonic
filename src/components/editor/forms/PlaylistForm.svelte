@@ -1,5 +1,8 @@
 <script lang="ts">
   import { MixPlaylist } from "@lib/media/MixPlaylist";
+    import { formatTime } from "@lib/utils";
+    import Action from "src/editor/Action.svelte";
+    import Toolbar from "src/editor/Toolbar.svelte";
   import Timeline from "../Timeline.svelte";
   import Timestamp from "../Timestamp.svelte";
 
@@ -9,6 +12,7 @@
 
   let timerId: any;
   let isPlaying: boolean = false;
+  let progress: number = 0;
   const hasAudio = playlist.player.duration > 0;
 
   function onUpdateBegin(amount: number) {
@@ -20,45 +24,42 @@
     post.tracks[track].duration = "";
   }
 
-  setInterval(() => { isPlaying = !playlist.player.isPaused}, 100);
+  setInterval(() => {
+    isPlaying = !playlist.player.isPaused;
+    progress = playlist.player.progress;
+  }, 100);
 </script>
 
 <div on:mouseup={() => clearInterval(timerId) } class="text-stone-100 dark flex flex-col h-full">
-  <div class="w-full border-b border-stone-900">
-    <div class="w-full mt-2 py-3 px-8 flex justify-between">
-      <div class="flex">
-        <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" disabled={!hasAudio} on:click={() => {}}>
-          <span class="material-symbols-outlined">skip_previous</span>
-        </button>
-        {#if !isPlaying }
-          <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {playlist.play()}}>
-            <span class="material-symbols-outlined">play_arrow</span>
-          </button>
-        {:else}
-          <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {playlist.player.pause()}}>
-            <span class="material-symbols-outlined">pause</span>
-          </button>
-        {/if}
-        <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {}}>
-          <span class="material-symbols-outlined">skip_next</span>
-        </button>
-      </div>
-      <div class="">
-        <slot name="actions"/>
-      </div>
-    </div>
-  </div>
-    {#key post}
-  <Timeline playlist={playlist} onSelect={t => {track = t}} selected={track} />
-  <div class="flex-grow">
-    <div class="grid grid-cols-2 gap-4">
-      <Timestamp label="From" time={playlist.trackBegin(track)} onUpdate={onUpdateBegin} bind:timerId={timerId} editable={track > 0}/>
-      <Timestamp label="To" time={playlist.trackEnd(track)} onUpdate={onUpdateEnd} bind:timerId={timerId} />
-    </div>
+  <Toolbar>
+    <svelte:fragment slot="left">
+      <Action icon="skip_previous" disabled={!hasAudio} onClick={() => {}}/>
+      {#if !isPlaying }
+        <Action icon="play_arrow" disabled={!hasAudio} onClick={() => {playlist.play()}}/>
+      {:else}
+        <Action icon="pause" disabled={!hasAudio} onClick={() => {playlist.player.pause()}}/>
+      {/if}
+      <Action icon="skip_next" disabled={!hasAudio} onClick={() => {}}/>
+    </svelte:fragment>
 
-    <div class="mt-8 p-8">
-      <slot/>
+    <svelte:fragment slot="middle">
+      <span class="text-sm text-stone-400">{formatTime(progress)}</span>
+    </svelte:fragment>
+    
+    <slot name="actions" slot="right" />
+  </Toolbar>
+
+  {#key post}
+    <Timeline playlist={playlist} onSelect={t => {track = t}} selected={track} />
+    <div class="flex-grow">
+      <div class="grid grid-cols-2 gap-4">
+        <Timestamp label="From" time={playlist.trackBegin(track)} onUpdate={onUpdateBegin} bind:timerId={timerId} editable={track > 0}/>
+        <Timestamp label="To" time={playlist.trackEnd(track)} onUpdate={onUpdateEnd} bind:timerId={timerId} />
+      </div>
+
+      <div class="mt-8 p-8">
+        <slot/>
+      </div>
     </div>
-  </div>
-    {/key}
+  {/key}
 </div>

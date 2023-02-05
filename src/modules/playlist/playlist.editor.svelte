@@ -78,14 +78,12 @@
         <Input type="text" id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
         <Input type="number" id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
 
-        <div slot="actions">
-          <button class="px-4 py-2" on:click={() => store.save()}>
+        <svelte:fragment slot="actions">
+          <button class="px-4" on:click={() => store.save()}>
             Save
           </button>
-          <button class="px-4 py-2" on:click={() => {showPlaylist = false}}>
-            <span class="material-symbols-outlined">close</span>
-          </button>
-        </div>
+          <Action icon="close" onClick={() => {showPlaylist = false}}/>
+        </svelte:fragment>
       </PlaylistForm>
     </div>
   </SplitModal>
