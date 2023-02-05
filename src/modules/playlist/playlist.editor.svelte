@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, Action, BackArrow, Editor, Input, MainPanel, Scrollable, TitleBar } from 'src/editor';
+  import { Accordion, AccordionItem, Action, BackArrow, Editor, Input, Label, MainPanel, Scrollable, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
@@ -21,6 +21,15 @@
   function addTrack() {
     $post.tracks = [...$post.tracks, {name: `Track ${$post.tracks.length + 1}`, artist: '', year: 0, duration: 'PT3M0S'} as any];
     playlist.setTracks($post.tracks);
+  }
+
+  function removeTrack() {
+    const copy = $post.tracks.slice();
+    copy.splice(selectedTrack, 1);
+    $post.tracks = copy;
+    playlist.setTracks($post.tracks);
+    selectedTrack = Math.max(Math.min(selectedTrack, $post.tracks.length - 1), 0);
+    console.log(selectedTrack);
   }
 
   playlist.load();
@@ -78,18 +87,27 @@
     </div>
 
     <div slot="content" class="bg-stone-800 h-full">
+      {#if $post.tracks.length > 0}
       <PlaylistForm bind:post={$post} bind:playlist={playlist} bind:track={selectedTrack} >
-        <Input type="text" id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
-        <Input type="text" id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
-        <Input type="number" id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />
+        <label for="track-name" class="text-xs opacity-40">Name</label>
+        <Input id="track-name" type="text" placeholder="Name" bind:value={$post.tracks[selectedTrack].name} />
+        <label for="artist" class="text-xs opacity-40">Artist</label>
+        <Input id="artist" type="text" placeholder="Artist" bind:value={$post.tracks[selectedTrack].artist} />
+        <label for="year" class="text-xs opacity-40">Year</label>
+        <Input id="year" type="number" placeholder="Year" bind:value={$post.tracks[selectedTrack].year} />
 
         <svelte:fragment slot="actions">
-          <button class="px-4" on:click={() => store.save()}>
-            Save
-          </button>
           <Action icon="close" onClick={() => {showPlaylist = false}}/>
         </svelte:fragment>
+
+        <div slot="footer" class="flex justify-start">
+          <button on:click={removeTrack} class="p-4 rounded-md bg-stone-200 text-stone-700 flex">
+            <span class="material-symbols-outlined mr-2">delete</span>
+            <span>Remove track</span>
+          </button>
+        </div>
       </PlaylistForm>
+      {/if}
     </div>
   </SplitModal>
 

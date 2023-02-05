@@ -61,5 +61,8 @@
         <slot/>
       </div>
     </div>
+    <div class="p-8">
+      <slot name="footer"/>
+    </div>
   {/key}
 </div>

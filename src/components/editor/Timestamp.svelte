@@ -33,7 +33,7 @@
     </div>
   {/if}
   <div class="p-10">
-    <h3 class="text-sm opacity-50">{label}</h3>
+    <h3 class="text-sm opacity-40">{label}</h3>
     <div class="flex gap-2 text-5xl">
       <span>{pad(hours(time))}</span>
       <span>:</span>
