@@ -10,9 +10,6 @@
   let totalDuration = Math.max(playlist.duration, playlist.player.duration);
   let tracksWidth = 0;
 
-  console.log(playlist.duration);
-  console.log(playlist.player.duration);
-
   function onSelectTrack(track: number) {
     selected = track;
     onSelect(track);

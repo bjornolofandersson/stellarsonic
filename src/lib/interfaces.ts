@@ -69,6 +69,8 @@ export interface Playlist<T> {
   trackBegin(track: number): number;
   trackEnd(track: number): number;
   trackDuration(track: number): number;
+
+  setTracks(tracks: T[]): void;
 }
 
 export interface SitePage {

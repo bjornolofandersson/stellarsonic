@@ -18,6 +18,11 @@
   let showPlaylist: boolean = false;
   let selectedTrack: number = 0;
 
+  function addTrack() {
+    $post.tracks = [...$post.tracks, {name: `Track ${$post.tracks.length + 1}`, artist: '', year: 0, duration: 'PT3M0S'} as any];
+    playlist.setTracks($post.tracks);
+  }
+
   playlist.load();
 </script>
 
@@ -52,7 +57,7 @@
   <SplitModal bind:show={showPlaylist} expand={true}>
     <div slot="header">
       <TitleBar title="tracks">
-        <Action icon="add" onClick={() => {}} />
+        <Action icon="add" onClick={addTrack} />
       </TitleBar>
     </div>
 

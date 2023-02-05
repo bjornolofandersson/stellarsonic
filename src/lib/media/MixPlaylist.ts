@@ -3,20 +3,26 @@ import { MediaPlayer, MusicMixTrack, Playlist } from '../interfaces';
 
 export class MixPlaylist implements Playlist<MusicMixTrack> {
   private breakpoints: number[] = [];
+  public tracks: MusicMixTrack[] = [];
 
   public constructor(
     public readonly player: MediaPlayer,
     public readonly audio: string,
-    public readonly tracks: MusicMixTrack[],
+    tracks: MusicMixTrack[],
   ) {
-    this.breakpoints.push(0);
-    for (let i=0; i<tracks.length; i++) {
-      this.breakpoints.push(this.duration + toSeconds(parse(this.tracks[i].duration)));
-    }
+    this.setTracks(tracks);
   }
 
   public load() {
     this.player.load(this.audio);
+  }
+
+  public setTracks(tracks: MusicMixTrack[]) {
+    this.breakpoints = [0];
+    this.tracks = tracks;
+    for (let i=0; i<tracks.length; i++) {
+      this.breakpoints.push(this.duration + toSeconds(parse(this.tracks[i].duration)));
+    }
   }
 
   public get isPlaying(): boolean {
