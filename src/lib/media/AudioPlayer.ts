@@ -10,10 +10,14 @@ export class AudioPlayer implements MediaPlayer {
     this.audio = new Audio();
   }
 
+  public load(src: string) {
+    this.audio.src = src;
+    this.audio.load();
+  }
+
   public play(src?: string) {
     if (src && src !== this.audio.src) {
-      this.audio.src = src;
-      this.audio.load();
+      this.load(src);
     }
     return this.audio.play();
   }

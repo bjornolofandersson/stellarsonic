@@ -15,6 +15,10 @@ export class MixPlaylist implements Playlist<MusicMixTrack> {
     }
   }
 
+  public load() {
+    this.player.load(this.audio);
+  }
+
   public get isPlaying(): boolean {
     return this.player.src === this.audio && !this.player.isPaused;
   }

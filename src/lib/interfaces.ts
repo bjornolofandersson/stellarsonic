@@ -43,6 +43,8 @@ export interface MediaPlayer {
 
   readonly isPaused: boolean;
 
+  load(src: string): void;
+
   play(src?: string): void;
 
   pause(): void;
@@ -58,6 +60,7 @@ export interface Playlist<T> {
   readonly currentTrackDuration: number;
   readonly currentTrackProgress: number;
 
+  load(): void;
   play(track?: number): void;
   skipNext(): void;
   skipPrev(): void;
