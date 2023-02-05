@@ -6,11 +6,12 @@
   export let onSelect: (track: number) => void;
   export let selected = 0;
 
-  let progress = 0;
-  let totalDuration = 0;
+  let progress = playlist.player.progress / playlist.player.duration;
+  let totalDuration = Math.max(playlist.duration, playlist.player.duration);
   let tracksWidth = 0;
 
-  playlist.load();
+  console.log(playlist.duration);
+  console.log(playlist.player.duration);
 
   function onSelectTrack(track: number) {
     selected = track;
@@ -39,8 +40,10 @@
       </button>
     {/each}
   </div>
-  <div class="h-3 bg-stone-900 relative" style="width: {(playlist.player.duration / totalDuration) * 100}%">
+  <div class="h-3 bg-stone-900 relative w-full">
+  <div class="h-3 bg-stone-800 relative" style="width: {(playlist.player.duration / totalDuration) * 100}%">
     <ProgressBar progress={progress} colorProgress="#67b9b5" onSeek={onSeek} />
     <!--<div class="bg-stone-500 h-full" style="width: {progress * 100}%"></div>-->
+  </div>
   </div>
 </div>

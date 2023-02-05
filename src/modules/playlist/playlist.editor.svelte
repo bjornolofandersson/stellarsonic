@@ -17,6 +17,8 @@
   let {post, playlist} = store;
   let showPlaylist: boolean = false;
   let selectedTrack: number = 0;
+
+  playlist.load();
 </script>
 
 <Editor pageTitle={$post.title} onSave={() => {}}>
@@ -47,7 +49,7 @@
     </div>
   </MainPanel>
 
-  <SplitModal title="Tracks" icon="queue_music" bind:show={showPlaylist} expand={true}>
+  <SplitModal bind:show={showPlaylist} expand={true}>
     <div slot="header">
       <TitleBar title="tracks">
         <Action icon="add" onClick={() => {}} />
@@ -71,7 +73,7 @@
     </div>
 
     <div slot="content" class="bg-stone-800 h-full">
-      <PlaylistForm bind:post={post} bind:playlist={playlist} bind:track={selectedTrack} >
+      <PlaylistForm bind:post={$post} bind:playlist={playlist} bind:track={selectedTrack} >
         <Input type="text" id="track-name" label="Name" bind:value={$post.tracks[selectedTrack].name} />
         <Input type="text" id="track-artist" label="Artist" bind:value={$post.tracks[selectedTrack].artist} />
         <Input type="number" id="track-year" label="Year" bind:value={$post.tracks[selectedTrack].year} />

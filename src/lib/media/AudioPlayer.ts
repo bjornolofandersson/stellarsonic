@@ -35,7 +35,7 @@ export class AudioPlayer implements MediaPlayer {
   }
 
   public get duration() {
-    return this.audio.duration;
+    return Number.isNaN(this.audio.duration) ? 0 : this.audio.duration;
   }
 
   public get isPaused() {

@@ -9,6 +9,7 @@
 
   let timerId: any;
   let isPlaying: boolean = false;
+  const hasAudio = playlist.player.duration > 0;
 
   function onUpdateBegin(amount: number) {
     playlist.trackBegin(track, playlist.trackBegin(track) + amount);
@@ -26,7 +27,7 @@
   <div class="w-full border-b border-stone-900">
     <div class="w-full mt-2 py-3 px-8 flex justify-between">
       <div class="flex">
-        <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" on:click={() => {}}>
+        <button class="mr-4 px-4 py-2 text-stone-400 hover:text-white" disabled={!hasAudio} on:click={() => {}}>
           <span class="material-symbols-outlined">skip_previous</span>
         </button>
         {#if !isPlaying }
@@ -47,6 +48,7 @@
       </div>
     </div>
   </div>
+    {#key post}
   <Timeline playlist={playlist} onSelect={t => {track = t}} selected={track} />
   <div class="flex-grow">
     <div class="grid grid-cols-2 gap-4">
@@ -58,4 +60,5 @@
       <slot/>
     </div>
   </div>
+    {/key}
 </div>
