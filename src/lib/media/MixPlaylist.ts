@@ -41,7 +41,7 @@ export class MixPlaylist implements Playlist<MusicMixTrack> {
 
   public play(track?: number) {
     if (track !== undefined) {
-      if (track === this.currentTrack) {
+      if (track === this.currentTrack && this.player.isPaused) {
         this.player.play(this.audio);
       } else {
         this.player.skipTo(this.breakpoints[track] + 0.01);
