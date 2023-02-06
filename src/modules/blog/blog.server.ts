@@ -23,7 +23,9 @@ export interface Blog {
   pagination: boolean;
 }
 
-export async function getStaticPaths({path, title, posts, limit, pagination}: Blog & SitePage) {
+export async function getStaticPaths(settings: Blog) {
+  const {posts, limit, path, title, pagination} = settings;
+
   const entries = await getCollection(posts.collection as any);
   const sortedEntries = entries.sort((a, b) => {
     //return b.data.date.localeCompare(a.data.date);
@@ -54,7 +56,7 @@ export async function getStaticPaths({path, title, posts, limit, pagination}: Bl
   function getPath(page: number) {
     return {
       params: { path: page > 0 ? `${path}/${page + 1}` : path },
-      props: { title, Module: BlogPage, props: {path, posts, limit, pagination, page: getPage(page)} },
+      props: { title, Module: BlogPage, props: {settings, page: getPage(page)} },
     }
   }
 

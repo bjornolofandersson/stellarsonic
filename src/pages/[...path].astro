@@ -1,6 +1,6 @@
 ---
-import { ServerModule, SitePage } from '@lib/interfaces';
-import * as site from '@settings';
+import { ServerModule } from '@lib/interfaces';
+import { getCollection } from 'astro:content';
 
 
 export async function getStaticPaths() {
@@ -14,12 +14,12 @@ export async function getStaticPaths() {
     return result;
   }
 
-  const pages = site.pages as SitePage[];
+  const blogs = await getCollection('blogs');
   let paths: any[] = [];
 
-  for (const page of pages) {
+  for (const page of blogs) {
     const modules = getServerModules();
-    paths = paths.concat(await modules[page.type].getStaticPaths(page));
+    paths = paths.concat(await modules['blog'].getStaticPaths(page.data));
   }
 
   return paths;

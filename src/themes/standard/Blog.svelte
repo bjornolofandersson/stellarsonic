@@ -5,10 +5,6 @@
 
   export let page: BlogPage<any>;
   export let theme: any;
-
-  $: {
-    console.log(theme.layout);
-  }
 </script>
 
 <div class="bg-white">

@@ -3,9 +3,10 @@ import * as site from '@settings';
 import { CollectionEntry } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import Schema from '@components/Schema.astro'
-import { PostController } from '@lib/PostController';
+import { CollectionController } from '@lib/CollectionController';
 import Playlist from './playlist.svelte';
 import MenuBar from '@theme/MenuBar.svelte';
+import { getSitemap } from '@lib/server';
 
 interface Props {
   collection: string;
@@ -17,7 +18,7 @@ interface Props {
 
 const { entry, collection, parentUrl } = Astro.props;
 const { Content } = await entry.render();
-const col = new PostController(collection);
+const col = new CollectionController(collection);
 
 const editorProps = {
   parentUrl: parentUrl,
@@ -28,6 +29,7 @@ const editorProps = {
 };
 
 const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;
+const sitemap = await getSitemap();
 
 const schema = {
   "@context": "https://schema.org",
@@ -63,7 +65,7 @@ const schema = {
   </Fragment>
 
   <Playlist slug={entry.slug} data={entry.data} client:load>
-    <MenuBar settings={site} slot="menu" />
+    <MenuBar sitemap={sitemap} slot="menu" />
     <Content slot="article"/>
   </Playlist>
 </Page>

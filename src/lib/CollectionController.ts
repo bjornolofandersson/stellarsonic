@@ -3,7 +3,7 @@ import * as yaml from 'yaml';
 import * as fs from 'fs';
 import slugify from 'slugify';
 
-export class PostController<T extends {title: string} = {title: string}> {
+export class CollectionController<T extends {title: string} = {title: string}> {
   public constructor(public readonly collection: string) {}
 
   /**

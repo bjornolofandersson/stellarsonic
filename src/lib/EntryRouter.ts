@@ -1,8 +1,8 @@
 import { APIRoute } from "astro";
-import { PostController } from "./PostController";
+import { CollectionController } from "./CollectionController";
 
-export class PostRouter {
-  public constructor(private controller: PostController) {}
+export class EntryRouter {
+  public constructor(private controller: CollectionController) {}
 
   public get: APIRoute = async ({ params }) => {
     const entry = await this.controller.getBySlug(params.slug as string);

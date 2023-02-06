@@ -1,24 +1,31 @@
 <script lang="ts">
-  import { Action, BackArrow, Editor, LinkListItem, List, MainPanel, Scrollable, SettingsModal, SettingsPanel, SubPanel, Input, TitleBar } from 'src/editor';
-  import { SiteStore } from '@modules/site/site';
+  import {
+    Action,
+    BackArrow,
+    Editor,
+    LinkListItem,
+    List,
+    MainPanel,
+    Scrollable,
+    SettingsModal,
+    SettingsPanel,
+    SubPanel,
+    Input,
+    NumberInput,
+    TitleBar
+  } from 'src/editor';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
   import themeDef from '@theme/index';
   import { BlogStore } from './blog';
   import ThemeSettings from '@components/editor/ThemeSettings.svelte';
 
-  export let collection: string;
-  export let title: string;
   export let posts: any[];
-  export let path: string;
   export let settings: any;
   export let themeData: any;
 
-  let store = SiteStore.instance(settings);
-  let blogStore = BlogStore.instance(themeData);
-  let {theme} = blogStore;
-  let {site} = store;
-  let blog = $site.pages.find((p: any) => p.path === path)
+  let store = BlogStore.instance('mixtapes', settings, themeData);
+  let {blog, theme} = store;
 
   let filteredPosts = posts;
   let search: string = '';
@@ -41,14 +48,13 @@
     await store.save();
     showSettings = false;
   }
-
 </script>
 
-<Editor pageTitle={title} onSave={() => {}} bind:panel={panel}>
+<Editor pageTitle={settings.title} onSave={() => {}} bind:panel={panel}>
   <MainPanel>
     <BackArrow onClick={() => {}}/>
 
-    <TitleBar title={title}>
+    <TitleBar title={settings.title}>
       <Action icon="tune" onClick={() => {panel = 'theme'}}/>
       <Action icon="settings" onClick={() => {showSettings = true}}/>
       <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
@@ -78,7 +84,7 @@
     <Scrollable>
       <List>
         {#each filteredPosts as post}
-        <LinkListItem icon="edit_note" url="/{path}/{post.slug}">
+        <LinkListItem icon="edit_note" url="/{settings.path}/{post.slug}">
           <div class="inline-block">
             <span class="block text-sm">{post.data.title}</span>
             <span class="block text-stone-500 text-xs">{new Date(post.data.date).toLocaleDateString()}</span>
@@ -98,11 +104,11 @@
       <ul class="mt-8">
         <li>
           <label for="title" class="text-xs opacity-50">Page title</label>
-          <Input type="text" id="title" bind:value={blog.title} />
+          <Input type="text" id="title" bind:value={$blog.title} />
         </li>
         <li>
           <label for="limit" class="text-xs opacity-50">Posts per page</label>
-          <Input type="number" id="limit" bind:value={blog.limit} />
+          <NumberInput id="limit" bind:value={$blog.limit} />
         </li>
       </ul>
     </SettingsPanel>
@@ -110,15 +116,15 @@
       <ul class="mt-8">
         <li>
           <label for="path" class="text-xs opacity-50">Path</label>
-          <Input type="text" id="path" bind:value={blog.posts.path} />
+          <Input type="text" id="path" bind:value={$blog.posts.path} />
         </li>
         <li>
           <label for="module" class="text-xs opacity-50">Module</label>
-          <Input type="text" id="module" bind:value={blog.posts.type} />
+          <Input type="text" id="module" bind:value={$blog.posts.type} />
         </li>
         <li>
           <label for="collection" class="text-xs opacity-50">Collection</label>
-          <Input type="text" id="collection" bind:value={blog.posts.collection} />
+          <Input type="text" id="collection" bind:value={$blog.posts.collection} />
         </li>
       </ul>
     </SettingsPanel>

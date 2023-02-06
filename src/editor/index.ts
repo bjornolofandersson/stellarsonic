@@ -10,6 +10,7 @@ import List from "./List.svelte";
 import ListItem from "./ListItem.svelte";
 import MainPanel from "./MainPanel.svelte";
 import MultiButton from "./MultiButton.svelte";
+import NumberInput from "./NumberInput.svelte";
 import PageContainer from "./PageContainer.svelte";
 import Scrollable from "./Scrollable.svelte";
 import SettingsModal from "./SettingsModal.svelte";
@@ -27,6 +28,7 @@ export {
   ColorInput,
   Editor,
   Input,
+  NumberInput,
   LinkListItem,
   List,
   ListItem,

@@ -1,8 +1,8 @@
 import { APIRoute } from "astro";
-import { PostController } from "./PostController";
+import { CollectionController } from "./CollectionController";
 
-export class PostCollectionRouter {
-  public constructor(private controller: PostController) {}
+export class CollectionRouter {
+  public constructor(private controller: CollectionController) {}
 
   /**
    * Route for creating a new post

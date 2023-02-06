@@ -3,10 +3,10 @@ import { getCollection } from 'astro:content';
 import { EntryRouter } from '@lib/EntryRouter';
 import { CollectionController } from '@lib/CollectionController';
 
-const router = new EntryRouter(new CollectionController('mixes'));
+const router = new EntryRouter(new CollectionController('blogs'));
 
 export async function getStaticPaths() {
-  const docs = await getCollection('mixes');
+  const docs = await getCollection('blogs');
   return docs.map(entry => ({
     params: { slug: entry.slug },
   }));

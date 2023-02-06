@@ -1,4 +1,5 @@
 import { getCollection } from "astro:content";
+import site from '@settings';
 
 export function blogCollectionPaths(collection: string, pageSize: number) {
   return async ({ paginate }: any) => {
@@ -10,4 +11,10 @@ export function blogCollectionPaths(collection: string, pageSize: number) {
 
     return paginate(sortedPosts, { pageSize });
   }
+}
+
+export async function getSitemap() {
+  const blogs = await getCollection('blogs');
+
+  return {...site, pages: blogs.map(b => ({title: b.data.title, path: b.data.path, type: 'blog'}))};
 }
