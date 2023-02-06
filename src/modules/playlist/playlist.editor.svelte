@@ -29,7 +29,25 @@
     $post.tracks = copy;
     playlist.setTracks($post.tracks);
     selectedTrack = Math.max(Math.min(selectedTrack, $post.tracks.length - 1), 0);
-    console.log(selectedTrack);
+  }
+
+  function moveItem(list: any[], from: number, to: number) {
+    var f = list.splice(from, 1)[0];
+    list.splice(to, 0, f);
+  }
+
+  function moveNext() {
+    const copy = $post.tracks.slice();
+    moveItem(copy, selectedTrack, selectedTrack + 1);
+    $post.tracks = copy;
+    selectedTrack = selectedTrack + 1;
+  }
+
+  function movePrev() {
+    const copy = $post.tracks.slice();
+    moveItem(copy, selectedTrack, selectedTrack  - 1);
+    $post.tracks = copy;
+    selectedTrack = selectedTrack - 1;
   }
 
   playlist.load();
@@ -100,11 +118,21 @@
           <Action icon="close" onClick={() => {showPlaylist = false}}/>
         </svelte:fragment>
 
-        <div slot="footer" class="flex justify-start">
+        <div slot="footer" class="flex justify-between">
           <button on:click={removeTrack} class="p-4 rounded-md bg-stone-200 text-stone-700 flex">
             <span class="material-symbols-outlined mr-2">delete</span>
             <span>Remove track</span>
           </button>
+          <div class="flex gap-4">
+          <button on:click={() => movePrev()} class="p-4 rounded-md border border-stone-600 text-stone-400 flex">
+            <span class="material-symbols-outlined mr-2">text_select_move_back_word</span>
+            <span>Move Prev</span>
+          </button>
+          <button on:click={() => moveNext()} class="p-4 rounded-md border border-stone-600 text-stone-400 flex">
+            <span class="material-symbols-outlined mr-2">text_select_move_forward_word</span>
+            <span>Move Next</span>
+          </button>
+          </div>
         </div>
       </PlaylistForm>
       {/if}
