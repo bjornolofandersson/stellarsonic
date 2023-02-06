@@ -2,13 +2,11 @@ import { z, defineCollection } from 'astro:content';
 
 const pageSchema = {
   title: z.string(),
-  path: z.string(),
   type: z.string(),
 }
 
 const blogSchema = {
   title: z.string(),
-  path: z.string(),
   limit: z.number(),
   pagination: z.boolean(),
   posts: z.object({

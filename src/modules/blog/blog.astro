@@ -1,26 +1,25 @@
 ---
-import { getCollection } from 'astro:content';
+import { CollectionEntry, getCollection } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import BlogTheme from './blog.svelte';
-import { Blog } from './blog.server';
 import { Page as AstroPage } from 'astro';
 import { BlogPage } from './blog';
 import theme from '@theme/index';
 
 interface Props {
-  settings: Blog;
+  entry: CollectionEntry<'blogs'>;
 
   page: AstroPage;
 }
 
-const { settings, page } = Astro.props;
+const { entry, page } = Astro.props;
 const isDev = import.meta.env.MODE === 'development';
 
 const blogPage: BlogPage = {
-  title: settings.title,
-  url: `/${settings.path}`,
+  title: entry.data.title,
+  url: `/${entry.slug}`,
   posts: page.data.map(({slug, data, collection}) => ({
-    slug, url: `/${settings.path}/${slug}`, data, collection
+    slug, url: `/${entry.slug}/${slug}`, data, collection
   })),
   theme: {},
   currentPage: page.currentPage,
@@ -36,16 +35,16 @@ const style = {
   layout: 'alternate',
 }
 
-const posts = await getCollection(settings.posts.collection as any);
+const posts = await getCollection(entry.data.posts.collection as any);
 ---
 
-<Page editor="blog" editorProps={{posts, settings, themeData: style}}>
+<Page editor="blog" editorProps={{slug: entry.slug, posts, settings: entry.data, themeData: style}}>
   <Fragment slot="head-bottom">
-    <title>{settings.title}</title>
+    <title>{entry.data.title}</title>
   </Fragment>
 
   {isDev || themeSettings.client
-    ? <BlogTheme page={blogPage} blogData={settings} themeData={style} client:load />
-    : <BlogTheme page={blogPage} blogData={settings} themeData={style} />
+    ? <BlogTheme page={blogPage} blogData={entry.data} themeData={style} client:load />
+    : <BlogTheme page={blogPage} blogData={entry.data} themeData={style} />
   }
 </Page>

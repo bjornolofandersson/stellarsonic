@@ -20,11 +20,12 @@
   import { BlogStore } from './blog';
   import ThemeSettings from '@components/editor/ThemeSettings.svelte';
 
+  export let slug: string;
   export let posts: any[];
   export let settings: any;
   export let themeData: any;
 
-  let store = BlogStore.instance('mixtapes', settings, themeData);
+  let store = BlogStore.instance(slug, settings, themeData);
   let {blog, theme} = store;
 
   let filteredPosts = posts;
