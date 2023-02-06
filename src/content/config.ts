@@ -4,6 +4,12 @@ const pageSchema = {
   title: z.string(),
 }
 
+const containerSchema = {
+  collection: z.string(),
+  entry: z.string(),
+  type: z.string(),
+}
+
 const blogSchema = {
   title: z.string(),
   limit: z.number(),
@@ -37,6 +43,10 @@ const pages = defineCollection({
   schema: pageSchema,
 });
 
+const containers = defineCollection({
+  schema: containerSchema,
+});
+
 const blogs = defineCollection({
   schema: blogSchema,
 });
@@ -47,6 +57,7 @@ const mixes = defineCollection({
 
 export const collections = {
   pages: pages,
+  containers: containers,
   blogs: blogs,
   mixes: mixes,
 };

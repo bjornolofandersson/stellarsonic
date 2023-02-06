@@ -1,0 +1,15 @@
+---
+import { CollectionEntry, getEntry } from 'astro:content';
+import Playlist from '@modules/playlist/playlist.astro';
+
+interface Props {
+  entry: CollectionEntry<'containers'>;
+}
+
+const { entry } = Astro.props;
+  
+const ref = await getEntry(entry.data.collection as any, entry.data.entry);
+---
+
+<!-- Make dynamic -->
+<Playlist entry={ref} parentUrl={entry.slug} />

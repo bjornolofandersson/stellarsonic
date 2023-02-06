@@ -9,20 +9,18 @@ import MenuBar from '@theme/MenuBar.svelte';
 import { getSitemap } from '@lib/server';
 
 interface Props {
-  collection: string;
-
   entry: CollectionEntry<'mixes'>;
 
   parentUrl: string;
 }
 
-const { entry, collection, parentUrl } = Astro.props;
+const { entry, parentUrl } = Astro.props;
 const { Content } = await entry.render();
-const col = new CollectionController(collection);
+const col = new CollectionController(entry.collection);
 
 const editorProps = {
   parentUrl: parentUrl,
-  collection,
+  collection: entry.collection,
   slug: entry.slug,
   data: entry.data,
   assets: col.getAssetPaths(entry.slug),
