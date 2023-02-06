@@ -2,7 +2,6 @@ import { z, defineCollection } from 'astro:content';
 
 const pageSchema = {
   title: z.string(),
-  type: z.string(),
 }
 
 const blogSchema = {
