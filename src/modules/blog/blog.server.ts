@@ -1,6 +1,17 @@
 import { Page } from "astro";
-import { CollectionEntry, getCollection } from "astro:content";
+import { z, CollectionEntry, getCollection } from "astro:content";
 import BlogPage from './blog.astro';
+
+export const schema = {
+  title: z.string(),
+  limit: z.number(),
+  pagination: z.boolean(),
+  posts: z.object({
+    path: z.string(),
+    type: z.string(),
+    collection: z.string(),
+  }),
+}
 
 export async function getStaticPaths(entry: CollectionEntry<'blogs'>) {
   const {posts, limit, title, pagination} = entry.data;
