@@ -14,12 +14,16 @@ export async function getStaticPaths() {
     return result;
   }
 
+  const modules = getServerModules();
   const blogs = await getCollection('blogs');
+  const pages = await getCollection('pages');
   let paths: any[] = [];
 
   for (const page of blogs) {
-    const modules = getServerModules();
     paths = paths.concat(await modules['blog'].getStaticPaths(page));
+  }
+  for (const page of pages) {
+    paths = paths.concat(await modules['page'].getStaticPaths(page));
   }
 
   return paths;

@@ -1,0 +1,19 @@
+---
+import { CollectionEntry } from 'astro:content';
+import Page from '@layouts/Page.astro'
+
+interface Props {
+  entry: CollectionEntry<'pages'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Page editor="page" editorProps={{data: entry.data}}>
+  <Fragment slot="head-bottom">
+    <title>{entry.data.title}</title>
+  </Fragment>
+
+  <Content/>
+</Page>
