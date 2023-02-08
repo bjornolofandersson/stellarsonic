@@ -53,7 +53,7 @@
 
 <Sidebar bind:panel={panel}>
   <MainPanel>
-    <BackArrow onClick={() => {}}/>
+    <BackArrow url="/"/>
 
     <TitleBar title={settings.title}>
       <Action icon="tune" onClick={() => {panel = 'theme'}}/>

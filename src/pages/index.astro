@@ -24,7 +24,7 @@ const sitemap = await getSitemap();
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="site" props={{data: settings, sitemap}} />
+    <EditorLoader module="site" props={{data: settings, sitemap}} client:only />
   </Fragment>
 
   <Index>
