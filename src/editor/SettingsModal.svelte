@@ -33,7 +33,7 @@
 	});
 </script>
 
-<SplitModal title="Settings" icon="settings" bind:show={show}>
+<SplitModal bind:show={show}>
   <div slot="header" class="flex">
     <span class="material-symbols-outlined block mr-4 py-1">settings</span>
     <h1 class="text-2xl">Settings</h1>

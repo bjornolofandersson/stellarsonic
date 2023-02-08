@@ -16,7 +16,7 @@
       <div class="col-span-12 lg:col-span-6">
         <img class="w-full h-full object-cover" src={post.image} alt=""/>
       </div>
-      <div class="bg-white col-span-12 lg:col-span-6 z-10 p-20 relative">
+      <div class="bg-white col-span-12 lg:col-span-6 p-20 relative">
         <span class="material-symbols-outlined absolute top-0 right-0 p-8">
           {icon}
         </span>
