@@ -2,24 +2,24 @@
   import {
     Action,
     BackArrow,
-    Editor,
     MainPanel,
     TitleBar
   } from 'src/editor';
+  import Sidebar from 'src/editor/Sidebar.svelte';
 
   export let data: any;
 </script>
 
-<Editor pageTitle={data.title} onSave={() => {}} panel="main">
+<Sidebar>
   <MainPanel>
-    <BackArrow onClick={() => {}}/>
+    <BackArrow url={data.parent ? `/${data.parent}` : '/'}/>
 
-    <TitleBar title={data.title}>
+    <TitleBar title="page">
       <Action icon="tune" onClick={() => {}}/>
       <Action icon="settings" onClick={() => {}}/>
     </TitleBar>
 
+    <p class="mb-20">Some things related to page</p>
+    <slot/>
   </MainPanel>
-
-  <div slot="preview"><slot/></div>
-</Editor>
+</Sidebar>

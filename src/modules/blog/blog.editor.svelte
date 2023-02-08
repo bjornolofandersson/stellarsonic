@@ -85,7 +85,7 @@
     <Scrollable>
       <List>
         {#each filteredPosts as post}
-        <LinkListItem icon="edit_note" url="/{slug}/{post.slug}">
+        <LinkListItem icon="edit_note" url={post.slug}>
           <div class="inline-block">
             <span class="block text-sm">{post.data.title}</span>
             <span class="block text-stone-500 text-xs">{new Date(post.data.date).toLocaleDateString()}</span>

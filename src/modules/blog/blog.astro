@@ -11,9 +11,11 @@ interface Props {
   entry: CollectionEntry<'blogs'>;
 
   page: AstroPage;
+
+  posts: CollectionEntry<any>[];
 }
 
-const { entry, page } = Astro.props;
+const { entry, page, posts } = Astro.props;
 const isDev = import.meta.env.MODE === 'development';
 
 const blogPage: BlogPage = {
@@ -36,7 +38,6 @@ const style = {
   layout: 'alternate',
 }
 
-const posts = await getCollection(entry.data.posts.collection as any);
 ---
 
 <Page>

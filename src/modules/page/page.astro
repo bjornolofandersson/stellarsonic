@@ -1,6 +1,7 @@
 ---
 import { CollectionEntry } from 'astro:content';
-import Page from '@layouts/Page.astro'
+import Page from '@layouts/Page2.astro'
+import EditorLoader from '@components/EditorLoader.svelte';
 
 interface Props {
   entry: CollectionEntry<'pages'>;
@@ -10,9 +11,13 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Page editor="page" editorProps={{data: entry.data}}>
+<Page>
   <Fragment slot="head-bottom">
     <title>{entry.data.title}</title>
+  </Fragment>
+
+  <Fragment slot="editor">
+    <EditorLoader module="page" props={{data: entry.data}} client:only/>
   </Fragment>
 
   <Content/>

@@ -23,8 +23,8 @@ export async function getSitemap() {
     ...site,
     pages: [
       ...blogs.map(b => ({title: b.data.title, path: b.slug, type: 'blog'})),
-      ...pages.map(p => ({title: p.data.title, path: p.slug, type: 'page'})),
-      ...containers.map(p => ({title: p.data.title, path: p.slug, type: 'container'})),
+      ...pages.filter(p => p.data.parent === undefined).map(p => ({title: p.data.title, path: p.slug, type: 'page'})),
+      ...containers.map(p => ({title: p.data.title, path: p.slug, type: p.data.type})),
     ]};
 }
 

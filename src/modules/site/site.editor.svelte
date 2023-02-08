@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { Action, Editor, MainPanel, Scrollable, SubPanel, Input, TitleBar} from 'src/editor';
+  import { Action, MainPanel, Scrollable, SubPanel, Input, TitleBar} from 'src/editor';
   import LinkListItem from 'src/editor/LinkListItem.svelte';
   import List from 'src/editor/List.svelte';
+  import Sidebar from 'src/editor/Sidebar.svelte';
   import { SiteStore } from './site';
 
   export let data: any;
@@ -18,6 +19,7 @@
     switch (page.type) {
       case 'blog': return 'library_books';
       case 'page': return 'draft';
+      case 'playlist': return 'queue_music';
       case 'container': return 'display_external_input';
     }
     return 'draft';
@@ -49,7 +51,7 @@
   ];
 </script>
 
-<Editor pageTitle={$site.title} onSave={onSave} bind:panel={panel}>
+<Sidebar bind:panel={panel}>
   <MainPanel>
     <div class="mt-12"></div>
     <TitleBar title="pages">
@@ -89,6 +91,4 @@
     <Input type="text" id="description" label="Description" bind:value={$site.description}/>
     <Input type="text" id="url" label="URL" bind:value={$site.url}/>
   </SubPanel>
-
-  <div slot="preview"><slot/></div>
-</Editor>
+</Sidebar>

@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
-import Page from '@layouts/Page.astro';
+import Page from '@layouts/Page2.astro';
 import * as settings from '@settings';
 import Index from '@theme/index.svelte';
 import PostFeatured from '@theme/PostFeatured.svelte';
 import MenuBar from '@theme/MenuBar.svelte';
 import { getSitemap } from '@lib/server';
+import EditorLoader from '@components/EditorLoader.svelte';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {
@@ -20,6 +21,10 @@ const sitemap = await getSitemap();
 <Page editor="site" editorProps={{data: settings, sitemap}}>
   <Fragment slot="head-bottom">
     <title>{settings.title}</title>
+  </Fragment>
+
+  <Fragment slot="editor">
+    <EditorLoader module="site" props={{data: settings, sitemap}} />
   </Fragment>
 
   <Index>

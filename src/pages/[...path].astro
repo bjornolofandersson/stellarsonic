@@ -6,7 +6,6 @@ export async function getStaticPaths() {
   const modules = getServerModules();
   const blogs = await getCollection('blogs');
   const pages = await getCollection('pages');
-  const containers = await getCollection('containers');
   let paths: any[] = [];
 
   for (const page of blogs) {
@@ -14,9 +13,6 @@ export async function getStaticPaths() {
   }
   for (const page of pages) {
     paths = paths.concat(await modules['page'].getStaticPaths(page));
-  }
-  for (const page of containers) {
-    paths = paths.concat(await modules['container'].getStaticPaths(page));
   }
 
   return paths;

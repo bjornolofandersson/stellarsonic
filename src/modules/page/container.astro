@@ -6,14 +6,15 @@ import { getServerModules } from '@lib/server';
 import Schema from '@components/Schema.astro';
 
 interface Props {
-  entry: CollectionEntry<'containers'>;
+  entry: CollectionEntry<'pages'>;
 }
 
 const { entry } = Astro.props;
+const content = entry.data.content;
   
-const ref = await getEntry(entry.data.collection as any, entry.data.entry);
+const ref = await getEntry(content.collection as any, content.id);
 const modules = getServerModules();
-const {Component, jsonld, editorProps} = modules[entry.data.type] as any;
+const {Component, jsonld, editorProps} = modules[content.type] as any;
 ---
 
 <Page>
@@ -23,8 +24,8 @@ const {Component, jsonld, editorProps} = modules[entry.data.type] as any;
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="container" props={{data: entry.data}} client:only>
-      <EditorLoader module={entry.data.type} props={editorProps(ref)} client:only />
+    <EditorLoader module="page" props={{data: entry.data}} client:only>
+      <EditorLoader module={content.type} props={editorProps(ref)} client:only />
     </EditorLoader>
   </Fragment>
 
