@@ -1,10 +1,11 @@
 ---
 import { CollectionEntry, getCollection } from 'astro:content';
-import Page from '@layouts/Page.astro'
+import Page from '@layouts/Page2.astro'
 import BlogTheme from './blog.svelte';
 import { Page as AstroPage } from 'astro';
 import { BlogPage } from './blog';
 import theme from '@theme/index';
+import EditorLoader from '@components/EditorLoader.svelte';
 
 interface Props {
   entry: CollectionEntry<'blogs'>;
@@ -38,9 +39,13 @@ const style = {
 const posts = await getCollection(entry.data.posts.collection as any);
 ---
 
-<Page editor="blog" editorProps={{slug: entry.slug, posts, settings: entry.data, themeData: style}}>
+<Page>
   <Fragment slot="head-bottom">
     <title>{entry.data.title}</title>
+  </Fragment>
+
+  <Fragment slot="editor">
+    <EditorLoader module="blog" props={{slug: entry.slug, posts, settings: entry.data, themeData: style}} client:only/>
   </Fragment>
 
   {isDev || themeSettings.client

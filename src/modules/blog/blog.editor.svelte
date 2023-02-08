@@ -2,7 +2,6 @@
   import {
     Action,
     BackArrow,
-    Editor,
     LinkListItem,
     List,
     MainPanel,
@@ -19,6 +18,7 @@
   import themeDef from '@theme/index';
   import { BlogStore } from './blog';
   import ThemeSettings from '@components/editor/ThemeSettings.svelte';
+    import Sidebar from 'src/editor/Sidebar.svelte';
 
   export let slug: string;
   export let posts: any[];
@@ -51,7 +51,7 @@
   }
 </script>
 
-<Editor pageTitle={settings.title} onSave={() => {}} bind:panel={panel}>
+<Sidebar bind:panel={panel}>
   <MainPanel>
     <BackArrow onClick={() => {}}/>
 
@@ -130,6 +130,4 @@
       </ul>
     </SettingsPanel>
   </SettingsModal>
-
-  <div slot="preview"><slot/></div>
-</Editor>
+</Sidebar>

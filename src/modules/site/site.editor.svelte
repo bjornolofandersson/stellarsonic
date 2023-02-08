@@ -1,13 +1,27 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, Action, Editor, MainPanel, Scrollable, SubPanel, Input, TitleBar} from 'src/editor';
+  import { Action, Editor, MainPanel, Scrollable, SubPanel, Input, TitleBar} from 'src/editor';
+  import LinkListItem from 'src/editor/LinkListItem.svelte';
+  import List from 'src/editor/List.svelte';
   import { SiteStore } from './site';
 
   export let data: any;
+  export let sitemap: any;
 
   let {site} = SiteStore.instance(data);
   let panel: string | undefined = undefined;
 
   function onSave() {}
+
+  console.log(sitemap);
+
+  const pageIcon = (page: any) => {
+    switch (page.type) {
+      case 'blog': return 'library_books';
+      case 'page': return 'draft';
+      case 'container': return 'display_external_input';
+    }
+    return 'draft';
+  }
 
   let selected: any = undefined;
   const contentCollections = [
@@ -37,19 +51,19 @@
 
 <Editor pageTitle={$site.title} onSave={onSave} bind:panel={panel}>
   <MainPanel>
+    <div class="mt-12"></div>
     <TitleBar title="pages">
       <Action icon="settings" onClick={() => {}} />
     </TitleBar>
 
     <Scrollable>
-      <Accordion>
-        {#each $site.pages as page}
-          <AccordionItem icon="line_start" name={page.path}>
-            <h1>{page.type}</h1>
-            <a href={page.path}>/{page.path}</a>
-          </AccordionItem>
+      <List>
+        {#each sitemap.pages as page}
+          <LinkListItem icon={pageIcon(page)} url={page.path}>
+            {page.path}
+          </LinkListItem>
         {/each}
-      </Accordion>
+        </List>
       <ul class="w-full p-8">
       </ul>
     </Scrollable>

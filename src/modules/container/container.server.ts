@@ -1,6 +1,8 @@
 import { z, CollectionEntry } from "astro:content";
+
 import Container from './container.astro';
 
+export const collection = 'containers';
 export const schema = {
   collection: z.string(),
   entry: z.string(),

@@ -5,6 +5,7 @@ import * as settings from '@settings';
 import Index from '@theme/index.svelte';
 import PostFeatured from '@theme/PostFeatured.svelte';
 import MenuBar from '@theme/MenuBar.svelte';
+import { getSitemap } from '@lib/server';
 
 const posts = await getCollection('mixes');
 const sortedPosts = posts.sort((a, b) => {
@@ -12,15 +13,17 @@ const sortedPosts = posts.sort((a, b) => {
   return 1;
 });
 const [featured, ...rest] = sortedPosts;
+const sitemap = await getSitemap();
+
 ---
 
-<Page editor="site" editorProps={{data: settings}}>
+<Page editor="site" editorProps={{data: settings, sitemap}}>
   <Fragment slot="head-bottom">
     <title>{settings.title}</title>
   </Fragment>
 
   <Index>
-    <MenuBar slot="header" settings={settings} client:load/>
+    <!--<MenuBar slot="header" settings={settings} client:load/>-->
     <PostFeatured slot="featured" collection={featured.collection} post={featured.data} slug={featured.slug}/>
     <!--
     <Fragment slot="mixes">

@@ -1,7 +1,10 @@
+import { CollectionController } from "@lib/CollectionController";
 import { SitePage } from "@lib/interfaces";
-import { z, getCollection } from "astro:content";
+import { z, getCollection, CollectionEntry } from "astro:content";
 import Playlist from './playlist.astro';
+import site from '@settings';
 
+export const collection = 'mixes';
 export const schema = {
   title: z.string(),
   subtitle: z.string().optional(),
@@ -18,6 +21,48 @@ export const schema = {
     year: z.number().optional(),
     duration: z.string(),
   })),
+}
+
+export const Component = Playlist;
+
+export const jsonld = (entry: CollectionEntry<'mixes'>) => {
+  const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "MusicPlaylist",
+    headline: title,
+    alternativeHeadline: subtitle,
+    datePublished: `${date}`,
+    image: {
+      "@type": "ImageObject",
+      url: `${site.url}${image}`,
+    },
+    description: `${description}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${site.url}/mixes/`,
+    },
+    track: tracks.map(({name, artist, year, duration}) => ({
+      "@type": "MusicRecording",
+      name,
+      byArtist: artist,
+      copyrightYear: year,
+      duration,
+    })),
+    genre: genres,
+    keywords: tags.join(', '),
+  }
+}
+
+export const editorProps = (entry: CollectionEntry<'mixes'>) => {
+  const col = new CollectionController(entry.collection);
+  return {
+    collection: entry.collection,
+    slug: entry.slug,
+    data: entry.data,
+    assets: col.getAssetPaths(entry.slug),
+  };
 }
 
 export async function getStaticPaths({path, collection, parent}: SitePage & any) {

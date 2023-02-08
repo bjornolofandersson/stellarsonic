@@ -1,5 +1,6 @@
 import { getCollection } from "astro:content";
 import site from '@settings';
+import { ServerModule } from "./interfaces";
 
 export function blogCollectionPaths(collection: string, pageSize: number) {
   return async ({ paginate }: any) => {
@@ -16,11 +17,23 @@ export function blogCollectionPaths(collection: string, pageSize: number) {
 export async function getSitemap() {
   const blogs = await getCollection('blogs');
   const pages = await getCollection('pages');
+  const containers = await getCollection('containers');
 
   return {
     ...site,
     pages: [
       ...blogs.map(b => ({title: b.data.title, path: b.slug, type: 'blog'})),
       ...pages.map(p => ({title: p.data.title, path: p.slug, type: 'page'})),
+      ...containers.map(p => ({title: p.data.title, path: p.slug, type: 'container'})),
     ]};
+}
+
+export function getServerModules() {
+  const modules = import.meta.glob('../modules/*/*.server.ts', {eager: true, });
+  const result: Record<string, ServerModule> = {};
+  for (const path in modules) {
+    const name = path.substring(path.lastIndexOf('/') + 1).replace('.server.ts', '');
+    result[name] = modules[path] as ServerModule;
+  }
+  return result;
 }

@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import { getContext } from "svelte";
-	import { PANELS } from './Editor.svelte';
+	import { PANELS } from './Sidebar.svelte';
   
 	const { selected, registerPanel } = getContext<any>(PANELS);
 

@@ -10,60 +10,39 @@ import { getSitemap } from '@lib/server';
 
 interface Props {
   entry: CollectionEntry<'mixes'>;
-
-  parentUrl: string;
 }
 
-const { entry, parentUrl } = Astro.props;
+const { entry } = Astro.props;
 const { Content } = await entry.render();
-const col = new CollectionController(entry.collection);
 
+/*
 const editorProps = {
-  parentUrl: parentUrl,
   collection: entry.collection,
   slug: entry.slug,
   data: entry.data,
   assets: col.getAssetPaths(entry.slug),
 };
+*/
 
 const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;
 const sitemap = await getSitemap();
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "MusicPlaylist",
-  headline: title,
-  alternativeHeadline: subtitle,
-  datePublished: `${date}`,
-  image: {
-    "@type": "ImageObject",
-    url: `${site.url}${image}`,
-  },
-  description: `${description}`,
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": `${site.url}/mixes/`,
-  },
-  track: tracks.map(({name, artist, year, duration}) => ({
-    "@type": "MusicRecording",
-    name,
-    byArtist: artist,
-    copyrightYear: year,
-    duration,
-  })),
-  genre: genres,
-  keywords: tags.join(', '),
-}
 ---
 
+<!--
 <Page editor="playlist" editorProps={editorProps}>
+  -->
+  <!--
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{entry.data.title}</title>
   </Fragment>
+-->
 
   <Playlist slug={entry.slug} data={entry.data} client:load>
     <MenuBar sitemap={sitemap} slot="menu" />
     <Content slot="article"/>
   </Playlist>
+  <!--
 </Page>
+-->

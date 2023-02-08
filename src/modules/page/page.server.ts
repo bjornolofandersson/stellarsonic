@@ -1,6 +1,7 @@
 import { z, CollectionEntry } from "astro:content";
 import Page from './page.astro';
 
+export const collection = 'pages';
 export const schema = {
   title: z.string(),
 }

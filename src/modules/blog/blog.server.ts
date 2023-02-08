@@ -2,6 +2,7 @@ import { Page } from "astro";
 import { z, CollectionEntry, getCollection } from "astro:content";
 import BlogPage from './blog.astro';
 
+export const collection = 'blogs';
 export const schema = {
   title: z.string(),
   limit: z.number(),

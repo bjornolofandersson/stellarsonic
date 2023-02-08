@@ -4,7 +4,6 @@ import * as page from '@modules/page/page.server';
 import * as blog from '@modules/blog/blog.server';
 import * as playlist from '@modules/playlist/playlist.server';
 
-
 export const collections = {
   pages: defineCollection({schema: page.schema}),
   containers: defineCollection({schema: container.schema}),

@@ -1,6 +1,9 @@
 ---
 import { CollectionEntry, getEntry } from 'astro:content';
-import Playlist from '@modules/playlist/playlist.astro';
+import Page from '@layouts/Page2.astro';
+import EditorLoader from '@components/EditorLoader.svelte';
+import { getServerModules } from '@lib/server';
+import Schema from '@components/Schema.astro';
 
 interface Props {
   entry: CollectionEntry<'containers'>;
@@ -9,7 +12,21 @@ interface Props {
 const { entry } = Astro.props;
   
 const ref = await getEntry(entry.data.collection as any, entry.data.entry);
+const modules = getServerModules();
+const {Component, jsonld, editorProps} = modules[entry.data.type] as any;
 ---
 
-<!-- Make dynamic -->
-<Playlist entry={ref} parentUrl={entry.slug} />
+<Page>
+  <Fragment slot="head-bottom">
+    <Schema data={jsonld(ref)}/>
+    <title>{ref.data.title}</title>
+  </Fragment>
+
+  <Fragment slot="editor">
+    <EditorLoader module="container" props={{data: entry.data}} client:only>
+      <EditorLoader module={entry.data.type} props={editorProps(ref)} client:only />
+    </EditorLoader>
+  </Fragment>
+
+  <Component entry={ref} />
+</Page>

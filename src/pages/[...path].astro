@@ -1,19 +1,8 @@
 ---
-import { ServerModule } from '@lib/interfaces';
+import { getServerModules } from '@lib/server';
 import { getCollection } from 'astro:content';
 
-
 export async function getStaticPaths() {
-  function getServerModules() {
-    const modules = import.meta.glob('../modules/*/*.server.ts', {eager: true, });
-    const result: Record<string, ServerModule> = {};
-    for (const path in modules) {
-      const name = path.substring(path.lastIndexOf('/') + 1).replace('.server.ts', '');
-      result[name] = modules[path] as ServerModule;
-    }
-    return result;
-  }
-
   const modules = getServerModules();
   const blogs = await getCollection('blogs');
   const pages = await getCollection('pages');

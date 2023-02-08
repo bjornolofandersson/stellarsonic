@@ -8,6 +8,10 @@ export class DummyAudioPlayer implements MediaPlayer {
 
   public pause() {}
 
+  public load(src: string) {
+
+  }
+
   public get src(): string {
     return '';
   }
