@@ -1,5 +1,6 @@
 <script lang="ts">
   import Page from '@theme/Page.svelte';
+  import Content from '@components/common/Content.svelte';
   import { PageStore } from './page';
 
   export let data: any;
@@ -8,5 +9,7 @@
 </script>
 
 <Page bind:page={$page}>
-  <slot/>
+  <Content style={$page.style}>
+    <slot/>
+  </Content>
 </Page>
