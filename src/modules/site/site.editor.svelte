@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { Action, MainPanel, Scrollable, SubPanel, Input, TitleBar} from 'src/editor';
+  import { quintOut } from 'svelte/easing';
+  import { slide } from 'svelte/transition';
+  import { Action, MainPanel, Scrollable, Input, TitleBar} from 'src/editor';
   import LinkListItem from 'src/editor/LinkListItem.svelte';
   import List from 'src/editor/List.svelte';
-    import SettingsModal from 'src/editor/SettingsModal.svelte';
-    import SettingsPanel from 'src/editor/SettingsPanel.svelte';
+  import SettingsModal from 'src/editor/SettingsModal.svelte';
+  import SettingsPanel from 'src/editor/SettingsPanel.svelte';
   import Sidebar from 'src/editor/Sidebar.svelte';
-    import { quintOut } from 'svelte/easing';
-    import { slide } from 'svelte/transition';
   import { SiteStore } from './site';
+  import CreatePageModal from '@components/editor/modals/create-page.svelte';
+  import CreateMixModal from '@components/editor/modals/create-mix.svelte';
 
   export let data: any;
   export let sitemap: any;
@@ -16,6 +18,7 @@
   let panel: string | undefined = undefined;
   let showAdd: boolean = false;
   let showSettings: boolean = false;
+  let showAddModal: string | undefined = undefined;
 
   function onSave() {}
   function onSaveSettings() {}
@@ -42,7 +45,7 @@
     {#if showAdd}
       <div class="mt-4 px-8 py-8 -ml-8 -mr-8 bg-[#00000007]"  transition:slide={{ duration: 200, easing: quintOut }}>
         <div class="grid grid-cols-2 gap-8">
-          <button class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button on:click={() => {showAddModal = 'page'}} class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">draft</span>
             <span>Page</span>
           </button>
@@ -50,7 +53,7 @@
             <span class="material-symbols-outlined mr-2">library_books</span>
             <span>Blog</span>
           </button>
-          <button class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button on:click={() => {showAddModal = 'mix'}} class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">queue_music</span>
             <span>Mix</span>
           </button>
@@ -101,4 +104,7 @@
       </ul>
     </SettingsPanel>
   </SettingsModal>
+
+  <CreatePageModal show={showAddModal === 'page'} />
+  <CreateMixModal show={showAddModal === 'mix'} />
 </Sidebar>

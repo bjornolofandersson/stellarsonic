@@ -15,6 +15,7 @@
     <BackArrow url={data.parent ? `/${data.parent}` : '/'}/>
 
     <TitleBar title="page">
+      <Action icon="save" onClick={() => {}}/>
       <Action icon="tune" onClick={() => {}}/>
       <Action icon="settings" onClick={() => {}}/>
     </TitleBar>

@@ -3,7 +3,7 @@ import * as yaml from 'yaml';
 import * as fs from 'fs';
 import slugify from 'slugify';
 
-export class CollectionController<T extends {title: string} = {title: string}> {
+export class CollectionController<T extends {title: string, slug?: string} = {title: string}> {
   public constructor(public readonly collection: string) {}
 
   /**
@@ -13,7 +13,7 @@ export class CollectionController<T extends {title: string} = {title: string}> {
    * @returns The post slug
    */
   public create(body: T) {
-    const slug = slugify(body.title, {lower: true});
+    const slug = body.slug ? body.slug : slugify(body.title, {lower: true});
     this.write(slug, body);
     return slug;
   }

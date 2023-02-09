@@ -1,4 +1,5 @@
 import { APIRoute } from "astro";
+import { getCollection } from "astro:content";
 import { CollectionController } from "./CollectionController";
 
 export class CollectionRouter {
@@ -15,4 +16,11 @@ export class CollectionRouter {
       body: JSON.stringify({data: payload, slug})
     }
   };
+
+  public get: APIRoute = async () => {
+    const entries = await this.controller.getAllEntries();
+    return {
+      body: JSON.stringify(entries)
+    }
+  }
 }

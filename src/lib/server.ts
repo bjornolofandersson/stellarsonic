@@ -17,14 +17,14 @@ export function blogCollectionPaths(collection: string, pageSize: number) {
 export async function getSitemap() {
   const blogs = await getCollection('blogs');
   const pages = await getCollection('pages');
-  const containers = await getCollection('containers');
 
   return {
     ...site,
     pages: [
       ...blogs.map(b => ({title: b.data.title, path: b.slug, type: 'blog'})),
-      ...pages.filter(p => p.data.parent === undefined).map(p => ({title: p.data.title, path: p.slug, type: 'page'})),
-      ...containers.map(p => ({title: p.data.title, path: p.slug, type: p.data.type})),
+      ...pages
+        .filter(p => p.data.parent === undefined)
+        .map(p => ({title: p.data.title, path: p.slug, type: p.data.content ? p.data.content.type : 'page'})),
     ]};
 }
 
