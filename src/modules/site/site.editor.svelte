@@ -23,6 +23,13 @@
   function onSave() {}
   function onSaveSettings() {}
 
+  async function onDeletePage(page: any) {
+    await fetch(`/pages/${page.path}.json`, {
+      method: 'DELETE',
+      //body: JSON.stringify(page),
+    });
+  }
+
   const pageIcon = (page: any) => {
     switch (page.type) {
       case 'blog': return 'library_books';
@@ -37,8 +44,10 @@
 <Sidebar bind:panel={panel}>
   <MainPanel>
     <div class="mt-12"></div>
-    <TitleBar title="pages">
+    <TitleBar title="site">
       <Action icon="settings" onClick={() => {showSettings = true}}/>
+    </TitleBar>
+    <TitleBar title="pages">
       <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
     </TitleBar>
 
@@ -78,6 +87,7 @@
         {#each sitemap.pages as page}
           <LinkListItem icon={pageIcon(page)} url={page.path}>
             {page.path}
+            <Action slot="actions" icon={"delete"} onClick={() => onDeletePage(page)}/>
           </LinkListItem>
         {/each}
         </List>
