@@ -7,7 +7,6 @@
   export let icon: string;
   export let name: string;
 
-
 	const item = {icon, name};
 	const { registerItem, selectItem, selected } = getContext<any>(ITEMS);
 

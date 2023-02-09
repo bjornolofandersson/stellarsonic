@@ -22,7 +22,6 @@
 		},
     selectItem: (item: any) => {
 			selected.set(item);
-      console.log(item);
 		},
     selected,
 	});
