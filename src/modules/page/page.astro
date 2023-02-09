@@ -3,12 +3,29 @@ import { CollectionEntry } from 'astro:content';
 import Page from '@layouts/Page2.astro'
 import EditorLoader from '@components/EditorLoader.svelte';
 import PageTheme from './page.svelte';
+import deepMerge from 'deepmerge';
 
 interface Props {
   entry: CollectionEntry<'pages'>;
 }
 
+const defaultStyle: any = {
+  fontSize: {
+    h1: 6, h2: 5, h3: 4, h4: 3, h5: 2, h6: 2, p: 1
+  },
+  color: {
+    h1: '#000', 
+    h2: '#000', 
+    h3: '#000', 
+    h4: '#000', 
+    h5: '#000', 
+    h6: '#000', 
+    p: '#000', 
+  }
+}
+
 const { entry } = Astro.props;
+const data = deepMerge({style: defaultStyle}, entry.data);
 const { Content } = await entry.render();
 ---
 
@@ -18,10 +35,10 @@ const { Content } = await entry.render();
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="page" props={{data: entry.data}} client:only/>
+    <EditorLoader module="page" props={{data}} client:only/>
   </Fragment>
 
-  <PageTheme data={entry.data} client:load>
+  <PageTheme data={data} client:load>
     <Content class="page-content"/>
   </PageTheme>
 </Page>
