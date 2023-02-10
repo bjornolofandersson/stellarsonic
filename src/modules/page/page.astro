@@ -4,6 +4,7 @@ import Page from '@layouts/Page2.astro'
 import EditorLoader from '@components/EditorLoader.svelte';
 import PageTheme from './page.svelte';
 import deepMerge from 'deepmerge';
+import { getSitemap } from '@lib/server';
 
 interface Props {
   entry: CollectionEntry<'pages'>;
@@ -27,6 +28,7 @@ const defaultStyle: any = {
 const { entry } = Astro.props;
 const data = deepMerge({style: defaultStyle}, entry.data);
 const { Content } = await entry.render();
+const sitemap = await getSitemap();
 ---
 
 <Page>
@@ -38,7 +40,7 @@ const { Content } = await entry.render();
     <EditorLoader module="page" props={{data}} client:only/>
   </Fragment>
 
-  <PageTheme data={data} client:load>
+  <PageTheme data={data} sitemap={sitemap} client:load>
     <Content class="page-content"/>
   </PageTheme>
 </Page>

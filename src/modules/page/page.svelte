@@ -4,11 +4,12 @@
   import { PageStore } from './page';
 
   export let data: any;
+  export let sitemap: any;
 
   let { page } = PageStore.instance(data);
 </script>
 
-<Page bind:page={$page}>
+<Page bind:page={$page} sitemap={sitemap}>
   <Content style={$page.style}>
     <slot/>
   </Content>
