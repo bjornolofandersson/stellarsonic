@@ -8,14 +8,14 @@ export class PageStore {
   ) {}
 
   public static instance(data: any): PageStore {
-    if (!this.pages[data.slug]) {
-      this.pages[data.slug] = new PageStore(writable(data));
+    if (!this.pages[data.id]) {
+      this.pages[data.id] = new PageStore(writable(data));
     }
-    return this.pages[data.slug];
+    return this.pages[data.id];
   }
 
   public async save(): Promise<void> {
-    await fetch(`/pages/${this.slug}.json`, {
+    await fetch(`/pages/${get(this.page).id}.json`, {
       method: 'PUT',
       body: JSON.stringify(get(this.page)),
     });

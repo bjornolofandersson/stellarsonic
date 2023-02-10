@@ -82,3 +82,13 @@ export interface SitePage {
 export interface ServerModule {
   getStaticPaths(config: any): any;
 }
+
+export interface Entity<T> {
+  id: string;
+
+  slug: string;
+
+  data: T;
+
+  body?: string;
+}

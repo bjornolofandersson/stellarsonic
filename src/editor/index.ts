@@ -16,6 +16,7 @@ import Scrollable from "./Scrollable.svelte";
 import SettingsModal from "./SettingsModal.svelte";
 import SplitModal from "./SplitModal.svelte";
 import SettingsPanel from "./SettingsPanel.svelte";
+import Sidebar from "./Sidebar.svelte";
 import SubPanel from "./SubPanel.svelte";
 import TextArea from "./TextArea.svelte";
 import TitleBar from "./TitleBar.svelte";
@@ -37,8 +38,9 @@ export {
   PageContainer,
   Scrollable,
   SettingsModal,
-  SplitModal,
   SettingsPanel,
+  Sidebar,
+  SplitModal,
   SubPanel,
   TextArea,
   TitleBar

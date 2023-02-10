@@ -27,9 +27,17 @@ const defaultStyle: any = {
 }
 
 const { entry } = Astro.props;
-const data = deepMerge({style: defaultStyle}, entry.data);
+//console.log(entry);
+//const data = deepMerge({style: defaultStyle}, {...entry.data, slug: entry.slug});
 const { Content } = await entry.render();
 const sitemap = await getSitemap();
+
+const entity = {
+  id: entry.id.replace(/\.[^/.]+$/, ""),
+  slug: entry.slug,
+  data: deepMerge({style: defaultStyle}, entry.data),
+  body: entry.body,
+}
 ---
 
 <Page>
@@ -38,10 +46,10 @@ const sitemap = await getSitemap();
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="page" props={{data}} client:only/>
+    <EditorLoader module="page" props={{data: entity}} client:only/>
   </Fragment>
 
-  <PageTheme data={data} sitemap={sitemap} client:load>
-    <Content class="page-content"/>
+  <PageTheme data={entity} sitemap={sitemap} client:load>
+    <Content/>
   </PageTheme>
 </Page>

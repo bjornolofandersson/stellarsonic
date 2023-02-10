@@ -9,8 +9,8 @@
   let { page } = PageStore.instance(data);
 </script>
 
-<Page bind:page={$page} sitemap={sitemap}>
-  <Content style={$page.style}>
+<Page bind:data={$page.data} sitemap={sitemap}>
+  <Content style={$page.data.style}>
     <slot/>
   </Content>
 </Page>

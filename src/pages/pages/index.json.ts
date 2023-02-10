@@ -1,8 +1,5 @@
-import type { APIRoute } from 'astro';
-import { CollectionRouter } from '@lib/CollectionRouter';
-import { CollectionController } from '@lib/CollectionController';
+import { collectionRouter } from '@lib/server';
 
-const router = new CollectionRouter(new CollectionController('pages'));
+const {get, post} = collectionRouter('pages');
 
-export const post: APIRoute = ctx => router.post(ctx);
-export const get: APIRoute = ctx => router.get(ctx);
+export { get, post };

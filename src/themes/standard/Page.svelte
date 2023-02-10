@@ -1,7 +1,7 @@
 <script lang="ts">
-    import MenuBar from "./MenuBar.svelte";
+  import MenuBar from "./MenuBar.svelte";
 
-  export let page: any;
+  export let data: any;
   export let sitemap: any;
 </script>
 

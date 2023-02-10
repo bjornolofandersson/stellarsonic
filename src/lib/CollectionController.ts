@@ -2,8 +2,9 @@ import { CollectionEntry, getCollection, getEntry } from "astro:content";
 import * as yaml from 'yaml';
 import * as fs from 'fs';
 import slugify from 'slugify';
+import { Entity } from "./interfaces";
 
-export class CollectionController<T extends {title: string, slug?: string} = {title: string}> {
+export class CollectionController<T extends {title: string}> {
   public constructor(public readonly collection: string) {}
 
   /**
@@ -12,29 +13,31 @@ export class CollectionController<T extends {title: string, slug?: string} = {ti
    * @param body 
    * @returns The post slug
    */
-  public create(body: T) {
-    const slug = body.slug ? body.slug : slugify(body.title, {lower: true});
-    this.write(slug, body);
+  public create(entry: Entity<T>) {
+    const slug = entry.slug ? entry.slug : slugify(entry.data.title, {lower: true});
+    this.write({...entry, slug});
     return slug;
   }
 
-  public write(slug: string, body: T) {
-    const frontmatter = yaml.stringify(body);
-    const output = '---\n' + frontmatter + '---\n';
+  public write(entity: Entity<T>) {
+    const frontmatter = yaml.stringify(entity.data);
+    const output = '---\n' + frontmatter + '---\n' + entity.body;
 
-    fs.writeFileSync(this.slugToPath(slug), output);
+    fs.writeFileSync(this.filePath(entity.id), output);
   }
 
-  public remove(slug: string) {
-    fs.rmSync(this.slugToPath(slug));
+  public remove(id: string) {
+    fs.rmSync(this.filePath(id));
   }
 
-  public async getBySlug(slug: string): Promise<CollectionEntry<any>> {
-    return getEntry(this.collection as any, `${slug}.md` as any);
+  public async getById(id: string): Promise<Entity<T>> {
+    const entry = await getEntry(this.collection as any, `${id}.md` as any);
+    return CollectionController.makeEntity(entry);
   }
 
-  public getAllEntries(): Promise<CollectionEntry<any>> {
-    return getCollection(this.collection as any);
+  public async getAllEntities(): Promise<Entity<any>[]> {
+    const entries = await getCollection(this.collection as any);
+    return entries.map(e => CollectionController.makeEntity(e));
   }
 
   public getAssetPaths(slug: string) {
@@ -46,7 +49,16 @@ export class CollectionController<T extends {title: string, slug?: string} = {ti
     }
   }
 
-  private slugToPath(slug: string) {
-    return `src/content/${this.collection}/${slug}.md`;
+  private filePath(id: string) {
+    return `src/content/${this.collection}/${id}.md`;
+  }
+
+  public static makeEntity<T = any>(entry: CollectionEntry<any>): Entity<T> {
+    return {
+      id: entry.id.replace(/\.[^/.]+$/, ""),
+      slug: entry.slug,
+      data: entry.data,
+      body: entry.body,
+    }
   }
 }
