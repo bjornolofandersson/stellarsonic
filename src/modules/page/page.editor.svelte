@@ -8,6 +8,7 @@
   } from 'src/editor';
     import Accordion from 'src/editor/Accordion.svelte';
     import AccordionItem from 'src/editor/AccordionItem.svelte';
+    import MultiButton from 'src/editor/MultiButton.svelte';
   import Sidebar from 'src/editor/Sidebar.svelte';
   import SubPanel from 'src/editor/SubPanel.svelte';
   import { PageStore } from './page';
@@ -33,6 +34,11 @@
   </MainPanel>
 
   <SubPanel name="style">
+    <div class="flex gap-2 w-full mt-8">
+      <Action icon="format_align_left" onClick={() => {$page.style.textAlign = 'left'}}/>
+      <Action icon="format_align_center" onClick={() => {$page.style.textAlign = 'center'}}/>
+      <Action icon="format_align_right" onClick={() => {$page.style.textAlign = 'right'}}/>
+    </div>
     <Accordion>
       <AccordionItem icon="title" name="Heading 1">
         <label for="font-size-h1" class="text-sm opacity-50">{$page.style.fontSize.h1}rem</label>

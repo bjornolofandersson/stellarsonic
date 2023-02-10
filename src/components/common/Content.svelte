@@ -11,6 +11,7 @@
   --theme-text-color-h2: ${style.color.h2};
   --theme-text-color-h3: ${style.color.h3};
   --theme-text-color-p: ${style.color.p};
+  --theme-text-align: ${style.textAlign};
 `}>
   <slot/>
 </div>
@@ -31,5 +32,8 @@
   .content :global(p) {
     font-size: var(--theme-font-size-p);
     color: var(--theme-text-color-p);
+  }
+  .content {
+    text-align: var(--theme-text-align);
   }
 </style>
