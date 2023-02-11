@@ -5,11 +5,12 @@ export class PageStore {
 
   public constructor(
     public readonly page: Writable<any>,
+    public readonly base: Writable<any>,
   ) {}
 
-  public static instance(data: any): PageStore {
+  public static instance(data: any, baseStyle: any): PageStore {
     if (!this.pages[data.id]) {
-      this.pages[data.id] = new PageStore(writable(data));
+      this.pages[data.id] = new PageStore(writable(data), writable(baseStyle));
     }
     return this.pages[data.id];
   }
