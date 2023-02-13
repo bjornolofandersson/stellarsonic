@@ -8,9 +8,18 @@ export class EntityStore<T> {
   ) {}
 
   public async save(): Promise<void> {
-    await fetch(`/${this.collection}/${get(this.entity).id}.json`, {
+    const body = JSON.stringify(get(this.entity));
+
+    const resp = await fetch(`/${this.collection}/${get(this.entity).id}.json`, {
       method: 'PUT',
-      body: JSON.stringify(get(this.entity)),
+      body,
     });
+
+    if (resp.status === 404) {
+      await fetch(`/${this.collection}.json`, {
+        method: 'POST',
+        body,
+      });
+    }
   }
 }

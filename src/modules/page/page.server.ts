@@ -8,7 +8,7 @@ export const collection = 'pages';
 export const schema = {
   title: z.string().optional(),
   parent: z.string().optional(),
-  context: z.string().optional(),
+  context: z.string(),
   draft: z.boolean().optional(),
   content: z.object({
     collection: z.string(),

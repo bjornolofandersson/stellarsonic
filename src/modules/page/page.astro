@@ -19,7 +19,6 @@ const { Content } = await entry.render();
 const sitemap = await getSitemap();
 
 const entity = CollectionController.makeEntity(entry);
-entity.data = deepMerge({style: defaultStyle}, entry.data);
 ---
 
 <Page>
