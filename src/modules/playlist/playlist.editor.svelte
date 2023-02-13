@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, Action, BackArrow, Editor, Input, MainPanel, Scrollable, TitleBar } from 'src/editor';
+  import { Accordion, AccordionItem, Action, Input, Scrollable, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
-  import StyleForm from '@components/editor/forms/StyleForm.svelte';
   import { MixStore } from './playlist';
   import SplitModal from 'src/editor/SplitModal.svelte';
   import PlaylistForm from '@components/editor/forms/PlaylistForm.svelte';
@@ -11,7 +10,6 @@
   export let slug: string;
   export let data: any;
   export let assets: string[];
-  //export let parentUrl: string;
 
   let store = MixStore.instance(slug, data);
   let {post, playlist} = store;
@@ -67,9 +65,6 @@
     </AccordionItem>
     <AccordionItem name="Image" icon="image">
       <ImageForm bind:post={$post} assets={assets} />
-    </AccordionItem>
-    <AccordionItem name="Style" icon="format_paint">
-      <StyleForm bind:post={$post} />
     </AccordionItem>
   </Accordion>
 </Scrollable>

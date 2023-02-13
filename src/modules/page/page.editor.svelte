@@ -6,6 +6,7 @@
     BackArrow,
     ColorInput,
     MainPanel,
+    Palette,
     SelectGroup,
     SelectGroupOption,
     Sidebar,
@@ -21,6 +22,7 @@
   let { page, base } = store;
   let panel = 'main';
   let status = 'published';
+
 </script>
 
 <Sidebar bind:panel={panel}>
@@ -38,12 +40,18 @@
       <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
     </SelectGroup>
 
+    <h1 class="text-sm p-4 mt-4 opacity-50">Palette</h1>
+    <Palette bind:colors={$page.data.palette} />
+
     <div class="mt-8">
       <slot/>
     </div>
   </MainPanel>
 
   <SubPanel name="style">
+      <!--<ColorInput id={color} bind:value={color} label={color}></ColorInput>-->
+    
+    <!--
     <h1 class="text-md mt-8">Base style</h1>
     <p class="text-xs opacity-50 border-b border-[#00000060] pb-4">These are applied to all pages this context</p>
     <Accordion>
@@ -88,5 +96,6 @@
         <ColorInput id="text-color-p" label={$page.data.style.color.p} bind:value={$page.data.style.color.p}/>
       </AccordionItem>
     </Accordion>
+-->
   </SubPanel>
 </Sidebar>

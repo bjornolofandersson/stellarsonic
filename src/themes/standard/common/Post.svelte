@@ -1,11 +1,11 @@
 <script>
   export let image;
-  export let colorPrimary;
+  export let palette;
 
   const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.02; transform: scaleX(-1); height: 350px`;
 </script>
 
-<div style={`background: ${colorPrimary}f2`} class="text-white relative">
+<div style={`background: ${palette[0]}f2`} class="text-white relative">
   <div class="w-full fixed bg-fixed" style={bgStyle}>
   </div>
   <section class="relative text-white" style="height: 350px;">
@@ -13,7 +13,7 @@
       <slot name="menu"/>
     </div>
   </section>
-  <section class="relative text-white" style={`background: ${colorPrimary}`}>
+  <section class="relative text-white" style={`background: ${palette[0]}`}>
     <div class="container mx-auto px-8 grid">
       <div class="grid grid-cols-12 py-20">
         <div class="col-span-12 md:col-span-6 lg:col-span-4">
@@ -28,9 +28,9 @@
       </div>
     </div>
   </section>
-  <section class="relative bg-slate-200 dark:bg-dark-base">
-    <div class="container mx-auto px-8 grid grid-cols-12 text-slate-800">
-      <div class="col-span-12 lg:col-span-12 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary">
+  <section class="relative dark:bg-dark-base" style="background: {palette[3]}">
+    <div class="container mx-auto px-8 grid grid-cols-12 text-stone-800">
+      <div class="col-span-12 lg:col-start-5 dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary">
         <slot/>
       </div>
     </div>

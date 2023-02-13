@@ -11,6 +11,7 @@ import ListItem from "./ListItem.svelte";
 import MainPanel from "./MainPanel.svelte";
 import NumberInput from "./NumberInput.svelte";
 import PageContainer from "./PageContainer.svelte";
+import Palette from "./Palette.svelte";
 import Scrollable from "./Scrollable.svelte";
 import SelectGroup from "./SelectGroup.svelte";
 import SelectGroupOption from "./SelectGroupOption.svelte";
@@ -36,6 +37,7 @@ export {
   ListItem,
   MainPanel,
   PageContainer,
+  Palette,
   Scrollable,
   SelectGroup,
   SelectGroupOption,

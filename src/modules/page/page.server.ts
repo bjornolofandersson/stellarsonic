@@ -11,7 +11,8 @@ export const schema = {
     collection: z.string(),
     id: z.string(),
     type: z.string(),
-  }).optional()
+  }).optional(),
+  palette: z.array(z.string()).optional(),
 }
 
 export async function getStaticPaths(entry: CollectionEntry<'pages'>) {
