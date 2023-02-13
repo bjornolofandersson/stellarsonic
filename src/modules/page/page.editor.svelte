@@ -30,7 +30,16 @@
       <Action icon="settings" onClick={() => {}}/>
     </TitleBar>
 
-    <p class="mb-20">Some things related to page</p>
+    <div class="flex pb-8">
+      <button class="p-4 rounded-l-md w-full bg-[#ffffff60] shadow-sm flex gap-4">
+        <span class="material-symbols-outlined">verified</span>
+        <span>Published</span>
+      </button>
+      <button class="p-4 rounded-r-md w-full bg-[#00000010] text-stone-500 flex gap-4">
+        <span class="material-symbols-outlined">draft</span>
+        <span>Draft</span>
+      </button>
+    </div>
     <slot/>
   </MainPanel>
 
