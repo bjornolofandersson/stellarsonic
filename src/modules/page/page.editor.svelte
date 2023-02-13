@@ -18,7 +18,8 @@
   export let template: any;
 
   const store = PageStore.instance(data);
-  let { entity: storedTemplate } = TemplateStore.instance(template);
+  const templateStore = TemplateStore.instance(template);
+  let { entity: storedTemplate } = templateStore;
   let { entity: page } = store;
   let panel = 'main';
   let status = $page.data.draft ? 'draft' : 'published';
@@ -52,6 +53,10 @@
   </MainPanel>
 
   <SubPanel name="template">
+    <TitleBar title="template">
+      <Action icon="save" onClick={() => {templateStore.save()}}/>
+    </TitleBar>
+
     <div class="flex text-sm opacity-50 p-4 mt-4 border border-[#00000040] rounded-md">
       <span class="material-symbols-outlined mr-4">info</span>
       <span>These styles apply to all pages in this context ({$page.data.context})</span>

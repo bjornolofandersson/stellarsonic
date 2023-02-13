@@ -17,9 +17,6 @@
   <div class="absolute w-full px-8" transition:fly={{ x: 512, duration: 500, easing: quintOut }}>
     <BackArrow onClick={() => selectPanel('main')} />
 
-    <TitleBar title={name}>
-      <slot name="actions"/>
-    </TitleBar>
     <slot/>
   </div>
 {/if}
