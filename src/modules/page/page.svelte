@@ -12,7 +12,7 @@
 </script>
 
 <Page bind:data={$page.data} sitemap={sitemap}>
-  <Content style={$page.data.style} baseStyle={$base}>
+  <Content style={$page.data.style}>
     <slot/>
   </Content>
 </Page>

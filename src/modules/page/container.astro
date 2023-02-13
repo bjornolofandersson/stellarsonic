@@ -4,9 +4,26 @@ import Page from '@layouts/Page2.astro';
 import EditorLoader from '@components/EditorLoader.svelte';
 import { getServerModules } from '@lib/server';
 import Schema from '@components/Schema.astro';
+import deepMerge from 'deepmerge';
 
 interface Props {
   entry: CollectionEntry<'pages'>;
+}
+
+const defaultStyle: any = {
+  fontSize: {
+    h1: 6, h2: 5, h3: 4, h4: 3, h5: 2, h6: 2, p: 1
+  },
+  color: {
+    h1: '#000', 
+    h2: '#000', 
+    h3: '#000', 
+    h4: '#000', 
+    h5: '#000', 
+    h6: '#000', 
+    p: '#000', 
+  },
+  textAlign: 'left',
 }
 
 const { entry } = Astro.props;
@@ -15,6 +32,14 @@ const content = entry.data.content;
 const ref = await getEntry(content.collection as any, content.id);
 const modules = getServerModules();
 const {Component, jsonld, editorProps} = modules[content.type] as any;
+
+let baseStyle = defaultStyle;
+const page = {
+  id: entry.id.replace(/\.[^/.]+$/, ""),
+  slug: entry.slug,
+  data: deepMerge({style: defaultStyle}, entry.data),
+  body: entry.body,
+}
 ---
 
 <Page>
@@ -24,10 +49,10 @@ const {Component, jsonld, editorProps} = modules[content.type] as any;
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="page" props={{data: entry.data}} client:only>
+    <EditorLoader module="page" props={{data: page, baseStyle}} client:only>
       <EditorLoader module={content.type} props={editorProps(ref)} client:only />
     </EditorLoader>
   </Fragment>
 
-  <Component entry={ref} />
+  <Component entry={ref} page={page} />
 </Page>

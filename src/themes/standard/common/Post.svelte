@@ -30,7 +30,7 @@
   </section>
   <section class="relative bg-slate-200 dark:bg-dark-base">
     <div class="container mx-auto px-8 grid grid-cols-12 text-slate-800">
-      <div class="col-span-12 lg:col-span-12 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary columns-1 lg:columns-2 gap-20">
+      <div class="col-span-12 lg:col-span-12 bg-slate-100 dark:bg-dark-base-variant dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary">
         <slot/>
       </div>
     </div>

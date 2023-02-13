@@ -1,48 +1,23 @@
 ---
-import * as site from '@settings';
 import { CollectionEntry } from 'astro:content';
-import Page from '@layouts/Page.astro'
-import Schema from '@components/Schema.astro'
-import { CollectionController } from '@lib/CollectionController';
 import Playlist from './playlist.svelte';
 import MenuBar from '@theme/MenuBar.svelte';
 import { getSitemap } from '@lib/server';
+import { Entity } from '@lib/interfaces';
 
 interface Props {
   entry: CollectionEntry<'mixes'>;
+
+  page: Entity<any>;
 }
 
-const { entry } = Astro.props;
+const { entry, page } = Astro.props;
 const { Content } = await entry.render();
 
-/*
-const editorProps = {
-  collection: entry.collection,
-  slug: entry.slug,
-  data: entry.data,
-  assets: col.getAssetPaths(entry.slug),
-};
-*/
-
-const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;
 const sitemap = await getSitemap();
-
 ---
 
-<!--
-<Page editor="playlist" editorProps={editorProps}>
-  -->
-  <!--
-  <Fragment slot="head-bottom">
-    <Schema data={schema}/>
-    <title>{entry.data.title}</title>
-  </Fragment>
--->
-
-  <Playlist slug={entry.slug} data={entry.data} client:load>
-    <MenuBar sitemap={sitemap} slot="menu" />
-    <Content slot="article"/>
-  </Playlist>
-  <!--
-</Page>
--->
+<Playlist slug={entry.slug} data={entry.data} page={page} client:load>
+  <MenuBar sitemap={sitemap} slot="menu" />
+  <Content slot="article"/>
+</Playlist>

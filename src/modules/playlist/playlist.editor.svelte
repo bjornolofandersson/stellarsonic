@@ -57,24 +57,22 @@
   <Action icon="queue_music" onClick={() => {showPlaylist = true}} />
 </TitleBar>
 
-<div class="mt-8">
-  <Scrollable>
-    <Accordion>
-      <AccordionItem name="Headings" icon="title">
-        <HeadingsForm bind:post={$post} />
-      </AccordionItem>
-      <AccordionItem name="Description" icon="description">
-        <DescriptionForm bind:post={$post} />
-      </AccordionItem>
-      <AccordionItem name="Image" icon="image">
-        <ImageForm bind:post={$post} assets={assets} />
-      </AccordionItem>
-      <AccordionItem name="Style" icon="format_paint">
-        <StyleForm bind:post={$post} />
-      </AccordionItem>
-    </Accordion>
-  </Scrollable>
-</div>
+<Scrollable>
+  <Accordion>
+    <AccordionItem name="Headings" icon="title">
+      <HeadingsForm bind:post={$post} />
+    </AccordionItem>
+    <AccordionItem name="Description" icon="description">
+      <DescriptionForm bind:post={$post} />
+    </AccordionItem>
+    <AccordionItem name="Image" icon="image">
+      <ImageForm bind:post={$post} assets={assets} />
+    </AccordionItem>
+    <AccordionItem name="Style" icon="format_paint">
+      <StyleForm bind:post={$post} />
+    </AccordionItem>
+  </Accordion>
+</Scrollable>
 
 <SplitModal bind:show={showPlaylist} expand={true}>
   <div slot="header">
