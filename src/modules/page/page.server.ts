@@ -7,6 +7,7 @@ export const schema = {
   title: z.string().optional(),
   parent: z.string().optional(),
   context: z.string().optional(),
+  draft: z.boolean().optional(),
   content: z.object({
     collection: z.string(),
     id: z.string(),

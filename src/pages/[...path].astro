@@ -2,10 +2,14 @@
 import { getServerModules } from '@lib/server';
 import { getCollection } from 'astro:content';
 
+
 export async function getStaticPaths() {
+  const isDev = import.meta.env.MODE === 'development';
   const modules = getServerModules();
   const blogs = await getCollection('blogs');
-  const pages = await getCollection('pages');
+  const pages = await getCollection('pages', p => {
+    return isDev || !p.data.draft;
+  });
   let paths: any[] = [];
 
   for (const page of blogs) {

@@ -26,8 +26,8 @@
     </section>
 
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6">
-      {#each page.posts as {url, slug, data, collection}, i}
-        <PostPreview url={url} post={data} slug={slug} collection={collection} background={theme.layout === 'alternate'} />
+      {#each page.posts as {slug, data, collection}}
+        <PostPreview post={data} slug={slug} collection={collection} background={theme.layout === 'alternate'} />
       {/each}
     </section>
   </div>

@@ -1,10 +1,7 @@
 <script lang="ts">
   import {
-    Accordion,
-    AccordionItem,
     Action,
     BackArrow,
-    ColorInput,
     MainPanel,
     Palette,
     SelectGroup,
@@ -21,7 +18,11 @@
   const store = PageStore.instance(data, baseStyle);
   let { page, base } = store;
   let panel = 'main';
-  let status = 'published';
+  let status = $page.data.draft ? 'draft' : 'published';
+
+  $: {
+    $page.data.draft = status !== 'published';
+  }
 
 </script>
 

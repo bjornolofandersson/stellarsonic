@@ -16,9 +16,10 @@ export const schema = {
 
 export async function getStaticPaths(entry: CollectionEntry<'blogs'>) {
   const {limit, title, pagination} = entry.data;
+  const isDev = import.meta.env.MODE === 'development';
 
   const postPageEntries = await getCollection('pages', p => {
-    return p.data.parent === entry.slug && p.data.context === 'blog-post';
+    return (p.data.parent === entry.slug && p.data.context === 'blog-post') && (isDev || !p.data.draft);
   });
 
   let posts: any[] = [];
