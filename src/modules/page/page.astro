@@ -5,6 +5,7 @@ import EditorLoader from '@components/EditorLoader.svelte';
 import PageTheme from './page.svelte';
 import deepMerge from 'deepmerge';
 import { getSitemap } from '@lib/server';
+import { CollectionController } from '@lib/CollectionController';
 
 interface Props {
   entry: CollectionEntry<'pages'>;
@@ -38,12 +39,8 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 const sitemap = await getSitemap();
 
-const entity = {
-  id: entry.id.replace(/\.[^/.]+$/, ""),
-  slug: entry.slug,
-  data: deepMerge({style: defaultStyle}, entry.data),
-  body: entry.body,
-}
+const entity = CollectionController.makeEntity(entry);
+entity.data = deepMerge({style: defaultStyle}, entry.data);
 ---
 
 <Page>

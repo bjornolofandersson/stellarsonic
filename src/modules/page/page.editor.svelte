@@ -16,7 +16,7 @@
   export let baseStyle: any;
 
   const store = PageStore.instance(data, baseStyle);
-  let { page, base } = store;
+  let { entity: page, base } = store;
   let panel = 'main';
   let status = $page.data.draft ? 'draft' : 'published';
 

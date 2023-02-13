@@ -4,6 +4,7 @@ import Playlist from './playlist.svelte';
 import MenuBar from '@theme/MenuBar.svelte';
 import { getSitemap } from '@lib/server';
 import { Entity } from '@lib/interfaces';
+import { CollectionController } from '@lib/CollectionController';
 
 interface Props {
   entry: CollectionEntry<'mixes'>;
@@ -15,9 +16,10 @@ const { entry, page } = Astro.props;
 const { Content } = await entry.render();
 
 const sitemap = await getSitemap();
+const entity = CollectionController.makeEntity(entry);
 ---
 
-<Playlist slug={entry.slug} data={entry.data} page={page} client:load>
+<Playlist entity={entity} page={page} client:load>
   <MenuBar sitemap={sitemap} slot="menu" />
   <Content slot="article"/>
 </Playlist>

@@ -8,7 +8,7 @@
   export let sitemap: any;
 
   let store = PageStore.instance(data, baseStyle);
-  let {page, base} = store;
+  let {entity: page, base} = store;
 </script>
 
 <Page bind:data={$page.data} sitemap={sitemap}>

@@ -1,25 +1,25 @@
-import { MusicMixPost } from "@lib/interfaces";
+import { Entity, MusicMixPost } from "@lib/interfaces";
 import { MixPlaylist } from "@lib/media/MixPlaylist";
-import { PostStore, Stellarsonic } from "@lib/media/Stellarsonic";
+import { Stellarsonic } from "@lib/media/Stellarsonic";
+import { EntityStore } from "@lib/store";
 import { writable, Writable } from "svelte/store";
 
-export class MixStore extends PostStore<MusicMixPost> {
+export class MixStore extends EntityStore<MusicMixPost> {
   private static mixes: Record<string, MixStore> = {}
 
   public constructor(
-    slug: string,
-    post: Writable<MusicMixPost>,
+    entity: Writable<Entity<MusicMixPost>>,
     public readonly playlist: MixPlaylist
   ) {
-    super('mixes', slug, post);
+    super('mixes', entity);
   }
 
-  public static instance(slug: string, data: MusicMixPost): MixStore {
-    if (!this.mixes[slug]) {
-      this.mixes[slug] = new MixStore(
-        slug, writable(data), new MixPlaylist(Stellarsonic.audioPlayer(), data.audio, data.tracks)
+  public static instance(entity: Entity<MusicMixPost>): MixStore {
+    if (!this.mixes[entity.id]) {
+      this.mixes[entity.id] = new MixStore(
+        writable(entity), new MixPlaylist(Stellarsonic.audioPlayer(), entity.data.audio, entity.data.tracks)
       );
     }
-    return this.mixes[slug];
+    return this.mixes[entity.id];
   }
 }

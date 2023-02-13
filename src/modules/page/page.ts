@@ -1,31 +1,28 @@
+import { Entity } from "@lib/interfaces";
+import { EntityStore } from "@lib/store";
 import { get, writable, Writable } from "svelte/store";
 
-export class PageStore {
+export class PageStore extends EntityStore<any> {
   private static pages: Record<string, any> = {}
 
   public constructor(
-    public readonly page: Writable<any>,
+    entity: Writable<Entity<any>>,
     public readonly base: Writable<any>,
-  ) {}
-
-  public static instance(data: any, baseStyle: any): PageStore {
-    if (!this.pages[data.id]) {
-      this.pages[data.id] = new PageStore(writable(data), writable(baseStyle));
-    }
-    return this.pages[data.id];
+  ) {
+    super('pages', entity);
   }
 
-  public async save(): Promise<void> {
-    await fetch(`/pages/${get(this.page).id}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(get(this.page)),
-    });
+  public static instance(entity: Entity<any>, baseStyle: any): PageStore {
+    if (!this.pages[entity.id]) {
+      this.pages[entity.id] = new PageStore(writable(entity), writable(baseStyle));
+    }
+    return this.pages[entity.id];
   }
 
   public async create(): Promise<void> {
     await fetch(`/pages.json`, {
       method: 'POST',
-      body: JSON.stringify(get(this.page)),
+      body: JSON.stringify(get(this.entity)),
     });
   }
 }

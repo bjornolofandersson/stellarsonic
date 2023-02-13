@@ -58,9 +58,7 @@ export const jsonld = (entry: CollectionEntry<'mixes'>) => {
 export const editorProps = (entry: CollectionEntry<'mixes'>) => {
   const col = new CollectionController(entry.collection);
   return {
-    collection: entry.collection,
-    slug: entry.slug,
-    data: entry.data,
+    entity: CollectionController.makeEntity(entry),
     assets: col.getAssetPaths(entry.slug),
   };
 }
