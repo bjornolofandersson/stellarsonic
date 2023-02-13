@@ -9,33 +9,12 @@ import { CollectionController } from '@lib/CollectionController';
 
 interface Props {
   entry: CollectionEntry<'pages'>;
+
+  template: Entity<any>;
 }
 
-const defaultStyle: any = {
-  fontSize: {
-    h1: 6, h2: 5, h3: 4, h4: 3, h5: 2, h6: 2, p: 1
-  },
-  color: {
-    h1: '#000', 
-    h2: '#000', 
-    h3: '#000', 
-    h4: '#000', 
-    h5: '#000', 
-    h6: '#000', 
-    p: '#000', 
-  },
-  textAlign: 'left',
-}
 
-let baseStyle = defaultStyle;
-try {
-  const base = await getEntry('pages', '_base-page.md' as any);
-  baseStyle = base.data.style;
-} catch (err) {
-  // do nothing;
-}
-
-const { entry } = Astro.props;
+const { entry, template } = Astro.props;
 const { Content } = await entry.render();
 const sitemap = await getSitemap();
 
@@ -49,10 +28,10 @@ entity.data = deepMerge({style: defaultStyle}, entry.data);
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="page" props={{data: entity, baseStyle}} client:only/>
+    <EditorLoader module="page" props={{data: entity, template}} client:only/>
   </Fragment>
 
-  <PageTheme data={entity} baseStyle={baseStyle} sitemap={sitemap} client:load>
+  <PageTheme entity={entity} template={template} sitemap={sitemap} client:load>
     <Content/>
   </PageTheme>
 </Page>

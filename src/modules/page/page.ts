@@ -7,14 +7,13 @@ export class PageStore extends EntityStore<any> {
 
   public constructor(
     entity: Writable<Entity<any>>,
-    public readonly base: Writable<any>,
   ) {
     super('pages', entity);
   }
 
-  public static instance(entity: Entity<any>, baseStyle: any): PageStore {
+  public static instance(entity: Entity<any>): PageStore {
     if (!this.pages[entity.id]) {
-      this.pages[entity.id] = new PageStore(writable(entity), writable(baseStyle));
+      this.pages[entity.id] = new PageStore(writable(entity));
     }
     return this.pages[entity.id];
   }
@@ -24,5 +23,22 @@ export class PageStore extends EntityStore<any> {
       method: 'POST',
       body: JSON.stringify(get(this.entity)),
     });
+  }
+}
+
+export class TemplateStore extends EntityStore<any> {
+  private static templates: Record<string, any> = {}
+
+  public constructor(
+    entity: Writable<Entity<any>>,
+  ) {
+    super('templates', entity);
+  }
+
+  public static instance(entity: Entity<any>): PageStore {
+    if (!this.templates[entity.id]) {
+      this.templates[entity.id] = new TemplateStore(writable(entity));
+    }
+    return this.templates[entity.id];
   }
 }

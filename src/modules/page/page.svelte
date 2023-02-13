@@ -1,18 +1,19 @@
 <script lang="ts">
   import Page from '@theme/Page.svelte';
   import Content from '@components/common/Content.svelte';
-  import { PageStore } from './page';
+  import { PageStore, TemplateStore } from './page';
+  import { Entity } from '@lib/interfaces';
 
-  export let data: any;
-  export let baseStyle: any;
+  export let entity: Entity<any>;
+  export let template: Entity<any>;
   export let sitemap: any;
 
-  let store = PageStore.instance(data, baseStyle);
-  let {entity: page, base} = store;
+  let {entity: page} = PageStore.instance(entity);
+  let {entity: storedTemplate} = TemplateStore.instance(template);
 </script>
 
 <Page bind:data={$page.data} sitemap={sitemap}>
-  <Content style={$page.data.style}>
+  <Content style={$storedTemplate.data}>
     <slot/>
   </Content>
 </Page>

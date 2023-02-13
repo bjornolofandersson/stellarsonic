@@ -10,16 +10,18 @@ interface Props {
   entry: CollectionEntry<'mixes'>;
 
   page: Entity<any>;
+
+  template: Entity<any>;
 }
 
-const { entry, page } = Astro.props;
+const { entry, page, template } = Astro.props;
 const { Content } = await entry.render();
 
 const sitemap = await getSitemap();
 const entity = CollectionController.makeEntity(entry);
 ---
 
-<Playlist entity={entity} page={page} client:load>
+<Playlist entity={entity} page={page} template={template} client:load>
   <MenuBar sitemap={sitemap} slot="menu" />
   <Content slot="article"/>
 </Playlist>

@@ -63,6 +63,7 @@ export const editorProps = (entry: CollectionEntry<'mixes'>) => {
   };
 }
 
+/*
 export async function getStaticPaths({path, collection, parent}: SitePage & any) {
   const entries = await getCollection(collection as any);
   let paths: any[] = [];
@@ -80,3 +81,4 @@ export async function getStaticPaths({path, collection, parent}: SitePage & any)
 
   return paths;
 }
+*/

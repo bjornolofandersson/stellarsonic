@@ -1,5 +1,7 @@
 <script lang="ts">
   import {
+    Accordion,
+    AccordionItem,
     Action,
     BackArrow,
     MainPanel,
@@ -10,20 +12,20 @@
     SubPanel,
     TitleBar
   } from 'src/editor';
-  import { PageStore } from './page';
+  import { PageStore, TemplateStore } from './page';
 
   export let data: any;
-  export let baseStyle: any;
+  export let template: any;
 
-  const store = PageStore.instance(data, baseStyle);
-  let { entity: page, base } = store;
+  const store = PageStore.instance(data);
+  let { entity: storedTemplate } = TemplateStore.instance(template);
+  let { entity: page } = store;
   let panel = 'main';
   let status = $page.data.draft ? 'draft' : 'published';
 
   $: {
     $page.data.draft = status !== 'published';
   }
-
 </script>
 
 <Sidebar bind:panel={panel}>
@@ -32,7 +34,7 @@
 
     <TitleBar title="page">
       <Action icon="save" onClick={() => {store.save()}}/>
-      <Action icon="tune" onClick={() => {panel = 'style'}}/>
+      <Action icon="tune" onClick={() => {panel = 'template'}}/>
       <Action icon="settings" onClick={() => {}}/>
     </TitleBar>
 
@@ -49,28 +51,28 @@
     </div>
   </MainPanel>
 
-  <SubPanel name="style">
-      <!--<ColorInput id={color} bind:value={color} label={color}></ColorInput>-->
-    
-    <!--
-    <h1 class="text-md mt-8">Base style</h1>
-    <p class="text-xs opacity-50 border-b border-[#00000060] pb-4">These are applied to all pages this context</p>
-    <Accordion>
-      <AccordionItem icon="title" name="Font sizes">
-        <label for="base-font-size-h1" class="text-sm opacity-50">H1: {$base.fontSize.h1}rem</label>
-        <input id="base-font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$base.fontSize.h1}
-          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-        <label for="base-font-size-h2" class="text-sm opacity-50">H2: {$base.fontSize.h2}rem</label>
-        <input id="base-font-size-h2" type="range" min="1" max="8" step="0.25" bind:value={$base.fontSize.h2}
-          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-      </AccordionItem>
-    </Accordion>
-
-    <div class="flex gap-2 w-full mt-8">
-      <Action icon="format_align_left" onClick={() => {$page.data.style.textAlign = 'left'}}/>
-      <Action icon="format_align_center" onClick={() => {$page.data.style.textAlign = 'center'}}/>
-      <Action icon="format_align_right" onClick={() => {$page.data.style.textAlign = 'right'}}/>
+  <SubPanel name="template">
+    <div class="flex text-sm opacity-50 p-4 mt-4 border border-[#00000040] rounded-md">
+      <span class="material-symbols-outlined mr-4">info</span>
+      <span>These styles apply to all pages in this context ({$page.data.context})</span>
     </div>
+
+    <h1 class="text-sm text-stone-600 mb-4 mt-8">Text alignment</h1>
+    <SelectGroup bind:selected={$storedTemplate.data.textAlign}>
+      <SelectGroupOption id="left" icon="format_align_left">Left</SelectGroupOption>
+      <SelectGroupOption id="center" icon="format_align_center">Center</SelectGroupOption>
+      <SelectGroupOption id="right" icon="format_align_right">Right</SelectGroupOption>
+    </SelectGroup>
+
+    <h1 class="text-sm text-stone-600 mb-4 mt-8">Font sizes</h1>
+    <label for="base-font-size-h1" class="text-sm opacity-50">H1: {$storedTemplate.data.fontSize.h1}rem</label>
+    <input id="base-font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h1}
+      class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
+    <label for="base-font-size-h2" class="text-sm opacity-50">H2: {$storedTemplate.data.fontSize.h2}rem</label>
+    <input id="base-font-size-h2" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h2}
+      class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
+
+    <!--
     <Accordion>
       <AccordionItem icon="title" name="Heading 1">
         <label for="font-size-h1" class="text-sm opacity-50">{$page.data.style.fontSize.h1}rem</label>
@@ -97,6 +99,6 @@
         <ColorInput id="text-color-p" label={$page.data.style.color.p} bind:value={$page.data.style.color.p}/>
       </AccordionItem>
     </Accordion>
--->
+  -->
   </SubPanel>
 </Sidebar>
