@@ -7,8 +7,8 @@
 	import { writable } from 'svelte/store';
   export let panel: string = 'main';
 
-	const panels: string[] = [];
-	const selected = writable<string | undefined>(panel);
+  const panels: string[] = [];
+  const selected = writable<string | undefined>(panel);
 
   $: {
     getContext<any>(PANELS).selectPanel(panel);

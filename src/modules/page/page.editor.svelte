@@ -6,6 +6,8 @@
     BackArrow,
     ColorInput,
     MainPanel,
+    SelectGroup,
+    SelectGroupOption,
     Sidebar,
     SubPanel,
     TitleBar
@@ -18,6 +20,7 @@
   const store = PageStore.instance(data, baseStyle);
   let { page, base } = store;
   let panel = 'main';
+  let status = 'published';
 </script>
 
 <Sidebar bind:panel={panel}>
@@ -30,17 +33,14 @@
       <Action icon="settings" onClick={() => {}}/>
     </TitleBar>
 
-    <div class="flex pb-8">
-      <button class="p-4 rounded-l-md w-full bg-[#ffffff60] shadow-sm flex gap-4">
-        <span class="material-symbols-outlined">verified</span>
-        <span>Published</span>
-      </button>
-      <button class="p-4 rounded-r-md w-full bg-[#00000010] text-stone-500 flex gap-4">
-        <span class="material-symbols-outlined">draft</span>
-        <span>Draft</span>
-      </button>
+    <SelectGroup bind:selected={status}>
+      <SelectGroupOption id="published" icon="verified">Published</SelectGroupOption>
+      <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
+    </SelectGroup>
+
+    <div class="mt-8">
+      <slot/>
     </div>
-    <slot/>
   </MainPanel>
 
   <SubPanel name="style">
