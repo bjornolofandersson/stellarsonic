@@ -54,7 +54,7 @@
     {#if showAdd}
       <div class="mt-4 px-8 py-8 -ml-8 -mr-8 bg-[#00000007]"  transition:slide={{ duration: 200, easing: quintOut }}>
         <div class="grid grid-cols-2 gap-8">
-          <button on:click={() => {showAddModal = 'page'}} class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button on:click={() => {showAddModal = 'page'}} class="text-sm flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">draft</span>
             <span>Page</span>
           </button>
@@ -62,19 +62,19 @@
             <span class="material-symbols-outlined mr-2">library_books</span>
             <span>Blog</span>
           </button>
-          <button on:click={() => {showAddModal = 'mix'}} class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button on:click={() => {showAddModal = 'mix'}} class="text-sm flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">queue_music</span>
             <span>Mix</span>
           </button>
-          <button class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button class="text-sm flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">library_music</span>
             <span>Album</span>
           </button>
-          <button class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button class="text-sm flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">music_note</span>
             <span>Recording</span>
           </button>
-          <button class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button class="text-sm flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">podcasts</span>
             <span>Podcast</span>
           </button>

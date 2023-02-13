@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Entity } from "@lib/interfaces";
   import Input from "src/editor/Input.svelte";
   import List from "src/editor/List.svelte";
   import ListItem from "src/editor/ListItem.svelte";
@@ -7,12 +8,21 @@
 
   export let show: boolean = false;
 
-  let page = {title: '', slug: ''};
+  let page: Entity<any> = {
+    id: '',
+    slug: '',
+    data: {
+      context: 'standalone',
+      title: '',
+      palette: ['#874356', '#C65D7B', '#F68989', '#F6E7D8'],
+      draft: true,
+    }
+  };
 
   async function onCreate() {
     await fetch(`/pages.json`, {
       method: 'POST',
-      body: JSON.stringify(page),
+      body: JSON.stringify({...page, id: page.slug}),
     });
   }
 </script>
@@ -37,7 +47,7 @@
     <ul>
       <li>
         <label for="title" class="text-xs opacity-50">Title</label>
-        <Input type="text" id="title" placeholder="Page title" bind:value={page.title}/>
+        <Input type="text" id="title" placeholder="Page title" bind:value={page.data.title}/>
       </li>
       <li>
         <label for="slug" class="text-xs opacity-50">Slug</label>
