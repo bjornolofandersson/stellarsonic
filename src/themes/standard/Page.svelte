@@ -6,7 +6,11 @@
 </script>
 
 <div class="bg-white container mx-auto min-h-full">
-  <MenuBar sitemap={sitemap} />
+  <div class="{data.menu}" style="background-color: {data.palette[0]}">
+    <MenuBar sitemap={sitemap} />
+
+    <div class="text-center text-5xl py-20" style="color: {data.palette[2]}">{data.title}</div>
+  </div>
   <div class="page-content px-8">
     <slot/>
   </div>

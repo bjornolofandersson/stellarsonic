@@ -44,6 +44,12 @@
       <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
     </SelectGroup>
 
+    <h1 class="text-sm p-4 mt-4 opacity-50">Menu bar</h1>
+    <SelectGroup bind:selected={$page.data.menu}>
+      <SelectGroupOption id="light" icon="light_mode">Light</SelectGroupOption>
+      <SelectGroupOption id="dark" icon="dark_mode">Dark</SelectGroupOption>
+    </SelectGroup>
+
     <h1 class="text-sm p-4 mt-4 opacity-50">Palette</h1>
     <Palette bind:colors={$page.data.palette} />
 

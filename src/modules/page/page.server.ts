@@ -16,6 +16,7 @@ export const schema = {
     type: z.string(),
   }).optional(),
   palette: z.array(z.string()).optional(),
+  menu: z.string(),
 }
 
 async function getTemplate(name: string): Promise<Entity<any>> {
