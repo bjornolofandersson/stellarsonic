@@ -1,7 +1,5 @@
 <script lang="ts">
   import {
-    Accordion,
-    AccordionItem,
     Action,
     BackArrow,
     MainPanel,

@@ -1,27 +1,16 @@
 ---
-import { CollectionEntry } from 'astro:content';
 import Playlist from './playlist.svelte';
 import MenuBar from '@theme/MenuBar.svelte';
-import { getSitemap } from '@lib/server';
-import { Entity } from '@lib/interfaces';
-import { CollectionController } from '@lib/CollectionController';
+import { MusicMixPost, PageProps } from '@lib/interfaces';
 
-interface Props {
-  entry: CollectionEntry<'mixes'>;
+interface Props extends PageProps<MusicMixPost> {}
 
-  page: Entity<any>;
-
-  template: Entity<any>;
-}
-
-const { entry, page, template } = Astro.props;
-const { Content } = await entry.render();
-
-const sitemap = await getSitemap();
-const entity = CollectionController.makeEntity(entry);
+const { entity, page, navigation } = Astro.props;
 ---
 
-<Playlist entity={entity} page={page} template={template} client:load>
-  <MenuBar sitemap={sitemap} slot="menu" />
-  <Content slot="article"/>
+<Playlist entity={entity} page={page} navigation={navigation} client:load>
+  <!--<MenuBar sitemap={navigation} slot="menu" />-->
+  <Fragment slot="article">
+    <slot/>
+  </Fragment>
 </Playlist>

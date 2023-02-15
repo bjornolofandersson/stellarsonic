@@ -1,12 +1,12 @@
 <script lang="ts">
   import { BlogPage, BlogStore } from './blog';
   import Blog from '@theme/Blog.svelte';
+  import { Entity } from '@lib/interfaces';
 
   export let page: BlogPage<any>;
-  export let blogData: any;
-  export let themeData: any;
+  export let entity: Entity<any>;
 
-  let {theme} = BlogStore.instance('mixtapes', blogData, themeData);
+  let { entity: blog } = BlogStore.instance(entity);
 </script>
 
-<Blog page={page} bind:theme={$theme} />
+<Blog page={page} bind:theme={$blog.data.theme} />

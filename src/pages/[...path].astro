@@ -1,36 +1,65 @@
 ---
-import { getServerModules } from '@lib/server';
-import { getCollection } from 'astro:content';
-
+import { Entity, MountConfig } from '@lib/interfaces';
+import { getServerModules, getSitemap } from '@lib/server';
+import { CollectionEntry, getCollection } from 'astro:content';
+import Page from '@layouts/Page2.astro'
+import EditorLoader from '@components/EditorLoader.svelte';
+import Schema from '@components/Schema.astro';
+import { getPagePaths } from '@lib/page';
+import ContentWrapper from '@components/common/Content.svelte';
+import { CollectionController } from '@lib/CollectionController';
 
 export async function getStaticPaths() {
   const isDev = import.meta.env.MODE === 'development';
   const modules = getServerModules();
-  const blogs = await getCollection('blogs');
   const pages = await getCollection('pages', p => {
     return isDev || !p.data.draft;
   });
   let paths: any[] = [];
 
-  for (const page of blogs) {
-    paths = paths.concat(await modules['blog'].getStaticPaths(page));
-  }
   for (const page of pages) {
-    paths = paths.concat(await modules['page'].getStaticPaths(page));
+    paths.push(...await getPagePaths(page, modules));
   }
 
   return paths;
 }
 
-interface Props {
-  Module: any;
+interface Props extends MountConfig {
+  Component: any;
+
+  entry: CollectionEntry<any>;
 
   title: string;
 
-  props: any;
+  page: Entity<any>;
+
+  template: Entity<any>;
+
+  module?: string;
 }
 
-const { title, Module, props } = Astro.props;
+const { Component, entry, title, page, template, module, schema, editor, props } = Astro.props;
+const navigation = await getSitemap();
+const { Content } = await entry.render();
+const entity = CollectionController.makeEntity(entry);
+const isDev = import.meta.env.MODE === 'development';
 ---
 
-<Module title={title} {...props} />
+<Page>
+  <Fragment slot="head-bottom">
+    <Schema data={schema}/>
+    <title>{title}</title>
+  </Fragment>
+
+  <Fragment slot="editor">
+    <EditorLoader module="page" props={{data: page, template}} client:only>
+     { module && <EditorLoader module={module} props={editor} client:only /> }
+    </EditorLoader>
+  </Fragment>
+
+  <Component entity={entity} page={page} template={template} navigation={navigation} edit={isDev} {...(props || {}) }>
+    <ContentWrapper template={template} client:load>
+      <Content/>
+    </ContentWrapper>
+  </Component>
+</Page>

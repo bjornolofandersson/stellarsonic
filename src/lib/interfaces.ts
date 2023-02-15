@@ -1,3 +1,5 @@
+import { CollectionEntry } from "astro:content";
+
 export interface Post {
   title: string;
 
@@ -80,7 +82,9 @@ export interface SitePage {
 }
 
 export interface ServerModule {
-  getStaticPaths(config: any): any;
+  collection: string;
+
+  onPage(mount: Mount, path: string, entry: CollectionEntry<any>): void;
 }
 
 export interface Entity<T> {
@@ -91,4 +95,28 @@ export interface Entity<T> {
   data: T;
 
   body?: string;
+}
+
+export interface MountConfig {
+  schema: any;
+
+  editor: any;
+
+  props?: any;
+}
+
+export type Mount = (path: string, component: any, config: MountConfig) => void;
+
+export interface PageProps<T> {
+  entity: Entity<T>;
+
+  page: Entity<any>;
+
+  template: Entity<any>;
+
+  navigation: any;
+
+  site: any;
+
+  edit: boolean;
 }

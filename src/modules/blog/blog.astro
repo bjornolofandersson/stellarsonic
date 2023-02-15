@@ -1,56 +1,40 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content';
-import Page from '@layouts/Page2.astro'
 import BlogTheme from './blog.svelte';
 import { Page as AstroPage } from 'astro';
 import { BlogPage } from './blog';
 import theme from '@theme/index';
-import EditorLoader from '@components/EditorLoader.svelte';
+import { PageProps } from '@lib/interfaces';
 
-interface Props {
-  entry: CollectionEntry<'blogs'>;
-
-  page: AstroPage;
-
-  posts: CollectionEntry<any>[];
+interface Props extends PageProps<any> {
+  pagination: AstroPage;
 }
 
-const { entry, page, posts } = Astro.props;
+const { entity, page, pagination } = Astro.props;
 const isDev = import.meta.env.MODE === 'development';
 
+
 const blogPage: BlogPage = {
-  title: entry.data.title,
-  url: `/${entry.slug}`,
-  posts: page.data.map(({slug, data, collection}) => ({
-    slug, url: `/${entry.slug}/${slug}`, data, collection
+  title: entity.data.title,
+  url: `/${page.slug}`,
+  posts: pagination.data.map(({slug, data, collection}) => ({
+    slug, url: `/${page.slug}/${slug}`, data, collection
   })),
   theme: {},
-  currentPage: page.currentPage,
-  start: page.start,
-  end: page.end,
-  total: page.total,
-  size: page.size,
-  lastPage: page.lastPage,
+  currentPage: pagination.currentPage,
+  start: pagination.start,
+  end: pagination.end,
+  total: pagination.total,
+  size: pagination.size,
+  lastPage: pagination.lastPage,
 }
 
 const themeSettings = theme.modules.blog;
 const style = {
   layout: 'alternate',
 }
-
 ---
 
-<Page>
-  <Fragment slot="head-bottom">
-    <title>{entry.data.title}</title>
-  </Fragment>
-
-  <Fragment slot="editor">
-    <EditorLoader module="blog" props={{slug: entry.slug, posts, settings: entry.data, themeData: style}} client:only/>
-  </Fragment>
-
-  {isDev || themeSettings.client
-    ? <BlogTheme page={blogPage} blogData={entry.data} themeData={style} client:load />
-    : <BlogTheme page={blogPage} blogData={entry.data} themeData={style} />
-  }
-</Page>
+{isDev || themeSettings.client
+  ? <BlogTheme page={blogPage} entity={entity} client:load />
+  : <BlogTheme page={blogPage} entity={entity} />
+}

@@ -1,3 +1,5 @@
+import { CollectionController } from "@lib/CollectionController";
+import { Mount } from "@lib/interfaces";
 import { Page } from "astro";
 import { z, CollectionEntry, getCollection, getEntry } from "astro:content";
 import BlogPage from './blog.astro';
@@ -14,7 +16,7 @@ export const schema = {
   }),
 }
 
-export async function getStaticPaths(entry: CollectionEntry<'blogs'>) {
+export async function onPage(mount: Mount, path: string, entry: CollectionEntry<'blogs'>) {
   const {limit, title, pagination} = entry.data;
   const isDev = import.meta.env.MODE === 'development';
 
@@ -61,12 +63,14 @@ export async function getStaticPaths(entry: CollectionEntry<'blogs'>) {
     }
   }
 
-  let paths: any[] = [getPath(0)];
-
-  if (pagination) {
-    for (let i=1; i<pageCount; i++) {
-      paths.push(getPath(i));
+  mount(path, BlogPage, {
+    schema: {},
+    editor: {
+      entity: CollectionController.makeEntity(entry),
+      posts,
+    },
+    props: {
+      pagination: getPage(0),
     }
-  }
-  return paths;
+  });
 }

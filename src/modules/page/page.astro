@@ -1,36 +1,18 @@
 ---
-import { CollectionEntry, getEntry } from 'astro:content';
-import Page from '@layouts/Page2.astro'
-import EditorLoader from '@components/EditorLoader.svelte';
 import PageTheme from './page.svelte';
-import deepMerge from 'deepmerge';
-import { getSitemap } from '@lib/server';
-import { CollectionController } from '@lib/CollectionController';
+import { PageProps } from '@lib/interfaces';
 
-interface Props {
-  entry: CollectionEntry<'pages'>;
+interface Props extends PageProps<any> {}
 
-  template: Entity<any>;
-}
-
-
-const { entry, template } = Astro.props;
-const { Content } = await entry.render();
-const sitemap = await getSitemap();
-
-const entity = CollectionController.makeEntity(entry);
+const { entity, navigation, edit } = Astro.props;
 ---
 
-<Page>
-  <Fragment slot="head-bottom">
-    <title>{entry.data.title}</title>
-  </Fragment>
-
-  <Fragment slot="editor">
-    <EditorLoader module="page" props={{data: entity, template}} client:only/>
-  </Fragment>
-
-  <PageTheme entity={entity} template={template} sitemap={sitemap} client:load>
-    <Content/>
+{ edit ?
+  <PageTheme entity={entity} navigation={navigation} client:load>
+    <slot/>
   </PageTheme>
-</Page>
+:
+  <PageTheme entity={entity} navigation={navigation}>
+    <slot/>
+  </PageTheme>
+}

@@ -1,13 +1,18 @@
 <script lang="ts">
-  export let style: any;
+  import { Entity } from "@lib/interfaces";
+  import { TemplateStore } from "@modules/page/page";
+
+  export let template: Entity<any>;
+
+  let {entity} = TemplateStore.instance(template);
 </script>
 
 <div class="content" style={`
-  --theme-font-size-h1: ${style.fontSize.h1}rem;
-  --theme-font-size-h2: ${style.fontSize.h2}rem;
-  --theme-font-size-h3: ${style.fontSize.h3}rem;
-  --theme-font-size-p: ${style.fontSize.p}rem;
-  --theme-text-align: ${style.textAlign};
+  --theme-font-size-h1: ${$entity.data.fontSize.h1}rem;
+  --theme-font-size-h2: ${$entity.data.fontSize.h2}rem;
+  --theme-font-size-h3: ${$entity.data.fontSize.h3}rem;
+  --theme-font-size-p: ${$entity.data.fontSize.p}rem;
+  --theme-text-align: ${$entity.data.textAlign};
 `}>
   <slot/>
 </div>

@@ -1,4 +1,6 @@
-import { get, writable, Writable } from "svelte/store";
+import { Entity } from "@lib/interfaces";
+import { EntityStore } from "@lib/store";
+import { writable } from "svelte/store";
 
 export interface BlogPost<TPost> {
   slug: string;
@@ -37,26 +39,13 @@ export interface BlogPage<TPost = any> {
   lastPage: number;
 }
 
-export class BlogStore {
+export class BlogStore extends EntityStore<any> {
   private static _instance: BlogStore;
 
-  public constructor(
-    public readonly slug: string,
-    public readonly blog: Writable<any>,
-    public readonly theme: Writable<any>,
-  ) {}
-
-  public static instance(slug: any, blogData: any, themeData: any): BlogStore {
+  public static instance(entity: Entity<any>): BlogStore {
     if (!this._instance) {
-      this._instance = new BlogStore(slug, writable(blogData), writable(themeData));
+      this._instance = new BlogStore('blogs', writable(entity));
     }
     return this._instance;
-  }
-
-  public async save(): Promise<void> {
-    await fetch(`/blogs/${this.slug}.json`, {
-      method: 'PUT',
-      body: JSON.stringify(get(this.blog)),
-    });
   }
 }

@@ -9,7 +9,7 @@
   <div class="w-full fixed bg-fixed" style={bgStyle}>
   </div>
   <section class="relative text-white" style="height: 350px;">
-    <div class="container mx-auto dark">
+    <div class="container mx-auto">
       <slot name="menu"/>
     </div>
   </section>

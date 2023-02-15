@@ -1,24 +1,21 @@
 <script lang="ts">
   import { MixStore } from './playlist';
   import Playlist from '@theme/playlist/PlaylistPost.svelte';
-  import Content from '@components/common/Content.svelte';
-  import { PageStore, TemplateStore } from '@modules/page/page';
+  import { PageStore } from '@modules/page/page';
   import { Entity, MusicMixPost } from '@lib/interfaces';
+  import MenuBar from '@theme/MenuBar.svelte';
 
   export let entity: Entity<MusicMixPost>;
   export let page: Entity<any>;
-  export let template: Entity<any>;
+  export let navigation: any;
 
   let {entity: storedPost, playlist} = MixStore.instance(entity);
   let {entity: storedPage} = PageStore.instance(page);
-  let {entity: storedTemplate} = TemplateStore.instance(template);
 </script>
 
 <Playlist bind:post={$storedPost.data} bind:page={$storedPage.data} playlist={playlist}>
-  <slot/>
-  <slot slot="menu" name="menu"/>
-
-  <Content style={$storedTemplate.data} slot="article">
-    <slot name="article"/>
-  </Content>
+  <div slot="menu" class="{$storedPage.data.menu}">
+    <MenuBar sitemap={navigation} />
+  </div>
+  <slot slot="article" name="article"/>
 </Playlist>
