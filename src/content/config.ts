@@ -7,7 +7,7 @@ export const collections = {
   pages: defineCollection({schema: page.schema}),
   blogs: defineCollection({schema: blog.schema}),
   mixes: defineCollection({schema: playlist.schema}),
-  templates: defineCollection({schema: {
+  templates: defineCollection({schema: z.object({
     fontSize: z.object({
       h1: z.number(),
       h2: z.number(),
@@ -18,5 +18,5 @@ export const collections = {
       p: z.number(),
     }),
     textAlign: z.string(),
-  }}),
+  })}),
 };

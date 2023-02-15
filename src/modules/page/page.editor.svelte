@@ -10,6 +10,7 @@
     SubPanel,
     TitleBar
   } from 'src/editor';
+    import Scrollable from 'src/editor/Scrollable.svelte';
   import { PageStore, TemplateStore } from './page';
 
   export let data: any;

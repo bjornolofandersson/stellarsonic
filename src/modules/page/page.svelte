@@ -1,7 +1,7 @@
 <script lang="ts">
   import Page from '@theme/Page.svelte';
   import { PageStore } from './page';
-  import { Entity } from '@lib/interfaces';
+  import type { Entity } from '@lib/interfaces';
 
   export let entity: Entity<any>;
   export let navigation: any;

@@ -20,7 +20,7 @@ export class CollectionController<T extends {title: string}> {
   }
 
   public write(entity: Entity<T>) {
-    const frontmatter = yaml.stringify(entity.data);
+    const frontmatter = yaml.stringify({...entity.data, slug: entity.slug});
     const output = '---\n' + frontmatter + '---\n' + (entity.body ? entity.body : '');
 
     fs.writeFileSync(this.filePath(entity.id), output);

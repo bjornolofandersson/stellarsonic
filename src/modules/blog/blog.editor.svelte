@@ -13,7 +13,7 @@
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
   import { BlogStore } from './blog';
-  import { Entity } from '@lib/interfaces';
+  import type { Entity } from '@lib/interfaces';
 
   export let entity: Entity<any>;
   export let posts: any[];
@@ -28,7 +28,7 @@
   let showAdd = false;
   let addDisabled = true;
   let postTitleInput: any;
-  //let panel: string | undefined = undefined;
+  let panel: string | undefined = undefined;
 
   $: {
     filteredPosts = posts.filter(p => p.data.title.toLowerCase().includes(search.toLowerCase()));

@@ -1,20 +1,18 @@
 import { CollectionController } from "@lib/CollectionController";
 import { Mount } from "@lib/interfaces";
 import { Page } from "astro";
-import { z, CollectionEntry, getCollection, getEntry } from "astro:content";
+import { z, CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
 import BlogPage from './blog.astro';
 
 export const collection = 'blogs';
-export const schema = {
+export const schema = z.object({
   title: z.string(),
   limit: z.number(),
   pagination: z.boolean(),
-  posts: z.object({
-    path: z.string(),
-    type: z.string(),
-    collection: z.string(),
+  theme: z.object({
+    layout: z.string(),
   }),
-}
+});
 
 export async function onPage(mount: Mount, path: string, entry: CollectionEntry<'blogs'>) {
   const {limit, title, pagination} = entry.data;
@@ -26,8 +24,8 @@ export async function onPage(mount: Mount, path: string, entry: CollectionEntry<
 
   let posts: any[] = [];
   for (let p of postPageEntries) {
-    const e = await getEntry(p.data.content.collection, p.data.content.id);
-    posts.push({...e, slug: p.data.slug});
+    const e = await getEntryBySlug(p.data.content.collection, p.data.content.id);
+    posts.push({...e, slug: p.slug});
   }
 
   const sortedEntries = posts.sort((a, b) => {

@@ -5,7 +5,7 @@ import site from '@settings';
 import { Mount } from "@lib/interfaces";
 
 export const collection = 'mixes';
-export const schema = {
+export const schema = z.object({
   title: z.string(),
   subtitle: z.string().optional(),
   description: z.string(),
@@ -21,7 +21,7 @@ export const schema = {
     year: z.number().optional(),
     duration: z.string(),
   })),
-}
+});
 
 export function onPage(mount: Mount, path: string, entry: CollectionEntry<'mixes'>) {
   const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;

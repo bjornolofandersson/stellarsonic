@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Entity } from "@lib/interfaces";
+  import type { Entity } from "@lib/interfaces";
   import { TemplateStore } from "@modules/page/page";
 
   export let template: Entity<any>;

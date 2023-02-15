@@ -1,7 +1,7 @@
 <script lang="ts">
   import { BlogPage, BlogStore } from './blog';
   import Blog from '@theme/Blog.svelte';
-  import { Entity } from '@lib/interfaces';
+  import type { Entity } from "@lib/interfaces";
 
   export let page: BlogPage<any>;
   export let entity: Entity<any>;

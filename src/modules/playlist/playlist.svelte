@@ -2,7 +2,7 @@
   import { MixStore } from './playlist';
   import Playlist from '@theme/playlist/PlaylistPost.svelte';
   import { PageStore } from '@modules/page/page';
-  import { Entity, MusicMixPost } from '@lib/interfaces';
+  import type { Entity, MusicMixPost } from '@lib/interfaces';
   import MenuBar from '@theme/MenuBar.svelte';
 
   export let entity: Entity<MusicMixPost>;

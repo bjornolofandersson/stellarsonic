@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Entity } from "@lib/interfaces";
+  import type { Entity } from "@lib/interfaces";
   import Input from "src/editor/Input.svelte";
   import List from "src/editor/List.svelte";
   import ListItem from "src/editor/ListItem.svelte";

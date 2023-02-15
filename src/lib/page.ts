@@ -1,12 +1,12 @@
 
 import { Entity, Mount, ServerModule } from '@lib/interfaces';
-import { CollectionEntry, getEntry } from 'astro:content';
+import { CollectionEntry, getEntryBySlug } from 'astro:content';
 import { CollectionController } from '@lib/CollectionController';
 import PageComponent from '@modules/page/page.astro';
 
 async function getTemplate(name: string): Promise<Entity<any>> {
   try {
-    const entry = await getEntry('templates', `${name}.md` as any);
+    const entry = await getEntryBySlug('templates', name as any);
     return CollectionController.makeEntity(entry);
   } catch (err) {
     return {
@@ -28,7 +28,7 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
   const template = await getTemplate(page.data.context);
 
   if (content) {
-    const entry = await getEntry(content.collection, content.id);
+    const entry = await getEntryBySlug(content.collection as any, content.id);
 
     let moduleName: string = '';
     for (let name of Object.keys(modules)) {
@@ -53,10 +53,10 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
     }
 
     const m = modules[moduleName];
-    await m.onPage(mount, page.data.slug, entry);
+    await m.onPage(mount, page.slug, entry);
   } else {
     paths.push({
-      params: {path: page.data.slug},
+      params: {path: page.slug},
       props: {
         Component: PageComponent,
         entry: page,

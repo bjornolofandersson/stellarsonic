@@ -1,7 +1,7 @@
 import { z } from "astro:content";
 
 export const collection = 'pages';
-export const schema = {
+export const schema = z.object({
   title: z.string().optional(),
   parent: z.string().optional(),
   context: z.string(),
@@ -12,4 +12,4 @@ export const schema = {
   }).optional(),
   palette: z.array(z.string()).optional(),
   menu: z.string(),
-}
+});
