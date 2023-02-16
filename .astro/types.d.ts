@@ -75,6 +75,15 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blogs">
 },
 },
+"indices": {
+"index.md": {
+  id: "index.md",
+  slug: "index",
+  body: string,
+  collection: "indices",
+  data: InferEntrySchema<"indices">
+},
+},
 "mixes": {
 "first-lady-of-neo-soul.md": {
   id: "first-lady-of-neo-soul.md",
@@ -165,6 +174,13 @@ declare module 'astro:content' {
 "hello.md": {
   id: "hello.md",
   slug: "hello",
+  body: string,
+  collection: "pages",
+  data: InferEntrySchema<"pages">
+},
+"index.md": {
+  id: "index.md",
+  slug: "index",
   body: string,
   collection: "pages",
   data: InferEntrySchema<"pages">

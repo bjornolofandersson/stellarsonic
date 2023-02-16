@@ -1,0 +1,13 @@
+---
+import { PageProps } from '@lib/interfaces';
+import Section from './section.astro';
+
+interface Props extends PageProps<any> {}
+
+const { entity, page, navigation } = Astro.props;
+const sections = entity.data.sections;
+---
+
+{sections.map((s: any) =>
+  <Section data={s} />
+)}

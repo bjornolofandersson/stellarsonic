@@ -19,4 +19,17 @@ export const collections = {
     }),
     textAlign: z.string(),
   })}),
+  indices: defineCollection({schema: z.object({
+    title: z.string(),
+    sections: z.array(z.discriminatedUnion("type", [
+      z.object({
+        type: z.literal("hero"),
+        title: z.string(),
+        cta: z.object({
+          label: z.string(),
+          url: z.string(),
+        }),
+      }),
+    ])),
+  })})
 };

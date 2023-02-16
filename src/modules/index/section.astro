@@ -1,0 +1,13 @@
+---
+import Hero from './hero.astro';
+
+interface Props {
+  data: any
+}
+
+const { data } = Astro.props;
+---
+
+{data.type === 'hero' &&
+  <Hero data={data} />
+}

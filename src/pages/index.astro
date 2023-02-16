@@ -1,41 +1,29 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntryBySlug } from 'astro:content';
 import Page from '@layouts/Page2.astro';
-import * as settings from '@settings';
-import Index from '@theme/index.svelte';
-import PostFeatured from '@theme/PostFeatured.svelte';
-import MenuBar from '@theme/MenuBar.svelte';
-import { getSitemap } from '@lib/server';
+import site from '@settings';
+import { getServerModules, getSitemap } from '@lib/server';
 import EditorLoader from '@components/EditorLoader.svelte';
+import { getPagePaths } from '@lib/page';
+import { CollectionController } from '@lib/CollectionController';
 
-const posts = await getCollection('mixes');
-const sortedPosts = posts.sort((a, b) => {
-  //return b.data.date.localeCompare(a.data.date);
-  return 1;
-});
-const [featured, ...rest] = sortedPosts;
-const sitemap = await getSitemap();
+const indexPageEntry = await getEntryBySlug('pages', 'index');
+const modules = getServerModules();
+const paths = await getPagePaths(indexPageEntry, modules);
+const navigation = await getSitemap();
 
+const {Component, entry, page, template} = paths[0].props;
+const entity = CollectionController.makeEntity(entry);
 ---
 
-<Page editor="site" editorProps={{data: settings, sitemap}}>
+<Page>
   <Fragment slot="head-bottom">
-    <title>{settings.title}</title>
+    <title>{site.title}</title>
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="site" props={{data: settings, sitemap}} client:only />
+    <EditorLoader module="site" props={{data: site, sitemap: navigation}} client:only />
   </Fragment>
 
-  <Index>
-    <!--<MenuBar slot="header" settings={settings} client:load/>-->
-    <!--<PostFeatured slot="featured" collection={featured.collection} post={featured.data} slug={featured.slug}/>-->
-    <!--
-    <Fragment slot="mixes">
-      {rest.slice(0, 3).map(({data, slug}: any) =>
-        <PostPreview collection="mixes" post={data} slug={slug}/>
-      )}
-    </Fragment>
-    -->
-    </Index>
+  <Component entity={entity} page={page} navigation={navigation}/>
 </Page>

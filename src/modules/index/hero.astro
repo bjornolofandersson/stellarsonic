@@ -1,0 +1,11 @@
+---
+import Hero from '@theme/Hero.svelte';
+
+interface Props {
+  data: any
+}
+
+const { data } = Astro.props;
+---
+
+<Hero data={data} />
