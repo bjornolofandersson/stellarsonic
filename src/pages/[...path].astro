@@ -53,7 +53,7 @@ const isDev = import.meta.env.MODE === 'development';
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="page" props={{data: page, template}} client:only>
+    <EditorLoader module="page" props={{data: page, template, sitemap: navigation}} client:only>
      { module && <EditorLoader module={module} props={editor} client:only /> }
     </EditorLoader>
   </Fragment>

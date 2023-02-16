@@ -1,11 +1,16 @@
 ---
-import Hero from '@theme/Hero.svelte';
+import { Entity } from '@lib/interfaces';
+import Hero from './hero.svelte';
 
 interface Props {
-  data: any
+  data: any;
+
+  page: Entity<any>;
+
+  navigation: any;
 }
 
-const { data } = Astro.props;
+const { data, page, navigation } = Astro.props;
 ---
 
-<Hero data={data} />
+<Hero data={data} page={page} navigation={navigation} client:load />

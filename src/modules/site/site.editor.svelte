@@ -41,9 +41,6 @@
   }
 </script>
 
-<Sidebar bind:panel={panel}>
-  <MainPanel>
-    <div class="mt-12"></div>
     <TitleBar title="site">
       <Action icon="settings" onClick={() => {showSettings = true}}/>
     </TitleBar>
@@ -58,7 +55,7 @@
             <span class="material-symbols-outlined mr-2">draft</span>
             <span>Page</span>
           </button>
-          <button class="flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
+          <button class="text-sm flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full">
             <span class="material-symbols-outlined mr-2">library_books</span>
             <span>Blog</span>
           </button>
@@ -94,7 +91,6 @@
       <ul class="w-full p-8">
       </ul>
     </Scrollable>
-  </MainPanel>
 
   <SettingsModal bind:show={showSettings} onSave={onSaveSettings}>
     <SettingsPanel name="Site">
@@ -117,4 +113,3 @@
 
   <CreatePageModal show={showAddModal === 'page'} />
   <CreateMixModal show={showAddModal === 'mix'} />
-</Sidebar>

@@ -22,7 +22,9 @@ const entity = CollectionController.makeEntity(entry);
   </Fragment>
 
   <Fragment slot="editor">
-    <EditorLoader module="site" props={{data: site, sitemap: navigation}} client:only />
+    <EditorLoader module="page" props={{data: page, template, sitemap: navigation}} client:only>
+      <EditorLoader module="index" props={{data: site, sitemap: navigation}} client:only />
+    </EditorLoader>
   </Fragment>
 
   <Component entity={entity} page={page} navigation={navigation}/>

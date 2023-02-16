@@ -1,13 +1,18 @@
 ---
+import { Entity } from '@lib/interfaces';
 import Hero from './hero.astro';
 
 interface Props {
-  data: any
+  data: any;
+
+  page: Entity<any>;
+
+  navigation: any;
 }
 
-const { data } = Astro.props;
+const { data, page, navigation } = Astro.props;
 ---
 
 {data.type === 'hero' &&
-  <Hero data={data} />
+  <Hero data={data} page={page} navigation={navigation} />
 }
