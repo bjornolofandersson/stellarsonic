@@ -1,18 +1,17 @@
 <script lang="ts">
   import {
     Action,
-    BackArrow,
-    MainPanel,
     Palette,
     SelectGroup,
     SelectGroupOption,
     Sidebar,
-    SubPanel,
-    TitleBar
   } from 'src/editor';
-    import Scrollable from 'src/editor/Scrollable.svelte';
+  import ActionBar from 'src/editor/ActionBar.svelte';
+  import Panel from 'src/editor/Panel.svelte';
   import { PageStore, TemplateStore } from './page';
-
+  import Tabs from 'src/editor/Tabs.svelte';
+  import Tab from 'src/editor/Tab.svelte';
+  
   export let data: any;
   export let template: any;
 
@@ -20,7 +19,7 @@
   const templateStore = TemplateStore.instance(template);
   let { entity: storedTemplate } = templateStore;
   let { entity: page } = store;
-  let panel = 'main';
+  let panel = 'page';
   let status = $page.data.draft ? 'draft' : 'published';
 
   $: {
@@ -29,40 +28,43 @@
 </script>
 
 <Sidebar bind:panel={panel}>
-  <MainPanel>
-    <BackArrow url={data.parent ? `/${data.parent}` : '/'}/>
-
-    <TitleBar title="page">
+  <div class="px-8">
+    <ActionBar back={data.parent ? `/${data.parent}` : '/'}>
+      <Action icon="undo" onClick={() => {}} disabled={true}/>
+      <Action icon="redo" onClick={() => {}} disabled={true}/>
       <Action icon="save" onClick={() => {store.save()}}/>
-      <Action icon="tune" onClick={() => {panel = 'template'}}/>
       <Action icon="settings" onClick={() => {}}/>
-    </TitleBar>
+    </ActionBar>
 
+    <Tabs>
+      <Tab panel="page">Page</Tab>
+      <Tab panel="template">Template</Tab>
+      <Tab panel="content">Content</Tab>
+    </Tabs>
+  </div>
+
+  <Panel name="page">
     <SelectGroup bind:selected={status}>
       <SelectGroupOption id="published" icon="verified">Published</SelectGroupOption>
       <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
     </SelectGroup>
 
-    <h1 class="text-sm p-4 mt-4 opacity-50">Menu bar</h1>
+    <h1 class="text-sm py-4 mt-4 opacity-50">Menu bar</h1>
     <SelectGroup bind:selected={$page.data.menu}>
       <SelectGroupOption id="light" icon="light_mode">Light</SelectGroupOption>
       <SelectGroupOption id="dark" icon="dark_mode">Dark</SelectGroupOption>
     </SelectGroup>
 
-    <h1 class="text-sm p-4 mt-4 opacity-50">Palette</h1>
+    <h1 class="text-sm p-4 mt-4 -mb-3 opacity-50">Palette</h1>
     <Palette bind:colors={$page.data.palette} />
+  </Panel>
 
-    <div class="mt-8">
-      <slot/>
-    </div>
-  </MainPanel>
+  <Panel name="content">
+    <slot/>
+  </Panel>
 
-  <SubPanel name="template">
-    <TitleBar title="template">
-      <Action icon="save" onClick={() => {templateStore.save()}}/>
-    </TitleBar>
-
-    <div class="flex text-sm opacity-50 p-4 mt-4 border border-[#00000040] rounded-md">
+  <Panel name="template">
+    <div class="flex text-sm opacity-50 p-4 border border-[#00000040] rounded-md">
       <span class="material-symbols-outlined mr-4">info</span>
       <span>These styles apply to all pages in this context ({$page.data.context})</span>
     </div>
@@ -110,5 +112,5 @@
       </AccordionItem>
     </Accordion>
   -->
-  </SubPanel>
+  </Panel>
 </Sidebar>

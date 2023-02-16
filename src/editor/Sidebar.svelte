@@ -30,6 +30,7 @@
       panel = p;
 		},
     selected,
+    panels,
 	});
 </script>
 

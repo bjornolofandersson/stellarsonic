@@ -44,9 +44,7 @@
   }
 </script>
 
-<TitleBar title={$blog.data.title}>
-  <Action icon="tune" onClick={() => {panel = 'theme'}}/>
-  <Action icon="settings" onClick={() => {showSettings = true}}/>
+<TitleBar title="posts">
   <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
 </TitleBar>
 

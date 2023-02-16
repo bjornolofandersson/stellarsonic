@@ -52,24 +52,23 @@
   playlist.load();
 </script>
 
-<TitleBar title="content">
-  <Action icon="save" onClick={() => {store.save()}} />
-  <Action icon="queue_music" onClick={() => {showPlaylist = true}} />
-</TitleBar>
 
+<ImageForm bind:post={$post.data} assets={assets} />
+<HeadingsForm bind:post={$post.data} />
+<DescriptionForm bind:post={$post.data} />
+
+<!--
 <Scrollable>
   <Accordion>
     <AccordionItem name="Headings" icon="title">
-      <HeadingsForm bind:post={$post.data} />
     </AccordionItem>
     <AccordionItem name="Description" icon="description">
-      <DescriptionForm bind:post={$post.data} />
     </AccordionItem>
     <AccordionItem name="Image" icon="image">
-      <ImageForm bind:post={$post.data} assets={assets} />
     </AccordionItem>
   </Accordion>
 </Scrollable>
+-->
 
 <SplitModal bind:show={showPlaylist} expand={true}>
   <div slot="header">
