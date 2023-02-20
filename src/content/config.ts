@@ -25,6 +25,7 @@ export const collections = {
       z.object({
         type: z.literal("hero"),
         title: z.string(),
+        description: z.string(),
         cta: z.object({
           label: z.string(),
           url: z.string(),

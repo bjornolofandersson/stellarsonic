@@ -1,13 +1,16 @@
 ---
 import { PageProps } from '@lib/interfaces';
-import Section from './section.astro';
+import Hero from './hero.svelte';
 
 interface Props extends PageProps<any> {}
 
 const { entity, page, navigation } = Astro.props;
 const sections = entity.data.sections;
+
 ---
 
-{sections.map((s: any) =>
-  <Section data={s} page={page} navigation={navigation} />
-)}
+{sections.map((s: any, i: number) => {
+  if (s.type === 'hero') {
+    return <Hero data={entity} section={i} page={page} navigation={navigation} client:load />
+  }
+})}

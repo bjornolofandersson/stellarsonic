@@ -3,14 +3,16 @@ import { Entity } from '@lib/interfaces';
 import Hero from './hero.svelte';
 
 interface Props {
-  data: any;
+  entity: Entity<any>;
+
+  section: number;
 
   page: Entity<any>;
 
   navigation: any;
 }
 
-const { data, page, navigation } = Astro.props;
+const { entity, section, page, navigation } = Astro.props;
 ---
 
-<Hero data={data} page={page} navigation={navigation} client:load />
+<Hero data={entity} section={section} page={page} navigation={navigation} client:load />
