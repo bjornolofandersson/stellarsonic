@@ -21,16 +21,19 @@ export const collections = {
   })}),
   indices: defineCollection({schema: z.object({
     title: z.string(),
-    sections: z.array(z.discriminatedUnion("type", [
-      z.object({
-        type: z.literal("hero"),
-        title: z.string(),
-        description: z.string(),
-        cta: z.object({
-          label: z.string(),
-          url: z.string(),
-        }),
+    hero: z.object({
+      disabled: z.boolean().optional(),
+      title: z.string(),
+      description: z.string(),
+      cta: z.object({
+        label: z.string(),
+        url: z.string(),
       }),
-    ])),
+    }),
+    gallery: z.object({
+      disabled: z.boolean().optional(),
+      title: z.string(),
+      blog: z.string(),
+    }),
   })})
 };

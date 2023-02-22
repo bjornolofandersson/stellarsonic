@@ -5,14 +5,12 @@ import Hero from './hero.svelte';
 interface Props {
   entity: Entity<any>;
 
-  section: number;
-
   page: Entity<any>;
 
   navigation: any;
 }
 
-const { entity, section, page, navigation } = Astro.props;
+const { entity, page, navigation } = Astro.props;
 ---
 
-<Hero data={entity} section={section} page={page} navigation={navigation} client:load />
+<Hero data={entity} page={page} navigation={navigation} client:load />

@@ -25,7 +25,7 @@
     </div>
   {/if}
   -->
-  <div class="bg-stone-800 overflow-y-scroll {edit ? 'h-full' : 'h-screen'}">
+  <div class="edit-page-preview bg-stone-800 overflow-y-scroll {edit ? 'h-full' : 'h-screen'}">
     <!--
     {#if !edit}
       <button class="fixed w-20 h-20 z-10 p-2 rounded-br-2xl bg-white text-stone-800" on:click={() => {edit = true}}>

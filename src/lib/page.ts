@@ -3,6 +3,7 @@ import { Entity, Mount, ServerModule } from '@lib/interfaces';
 import { CollectionEntry, getEntryBySlug } from 'astro:content';
 import { CollectionController } from '@lib/CollectionController';
 import PageComponent from '@modules/page/page.astro';
+import { getServerModules } from './server';
 
 async function getTemplate(name: string): Promise<Entity<any>> {
   try {
@@ -68,4 +69,25 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
   }
 
   return paths;
+}
+
+export async function getPagePreview(page: CollectionEntry<'pages'>) {
+  const entry = await getPageContent(page);
+
+  return {
+    slug: page.slug,
+    title: entry.data.title,
+    description: entry.data.description,
+    image: entry.data.image,
+  };
+}
+
+export async function getPageContent(page: CollectionEntry<'pages'>) {
+  const content = page.data.content;
+
+  if (content) {
+    return await getEntryBySlug(content.collection as any, content.id);
+  } else {
+    throw Error('page does not have content');
+  }
 }

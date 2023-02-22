@@ -1,4 +1,4 @@
-import { CollectionEntry, getCollection, getEntry } from "astro:content";
+import { CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
 import * as yaml from 'yaml';
 import * as fs from 'fs';
 import slugify from 'slugify';
@@ -31,8 +31,9 @@ export class CollectionController<T extends {title: string}> {
   }
 
   public async getById(id: string): Promise<Entity<T>> {
-    const entry = await getEntry(this.collection as any, `${id}.md` as any);
-    return CollectionController.makeEntity(entry);
+    const matching = await getCollection(this.collection as any, entry => entry.id === `${id}.md`);
+    //const entry = await getEntryBySlug(this.collection as any, slug);
+    return CollectionController.makeEntity(matching[0]);
   }
 
   public async getAllEntities(): Promise<Entity<any>[]> {
