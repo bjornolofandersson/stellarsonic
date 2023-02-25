@@ -11,9 +11,9 @@ const { isDev, template } = Astro.props;
       <Fragment slot="sidebar">
         <slot name="editor" />
       </Fragment>
-      <Fragment slot="preview">
+      <div class="styled" slot="preview">
         <slot/>
-      </Fragment>
+      </div>
     </Editor>
   </Body>
 :

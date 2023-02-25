@@ -1,7 +1,10 @@
 <script lang="ts">
   import {
+    Accordion,
+    AccordionItem,
     Action,
     Palette,
+    Select,
     SelectGroup,
     SelectGroupOption,
     Sidebar,
@@ -103,48 +106,39 @@
       <SelectGroupOption id="right" icon="format_align_right">Right</SelectGroupOption>
     </SelectGroup>
 
-    <h1 class="text-sm text-stone-600 mb-4 mt-8">Font sizes</h1>
-    <label for="base-font-size-h1" class="text-sm opacity-50">H1: {$storedTemplate.data.fontSize.h1}rem</label>
-    <input id="base-font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h1}
-      class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-    <label for="base-font-size-h2" class="text-sm opacity-50">H2: {$storedTemplate.data.fontSize.h2}rem</label>
-    <input id="base-font-size-h2" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h2}
-      class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-
-    <h1 class="text-sm text-stone-600 mb-4 mt-8">Font families</h1>
-    <select bind:value={$storedTemplate.data.fontFamily.h1}>
-      <option value="Montserrat">Montserrat</option>
-      <option value="Gloock">Gloock</option>
-      <option value="Raleway">Raleway</option>
-    </select>
-    <!--
+    <h1 class="text-sm text-stone-600 mb-4 mt-8">Typography</h1>
     <Accordion>
       <AccordionItem icon="title" name="Heading 1">
-        <label for="font-size-h1" class="text-sm opacity-50">{$page.data.style.fontSize.h1}rem</label>
-        <input id="font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$page.data.style.fontSize.h1}
+        <Select bind:value={$storedTemplate.data.fontFamily.h1}>
+          <option value="Montserrat">Montserrat</option>
+          <option value="Gloock">Gloock</option>
+          <option value="Raleway">Raleway</option>
+        </Select>
+
+        <label for="font-weight-h1" class="text-sm opacity-50">Font weight: {$storedTemplate.data.fontWeight.h1}</label>
+        <input id="font-weight-h1" type="range" min="100" max="600" step="100" bind:value={$storedTemplate.data.fontWeight.h1}
           class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-        <ColorInput id="text-color-h1" label={$page.data.style.color.h1} bind:value={$page.data.style.color.h1}/>
+
+        <label for="font-size-h1" class="text-sm opacity-50">Font size: {$storedTemplate.data.fontSize.h1}rem</label>
+        <input id="font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h1}
+          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
       </AccordionItem>
       <AccordionItem icon="title" name="Heading 2">
-        <label for="font-size-h2" class="text-sm opacity-50">{$page.data.style.fontSize.h2}rem</label>
-        <input id="font-size-h2" type="range" min="1" max="8" step="0.25" bind:value={$page.data.style.fontSize.h2}
+        <label for="font-size-h2" class="text-sm opacity-50">{$storedTemplate.data.fontSize.h2}rem</label>
+        <input id="font-size-h2" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h2}
           class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-        <ColorInput id="text-color-h2" label={$page.data.style.color.h2} bind:value={$page.data.style.color.h2}/>
       </AccordionItem>
       <AccordionItem icon="title" name="Heading 3">
-        <label for="font-size-h3" class="text-sm opacity-50">{$page.data.style.fontSize.h3}rem</label>
-        <input id="font-size-h3" type="range" min="1" max="8" step="0.25" bind:value={$page.data.style.fontSize.h3}
+        <label for="font-size-h3" class="text-sm opacity-50">{$storedTemplate.data.fontSize.h3}rem</label>
+        <input id="font-size-h3" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h3}
           class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-        <ColorInput id="text-color-h3" label={$page.data.style.color.h3} bind:value={$page.data.style.color.h3}/>
       </AccordionItem>
       <AccordionItem icon="segment" name="Paragraph">
-        <label for="font-size-p" class="text-sm opacity-50">{$page.data.style.fontSize.p}rem</label>
-        <input id="font-size-h3" type="range" min="0.5" max="4" step="0.1" bind:value={$page.data.style.fontSize.p}
+        <label for="font-size-p" class="text-sm opacity-50">{$storedTemplate.data.fontSize.p}rem</label>
+        <input id="font-size-p" type="range" min="0.5" max="4" step="0.1" bind:value={$storedTemplate.data.fontSize.p}
           class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-        <ColorInput id="text-color-p" label={$page.data.style.color.p} bind:value={$page.data.style.color.p}/>
       </AccordionItem>
     </Accordion>
-  -->
   </Panel>
 
   <Panel name="site">

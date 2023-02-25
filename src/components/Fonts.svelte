@@ -11,11 +11,10 @@
 
   $: {
     fonts = [
-      { family: $storedTemplate.data.fontFamily.h1, weight: 400 },
-      { family: $storedTemplate.data.fontFamily.p, weight: 400 },
+      { family: $storedTemplate.data.fontFamily.h1, weight: $storedTemplate.data.fontWeight.h1 },
+      { family: $storedTemplate.data.fontFamily.p, weight: $storedTemplate.data.fontWeight.p },
       { family: 'Dancing Script', weight: 400 },
     ];
-    console.log('updated fonts in head');
   }
 
 </script>

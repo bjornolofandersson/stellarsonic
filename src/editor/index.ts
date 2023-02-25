@@ -13,6 +13,7 @@ import NumberInput from "./NumberInput.svelte";
 import PageContainer from "./PageContainer.svelte";
 import Palette from "./Palette.svelte";
 import Scrollable from "./Scrollable.svelte";
+import Select from "./Select.svelte";
 import SelectGroup from "./SelectGroup.svelte";
 import SelectGroupOption from "./SelectGroupOption.svelte";
 import SettingsModal from "./SettingsModal.svelte";
@@ -39,6 +40,7 @@ export {
   PageContainer,
   Palette,
   Scrollable,
+  Select,
   SelectGroup,
   SelectGroupOption,
   SettingsModal,
