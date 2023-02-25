@@ -1,23 +1,25 @@
 ---
 import Editor from "@components/Editor.svelte";
-import Body from '@components/Body.svelte';
+import Main from '@components/Main.svelte';
 
-const { isDev, template } = Astro.props;
+const { isDev, template, page } = Astro.props;
 ---
 
 {isDev ?
-  <Body template={template} client:load>
+  <body>
     <Editor client:only>
       <Fragment slot="sidebar">
         <slot name="editor" />
       </Fragment>
-      <div class="styled" slot="preview">
+      <Main slot="preview" template={template} page={page} client:load>
         <slot/>
-      </div>
+      </Main>
     </Editor>
-  </Body>
+  </body>
 :
-  <Body template={template}>
-    <slot/>
-  </Body>
+  <body>
+    <Main template={template} page={page}>
+      <slot/>
+    </Main>
+  </body>
 }
