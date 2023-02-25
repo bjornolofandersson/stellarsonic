@@ -13,6 +13,7 @@
     fonts = [
       { family: $storedTemplate.data.fontFamily.h1, weight: $storedTemplate.data.fontWeight.h1 },
       { family: $storedTemplate.data.fontFamily.p, weight: $storedTemplate.data.fontWeight.p },
+      { family: $storedTemplate.data.fontFamily.button, weight: $storedTemplate.data.fontWeight.button },
       { family: 'Dancing Script', weight: 400 },
     ];
   }

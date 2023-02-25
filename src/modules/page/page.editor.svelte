@@ -117,9 +117,9 @@
         </Select>
 
         <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.h1}>
-          <option value="100">100</option>
-          <option value="200">200</option>
-          <option value="400">400</option>
+          <option value=100>100</option>
+          <option value=200>200</option>
+          <option value=400>400</option>
         </Select>
 
         <div class="relative">
@@ -131,16 +131,6 @@
             class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
         </div>
       </AccordionItem>
-      <AccordionItem icon="title" name="Heading 2">
-        <label for="font-size-h2" class="text-sm opacity-50">{$storedTemplate.data.fontSize.h2}rem</label>
-        <input id="font-size-h2" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h2}
-          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-      </AccordionItem>
-      <AccordionItem icon="title" name="Heading 3">
-        <label for="font-size-h3" class="text-sm opacity-50">{$storedTemplate.data.fontSize.h3}rem</label>
-        <input id="font-size-h3" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h3}
-          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
-      </AccordionItem>
       <AccordionItem icon="segment" name="Paragraph">
         <Select label="Family" bind:value={$storedTemplate.data.fontFamily.p}>
           <Option value="Montserrat">Montserrat</Option>
@@ -149,9 +139,9 @@
         </Select>
 
         <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.p}>
-          <option value="100">100</option>
-          <option value="200">200</option>
-          <option value="400">400</option>
+          <option value=100>100</option>
+          <option value=200>200</option>
+          <option value=400>400</option>
         </Select>
 
         <div class="relative">
@@ -160,6 +150,28 @@
             <span>{$storedTemplate.data.fontSize.p}rem</span>
           </label>
           <input id="font-size-p" type="range" min="0.5" max="4" step="0.1" bind:value={$storedTemplate.data.fontSize.p}
+            class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
+        </div>
+      </AccordionItem>
+      <AccordionItem icon="check_box_outline_blank" name="Button">
+        <Select label="Family" bind:value={$storedTemplate.data.fontFamily.button}>
+          <Option value="Montserrat">Montserrat</Option>
+          <Option value="Gloock">Gloock</Option>
+          <Option value="Raleway">Raleway</Option>
+        </Select>
+
+        <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.button}>
+          <option value=100>100</option>
+          <option value=200>200</option>
+          <option value=400>400</option>
+        </Select>
+
+        <div class="relative">
+          <label for="font-size-button" class="-mb-6 text-md text-stone-600 p-4 w-full flex justify-between">
+            <span>Size</span>
+            <span>{$storedTemplate.data.fontSize.button}rem</span>
+          </label>
+          <input id="font-size-button" type="range" min="0.5" max="4" step="0.1" bind:value={$storedTemplate.data.fontSize.button}
             class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
         </div>
       </AccordionItem>

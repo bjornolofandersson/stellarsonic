@@ -16,14 +16,17 @@ export const collections = {
       h5: z.number(),
       h6: z.number(),
       p: z.number(),
+      button: z.number(),
     }),
     fontFamily: z.object({
       h1: z.string(),
       p: z.string(),
+      button: z.string(),
     }),
     fontWeight: z.object({
       h1: z.number(),
       p: z.number(),
+      button: z.number(),
     }),
     textAlign: z.string(),
   })}),

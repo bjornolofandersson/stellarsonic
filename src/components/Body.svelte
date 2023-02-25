@@ -15,10 +15,13 @@
 <body class="bg-slate-100 dark:bg-dark-base" style={`
   --theme-font-h1: ${$storedTemplate.data.fontFamily.h1};
   --theme-font-p: ${$storedTemplate.data.fontFamily.p};
+  --theme-font-button: ${$storedTemplate.data.fontFamily.button};
   --theme-font-weight-h1: ${$storedTemplate.data.fontWeight.h1};
   --theme-font-weight-p: ${$storedTemplate.data.fontWeight.p};
+  --theme-font-weight-button: ${$storedTemplate.data.fontWeight.button};
   --theme-font-size-h1: ${$storedTemplate.data.fontSize.h1}rem;
   --theme-font-size-p: ${$storedTemplate.data.fontSize.p}rem;
+  --theme-font-size-button: ${$storedTemplate.data.fontSize.button}rem;
 `}>
   <slot/>
 </body>
@@ -42,6 +45,16 @@
     font-family: var(--theme-font-p);
     font-size: var(--theme-font-size-p);
     font-weight: var(--theme-font-weight-p);
+  }
+  body :global(.styled button) {
+    font-family: var(--theme-font-button);
+    font-size: var(--theme-font-size-button);
+    font-weight: var(--theme-font-weight-button);
+  }
+  body :global(.styled a) {
+    font-family: var(--theme-font-button);
+    font-size: var(--theme-font-size-button);
+    font-weight: var(--theme-font-weight-button);
   }
 
   .article h1 {

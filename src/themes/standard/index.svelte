@@ -33,8 +33,8 @@
     </div>
     <div class="grid grid-cols-12 h-full">
       <div class="px-20 py-20 col-span-6 flex gap-8">
-        <a class="border border-[#00000040] p-6 font-title w-full rounded-full text-center" href="">Read more</a>
-        <a class="border border-[#00000040] p-6 font-title w-full rounded-full text-center" href="">Browse Mixtapes</a>
+        <a class="border border-[#00000040] p-6 w-full rounded-full text-center" href="">Read more</a>
+        <a class="border border-[#00000040] p-6 w-full rounded-full text-center" href="">Browse Mixtapes</a>
       </div>
     </div>
   </div>
