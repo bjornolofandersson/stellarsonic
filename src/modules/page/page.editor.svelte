@@ -3,6 +3,7 @@
     Accordion,
     AccordionItem,
     Action,
+    Option,
     Palette,
     Select,
     SelectGroup,
@@ -109,19 +110,27 @@
     <h1 class="text-sm text-stone-600 mb-4 mt-8">Typography</h1>
     <Accordion>
       <AccordionItem icon="title" name="Heading 1">
-        <Select bind:value={$storedTemplate.data.fontFamily.h1}>
-          <option value="Montserrat">Montserrat</option>
-          <option value="Gloock">Gloock</option>
-          <option value="Raleway">Raleway</option>
+        <Select label="Family" bind:value={$storedTemplate.data.fontFamily.h1}>
+          <Option value="Montserrat">Montserrat</Option>
+          <Option value="Gloock">Gloock</Option>
+          <Option value="Raleway">Raleway</Option>
         </Select>
 
-        <label for="font-weight-h1" class="text-sm opacity-50">Font weight: {$storedTemplate.data.fontWeight.h1}</label>
-        <input id="font-weight-h1" type="range" min="100" max="600" step="100" bind:value={$storedTemplate.data.fontWeight.h1}
-          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
+        <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.h1}>
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="400">400</option>
+        </Select>
 
-        <label for="font-size-h1" class="text-sm opacity-50">Font size: {$storedTemplate.data.fontSize.h1}rem</label>
-        <input id="font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h1}
-          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
+        <div class="relative">
+          <label for="font-size-h1" class="-mb-6 text-md text-stone-600 p-4 w-full flex justify-between">
+            <span>Size</span>
+            <span>{$storedTemplate.data.fontSize.h1}rem</span>
+          </label>
+          <input id="font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h1}
+            class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
+        </div>
+
       </AccordionItem>
       <AccordionItem icon="title" name="Heading 2">
         <label for="font-size-h2" class="text-sm opacity-50">{$storedTemplate.data.fontSize.h2}rem</label>

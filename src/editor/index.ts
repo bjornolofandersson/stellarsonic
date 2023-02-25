@@ -10,6 +10,7 @@ import List from "./List.svelte";
 import ListItem from "./ListItem.svelte";
 import MainPanel from "./MainPanel.svelte";
 import NumberInput from "./NumberInput.svelte";
+import Option from "./Option.svelte";
 import PageContainer from "./PageContainer.svelte";
 import Palette from "./Palette.svelte";
 import Scrollable from "./Scrollable.svelte";
@@ -37,6 +38,7 @@ export {
   List,
   ListItem,
   MainPanel,
+  Option,
   PageContainer,
   Palette,
   Scrollable,
