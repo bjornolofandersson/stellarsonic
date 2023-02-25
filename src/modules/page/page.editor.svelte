@@ -130,7 +130,6 @@
           <input id="font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h1}
             class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
         </div>
-
       </AccordionItem>
       <AccordionItem icon="title" name="Heading 2">
         <label for="font-size-h2" class="text-sm opacity-50">{$storedTemplate.data.fontSize.h2}rem</label>
@@ -143,9 +142,26 @@
           class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
       </AccordionItem>
       <AccordionItem icon="segment" name="Paragraph">
-        <label for="font-size-p" class="text-sm opacity-50">{$storedTemplate.data.fontSize.p}rem</label>
-        <input id="font-size-p" type="range" min="0.5" max="4" step="0.1" bind:value={$storedTemplate.data.fontSize.p}
-          class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
+        <Select label="Family" bind:value={$storedTemplate.data.fontFamily.p}>
+          <Option value="Montserrat">Montserrat</Option>
+          <Option value="Gloock">Gloock</Option>
+          <Option value="Raleway">Raleway</Option>
+        </Select>
+
+        <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.p}>
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="400">400</option>
+        </Select>
+
+        <div class="relative">
+          <label for="font-size-p" class="-mb-6 text-md text-stone-600 p-4 w-full flex justify-between">
+            <span>Size</span>
+            <span>{$storedTemplate.data.fontSize.p}rem</span>
+          </label>
+          <input id="font-size-p" type="range" min="0.5" max="4" step="0.1" bind:value={$storedTemplate.data.fontSize.p}
+            class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
+        </div>
       </AccordionItem>
     </Accordion>
   </Panel>

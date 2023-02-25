@@ -38,6 +38,11 @@
   body :global(.styled h1) {
     font-size: var(--theme-font-size-h1);
   }
+  body :global(.styled p) {
+    font-family: var(--theme-font-p);
+    font-size: var(--theme-font-size-p);
+    font-weight: var(--theme-font-weight-p);
+  }
 
   .article h1 {
     font-family: var(--theme-font-h1);
