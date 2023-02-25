@@ -1,9 +1,10 @@
 ---
-import EditorLoader from "@components/EditorLoader.svelte";
+import Body from "./Body.astro";
+import Fonts from "@components/Fonts.svelte";
+
+const { template } = Astro.props;
 
 const isDev = import.meta.env.MODE === 'development';
-
-const {editor, editorProps} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -13,31 +14,23 @@ const {editor, editorProps} = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;400;600&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
+    {isDev ? <Fonts template={template} client:load/> : <Fonts template={template} /> }
     <slot name="head-bottom" />
 	</head>
-	<body class="bg-slate-100 dark:bg-dark-base">
-    {isDev ?
-      <EditorLoader module={editor} props={editorProps} client:only>
-        <slot/>
-      </EditorLoader>
-    :
-      <slot/>
-    }
-		<slot />
-	</body>
+  <Body isDev={isDev} template={template}>
+    <slot name="editor" slot="editor" />
+    <slot/>
+  </Body>
 </html>
+
 <style is:global>
   .font-editor {
     font-family: 'Roboto', serif;
     font-weight: 200;
   }
+  /*
   .site-title {
     font-family: 'Dancing Script', cursive;
   }
@@ -47,8 +40,13 @@ const {editor, editorProps} = Astro.props;
   .font-primary {
     font-family: 'Roboto', serif;
   }
+  */
   .article p {
     padding: 20px 0;
+    /*font-family: 'Roboto', serif;*/
+  }
+  .article h1 {
+    /*font-family: 'Cinzel', serif;*/
   }
   .article p:first-child {
     padding-top: 0;
@@ -56,4 +54,14 @@ const {editor, editorProps} = Astro.props;
   .article img {
     padding: 30px 0;
   } 
+  .font-text {
+    /*font-family: 'Raleway';*/
+  }
+  .edit-page-preview .h-screen {
+    height: calc(100vh - 2rem);
+  }
+
+  .edit-page-preview .w-screen {
+    width: calc(100vw - 512px - 1.9rem);
+  }
 </style>

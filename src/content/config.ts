@@ -17,6 +17,10 @@ export const collections = {
       h6: z.number(),
       p: z.number(),
     }),
+    fontFamily: z.object({
+      h1: z.string(),
+      p: z.string(),
+    }),
     textAlign: z.string(),
   })}),
   indices: defineCollection({schema: z.object({

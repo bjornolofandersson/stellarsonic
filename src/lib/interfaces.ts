@@ -120,3 +120,8 @@ export interface PageProps<T> {
 
   edit: boolean;
 }
+
+export interface Font {
+  family: string;
+  weight: number;
+}

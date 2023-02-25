@@ -1,0 +1,23 @@
+---
+import Editor from "@components/Editor.svelte";
+import Body from '@components/Body.svelte';
+
+const { isDev, template } = Astro.props;
+---
+
+{isDev ?
+  <Body template={template}>
+    <Editor client:only>
+      <Fragment slot="sidebar">
+        <slot name="editor" />
+      </Fragment>
+      <Fragment slot="preview">
+        <slot/>
+      </Fragment>
+    </Editor>
+  </Body>
+:
+  <Body template={template}>
+    <slot/>
+  </Body>
+}

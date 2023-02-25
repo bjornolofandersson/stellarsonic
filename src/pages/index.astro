@@ -1,6 +1,6 @@
 ---
 import { getCollection, getEntryBySlug } from 'astro:content';
-import Page from '@layouts/Page2.astro';
+import Page from '@layouts/Page.astro';
 import site from '@settings';
 import { getServerModules, getSitemap } from '@lib/server';
 import EditorLoader from '@components/EditorLoader.svelte';
@@ -16,7 +16,7 @@ const {Component, entry, page, template} = paths[0].props;
 const entity = CollectionController.makeEntity(entry);
 ---
 
-<Page>
+<Page template={template}>
   <Fragment slot="head-bottom">
     <title>{site.title}</title>
   </Fragment>

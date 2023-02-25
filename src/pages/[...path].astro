@@ -2,7 +2,7 @@
 import { Entity, MountConfig } from '@lib/interfaces';
 import { getServerModules, getSitemap } from '@lib/server';
 import { CollectionEntry, getCollection } from 'astro:content';
-import Page from '@layouts/Page2.astro'
+import Page from '@layouts/Page.astro'
 import EditorLoader from '@components/EditorLoader.svelte';
 import Schema from '@components/Schema.astro';
 import { getPagePaths } from '@lib/page';
@@ -46,7 +46,7 @@ const entity = CollectionController.makeEntity(entry);
 const isDev = import.meta.env.MODE === 'development';
 ---
 
-<Page>
+<Page template={template}>
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{title}</title>
