@@ -111,6 +111,12 @@
     <input id="base-font-size-h2" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h2}
       class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-200"/>
 
+    <h1 class="text-sm text-stone-600 mb-4 mt-8">Font families</h1>
+    <select bind:value={$storedTemplate.data.fontFamily.h1}>
+      <option value="Montserrat">Montserrat</option>
+      <option value="Gloock">Gloock</option>
+      <option value="Raleway">Raleway</option>
+    </select>
     <!--
     <Accordion>
       <AccordionItem icon="title" name="Heading 1">

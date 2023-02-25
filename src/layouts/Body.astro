@@ -6,7 +6,7 @@ const { isDev, template } = Astro.props;
 ---
 
 {isDev ?
-  <Body template={template}>
+  <Body template={template} client:load>
     <Editor client:only>
       <Fragment slot="sidebar">
         <slot name="editor" />

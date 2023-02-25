@@ -1,13 +1,23 @@
 <script lang="ts">
   import type { Font, Entity } from "@lib/interfaces";
+  import { TemplateStore } from "@modules/page/page";
 
   export let template: Entity<any>;
 
-  const fonts: Font[] = [
-    { family: template.data.fontFamily.h1, weight: 400 },
-    { family: template.data.fontFamily.p, weight: 400 },
-    { family: 'Dancing Script', weight: 400 },
-  ]
+  const templateStore = TemplateStore.instance(template);
+  let { entity: storedTemplate } = templateStore;
+
+  let fonts: Font[] = [];
+
+  $: {
+    fonts = [
+      { family: $storedTemplate.data.fontFamily.h1, weight: 400 },
+      { family: $storedTemplate.data.fontFamily.p, weight: 400 },
+      { family: 'Dancing Script', weight: 400 },
+    ];
+    console.log('updated fonts in head');
+  }
+
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
