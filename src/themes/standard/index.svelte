@@ -16,9 +16,9 @@
     </div>
     <div class="grid grid-cols-12 gap-20 mt-20">
       <div class="h-full col-span-7 flex justify-center items-center">
-        <div class="px-10">
+        <div class="px-10 text-palette-3">
           <h1 class="text-6xl font-title mb-20">{preview.title}</h1>
-          <p class="text-sm opacity-40 font-text">{preview.description}</p>
+          <p class="text-sm opacity-60">{preview.description}</p>
           <div class="py-20 flex gap-8">
             <a class="border border-[#00000040] p-6 w-full rounded-full text-center" href="">Read more</a>
             <a class="border border-[#00000040] p-6 w-full rounded-full text-center" href="">Browse Mixtapes</a>
@@ -27,7 +27,7 @@
       </div>
       <div class="col-span-5 flex justify-center items-center">
         <div class="relative">
-          <div class="absolute bg-white aspect-square w-full h-full -ml-10 -rotate-6 shadow-2xl" />
+          <div class="absolute bg-palette-2 aspect-square w-full h-full -ml-10 -rotate-6 shadow-2xl" />
           <a href="/{preview.slug}" class="block aspect-square rotate-6 shadow-xl">
             <img class="w-full h-full object-cover" src={preview.image} alt=""/>
           </a>
@@ -36,7 +36,7 @@
     </div>
     <div class="py-20 flex justify-around h-full">
       <ul class="flex gap-8">
-        <li class="rounded-full w-3 h-3 bg-stone-700"></li>
+        <li class="rounded-full w-3 h-3 bg-palette-3"></li>
         <li class="rounded-full w-3 h-3 border border-stone-700"></li>
         <li class="rounded-full w-3 h-3 border border-stone-700"></li>
       </ul>
