@@ -5,6 +5,7 @@
     Action,
     Option,
     Palette,
+    Range,
     Select,
     SelectGroup,
     SelectGroupOption,
@@ -21,6 +22,7 @@
   import LinkListItem from 'src/editor/LinkListItem.svelte';
   import { slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
+  import FontPicker from '@components/editor/forms/FontPicker.svelte';
   
   export let data: any;
   export let template: any;
@@ -37,6 +39,11 @@
 
   $: {
     $page.data.draft = status !== 'published';
+  }
+
+  async function onSave() {
+    store.save();
+    templateStore.save();
   }
 
   async function onDeletePage(page: any) {
@@ -62,7 +69,7 @@
     <ActionBar slug={$page.slug}>
       <Action icon="undo" onClick={() => {}} disabled={true}/>
       <Action icon="redo" onClick={() => {}} disabled={true}/>
-      <Action icon="save" onClick={() => {store.save()}}/>
+      <Action icon="save" onClick={onSave}/>
       <Action icon="settings" onClick={() => {}}/>
     </ActionBar>
 
@@ -110,70 +117,25 @@
     <h1 class="text-sm text-stone-600 mb-4 mt-8">Typography</h1>
     <Accordion>
       <AccordionItem icon="title" name="Heading 1">
-        <Select label="Family" bind:value={$storedTemplate.data.fontFamily.h1}>
-          <Option value="Montserrat">Montserrat</Option>
-          <Option value="Gloock">Gloock</Option>
-          <Option value="Raleway">Raleway</Option>
-        </Select>
-
-        <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.h1}>
-          <option value=100>100</option>
-          <option value=200>200</option>
-          <option value=400>400</option>
-        </Select>
-
-        <div class="relative">
-          <label for="font-size-h1" class="-mb-6 text-md text-stone-600 p-4 w-full flex justify-between">
-            <span>Size</span>
-            <span>{$storedTemplate.data.fontSize.h1}rem</span>
-          </label>
-          <input id="font-size-h1" type="range" min="1" max="8" step="0.25" bind:value={$storedTemplate.data.fontSize.h1}
-            class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
-        </div>
+        <FontPicker
+          bind:family={$storedTemplate.data.fontFamily.h1}
+          bind:weight={$storedTemplate.data.fontWeight.h1}
+        />
+        <Range label="Size" bind:value={$storedTemplate.data.fontSize.h1} unit="rem" min={1} max={8} step={0.25} />
       </AccordionItem>
       <AccordionItem icon="segment" name="Paragraph">
-        <Select label="Family" bind:value={$storedTemplate.data.fontFamily.p}>
-          <Option value="Montserrat">Montserrat</Option>
-          <Option value="Gloock">Gloock</Option>
-          <Option value="Raleway">Raleway</Option>
-        </Select>
-
-        <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.p}>
-          <option value=100>100</option>
-          <option value=200>200</option>
-          <option value=400>400</option>
-        </Select>
-
-        <div class="relative">
-          <label for="font-size-p" class="-mb-6 text-md text-stone-600 p-4 w-full flex justify-between">
-            <span>Size</span>
-            <span>{$storedTemplate.data.fontSize.p}rem</span>
-          </label>
-          <input id="font-size-p" type="range" min="0.5" max="4" step="0.1" bind:value={$storedTemplate.data.fontSize.p}
-            class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
-        </div>
+        <FontPicker
+          bind:family={$storedTemplate.data.fontFamily.p}
+          bind:weight={$storedTemplate.data.fontWeight.p}
+        />
+        <Range label="Size" bind:value={$storedTemplate.data.fontSize.p} unit="rem" min={0.5} max={4} step={0.1} />
       </AccordionItem>
       <AccordionItem icon="check_box_outline_blank" name="Button">
-        <Select label="Family" bind:value={$storedTemplate.data.fontFamily.button}>
-          <Option value="Montserrat">Montserrat</Option>
-          <Option value="Gloock">Gloock</Option>
-          <Option value="Raleway">Raleway</Option>
-        </Select>
-
-        <Select label="Weight" bind:value={$storedTemplate.data.fontWeight.button}>
-          <option value=100>100</option>
-          <option value=200>200</option>
-          <option value=400>400</option>
-        </Select>
-
-        <div class="relative">
-          <label for="font-size-button" class="-mb-6 text-md text-stone-600 p-4 w-full flex justify-between">
-            <span>Size</span>
-            <span>{$storedTemplate.data.fontSize.button}rem</span>
-          </label>
-          <input id="font-size-button" type="range" min="0.5" max="4" step="0.1" bind:value={$storedTemplate.data.fontSize.button}
-            class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
-        </div>
+        <FontPicker
+          bind:family={$storedTemplate.data.fontFamily.button}
+          bind:weight={$storedTemplate.data.fontWeight.button}
+        />
+        <Range label="Size" bind:value={$storedTemplate.data.fontSize.button} unit="rem" min={1} max={8} step={0.25} />
       </AccordionItem>
     </Accordion>
   </Panel>
