@@ -185,6 +185,13 @@ declare module 'astro:content' {
   collection: "pages",
   data: InferEntrySchema<"pages">
 },
+"kemettosaturn.md": {
+  id: "kemettosaturn.md",
+  slug: "mixtapes/cosmic-jazz",
+  body: string,
+  collection: "pages",
+  data: InferEntrySchema<"pages">
+},
 "mixtapes.md": {
   id: "mixtapes.md",
   slug: "mixtapes",
