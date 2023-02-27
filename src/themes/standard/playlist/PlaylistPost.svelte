@@ -25,7 +25,7 @@
       <Controls playlist={playlist} palette={page.palette}/>
     </div>
     <div class="mt-8 md:mt-20">
-      <Tracks playlist={playlist} palette={page.palette} />
+      <Tracks playlist={playlist} />
     </div>
   </section>
 </Post>
