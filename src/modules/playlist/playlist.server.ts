@@ -11,7 +11,6 @@ export const schema = z.object({
   description: z.string(),
   date: z.date(),
   image: z.string(),
-  colors: z.array(z.string()),
   genres: z.array(z.string()),
   tags: z.array(z.string()),
   audio: z.string(),
@@ -22,6 +21,8 @@ export const schema = z.object({
     duration: z.string(),
   })),
 });
+
+export type MusicMix = z.infer<typeof schema>;
 
 export function onPage(mount: Mount, path: string, entry: CollectionEntry<'mixes'>) {
   const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;

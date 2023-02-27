@@ -22,10 +22,10 @@
   </section>
   <section slot="header-right">
     <div class="md:-mt-40">
-      <Controls playlist={playlist} post={post}/>
+      <Controls playlist={playlist} palette={page.palette}/>
     </div>
     <div class="mt-8 md:mt-20">
-      <Tracks playlist={playlist} post={post} />
+      <Tracks playlist={playlist} palette={page.palette} />
     </div>
   </section>
 </Post>

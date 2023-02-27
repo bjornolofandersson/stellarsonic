@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let data: any
+  import type { PageSummary } from "@lib/interfaces";
+
+  export let data: PageSummary;
   export let flip: boolean;
 </script>
 

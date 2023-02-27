@@ -1,11 +1,10 @@
 <script lang="ts">
   import { BlogPage } from "@modules/blog/blog";
   import Paginator from "./common/Paginator.svelte";
-  import PostPreview from "./PostPreview.svelte";
-    import Preview from "./Preview.svelte";
+  import Preview from "./Preview.svelte";
 
   export let page: BlogPage<any>;
-  export let theme: any;
+  //export let theme: any;
 </script>
 
 <div class="bg-palette-1">

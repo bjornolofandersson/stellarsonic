@@ -1,5 +1,16 @@
+import type { Page } from "@modules/page/page.server";
 import { CollectionEntry } from "astro:content";
 
+export interface PageSummary {
+  slug: string;
+
+  title: string;
+
+  description: string;
+
+  image: string;
+}
+/*
 export interface Post {
   title: string;
 
@@ -14,8 +25,6 @@ export interface Post {
   genres: string[];
 
   tags: string[];
-
-  colors: string[];
 }
 
 export interface MusicMixTrack {
@@ -37,6 +46,7 @@ export interface MusicMixPost extends Post {
 
   tracks: MusicTrack[];
 }
+*/
 
 export interface MediaPlayer {
   readonly src: string;
@@ -110,7 +120,7 @@ export type Mount = (path: string, component: any, config: MountConfig) => void;
 export interface PageProps<T> {
   entity: Entity<T>;
 
-  page: Entity<any>;
+  page: Entity<Page>;
 
   template: Entity<any>;
 

@@ -6,9 +6,10 @@
   import { MixStore } from './playlist';
   import SplitModal from 'src/editor/SplitModal.svelte';
   import PlaylistForm from '@components/editor/forms/PlaylistForm.svelte';
-  import type { Entity, MusicMixPost } from '@lib/interfaces';
+  import type { Entity } from '@lib/interfaces';
+  import type { MusicMix } from './playlist.server';
 
-  export let entity: Entity<MusicMixPost>;
+  export let entity: Entity<MusicMix>;
   export let assets: string[];
 
   let store = MixStore.instance(entity);

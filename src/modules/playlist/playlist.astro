@@ -1,15 +1,14 @@
 ---
 import Playlist from './playlist.svelte';
-import MenuBar from '@theme/MenuBar.svelte';
-import { MusicMixPost, PageProps } from '@lib/interfaces';
+import type { PageProps } from '@lib/interfaces';
+import type { MusicMix } from './playlist.server';
 
-interface Props extends PageProps<MusicMixPost> {}
+interface Props extends PageProps<MusicMix> {}
 
 const { entity, page, navigation } = Astro.props;
 ---
 
 <Playlist entity={entity} page={page} navigation={navigation} client:load>
-  <!--<MenuBar sitemap={navigation} slot="menu" />-->
   <Fragment slot="article">
     <slot/>
   </Fragment>

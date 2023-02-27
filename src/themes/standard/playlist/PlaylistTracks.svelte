@@ -2,7 +2,7 @@
   import { MixPlaylist } from '@lib/media/MixPlaylist';
 
   export let playlist: MixPlaylist;
-  export let post: any;
+  export let palette: string[];
 
   let currentTrack: number = 0;
 
@@ -26,7 +26,7 @@
         </button>
       {/if}
       <div>
-        <span class="text-xs" style="color: {currentTrack === index ? post.colors[1] : 'white'}">{track.name}</span><br/>
+        <span class="text-xs" style="color: {currentTrack === index ? palette[1] : 'white'}">{track.name}</span><br/>
         <span class="text-xs opacity-30 -mt-0.1 block">{track.artist} ({track.year})</span>
       </div>
     </li>

@@ -1,13 +1,14 @@
 <script lang="ts">
+  import type { PageSummary } from "@lib/interfaces";
   import { quintOut } from "svelte/easing";
   import { fly } from "svelte/transition";
   import MenuBar from "./MenuBar.svelte";
   import Preview from "./Preview.svelte";
 
-  export let data: any;
-  export let page: any;
+  //export let data: any;
+  //export let page: any;
   export let navigation: any;
-  export let previews: any;
+  export let previews: PageSummary[];
 
   const duration = 5000;
   let index = 0;

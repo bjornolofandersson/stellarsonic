@@ -10,6 +10,8 @@ export const schema = z.object({
     collection: z.string(),
     id: z.string(),
   }).optional(),
-  palette: z.array(z.string()).optional(),
+  palette: z.array(z.string()),
   menu: z.string(),
 });
+
+export type Page = z.infer<typeof schema>;

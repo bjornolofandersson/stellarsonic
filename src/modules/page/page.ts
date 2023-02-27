@@ -1,19 +1,14 @@
 import { Entity } from "@lib/interfaces";
 import { EntityStore } from "@lib/store";
-import { get, writable, Writable } from "svelte/store";
+import { get, writable } from "svelte/store";
+import type { Page } from './page.server';
 
-export class PageStore extends EntityStore<any> {
+export class PageStore extends EntityStore<Page> {
   private static pages: Record<string, any> = {}
-
-  public constructor(
-    entity: Writable<Entity<any>>,
-  ) {
-    super('pages', entity);
-  }
 
   public static instance(entity: Entity<any>): PageStore {
     if (!this.pages[entity.id]) {
-      this.pages[entity.id] = new PageStore(writable(entity));
+      this.pages[entity.id] = new PageStore('pages', writable(entity));
     }
     return this.pages[entity.id];
   }
@@ -29,15 +24,9 @@ export class PageStore extends EntityStore<any> {
 export class TemplateStore extends EntityStore<any> {
   private static templates: Record<string, any> = {}
 
-  public constructor(
-    entity: Writable<Entity<any>>,
-  ) {
-    super('templates', entity);
-  }
-
-  public static instance(entity: Entity<any>): PageStore {
+  public static instance(entity: Entity<any>): TemplateStore {
     if (!this.templates[entity.id]) {
-      this.templates[entity.id] = new TemplateStore(writable(entity));
+      this.templates[entity.id] = new TemplateStore('templates', writable(entity));
     }
     return this.templates[entity.id];
   }
