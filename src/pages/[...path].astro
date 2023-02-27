@@ -20,8 +20,6 @@ export async function getStaticPaths() {
   for (const page of pages) {
     paths.push(...await getPagePaths(page, modules));
   }
-
-  console.log(paths);
   return paths;
 }
 

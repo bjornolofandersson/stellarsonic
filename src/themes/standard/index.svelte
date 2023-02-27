@@ -2,6 +2,7 @@
   import { quintOut } from "svelte/easing";
   import { fly } from "svelte/transition";
   import MenuBar from "./MenuBar.svelte";
+    import Preview from "./Preview.svelte";
 
   export let data: any;
   export let page: any;
@@ -28,32 +29,16 @@
     <div class="relative flex-grow h-full">
       {#each previews as p, i}
         {#if i === index}
-        <div class="absolute grid grid-cols-12 gap-20 mt-20"
+        <div class="absolute"
           in:fly={{ x: clientWidth, duration: 500, easing: quintOut }}
           out:fly={{ x: -clientWidth, duration: 500, easing: quintOut }}>
-          <div class="h-full col-span-7 flex justify-center items-center">
-            <div class="px-10 text-palette-3">
-              <h1 class="text-6xl font-title mb-20">{p.title}</h1>
-              <p class="text-sm opacity-60">{p.description}</p>
-              <div class="py-20 flex gap-8">
-                <a class="border border-[#00000040] p-6 w-full rounded-full text-center" href="">Read more</a>
-                <a class="border border-[#00000040] p-6 w-full rounded-full text-center" href="">Browse Mixtapes</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-5 flex justify-center items-center">
-            <div class="relative">
-              <div class="absolute bg-palette-2 aspect-square w-full h-full -ml-10 -rotate-6 shadow-2xl" />
-              <a href="/{p.slug}" class="block aspect-square rotate-6 shadow-xl">
-                <img class="w-full h-full object-cover" src={p.image} alt=""/>
-              </a>
-            </div>
-          </div>
+          <Preview data={p} flip={false} />
         </div>
         {/if}
       {/each}
     </div>
-    <div class="py-20 flex justify-around h-48">
+    <div class="py-20 px-10 flex justify-between h-48">
+      <a class="" href="/mixtapes">Browse Mixtapes</a>
       <ul class="flex gap-8">
         {#each previews as p, i}
           <li>

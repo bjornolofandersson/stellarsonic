@@ -3,11 +3,10 @@ import { Entity, Mount, ServerModule } from '@lib/interfaces';
 import { CollectionEntry, getEntryBySlug } from 'astro:content';
 import { CollectionController } from '@lib/CollectionController';
 import PageComponent from '@modules/page/page.astro';
-import { getServerModules } from './server';
 
 async function getTemplate(name: string): Promise<Entity<any>> {
   try {
-    const entry = await getEntryBySlug('templates', name as any);
+    const entry = await getEntryBySlug('templates', name);
     return CollectionController.makeEntity(entry);
   } catch (err) {
     return {
