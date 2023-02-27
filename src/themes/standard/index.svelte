@@ -2,7 +2,7 @@
   import { quintOut } from "svelte/easing";
   import { fly } from "svelte/transition";
   import MenuBar from "./MenuBar.svelte";
-    import Preview from "./Preview.svelte";
+  import Preview from "./Preview.svelte";
 
   export let data: any;
   export let page: any;

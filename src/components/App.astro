@@ -1,0 +1,49 @@
+---
+import { Entity, MountConfig } from '@lib/interfaces';
+import { getSitemap } from '@lib/server';
+import { CollectionEntry } from 'astro:content';
+import Page from '@layouts/Page.astro'
+import EditorLoader from '@components/EditorLoader.svelte';
+import Schema from '@components/Schema.astro';
+import ContentWrapper from '@components/common/Content.svelte';
+import { CollectionController } from '@lib/CollectionController';
+
+interface Props extends MountConfig {
+  Component: any;
+
+  entry: CollectionEntry<any>;
+
+  title: string;
+
+  page: Entity<any>;
+
+  template: Entity<any>;
+
+  module?: string;
+}
+
+const { Component, entry, title, page, template, module, schema, editor, props } = Astro.props;
+const navigation = await getSitemap();
+const { Content } = await entry.render();
+const entity = CollectionController.makeEntity(entry);
+const isDev = import.meta.env.MODE === 'development';
+---
+
+<Page template={template} page={page}>
+  <Fragment slot="head-bottom">
+    <Schema data={schema}/>
+    <title>{title}</title>
+  </Fragment>
+
+  <Fragment slot="editor">
+    <EditorLoader module="page" props={{data: page, template, sitemap: navigation}} client:only>
+     { module && <EditorLoader module={module} props={editor} client:only /> }
+    </EditorLoader>
+  </Fragment>
+
+  <Component entity={entity} page={page} template={template} navigation={navigation} edit={isDev} {...(props || {}) }>
+    <ContentWrapper template={template} client:load>
+      <Content/>
+    </ContentWrapper>
+  </Component>
+</Page>

@@ -1,31 +1,12 @@
 ---
-import { getCollection, getEntryBySlug } from 'astro:content';
-import Page from '@layouts/Page.astro';
-import site from '@settings';
-import { getServerModules, getSitemap } from '@lib/server';
-import EditorLoader from '@components/EditorLoader.svelte';
+import { getEntryBySlug } from 'astro:content';
+import { getServerModules } from '@lib/server';
 import { getPagePaths } from '@lib/page';
-import { CollectionController } from '@lib/CollectionController';
+import App from '@components/App.astro';
 
 const indexPageEntry = await getEntryBySlug('pages', 'index');
 const modules = getServerModules();
 const paths = await getPagePaths(indexPageEntry, modules);
-const navigation = await getSitemap();
-
-const {Component, entry, page, template} = paths[0].props;
-const entity = CollectionController.makeEntity(entry);
 ---
 
-<Page template={template} page={page}>
-  <Fragment slot="head-bottom">
-    <title>{site.title}</title>
-  </Fragment>
-
-  <Fragment slot="editor">
-    <EditorLoader module="page" props={{data: page, template, sitemap: navigation}} client:only>
-      <EditorLoader module="index" props={{data: site, entity, sitemap: navigation}} client:only />
-    </EditorLoader>
-  </Fragment>
-
-  <Component entity={entity} page={page} navigation={navigation}/>
-</Page>
+<App {...paths[0].props} />
