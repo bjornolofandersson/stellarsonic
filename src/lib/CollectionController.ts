@@ -58,6 +58,7 @@ export class CollectionController<T extends {title: string}> {
     return {
       id: entry.id.replace(/\.[^/.]+$/, ""),
       slug: entry.slug,
+      collection: entry.collection,
       data: entry.data,
       body: entry.body,
     }

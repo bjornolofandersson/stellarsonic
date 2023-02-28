@@ -12,14 +12,13 @@
   } from 'src/editor';
   import { quintOut } from 'svelte/easing';
   import { slide } from 'svelte/transition';
-  import { BlogStore } from './blog';
   import type { Entity } from '@lib/interfaces';
+  import { loadEntity, saveEntity } from '@lib/store';
 
   export let entity: Entity<any>;
   export let posts: any[];
 
-  let store = BlogStore.instance(entity);
-  let { entity: blog } = store;
+  const blog = loadEntity(entity);
 
   let filteredPosts = posts;
   let search: string = '';
@@ -39,7 +38,7 @@
   }
 
   async function onSaveSettings() {
-    await store.save();
+    await saveEntity($blog);
     showSettings = false;
   }
 </script>

@@ -1,7 +1,3 @@
-import { Entity } from "@lib/interfaces";
-import { EntityStore } from "@lib/store";
-import { writable } from "svelte/store";
-
 export interface BlogPost<TPost> {
   slug: string;
 
@@ -37,15 +33,4 @@ export interface BlogPage<TPost = any> {
   currentPage: number;
   size: number;
   lastPage: number;
-}
-
-export class BlogStore extends EntityStore<any> {
-  private static _instance: BlogStore;
-
-  public static instance(entity: Entity<any>): BlogStore {
-    if (!this._instance) {
-      this._instance = new BlogStore('blogs', writable(entity));
-    }
-    return this._instance;
-  }
 }

@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Entity } from "@lib/interfaces";
-  import { PageStore, TemplateStore } from "@modules/page/page";
+  import { loadEntity } from "@lib/store";
 
   export let template: Entity<any>;
   export let page: Entity<any>;
 
-  const { entity: t} = TemplateStore.instance(template);
-  const { entity: p } = PageStore.instance(page);
+  const t = loadEntity(template);
+  const p = loadEntity(page);
 </script>
 
 <main class="bg-slate-100 dark:bg-dark-base" style={`

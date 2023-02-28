@@ -3,17 +3,14 @@
     Accordion,
     AccordionItem,
     Action,
-    Option,
     Palette,
     Range,
-    Select,
     SelectGroup,
     SelectGroupOption,
     Sidebar,
   } from 'src/editor';
   import ActionBar from 'src/editor/ActionBar.svelte';
   import Panel from 'src/editor/Panel.svelte';
-  import { PageStore, TemplateStore } from './page';
   import Tabs from 'src/editor/Tabs.svelte';
   import Tab from 'src/editor/Tab.svelte';
   import TitleBar from 'src/editor/TitleBar.svelte';
@@ -23,17 +20,18 @@
   import { slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import FontPicker from '@components/editor/forms/FontPicker.svelte';
-    import ColorInput from 'src/editor/ColorInput.svelte';
-    import ColorSelect from 'src/editor/ColorSelect.svelte';
+  import ColorSelect from 'src/editor/ColorSelect.svelte';
+  import { loadEntity, saveEntity } from '@lib/store';
+  import type { Page } from './page.server';
+  import { Entity } from '@lib/interfaces';
   
-  export let data: any;
-  export let template: any;
+  export let data: Entity<Page>;
+  export let template: Entity<any>;
   export let sitemap: any;
 
-  const store = PageStore.instance(data);
-  const templateStore = TemplateStore.instance(template);
-  let { entity: storedTemplate } = templateStore;
-  let { entity: page } = store;
+  const page = loadEntity(data);
+  const storedTemplate = loadEntity(template);
+
   let panel = 'page';
   let status = $page.data.draft ? 'draft' : 'published';
   let showAdd: boolean = false;
@@ -44,8 +42,8 @@
   }
 
   async function onSave() {
-    store.save();
-    templateStore.save();
+    saveEntity($page);
+    saveEntity($storedTemplate);
   }
 
   async function onDeletePage(page: any) {

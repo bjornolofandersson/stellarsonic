@@ -102,6 +102,8 @@ export interface Entity<T> {
 
   slug: string;
 
+  collection: string;
+
   data: T;
 
   body?: string;

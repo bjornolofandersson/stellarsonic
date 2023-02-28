@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Entity } from "@lib/interfaces";
-  import { TemplateStore } from "@modules/page/page";
+  import { loadEntity } from "@lib/store";
 
   export let template: Entity<any>;
 
-  let {entity} = TemplateStore.instance(template);
+  const entity = loadEntity(template);
 </script>
 
 <div class="content" style={`

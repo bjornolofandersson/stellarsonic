@@ -1,19 +1,18 @@
 <script lang="ts">
   import type { Font, Entity } from "@lib/interfaces";
-  import { TemplateStore } from "@modules/page/page";
+  import { loadEntity } from "@lib/store";
 
   export let template: Entity<any>;
 
-  const templateStore = TemplateStore.instance(template);
-  let { entity: storedTemplate } = templateStore;
+  const t = loadEntity(template);
 
   let fonts: Font[] = [];
 
   $: {
     fonts = [
-      { family: $storedTemplate.data.fontFamily.h1, weight: $storedTemplate.data.fontWeight.h1 },
-      { family: $storedTemplate.data.fontFamily.p, weight: $storedTemplate.data.fontWeight.p },
-      { family: $storedTemplate.data.fontFamily.button, weight: $storedTemplate.data.fontWeight.button },
+      { family: $t.data.fontFamily.h1, weight: $t.data.fontWeight.h1 },
+      { family: $t.data.fontFamily.p, weight: $t.data.fontWeight.p },
+      { family: $t.data.fontFamily.button, weight: $t.data.fontWeight.button },
       { family: 'Dancing Script', weight: 400 },
     ];
   }
