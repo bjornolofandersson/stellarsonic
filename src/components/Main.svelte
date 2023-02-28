@@ -5,29 +5,82 @@
   export let template: Entity<any>;
   export let page: Entity<any>;
 
-  const { entity: storedTemplate} = TemplateStore.instance(template);
-  const { entity: storedPage } = PageStore.instance(page);
+  const { entity: t} = TemplateStore.instance(template);
+  const { entity: p } = PageStore.instance(page);
 </script>
 
 <main class="bg-slate-100 dark:bg-dark-base" style={`
-  --theme-palette-1: ${$storedPage.data.palette[0]};
-  --theme-palette-2: ${$storedPage.data.palette[1]};
-  --theme-palette-3: ${$storedPage.data.palette[2]};
-  --theme-palette-4: ${$storedPage.data.palette[3]};
-  --theme-font-h1: ${$storedTemplate.data.fontFamily.h1};
-  --theme-font-p: ${$storedTemplate.data.fontFamily.p};
-  --theme-font-button: ${$storedTemplate.data.fontFamily.button};
-  --theme-font-weight-h1: ${$storedTemplate.data.fontWeight.h1};
-  --theme-font-weight-p: ${$storedTemplate.data.fontWeight.p};
-  --theme-font-weight-button: ${$storedTemplate.data.fontWeight.button};
-  --theme-font-size-h1: ${$storedTemplate.data.fontSize.h1}rem;
-  --theme-font-size-p: ${$storedTemplate.data.fontSize.p}rem;
-  --theme-font-size-button: ${$storedTemplate.data.fontSize.button}rem;
+  --theme-bg-primary: ${$p.data.palette[$t.data.colors.background.primary]};
+  --theme-bg-secondary: ${$p.data.palette[$t.data.colors.background.secondary]};
+  --theme-bg-tertiary: ${$p.data.palette[$t.data.colors.background.tertiary]};
+  --theme-bg-article: ${$p.data.palette[$t.data.colors.background.article]};
+  --theme-text-h1: ${$p.data.palette[$t.data.colors.text.h1]};
+  --theme-text-h2: ${$p.data.palette[$t.data.colors.text.h2]};
+  --theme-text-p: ${$p.data.palette[$t.data.colors.text.p]};
+  --theme-text-a: ${$p.data.palette[$t.data.colors.text.a]};
+  --theme-text-active: ${$p.data.palette[$t.data.colors.text.active]};
+  --theme-text-article-h1: ${$p.data.palette[$t.data.colors.textArticle.h1]};
+  --theme-text-article-h2: ${$p.data.palette[$t.data.colors.textArticle.h2]};
+  --theme-text-article-p: ${$p.data.palette[$t.data.colors.textArticle.p]};
+  --theme-text-article-a: ${$p.data.palette[$t.data.colors.textArticle.a]};
+  --theme-palette-1: ${$p.data.palette[0]};
+  --theme-palette-2: ${$p.data.palette[1]};
+  --theme-palette-3: ${$p.data.palette[2]};
+  --theme-palette-4: ${$p.data.palette[3]};
+  --theme-font-h1: ${$t.data.fontFamily.h1};
+  --theme-font-p: ${$t.data.fontFamily.p};
+  --theme-font-button: ${$t.data.fontFamily.button};
+  --theme-font-weight-h1: ${$t.data.fontWeight.h1};
+  --theme-font-weight-p: ${$t.data.fontWeight.p};
+  --theme-font-weight-button: ${$t.data.fontWeight.button};
+  --theme-font-size-h1: ${$t.data.fontSize.h1}rem;
+  --theme-font-size-p: ${$t.data.fontSize.p}rem;
+  --theme-font-size-button: ${$t.data.fontSize.button}rem;
 `}>
   <slot/>
 </main>
 
-<style global>
+<style>
+  main :global(.bg-primary) {
+    background-color: var(--theme-bg-primary);
+  }
+  main :global(.bg-secondary) {
+    background-color: var(--theme-bg-secondary);
+  }
+  main :global(.bg-tertiary) {
+    background-color: var(--theme-bg-tertiary);
+  }
+  main :global(.bg-article) {
+    background-color: var(--theme-bg-article);
+  }
+  main :global(.text-h1) {
+    color: var(--theme-text-h1);
+  }
+  main :global(.text-h2) {
+    color: var(--theme-text-h2);
+  }
+  main :global(.text-p) {
+    color: var(--theme-text-p);
+  }
+  main :global(.text-a) {
+    color: var(--theme-text-a);
+  }
+  main :global(.text-active) {
+    color: var(--theme-text-active);
+  }
+  main :global(.text-article-h1) {
+    color: var(--theme-text-article-h1);
+  }
+  main :global(.text-article-h2) {
+    color: var(--theme-text-article-h2);
+  }
+  main :global(.text-article-p) {
+    color: var(--theme-text-article-p);
+  }
+  main :global(.text-article-a) {
+    color: var(--theme-text-article-a);
+  }
+
   main :global(.bg-palette-1) {
     background-color: var(--theme-palette-1);
   }
@@ -81,10 +134,10 @@
     font-size: var(--theme-font-size-button);
     font-weight: var(--theme-font-weight-button);
   }
-  main .article h1 {
+  main :global(.article h1) {
     font-family: var(--theme-font-h1);
   }
-  main .article p {
+  main :global(.article p) {
     padding: 20px 0;
     font-family: var(--theme-font-p);
   }

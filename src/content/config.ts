@@ -29,6 +29,27 @@ export const collections = {
       button: z.number(),
     }),
     textAlign: z.string(),
+    colors: z.object({
+      background: z.object({
+        primary: z.number(),
+        secondary: z.number(),
+        tertiary: z.number(),
+        article: z.number(),
+      }),
+      text: z.object({
+        active: z.number(),
+        h1: z.number(),
+        h2: z.number(),
+        p: z.number(),
+        a: z.number(),
+      }),
+      textArticle: z.object({
+        h1: z.number(),
+        h2: z.number(),
+        p: z.number(),
+        a: z.number(),
+      }),
+    }),
   })}),
   indices: defineCollection({schema: z.object({
     title: z.string(),

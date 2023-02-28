@@ -5,8 +5,6 @@
   import MenuBar from "./MenuBar.svelte";
   import Preview from "./Preview.svelte";
 
-  //export let data: any;
-  //export let page: any;
   export let navigation: any;
   export let previews: PageSummary[];
 
@@ -22,7 +20,7 @@
   show(index);
 </script>
 
-<div class="bg-palette-1 h-screen overflow-hidden" bind:clientWidth={clientWidth}>
+<div class="bg-primary h-screen overflow-hidden" bind:clientWidth={clientWidth}>
   <div class="flex flex-col container mx-auto px-20 h-full">
     <div class="col-span-12">
       <MenuBar sitemap={navigation} />

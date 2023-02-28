@@ -23,6 +23,8 @@
   import { slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import FontPicker from '@components/editor/forms/FontPicker.svelte';
+    import ColorInput from 'src/editor/ColorInput.svelte';
+    import ColorSelect from 'src/editor/ColorSelect.svelte';
   
   export let data: any;
   export let template: any;
@@ -102,6 +104,8 @@
   </Panel>
 
   <Panel name="template">
+    <Scrollable>
+
     <div class="flex text-sm opacity-50 p-4 border border-[#00000040] rounded-md">
       <span class="material-symbols-outlined mr-4">info</span>
       <span>These styles apply to all pages in this context ({$page.data.context})</span>
@@ -138,6 +142,37 @@
         <Range label="Size" bind:value={$storedTemplate.data.fontSize.button} unit="rem" min={0.5} max={4} step={0.1} />
       </AccordionItem>
     </Accordion>
+
+    <h1 class="text-sm text-stone-600 mb-4 mt-8">Colors</h1>
+    <ColorSelect label="Background primary"
+      bind:value={$storedTemplate.data.colors.background.primary}
+      palette={$page.data.palette}
+    />
+    <ColorSelect label="Background secondary"
+      bind:value={$storedTemplate.data.colors.background.secondary}
+      palette={$page.data.palette}
+    />
+    <ColorSelect label="Background tertiary"
+      bind:value={$storedTemplate.data.colors.background.tertiary}
+      palette={$page.data.palette}
+    />
+    <ColorSelect label="Background article"
+      bind:value={$storedTemplate.data.colors.background.article}
+      palette={$page.data.palette}
+    />
+    <ColorSelect label="Text Heading 1"
+      bind:value={$storedTemplate.data.colors.text.h1}
+      palette={$page.data.palette}
+    />
+    <ColorSelect label="Text Heading 2"
+      bind:value={$storedTemplate.data.colors.text.h2}
+      palette={$page.data.palette}
+    />
+    <ColorSelect label="Text Paragraph"
+      bind:value={$storedTemplate.data.colors.text.p}
+      palette={$page.data.palette}
+    />
+    </Scrollable>
   </Panel>
 
   <Panel name="site">
