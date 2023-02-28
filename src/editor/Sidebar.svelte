@@ -34,4 +34,11 @@
 	});
 </script>
 
-<slot/>
+<div class="flex flex-col h-screen">
+  <div>
+    <slot name="header"/>
+  </div>
+  <div class="relative flex-grow">
+    <slot/>
+  </div>
+</div>

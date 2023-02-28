@@ -1,4 +1,4 @@
-<div class="overflow-y-auto flex-grow px-8 -ml-8 -mr-8">
+<div class="overflow-y-auto h-full flex-grow px-8 -ml-8 -mr-8">
   <slot/>
 </div>
 

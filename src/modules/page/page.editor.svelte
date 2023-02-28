@@ -37,7 +37,7 @@
 </script>
 
 <Sidebar bind:panel={panel}>
-  <div class="px-8">
+  <div class="px-8" slot="header">
     <ActionBar slug={$page.slug}>
       <Action icon="undo" onClick={() => {}} disabled={true}/>
       <Action icon="redo" onClick={() => {}} disabled={true}/>
