@@ -15,10 +15,10 @@
   <article>
     <slot name="article"/>
   </article>
-  <section slot="header-left" class="text-palette-2 mt-12 md:px-8 py-8">
-    <h1 class="text-4xl font-title">{post.title}</h1>
-    <h2 class="text-xl text-palette-2">{post.subtitle || ''}</h2>
-    <p class="text-white opacity-40 text-sm mt-8">{post.description}</p>
+  <section slot="header-left" class="mt-12 md:px-8 py-8">
+    <h1 class="text-h1 text-4xl font-title">{post.title}</h1>
+    <h2 class="text-h2 text-xl">{post.subtitle || ''}</h2>
+    <p class="text-p text-white opacity-40 text-sm mt-8">{post.description}</p>
   </section>
   <section slot="header-right">
     <div class="md:-mt-40">
