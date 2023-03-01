@@ -5,7 +5,6 @@ import { CollectionEntry } from 'astro:content';
 import Page from '@layouts/Page.astro'
 import EditorLoader from '@components/EditorLoader.svelte';
 import Schema from '@components/Schema.astro';
-import ContentWrapper from '@components/common/Content.svelte';
 import { CollectionController } from '@lib/CollectionController';
 
 interface Props extends MountConfig {
@@ -42,8 +41,8 @@ const isDev = import.meta.env.MODE === 'development';
   </Fragment>
 
   <Component entity={entity} page={page} template={template} navigation={navigation} edit={isDev} {...(props || {}) }>
-    <ContentWrapper template={template} client:load>
+    <article class="article-body">
       <Content/>
-    </ContentWrapper>
+    </article>
   </Component>
 </Page>

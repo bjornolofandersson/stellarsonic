@@ -5,10 +5,10 @@ import type { MusicMix } from './playlist.server';
 
 interface Props extends PageProps<MusicMix> {}
 
-const { entity, page, navigation } = Astro.props;
+const { entity, navigation } = Astro.props;
 ---
 
-<Playlist entity={entity} page={page} navigation={navigation} client:load>
+<Playlist entity={entity} navigation={navigation} client:load>
   <Fragment slot="article">
     <slot/>
   </Fragment>

@@ -5,7 +5,6 @@
   import ProgressBar from "@components/common/ProgressBar.svelte";
 
   export let playlist: MixPlaylist;
-  export let palette: any;
 
   let progress = 0;
   let duration = 0;
@@ -25,7 +24,7 @@
 
 <div class="w-full h-20 relative">
   {#if playlist}
-  <ProgressBar onSeek={onSeek} colorProgress={palette[1]} progress={progress / duration} />
+  <ProgressBar onSeek={onSeek} progress={progress / duration} />
 
   <div class="absolute w-full flex justify-between bottom-0 -mb-6">
     <div class="text-xs opacity-30 dark:text-white">{formatTime(progress)}</div>

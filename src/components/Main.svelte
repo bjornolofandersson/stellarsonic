@@ -36,6 +36,7 @@
   --theme-font-size-h1: ${$t.data.fontSize.h1}rem;
   --theme-font-size-p: ${$t.data.fontSize.p}rem;
   --theme-font-size-button: ${$t.data.fontSize.button}rem;
+  --theme-text-align: ${$t.data.textAlign};
 `}>
   <slot/>
 </main>
@@ -134,10 +135,14 @@
     font-size: var(--theme-font-size-button);
     font-weight: var(--theme-font-weight-button);
   }
-  main :global(.article h1) {
+  main :global(.article-body) {
+    background-color: var(--theme-bg-article);
+    text-align: var(--theme-text-align);
+  }
+  main :global(.article-body h1) {
     font-family: var(--theme-font-h1);
   }
-  main :global(.article p) {
+  main :global(.article-body p) {
     padding: 20px 0;
     font-family: var(--theme-font-p);
   }

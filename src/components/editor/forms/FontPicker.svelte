@@ -1,6 +1,8 @@
 <script lang="ts">
   import { Option, Select } from "src/editor";
+    import ExpandSelect from "src/editor/ExpandSelect.svelte";
 
+  export let label: string;
   export let family: string;
   export let weight: number;
 
@@ -33,14 +35,20 @@
   getFonts();
 </script>
 
-<Select label="Family" bind:value={selected}>
-  {#each fonts as font}
-    <Option value={font}>{font.family}</Option>
-  {/each}
-</Select>
+<ExpandSelect label={label}>
+  <span slot="value">{family}</span>
 
-<Select label="Weight" bind:value={weight}>
-  {#each weights as w}
-    <Option value={w}>{w}</Option>
-  {/each}
-</Select>
+  <Select label="Family" bind:value={selected}>
+    {#each fonts as font}
+      <Option value={font}>{font.family}</Option>
+    {/each}
+  </Select>
+
+  <Select label="Weight" bind:value={weight}>
+    {#each weights as w}
+      <Option value={w}>{w}</Option>
+    {/each}
+  </Select>
+
+  <slot/>
+</ExpandSelect>

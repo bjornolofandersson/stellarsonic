@@ -4,11 +4,10 @@
   import Post from '../common/Post.svelte';
 
   export let post: any;
-  export let page: any
   export let playlist: any;
 </script>
 
-<Post image={post.image} palette={page.palette}>
+<Post image={post.image}>
   <div slot="menu">
     <slot name="menu"/>
   </div>
@@ -22,7 +21,7 @@
   </section>
   <section slot="header-right">
     <div class="md:-mt-40">
-      <Controls playlist={playlist} palette={page.palette}/>
+      <Controls playlist={playlist}/>
     </div>
     <div class="mt-8 md:mt-20">
       <Tracks playlist={playlist} />
