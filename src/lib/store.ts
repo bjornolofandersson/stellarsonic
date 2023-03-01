@@ -10,13 +10,13 @@ export class EntityStore<T> {
   public async save(): Promise<void> {
     const body = JSON.stringify(get(this.entity));
 
-    const resp = await fetch(`/${this.collection}/${get(this.entity).id}.json`, {
+    const resp = await fetch(`/api/${this.collection}/${get(this.entity).id}.json`, {
       method: 'PUT',
       body,
     });
 
     if (resp.status === 404) {
-      await fetch(`/${this.collection}.json`, {
+      await fetch(`/api/${this.collection}.json`, {
         method: 'POST',
         body,
       });
@@ -37,13 +37,13 @@ export function loadEntity<T>(entity: Entity<T>): Writable<Entity<T>> {
 export async function saveEntity<T>(entity: Entity<T>): Promise<void> {
   const body = JSON.stringify(entity);
 
-  const resp = await fetch(`/${entity.collection}/${entity.id}.json`, {
+  const resp = await fetch(`/api/${entity.collection}/${entity.id}.json`, {
     method: 'PUT',
     body,
   });
 
   if (resp.status === 404) {
-    await fetch(`/${entity.collection}.json`, {
+    await fetch(`/api/${entity.collection}.json`, {
       method: 'POST',
       body,
     });
