@@ -75,13 +75,13 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blogs">
 },
 },
-"indices": {
+"galleries": {
 "index.md": {
   id: "index.md",
   slug: "index",
   body: string,
-  collection: "indices",
-  data: InferEntrySchema<"indices">
+  collection: "galleries",
+  data: InferEntrySchema<"galleries">
 },
 },
 "mixes": {
@@ -198,15 +198,6 @@ declare module 'astro:content' {
   body: string,
   collection: "pages",
   data: InferEntrySchema<"pages">
-},
-},
-"pages.old": {
-"hello.md": {
-  id: "hello.md",
-  slug: "hello",
-  body: string,
-  collection: "pages.old",
-  data: any
 },
 },
 "templates": {

@@ -1,12 +1,14 @@
 import { defineCollection, z } from 'astro:content';
 import * as page from '@modules/page/page.server';
 import * as blog from '@modules/blog/blog.server';
+import * as gallery from '@modules/gallery/gallery.server';
 import * as playlist from '@modules/playlist/playlist.server';
 
 export const collections = {
   pages: defineCollection({schema: page.schema}),
   blogs: defineCollection({schema: blog.schema}),
   mixes: defineCollection({schema: playlist.schema}),
+  galleries: defineCollection({schema: gallery.schema}),
   templates: defineCollection({schema: z.object({
     fontSize: z.object({
       h1: z.number(),
@@ -51,21 +53,4 @@ export const collections = {
       }),
     }),
   })}),
-  indices: defineCollection({schema: z.object({
-    title: z.string(),
-    hero: z.object({
-      disabled: z.boolean().optional(),
-      title: z.string(),
-      description: z.string(),
-      cta: z.object({
-        label: z.string(),
-        url: z.string(),
-      }),
-    }),
-    gallery: z.object({
-      disabled: z.boolean().optional(),
-      title: z.string(),
-      blog: z.string(),
-    }),
-  })})
 };

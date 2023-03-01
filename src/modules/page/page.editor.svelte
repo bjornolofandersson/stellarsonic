@@ -66,7 +66,7 @@
   </Panel>
 
   <Panel name="colors">
-    <Colors bind:page={$page} bind:colors={$storedTemplate.data.colors} bind:palette={$page.data.palette} />
+    <Colors bind:colors={$storedTemplate.data.colors} bind:palette={$page.data.palette} />
   </Panel>
 
   <Panel name="typography">

@@ -3,13 +3,10 @@ import { PageProps } from '@lib/interfaces';
 import { getPagePreview } from '@lib/page';
 import { getCollection } from 'astro:content';
 import Gallery from './gallery.svelte';
-import Hero from './hero.svelte';
-import Index from './index.svelte';
 
 interface Props extends PageProps<any> {}
 
-const { entity, page, navigation } = Astro.props;
-const hero = entity.data.hero;
+const { entity, navigation } = Astro.props;
 const gallery = entity.data.gallery;
 
 const blogPages = await getCollection('pages', p => p.data.parent === gallery.blog);
@@ -19,13 +16,4 @@ for (let page of blogPages) {
 }
 ---
 
-<Index data={entity} page={page} navigation={navigation} previews={previews} client:load />
-<!--
-{!hero.disabled && 
-  <Hero data={entity} page={page} navigation={navigation} client:load />
-}
-
-{!gallery.disabled && 
-  <Gallery data={entity} previews={previews} client:load/>
-}
--->
+<Gallery entity={entity} navigation={navigation} previews={previews} client:load />
