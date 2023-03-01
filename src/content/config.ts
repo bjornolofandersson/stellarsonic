@@ -1,14 +1,30 @@
 import { defineCollection, z } from 'astro:content';
-import * as page from '@modules/page/page.server';
 import * as blog from '@modules/blog/blog.server';
 import * as gallery from '@modules/gallery/gallery.server';
 import * as playlist from '@modules/playlist/playlist.server';
 
+
+export const pageSchema = z.object({
+  title: z.string().optional(),
+  parent: z.string().optional(),
+  context: z.string(),
+  draft: z.boolean().optional(),
+  content: z.object({
+    collection: z.string(),
+    id: z.string(),
+  }),
+  palette: z.array(z.string()),
+  menu: z.string(),
+});
+
+export type Page = z.infer<typeof pageSchema>;
+
 export const collections = {
-  pages: defineCollection({schema: page.schema}),
   blogs: defineCollection({schema: blog.schema}),
   mixes: defineCollection({schema: playlist.schema}),
   galleries: defineCollection({schema: gallery.schema}),
+
+  pages: defineCollection({schema: pageSchema}),
   templates: defineCollection({schema: z.object({
     fontSize: z.object({
       h1: z.number(),

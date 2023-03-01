@@ -1,0 +1,19 @@
+---
+import ArticleTheme from './article.svelte';
+import { PageProps } from '@lib/interfaces';
+import type { Article } from './article.server';
+
+interface Props extends PageProps<Article> {}
+
+const { entity, navigation, edit } = Astro.props;
+---
+
+{ edit ?
+  <ArticleTheme entity={entity} navigation={navigation} client:load>
+    <slot/>
+  </ArticleTheme>
+:
+  <ArticleTheme entity={entity} navigation={navigation}>
+    <slot/>
+  </ArticleTheme>
+}

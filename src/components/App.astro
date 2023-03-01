@@ -28,16 +28,14 @@ const entity = CollectionController.makeEntity(entry);
 const isDev = import.meta.env.MODE === 'development';
 ---
 
-<Page template={template} page={page}>
+<Page template={template} page={page} sitemap={navigation}>
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{title}</title>
   </Fragment>
 
-  <Fragment slot="editor">
-    <EditorLoader module="page" props={{data: page, template, sitemap: navigation}} client:only>
-     { module && <EditorLoader module={module} props={editor} client:only /> }
-    </EditorLoader>
+  <Fragment slot="content-editor">
+    { module && <EditorLoader module={module} props={editor} client:only /> }
   </Fragment>
 
   <Component entity={entity} page={page} template={template} navigation={navigation} edit={isDev} {...(props || {}) }>

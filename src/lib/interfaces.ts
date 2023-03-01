@@ -1,4 +1,4 @@
-import type { Page } from "@modules/page/page.server";
+import type { Page } from "src/content/config";
 import { CollectionEntry } from "astro:content";
 
 export interface PageSummary {

@@ -66,7 +66,16 @@ declare module 'astro:content' {
 	};
 
 	const entryMap: {
-		"blogs": {
+		"articles": {
+"about.md": {
+  id: "about.md",
+  slug: "about",
+  body: string,
+  collection: "articles",
+  data: any
+},
+},
+"blogs": {
 "mixtapes.md": {
   id: "mixtapes.md",
   slug: "mixtapes",
@@ -167,13 +176,6 @@ declare module 'astro:content' {
 "hai-tekku.md": {
   id: "hai-tekku.md",
   slug: "mixtapes/hai-tekku",
-  body: string,
-  collection: "pages",
-  data: InferEntrySchema<"pages">
-},
-"hello.md": {
-  id: "hello.md",
-  slug: "hello",
   body: string,
   collection: "pages",
   data: InferEntrySchema<"pages">
