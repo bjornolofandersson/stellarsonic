@@ -5,7 +5,7 @@ import ArticleComponent from './article.astro';
 
 export const collection = 'articles';
 export const schema = z.object({
-  title: z.string().optional(),
+  title: z.string(),
   description: z.string(),
   image: z.string(),
 });
