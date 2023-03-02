@@ -11,6 +11,16 @@ export interface PageSummary {
   image: string;
 }
 
+export interface PageState {
+  page: Entity<Page>;
+
+  template: Entity<Template>;
+
+  content: Entity<any>;
+
+  site: any;
+}
+
 export interface MediaPlayer {
   readonly src: string;
   readonly progress: number;

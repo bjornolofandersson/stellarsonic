@@ -30,7 +30,7 @@ const entity = CollectionController.makeEntity(entry);
 const isDev = import.meta.env.MODE === 'development';
 ---
 
-<PageLayout template={template} page={page} content={entity} site={site} sitemap={sitemap}>
+<PageLayout state={{page, template, content: entity, site}} sitemap={sitemap}>
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{title}</title>

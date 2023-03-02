@@ -2,7 +2,7 @@
 import Body from "./Body.astro";
 import Fonts from "@components/Fonts.svelte";
 
-const { template, page, content, site, sitemap } = Astro.props;
+const { state, sitemap } = Astro.props;
 
 const isDev = import.meta.env.MODE === 'development';
 ---
@@ -16,10 +16,10 @@ const isDev = import.meta.env.MODE === 'development';
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;400;600&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
-    {isDev ? <Fonts template={template} client:load/> : <Fonts template={template} /> }
+    {isDev ? <Fonts template={state.template} client:load/> : <Fonts template={state.template} /> }
     <slot name="head-bottom" />
 	</head>
-  <Body isDev={isDev} template={template} page={page} content={content} site={site} sitemap={sitemap}>
+  <Body isDev={isDev} state={state} sitemap={sitemap}>
     <slot name="content-editor" slot="content-editor" />
     <slot/>
   </Body>

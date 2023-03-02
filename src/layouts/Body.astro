@@ -2,21 +2,21 @@
 import Editor from "@components/editor/Editor.svelte";
 import Main from '@components/Main.svelte';
 
-const { isDev, template, page, content, site, sitemap } = Astro.props;
+const { isDev, state, sitemap } = Astro.props;
 ---
 
 {isDev ?
   <body>
-    <Editor page={page} template={template} content={content} site={site} sitemap={sitemap} client:only>
+    <Editor state={state} sitemap={sitemap} client:only>
       <slot name="content-editor" slot="content-editor"/>
-      <Main slot="preview" template={template} page={page} client:load>
+      <Main slot="preview" template={state.template} page={state.page} client:load>
         <slot/>
       </Main>
     </Editor>
   </body>
 :
   <body>
-    <Main template={template} page={page}>
+    <Main template={state.template} page={state.page}>
       <slot/>
     </Main>
   </body>
