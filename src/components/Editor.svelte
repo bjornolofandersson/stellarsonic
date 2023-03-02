@@ -1,84 +1,22 @@
 <script lang="ts">
   import { Editor } from "src/editor";
-  import {
-    Action,
-    SelectGroup,
-    SelectGroupOption,
-    Sidebar,
-  } from 'src/editor';
-  import ActionBar from 'src/editor/ActionBar.svelte';
-  import Panel from 'src/editor/Panel.svelte';
-  import Tabs from 'src/editor/Tabs.svelte';
-  import Tab from 'src/editor/Tab.svelte';
-  import { loadEntity, saveEntity } from '@lib/store';
-  import type { Page } from '@modules/page/page.server';
+  import { loadEntity } from '@lib/store';
+  import type { Page } from 'src/content/config';
   import type { Entity } from '@lib/interfaces';
-  import Colors from '@components/editor/Colors.svelte';
-  import Typography from '@components/editor/Typography.svelte';
-  import Site from '@components/editor/Site.svelte';
+  import EditorSidebar from "./EditorSidebar.svelte";
   
-  export let data: Entity<Page>;
+  export let page: Entity<Page>;
   export let template: Entity<any>;
   export let sitemap: any;
 
-  const page = loadEntity(data);
-  const storedTemplate = loadEntity(template);
-
-  let panel = 'page';
-  let status = $page.data.draft ? 'draft' : 'published';
-
-  $: {
-    $page.data.draft = status !== 'published';
-  }
-
-  async function onSave() {
-    saveEntity($page);
-    saveEntity($storedTemplate);
-  }
+  const p = loadEntity(page);
+  const t = loadEntity(template);
 </script>
 
 <Editor pageTitle="Hello" onSave={() => {}}>
-  <Sidebar slot="sidebar" bind:panel={panel}>
-    <div class="px-8" slot="header">
-      <ActionBar slug={$page.slug}>
-        <Action icon="undo" onClick={() => {}} disabled={true}/>
-        <Action icon="redo" onClick={() => {}} disabled={true}/>
-        <Action icon="save" onClick={onSave}/>
-        <Action icon="settings" onClick={() => {}}/>
-      </ActionBar>
-
-      <Tabs>
-        <Tab panel="page">Page</Tab>
-        <Tab panel="typography">Typography</Tab>
-        <Tab panel="colors">Colors</Tab>
-        <Tab panel="content">Content</Tab>
-        <Tab panel="site">Site</Tab>
-      </Tabs>
-    </div>
-
-    <Panel name="page">
-      <SelectGroup bind:selected={status}>
-        <SelectGroupOption id="published" icon="verified">Published</SelectGroupOption>
-        <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
-      </SelectGroup>
-    </Panel>
-
-    <Panel name="content">
-      <slot name="content-editor"/>
-    </Panel>
-
-    <Panel name="colors">
-      <Colors bind:colors={$storedTemplate.data.colors} bind:palette={$page.data.palette} />
-    </Panel>
-
-    <Panel name="typography">
-      <Typography bind:template={$storedTemplate.data} />
-    </Panel>
-
-    <Panel name="site">
-      <Site sitemap={sitemap} />
-    </Panel>
-  </Sidebar>
+  <EditorSidebar slot="sidebar" page={$p} template={$t} sitemap={sitemap}>
+    <slot name="content-editor" slot="content-editor" />
+  </EditorSidebar>
 
   <slot name="preview" slot="preview" />
 </Editor>

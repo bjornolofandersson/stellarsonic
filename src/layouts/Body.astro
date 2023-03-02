@@ -7,7 +7,7 @@ const { isDev, template, page, sitemap } = Astro.props;
 
 {isDev ?
   <body>
-    <Editor data={page} template={template} sitemap={sitemap} client:only>
+    <Editor page={page} template={template} sitemap={sitemap} client:only>
       <slot name="content-editor" slot="content-editor"/>
       <Main slot="preview" template={template} page={page} client:load>
         <slot/>
