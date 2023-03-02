@@ -1,6 +1,6 @@
 <script lang="ts">
   import ProgressBar from "@components/common/ProgressBar.svelte";
-  import { MixPlaylist } from "@lib/media/MixPlaylist";
+  import { MixPlaylist } from "@modules/playlist/playlist";
 
   export let playlist: MixPlaylist;
   export let onSelect: (track: number) => void;
@@ -37,7 +37,7 @@
 <div class="w-full">
   <div class="h-3 bg-stone-900 relative w-full">
     <div class="h-3 bg-stone-800 relative" style="width: {(playlist.player.duration / totalDuration) * 100}%">
-      <ProgressBar progress={progress} colorProgress="#67b9b5" onSeek={onSeek} />
+      <ProgressBar progress={progress} onSeek={onSeek} />
     </div>
   </div>
   <div class="w-full flex justify-start" bind:clientWidth={tracksWidth}>

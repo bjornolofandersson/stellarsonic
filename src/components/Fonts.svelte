@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Font, Entity } from "@lib/interfaces";
   import { loadEntity } from "@lib/store";
+  import type { Template } from "src/content/config";
 
-  export let template: Entity<any>;
+  export let template: Entity<Template>;
 
   const t = loadEntity(template);
 

@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Entity } from "@lib/interfaces";
   import { loadEntity } from "@lib/store";
+  import type { Page, Template } from "src/content/config";
 
-  export let template: Entity<any>;
-  export let page: Entity<any>;
+  export let template: Entity<Template>;
+  export let page: Entity<Page>;
 
   const t = loadEntity(template);
   const p = loadEntity(page);

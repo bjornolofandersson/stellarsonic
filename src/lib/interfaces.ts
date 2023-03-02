@@ -1,4 +1,4 @@
-import type { Page } from "src/content/config";
+import type { Page, Template } from "src/content/config";
 import { CollectionEntry } from "astro:content";
 
 export interface PageSummary {
@@ -10,43 +10,6 @@ export interface PageSummary {
 
   image: string;
 }
-/*
-export interface Post {
-  title: string;
-
-  subtitle?: string;
-
-  description: string;
-
-  image: string;
-
-  date: string;
-
-  genres: string[];
-
-  tags: string[];
-}
-
-export interface MusicMixTrack {
-  name: string;
-
-  artist?: string;
-
-  year?: number;
-
-  duration: string;
-}
-
-export interface MusicTrack extends MusicMixTrack {
-  audio: string;
-}
-
-export interface MusicMixPost extends Post {
-  audio: string;
-
-  tracks: MusicTrack[];
-}
-*/
 
 export interface MediaPlayer {
   readonly src: string;
@@ -124,7 +87,7 @@ export interface PageProps<T> {
 
   page: Entity<Page>;
 
-  template: Entity<any>;
+  template: Entity<Template>;
 
   navigation: any;
 

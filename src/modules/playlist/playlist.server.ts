@@ -4,6 +4,13 @@ import Playlist from './playlist.astro';
 import site from '@settings';
 import { Mount } from "@lib/interfaces";
 
+const trackSchema = z.object({
+  name: z.string(),
+  artist: z.string(),
+  year: z.number().optional(),
+  duration: z.string(),
+});
+
 export const collection = 'mixes';
 export const schema = z.object({
   title: z.string(),
@@ -14,15 +21,11 @@ export const schema = z.object({
   genres: z.array(z.string()),
   tags: z.array(z.string()),
   audio: z.string(),
-  tracks: z.array(z.object({
-    name: z.string(),
-    artist: z.string(),
-    year: z.number().optional(),
-    duration: z.string(),
-  })),
+  tracks: z.array(trackSchema),
 });
 
 export type MusicMix = z.infer<typeof schema>;
+export type MusicMixTrack = z.infer<typeof trackSchema>;
 
 export function onPage(mount: Mount, path: string, entry: CollectionEntry<'mixes'>) {
   const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;

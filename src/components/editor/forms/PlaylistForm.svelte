@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { MixPlaylist } from "@lib/media/MixPlaylist";
-    import { formatTime } from "@lib/utils";
-    import Action from "src/editor/Action.svelte";
-    import Toolbar from "src/editor/Toolbar.svelte";
+  import { MixPlaylist } from "@modules/playlist/playlist";
+  import { formatTime } from "@lib/utils";
+  import Action from "src/editor/Action.svelte";
+  import Toolbar from "src/editor/Toolbar.svelte";
   import Timeline from "../Timeline.svelte";
   import Timestamp from "../Timestamp.svelte";
 

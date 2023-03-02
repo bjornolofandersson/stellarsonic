@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MixPlaylist } from '@lib/media/MixPlaylist';
+  import { MixPlaylist } from '@modules/playlist/playlist';
 
   export let playlist: MixPlaylist;
 
