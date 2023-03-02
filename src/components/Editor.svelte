@@ -16,7 +16,7 @@
 </script>
 
 <Editor pageTitle="Hello" onSave={() => {}}>
-  <EditorSidebar slot="sidebar" page={$p} template={$t} content={$c} sitemap={sitemap}>
+  <EditorSidebar slot="sidebar" bind:page={$p} bind:template={$t} bind:content={$c} sitemap={sitemap}>
     <slot name="content-editor" slot="content-editor" />
   </EditorSidebar>
 
