@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Option, Select } from "src/editor";
-    import ExpandSelect from "src/editor/ExpandSelect.svelte";
+  import ExpandSelect from "src/editor/ExpandSelect.svelte";
 
   export let label: string;
   export let family: string;
@@ -17,9 +17,9 @@
         .filter((v: string) => !v.includes('italic'))
         .map((v: string) => {
           if (v === 'regular') {
-            return "400";
+            return 400;
           }
-          return v;
+          return parseInt(v);
       });
     }
   }
