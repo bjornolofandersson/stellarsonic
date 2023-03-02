@@ -35,6 +35,10 @@
     await saveEntity($blog);
     showSettings = false;
   }
+
+  async function onDeletePost(post: any) {
+
+  }
 </script>
 
 <TitleBar title="posts">
@@ -48,18 +52,14 @@
 <input type="search" class="w-full p-4 mt-4 bg-transparent border-b border-stone-400 focus:border-stone-700 focus:text-stone-700 focus:outline-none placeholder-stone-400"
   placeholder="Search posts" aria-label="Search" bind:value={search}>
 
-<Scrollable>
-  <List>
-    {#each filteredPosts as post}
+<List class="mb-8">
+  {#each filteredPosts as post}
     <LinkListItem icon="edit_note" url={post.slug}>
-      <div class="inline-block">
-        <span class="block text-sm">{post.data.title}</span>
-        <span class="block text-stone-500 text-xs">{new Date(post.data.date).toLocaleDateString()}</span>
-      </div>
+      {post.data.title}
+      <Action slot="actions" icon={"delete"} onClick={() => onDeletePost(post)}/>
     </LinkListItem>
-    {/each}
-  </List>
-</Scrollable>
+  {/each}
+</List>
 
 <SettingsModal bind:show={showSettings} onSave={onSaveSettings}>
 <SettingsPanel name="General">
