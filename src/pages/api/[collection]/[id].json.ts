@@ -3,7 +3,7 @@ import { CollectionController } from "@lib/CollectionController";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const collections = ['blogs', 'mixes', 'pages', 'templates'];
+  const collections = ['blogs', 'mixes', 'galleries', 'pages', 'templates'];
   const paths: any[] = [];
 
   for (let c of collections) {

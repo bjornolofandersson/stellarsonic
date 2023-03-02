@@ -18,6 +18,7 @@
   
   export let page: Entity<Page>;
   export let template: Entity<any>;
+  export let content: Entity<any>;
   export let sitemap: any;
 
   let panel = 'page';
@@ -30,6 +31,7 @@
   async function onSave() {
     saveEntity(page);
     saveEntity(template);
+    saveEntity(content);
   }
 </script>
 
