@@ -69,7 +69,7 @@
 <Scrollable>
   <List>
     {#each sitemap.pages as page}
-      <LinkListItem icon={pageIcon(page)} url={page.path}>
+      <LinkListItem icon={pageIcon(page)} url="/{page.path}">
         {page.path}
         <Action slot="actions" icon={"delete"} onClick={() => onDeletePage(page)}/>
       </LinkListItem>

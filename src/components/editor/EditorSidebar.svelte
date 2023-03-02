@@ -21,7 +21,7 @@
   export let content: Entity<any>;
   export let sitemap: any;
 
-  let panel = 'page';
+  let panel = 'content';
   let status = page.data.draft ? 'draft' : 'published';
 
   $: {
@@ -45,23 +45,23 @@
     </ActionBar>
 
     <Tabs>
+      <Tab panel="content">Content</Tab>
       <Tab panel="page">Page</Tab>
       <Tab panel="typography">Typography</Tab>
       <Tab panel="colors">Colors</Tab>
-      <Tab panel="content">Content</Tab>
       <Tab panel="site">Site</Tab>
     </Tabs>
   </div>
+
+  <Panel name="content">
+    <slot name="content-editor"/>
+  </Panel>
 
   <Panel name="page">
     <SelectGroup bind:selected={status}>
       <SelectGroupOption id="published" icon="verified">Published</SelectGroupOption>
       <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
     </SelectGroup>
-  </Panel>
-
-  <Panel name="content">
-    <slot name="content-editor"/>
   </Panel>
 
   <Panel name="colors">
