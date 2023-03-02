@@ -53,23 +53,17 @@
   playlist.load();
 </script>
 
+<button class="flex justify-between mb-4 w-full bg-[#ffffff60] rounded shadow p-4" on:click={() => {showPlaylist = true}}>
+  <div class="flex gap-4">
+    <span class="material-symbols-outlined">queue_music</span>
+    <span>Playlist</span>
+  </div>
+  <span class="material-symbols-outlined">open_in_new</span>
+</button>
 
 <ImageForm bind:post={$post.data} assets={assets} />
 <HeadingsForm bind:post={$post.data} />
 <DescriptionForm bind:post={$post.data} />
-
-<!--
-<Scrollable>
-  <Accordion>
-    <AccordionItem name="Headings" icon="title">
-    </AccordionItem>
-    <AccordionItem name="Description" icon="description">
-    </AccordionItem>
-    <AccordionItem name="Image" icon="image">
-    </AccordionItem>
-  </Accordion>
-</Scrollable>
--->
 
 <SplitModal bind:show={showPlaylist} expand={true}>
   <div slot="header">
