@@ -4,6 +4,7 @@ import Action from './Action.svelte';
 import BackArrow from './BackArrow.svelte';
 import ColorInput from "./ColorInput.svelte";
 import Editor from './Editor.svelte';
+import ExpandAdd from './ExpandAdd.svelte';
 import Input from "./Input.svelte";
 import LinkListItem from "./LinkListItem.svelte";
 import List from "./List.svelte";
@@ -33,6 +34,7 @@ export {
   BackArrow,
   ColorInput,
   Editor,
+  ExpandAdd,
   Input,
   NumberInput,
   LinkListItem,
