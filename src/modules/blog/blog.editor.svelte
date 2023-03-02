@@ -41,7 +41,7 @@
   <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
 </TitleBar>
 
-<ExpandAdd show={showAdd} disabled={addDisabled}>
+<ExpandAdd show={showAdd} disabled={addDisabled} onAdd={() => {}}>
   <Input placeholder="Title" bind:value={postTitle} />
 </ExpandAdd>
 

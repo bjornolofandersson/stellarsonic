@@ -4,16 +4,19 @@
   import type { Entity } from '@lib/interfaces';
   import MenuBar from '@theme/MenuBar.svelte';
   import type { MusicMix } from './playlist.server';
+  import * as store from '@lib/store';
 
   export let entity: Entity<MusicMix>;
   export let site: any;
 
   let {entity: storedPost, playlist} = MixStore.instance(entity);
+  store.site.set(site);
+  const s = store.site;
 </script>
 
 <Playlist post={$storedPost.data} playlist={playlist}>
   <div slot="menu">
-    <MenuBar site={site} />
+    <MenuBar site={$s} />
   </div>
   <slot slot="article" name="article"/>
 </Playlist>

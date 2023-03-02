@@ -5,15 +5,15 @@ import type { Article } from './article.server';
 
 interface Props extends PageProps<Article> {}
 
-const { entity, navigation, edit } = Astro.props;
+const { entity, site, edit } = Astro.props;
 ---
 
 { edit ?
-  <ArticleTheme entity={entity} navigation={navigation} client:load>
+  <ArticleTheme entity={entity} site={site} client:load>
     <slot/>
   </ArticleTheme>
 :
-  <ArticleTheme entity={entity} navigation={navigation}>
+  <ArticleTheme entity={entity} site={site}>
     <slot/>
   </ArticleTheme>
 }

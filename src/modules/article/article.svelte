@@ -5,11 +5,11 @@
   import { loadEntity } from '@lib/store';
 
   export let entity: Entity<Article>;
-  export let navigation: any;
+  export let site: any;
 
   const article = loadEntity(entity);
 </script>
 
-<ArticleTheme data={$article.data} sitemap={navigation}>
+<ArticleTheme data={$article.data} site={site}>
   <slot/>
 </ArticleTheme>

@@ -9,7 +9,7 @@ interface Props extends PageProps<any> {
   pagination: AstroPage;
 }
 
-const { entity, page, pagination } = Astro.props;
+const { entity, page, pagination, site } = Astro.props;
 const isDev = import.meta.env.MODE === 'development';
 
 
@@ -32,6 +32,6 @@ const themeSettings = theme.modules.blog;
 ---
 
 {isDev || themeSettings.client
-  ? <BlogTheme page={blogPage} entity={entity} client:load />
-  : <BlogTheme page={blogPage} entity={entity} />
+  ? <BlogTheme page={blogPage} entity={entity} site={site} client:load />
+  : <BlogTheme page={blogPage} entity={entity} site={site} />
 }
