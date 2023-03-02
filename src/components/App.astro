@@ -7,6 +7,7 @@ import EditorLoader from '@components/editor/EditorLoader.svelte';
 import Schema from '@components/Schema.astro';
 import { CollectionController } from '@lib/CollectionController';
 import type { Page, Template } from "src/content/config";
+import site from '@settings';
 
 interface Props extends MountConfig {
   Component: any;
@@ -23,13 +24,13 @@ interface Props extends MountConfig {
 }
 
 const { Component, entry, title, page, template, module, schema, editor, props } = Astro.props;
-const navigation = await getSitemap();
+const sitemap = await getSitemap();
 const { Content } = await entry.render();
 const entity = CollectionController.makeEntity(entry);
 const isDev = import.meta.env.MODE === 'development';
 ---
 
-<PageLayout template={template} page={page} content={entity} sitemap={navigation}>
+<PageLayout template={template} page={page} content={entity} site={site} sitemap={sitemap}>
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{title}</title>
@@ -39,7 +40,7 @@ const isDev = import.meta.env.MODE === 'development';
     { module && <EditorLoader module={module} props={editor} client:only /> }
   </Fragment>
 
-  <Component entity={entity} page={page} template={template} navigation={navigation} edit={isDev} {...(props || {}) }>
+  <Component entity={entity} page={page} template={template} site={site} edit={isDev} {...(props || {}) }>
     <article class="article-body">
       <Content/>
     </article>

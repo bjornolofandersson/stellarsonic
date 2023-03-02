@@ -6,7 +6,7 @@
   import Preview from "./Preview.svelte";
 
   export let data: any;
-  export let navigation: any;
+  export let site: any;
   export let previews: PageSummary[];
 
   const duration = 5000;
@@ -24,7 +24,7 @@
 <div class="bg-primary h-screen overflow-hidden" bind:clientWidth={clientWidth}>
   <div class="flex flex-col container mx-auto px-20 h-full">
     <div class="col-span-12">
-      <MenuBar sitemap={navigation} />
+      <MenuBar site={site} />
     </div>
     <div class="relative flex-grow h-full">
       {#each previews as p, i}

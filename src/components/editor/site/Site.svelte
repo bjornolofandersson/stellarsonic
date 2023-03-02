@@ -4,11 +4,16 @@
   import Pages from "./Pages.svelte";
 
   export let sitemap: any;
+  export let site: any;
 
   let showSettings = false;
 
   async function onSaveSettings() {
 
+  }
+
+  function onAddLink(link: any) {
+    site.navigation = [...site.navigation, link];
   }
 
   function onDeleteLink() {
@@ -17,7 +22,7 @@
 </script>
 
 <Pages sitemap={sitemap} onAdd={() => {}} />
-<Navigation links={[{title: 'About', url: '/about'}]} onDelete={onDeleteLink}/>
+<Navigation links={site.navigation} onAdd={onAddLink} onDelete={onDeleteLink}/>
 
 <SettingsModal bind:show={showSettings} onSave={onSaveSettings}>
   <SettingsPanel name="Site">

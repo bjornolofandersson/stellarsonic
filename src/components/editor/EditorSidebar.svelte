@@ -9,7 +9,7 @@
   import Panel from 'src/editor/Panel.svelte';
   import Tabs from 'src/editor/Tabs.svelte';
   import Tab from 'src/editor/Tab.svelte';
-  import { saveEntity } from '@lib/store';
+  import * as store from '@lib/store';
   import type { Page } from 'src/content/config';
   import type { Entity } from '@lib/interfaces';
   import Colors from '@components/editor/Colors.svelte';
@@ -19,6 +19,7 @@
   export let page: Entity<Page>;
   export let template: Entity<any>;
   export let content: Entity<any>;
+  export let site: any;
   export let sitemap: any;
 
   let panel = 'content';
@@ -29,9 +30,10 @@
   }
 
   async function onSave() {
-    saveEntity(page);
-    saveEntity(template);
-    saveEntity(content);
+    store.saveEntity(page);
+    store.saveEntity(template);
+    store.saveEntity(content);
+    store.saveSite();
   }
 </script>
 
@@ -73,6 +75,6 @@
   </Panel>
 
   <Panel name="site">
-    <Site sitemap={sitemap} />
+    <Site bind:site={site} sitemap={sitemap} />
   </Panel>
 </Sidebar>

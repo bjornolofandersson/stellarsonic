@@ -6,6 +6,7 @@
   export let navigation: any;
 </script>
 
+<!--
 <div class="container mx-auto {page.menu}" style="height: 600px; background-color: {page.palette[0]}">
   <MenuBar sitemap={navigation} />
   <div class="grid grid-cols-12 px-20">
@@ -16,3 +17,4 @@
     </div>
   </div>
 </div>
+-->

@@ -3,7 +3,7 @@ import { APIRoute } from 'astro';
 import * as yaml from 'yaml';
 import * as fs from 'fs';
 
-export const get: APIRoute = async ({params, request}) => {
+export const get: APIRoute = async () => {
   return {
     body: JSON.stringify(site),
   };

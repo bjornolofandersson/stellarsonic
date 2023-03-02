@@ -5,6 +5,7 @@
 
   export let links: any;
   export let onDelete: (link: any) => void;
+  export let onAdd: (link: any) => void;
 
   let link: any = { title: '', url: '' };
   let addDisabled = false;
@@ -16,7 +17,7 @@
   <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
 </TitleBar>
 
-<ExpandAdd show={showAdd}>
+<ExpandAdd show={showAdd} onAdd={() => { onAdd(link); showAdd = false }}>
   <Input placeholder="Title" bind:value={link.title} />
   <Input placeholder="URL" bind:value={link.url} />
 </ExpandAdd>

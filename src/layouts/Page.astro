@@ -2,7 +2,7 @@
 import Body from "./Body.astro";
 import Fonts from "@components/Fonts.svelte";
 
-const { template, page, content, sitemap } = Astro.props;
+const { template, page, content, site, sitemap } = Astro.props;
 
 const isDev = import.meta.env.MODE === 'development';
 ---
@@ -19,7 +19,7 @@ const isDev = import.meta.env.MODE === 'development';
     {isDev ? <Fonts template={template} client:load/> : <Fonts template={template} /> }
     <slot name="head-bottom" />
 	</head>
-  <Body isDev={isDev} template={template} page={page} content={content} sitemap={sitemap}>
+  <Body isDev={isDev} template={template} page={page} content={content} site={site} sitemap={sitemap}>
     <slot name="content-editor" slot="content-editor" />
     <slot/>
   </Body>

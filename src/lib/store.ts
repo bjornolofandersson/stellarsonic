@@ -49,3 +49,14 @@ export async function saveEntity<T>(entity: Entity<T>): Promise<void> {
     });
   }
 }
+
+export const site = writable({});
+
+export async function saveSite() {
+  const body = JSON.stringify(get(site));
+
+  await fetch(`/api/site.json`, {
+    method: 'PUT',
+    body,
+  });
+}

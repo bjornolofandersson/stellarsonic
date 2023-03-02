@@ -1,13 +1,16 @@
 <script lang="ts">
   import Gallery from '@theme/Gallery.svelte';
   import type { Entity } from '@lib/interfaces';
-  import { loadEntity } from '@lib/store';
+  import * as store from '@lib/store';
+
 
   export let entity: Entity<any>;
-  export let navigation: any;
+  export let site: any;
   export let previews: any[];
 
-  const g = loadEntity(entity);
+  const g = store.loadEntity(entity);
+  store.site.set(site);
+  const s = store.site;
 </script>
 
-<Gallery data={$g.data} navigation={navigation} previews={previews}/>
+<Gallery data={$g.data} site={$s} previews={previews}/>

@@ -4,6 +4,7 @@
 
   export let show: boolean = false;
   export let disabled: boolean = false;
+  export let onAdd: () => void;
 </script>
 
 {#if show}
@@ -13,7 +14,7 @@
   >
     <slot/>
     <button
-      on:click={() => {}}
+      on:click={onAdd}
       in:fly={{ delay: 200, x: 15, duration: 200, easing: quintOut }}
       class="absolute right-4 bottom-0 text-stone-700 disabled:text-stone-400 -mb-7 p-4 w-14 h-14 bg-stone-200 rounded-full shadow enabled:hover:bg-stone-100"
       disabled={disabled}

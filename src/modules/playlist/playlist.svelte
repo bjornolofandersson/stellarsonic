@@ -6,14 +6,14 @@
   import type { MusicMix } from './playlist.server';
 
   export let entity: Entity<MusicMix>;
-  export let navigation: any;
+  export let site: any;
 
   let {entity: storedPost, playlist} = MixStore.instance(entity);
 </script>
 
 <Playlist post={$storedPost.data} playlist={playlist}>
   <div slot="menu">
-    <MenuBar sitemap={navigation} />
+    <MenuBar site={site} />
   </div>
   <slot slot="article" name="article"/>
 </Playlist>
