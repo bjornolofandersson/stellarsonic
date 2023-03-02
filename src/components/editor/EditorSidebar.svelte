@@ -14,7 +14,7 @@
   import type { Entity } from '@lib/interfaces';
   import Colors from '@components/editor/Colors.svelte';
   import Typography from '@components/editor/Typography.svelte';
-  import Site from '@components/editor/Site.svelte';
+  import Site from '@components/editor/site/Site.svelte';
   
   export let page: Entity<Page>;
   export let template: Entity<any>;

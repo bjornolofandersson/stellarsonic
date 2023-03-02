@@ -2,7 +2,7 @@
   export let sitemap: any;
 </script>
 
-<div class="flex space-between text-black dark:text-white px-8 py-12">
+<div class="flex space-between text-link px-8 py-12">
   <div class="flex">
     <a href="/" class="mr-4 site-title text-4xl">{sitemap.title}</a>
   </div>

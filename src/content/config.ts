@@ -4,7 +4,7 @@ import * as gallery from '@modules/gallery/gallery.server';
 import * as playlist from '@modules/playlist/playlist.server';
 
 export const pageSchema = z.object({
-  title: z.string().optional(),
+  //title: z.string().optional(),
   parent: z.string().optional(),
   context: z.string(),
   draft: z.boolean().optional(),
@@ -13,7 +13,6 @@ export const pageSchema = z.object({
     id: z.string(),
   }),
   palette: z.array(z.string()),
-  menu: z.string(),
 });
 
 export const templateSchema = z.object({

@@ -1,3 +1,3 @@
-<ul class="">
+<ul {...$$restProps}>
   <slot/>
 </ul>
