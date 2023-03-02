@@ -36,6 +36,10 @@
     bind:value={colors.text.p}
     palette={palette}
 />
+<ColorSelect label="Link"
+    bind:value={colors.text.a}
+    palette={palette}
+/>
 <ColorSelect label="Article Heading 1"
     bind:value={colors.textArticle.h1}
     palette={palette}
