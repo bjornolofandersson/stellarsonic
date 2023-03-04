@@ -1,12 +1,13 @@
 ---
+import Gallery from '@theme/Gallery.svelte';
 import { PageProps } from '@lib/interfaces';
 import { getPagePreview } from '@lib/page';
 import { getCollection } from 'astro:content';
-import Gallery from './gallery.svelte';
+import ThemeDev from '@components/ThemeDev.svelte';
 
 interface Props extends PageProps<any> {}
 
-const { entity, site } = Astro.props;
+const { entity, site, edit } = Astro.props;
 const gallery = entity.data.gallery;
 
 const blogPages = await getCollection('pages', p => p.data.parent === gallery.blog);
@@ -16,4 +17,15 @@ for (let page of blogPages) {
 }
 ---
 
-<Gallery entity={entity} site={site} previews={previews} client:load />
+{ edit ?
+  <ThemeDev
+    name="standard"
+    component="Gallery.svelte"
+    content={entity}
+    site={site}
+    props={{previews}}
+    client:load
+  />
+  :
+  <Gallery data={entity.data} site={site} previews={previews} client:load />
+}

@@ -8,18 +8,16 @@
 </script>
 
 <Post image={post.image}>
-  <div slot="menu">
-    <slot name="menu"/>
-  </div>
-  <article>
-    <slot name="article"/>
-  </article>
-  <section slot="header-left" class="mt-12 md:px-8 py-8">
+  <slot name="menu" slot="menu"/>
+  <section slot="header-right" class="mt-12 md:px-8 py-8">
+    <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%; margin-top: -250px">
+      <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
+    </div>
     <h1 class="text-h1 text-4xl font-title">{post.title}</h1>
     <h2 class="text-h2 text-xl">{post.subtitle || ''}</h2>
     <p class="text-p text-white opacity-40 text-sm mt-8">{post.description}</p>
   </section>
-  <section slot="header-right">
+  <section slot="header-left">
     <div class="md:-mt-40">
       <Controls playlist={playlist}/>
     </div>
@@ -27,4 +25,7 @@
       <Tracks playlist={playlist} />
     </div>
   </section>
+  <article>
+    <slot name="article"/>
+  </article>
 </Post>

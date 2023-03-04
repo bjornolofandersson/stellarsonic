@@ -14,11 +14,11 @@
       { family: $t.data.fontFamily.h1, weight: $t.data.fontWeight.h1 },
       { family: $t.data.fontFamily.p, weight: $t.data.fontWeight.p },
       { family: $t.data.fontFamily.button, weight: $t.data.fontWeight.button },
-      { family: 'Dancing Script', weight: 400 },
     ];
   }
 
 </script>
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

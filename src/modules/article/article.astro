@@ -1,7 +1,8 @@
 ---
-import ArticleTheme from './article.svelte';
 import { PageProps } from '@lib/interfaces';
 import type { Article } from './article.server';
+import ThemeDev from '@components/ThemeDev.svelte';
+import Theme from '@theme/Article.svelte';
 
 interface Props extends PageProps<Article> {}
 
@@ -9,11 +10,13 @@ const { entity, site, edit } = Astro.props;
 ---
 
 { edit ?
-  <ArticleTheme entity={entity} site={site} client:load>
-    <slot/>
-  </ArticleTheme>
-:
-  <ArticleTheme entity={entity} site={site}>
-    <slot/>
-  </ArticleTheme>
+  <ThemeDev
+    name="standard"
+    component="Article.svelte"
+    content={entity}
+    site={site}
+    client:load
+  />
+  :
+  <Theme data={entity.data} site={site} />
 }

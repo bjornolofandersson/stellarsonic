@@ -1,17 +1,15 @@
 ---
-import BlogTheme from './blog.svelte';
 import { Page as AstroPage } from 'astro';
 import { BlogPage } from './blog';
-import theme from '@theme/index';
 import { PageProps } from '@lib/interfaces';
+import ThemeDev from '@components/ThemeDev.svelte';
+import Theme from '@theme/Blog.svelte';
 
 interface Props extends PageProps<any> {
   pagination: AstroPage;
 }
 
-const { entity, page, pagination, site } = Astro.props;
-const isDev = import.meta.env.MODE === 'development';
-
+const { entity, page, pagination, site, edit } = Astro.props;
 
 const blogPage: BlogPage = {
   title: entity.data.title,
@@ -27,11 +25,17 @@ const blogPage: BlogPage = {
   size: pagination.size,
   lastPage: pagination.lastPage,
 }
-
-const themeSettings = theme.modules.blog;
 ---
 
-{isDev || themeSettings.client
-  ? <BlogTheme page={blogPage} entity={entity} site={site} client:load />
-  : <BlogTheme page={blogPage} entity={entity} site={site} />
+{edit ?
+  <ThemeDev
+    name="standard"
+    component="Blog.svelte"
+    content={entity}
+    site={site}
+    props={{page: blogPage}}
+    client:load
+  />
+  :
+  <Theme page={blogPage} site={site} />
 }
