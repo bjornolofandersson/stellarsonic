@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { quintOut } from "svelte/easing";
+  import { fade } from "svelte/transition";
   import Scrollable from "./Scrollable.svelte";
 
   export let show: boolean = false;
@@ -6,7 +8,7 @@
 </script>
 
 {#if show}
-<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" transition:fade={{duration: 500, easing: quintOut}}>
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
   <div class="fixed inset-0 z-50 overflow-y-auto">
     <div class="flex w-full min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
