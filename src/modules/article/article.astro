@@ -16,7 +16,11 @@ const { entity, site, edit } = Astro.props;
     content={entity}
     site={site}
     client:load
-  />
+  >
+    <slot/>
+  </ThemeDev>
   :
-  <Theme data={entity.data} site={site} />
+  <Theme data={entity.data} site={site}>
+    <slot/>
+  </Theme>
 }
