@@ -37,8 +37,12 @@
         {/if}
       {/each}
     </div>
-    <div class="py-20 px-10 flex justify-between h-48">
-      <a class="" href={data.cta.url}>{data.cta.label}</a>
+    <div class="py-14 px-10 flex justify-between h-48">
+      <div class="flex gap-4">
+        {#each data.cta as cta}
+          <a class="text-white bg-tertiary py-4 px-12 rounded-full text-center" href={cta.url}>{cta.label}</a>
+        {/each}
+      </div>
       <ul class="flex gap-8">
         {#each previews as p, i}
           <li>

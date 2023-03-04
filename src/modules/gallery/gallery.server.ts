@@ -6,10 +6,10 @@ import { Mount } from "@lib/interfaces";
 export const collection = 'galleries';
 export const schema = z.object({
   title: z.string(),
-  cta: z.object({
+  cta: z.array(z.object({
     label: z.string(),
     url: z.string(),
-  }),
+  })),
   gallery: z.object({
     disabled: z.boolean().optional(),
     title: z.string(),
