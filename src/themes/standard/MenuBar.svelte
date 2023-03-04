@@ -2,7 +2,7 @@
   export let site: any;
 </script>
 
-<div class="flex space-between text-a px-8 py-12">
+<div class="flex space-between text-a py-12">
   <div class="flex">
     <a href="/" class="mr-4 site-title text-4xl">{site.title}</a>
   </div>

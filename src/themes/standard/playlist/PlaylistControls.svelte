@@ -3,6 +3,7 @@
   import { MixPlaylist } from "@modules/playlist/playlist";
   import ControlButton from "../common/ControlButton.svelte";
   import ProgressBar from "@components/common/ProgressBar.svelte";
+    import PlayButton from "@theme/common/PlayButton.svelte";
 
   export let playlist: MixPlaylist;
 
@@ -31,13 +32,13 @@
     <div class="text-xs opacity-30 dark:text-white">{formatTime(duration)}</div>
   </div>
 
-  <div class="flex justify-between">
+  <div class="flex justify-center gap-4">
     <ControlButton icon="skip_previous" onClick={() => playlist.skipPrev()} />
 
     {#if isPlaying}
-      <ControlButton icon="pause" onClick={() => playlist.player.pause()} />
+      <PlayButton icon="pause" onClick={() => playlist.player.pause()} />
     {:else}
-      <ControlButton icon="play_arrow" onClick={() => playlist.play()} />
+      <PlayButton icon="play_arrow" onClick={() => playlist.play()} />
     {/if}
 
     <ControlButton icon="skip_next" onClick={() => playlist.skipNext()} />

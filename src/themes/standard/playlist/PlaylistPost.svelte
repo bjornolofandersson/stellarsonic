@@ -7,18 +7,21 @@
   export let playlist: any;
 </script>
 
-<Post image={post.image}>
+<Post>
   <slot name="menu" slot="menu"/>
-  <section slot="header-right" class="mt-12 md:px-8 py-8">
-    <div class="shadow-lg overflow-hidden relative aspect-square" style="padding-bottom: 100%; margin-top: -250px">
-      <img class="absolute w-full h-full object-cover" src={post.image} alt=""/>
+  <section slot="header-right" class="md:px-8 py-8">
+    <div class="relative mb-20 -mt-20">
+      <div class="absolute bg-secondary aspect-square w-full h-full -ml-10 -rotate-6 shadow-2xl" />
+      <div class="block aspect-square rotate-6 shadow-2xl">
+        <img class="w-full h-full object-cover shadow-2xl" src={post.image} alt=""/>
+      </div>
     </div>
     <h1 class="text-h1 text-4xl font-title">{post.title}</h1>
     <h2 class="text-h2 text-xl">{post.subtitle || ''}</h2>
-    <p class="text-p text-white opacity-40 text-sm mt-8">{post.description}</p>
+    <p class="text-p text-white text-sm mt-8">{post.description}</p>
   </section>
   <section slot="header-left">
-    <div class="md:-mt-40">
+    <div class="">
       <Controls playlist={playlist}/>
     </div>
     <div class="mt-8 md:mt-20">

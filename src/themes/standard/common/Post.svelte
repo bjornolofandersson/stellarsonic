@@ -1,21 +1,15 @@
-<script>
-  export let image;
-
-  const bgStyle=`background: url(${image}) 50% 50% / cover no-repeat; opacity: 0.02; transform: scaleX(-1); height: 350px`;
-</script>
-
-<div class="bg-primary text-white relative">
+<div class="bg-primary text-white relative" {...$$restProps}>
   <!---
   <div class="w-full fixed bg-fixed" style={bgStyle}>
   </div>
 -->
-  <section class="relative text-white" style="height: 350px;">
-    <div class="container mx-auto">
+  <section class="relative text-white">
+    <div class="container mx-auto px-20">
       <slot name="menu"/>
     </div>
   </section>
   <section class="bg-primary relative text-white">
-    <div class="container mx-auto px-8 grid">
+    <div class="container mx-auto px-20 grid">
       <div class="grid grid-cols-12 py-20">
         <div class="col-span-12 md:col-span-6 lg:col-span-6">
           <slot name="header-left"/>

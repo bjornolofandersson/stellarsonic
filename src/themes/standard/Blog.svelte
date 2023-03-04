@@ -30,15 +30,15 @@
   <div class="container mx-auto px-20">
     <section class="grid md:grid-cols-1 lg:grid-cols-1 gap-6 mb-48">
       {#each page.posts as {slug, data, collection}, i}
-        <Preview data={data} flip={i % 2 === 1} />
+        <Preview data={{slug, ...data}} flip={i % 2 === 1} />
         <!--<PostPreview post={data} slug={slug} collection={collection} background={theme.layout === 'alternate'} />-->
       {/each}
     </section>
   </div>
 
-  <footer class="h-48 w-full bg-palette-3">
+  <footer class="h-48 w-full bg-tertiary">
     <div class="container mx-auto px-20">
-
+      <MenuBar site={site} />
     </div>
   </footer>
 </div>
