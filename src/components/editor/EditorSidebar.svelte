@@ -13,10 +13,9 @@
   import * as store from '@lib/store';
   import type { Page } from 'src/content/config';
   import type { Entity } from '@lib/interfaces';
-  import Colors from '@components/editor/Colors.svelte';
   import Typography from '@components/editor/Typography.svelte';
   import Site from '@components/editor/site/Site.svelte';
-    import ColorGroup from './ColorGroup.svelte';
+  import ColorGroup from './ColorGroup.svelte';
   
   export let page: Entity<Page>;
   export let template: Entity<any>;
