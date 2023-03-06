@@ -1,34 +1,32 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, Action, Input, Scrollable, TitleBar } from 'src/editor';
+  import { Action, Input, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
-  import { MixStore } from './playlist';
   import SplitModal from 'src/editor/SplitModal.svelte';
   import PlaylistForm from '@components/editor/forms/PlaylistForm.svelte';
-  import type { Entity } from '@lib/interfaces';
   import type { MusicMix } from './playlist.server';
+  import { MixPlaylist } from './playlist';
 
-  export let entity: Entity<MusicMix>;
+  export let content: MusicMix;
   export let assets: string[];
 
-  let store = MixStore.instance(entity);
-  let {entity: post, playlist} = store;
+  const playlist = MixPlaylist.fromContent(content);
+
   let showPlaylist: boolean = false;
   let selectedTrack: number = 0;
 
-
   function addTrack() {
-    $post.data.tracks = [...$post.data.tracks, {name: `Track ${$post.data.tracks.length + 1}`, artist: '', year: 0, duration: 'PT3M0S'} as any];
-    playlist.setTracks($post.data.tracks);
+    content.tracks = [...content.tracks, {name: `Track ${content.tracks.length + 1}`, artist: '', year: 0, duration: 'PT3M0S'} as any];
+    playlist.setTracks(content.tracks);
   }
 
   function removeTrack() {
-    const copy = $post.data.tracks.slice();
+    const copy = content.tracks.slice();
     copy.splice(selectedTrack, 1);
-    $post.data.tracks = copy;
-    playlist.setTracks($post.data.tracks);
-    selectedTrack = Math.max(Math.min(selectedTrack, $post.data.tracks.length - 1), 0);
+    content.tracks = copy;
+    playlist.setTracks(content.tracks);
+    selectedTrack = Math.max(Math.min(selectedTrack, content.tracks.length - 1), 0);
   }
 
   function moveItem(list: any[], from: number, to: number) {
@@ -37,16 +35,16 @@
   }
 
   function moveNext() {
-    const copy = $post.data.tracks.slice();
+    const copy = content.tracks.slice();
     moveItem(copy, selectedTrack, selectedTrack + 1);
-    $post.data.tracks = copy;
+    content.tracks = copy;
     selectedTrack = selectedTrack + 1;
   }
 
   function movePrev() {
-    const copy = $post.data.tracks.slice();
+    const copy = content.tracks.slice();
     moveItem(copy, selectedTrack, selectedTrack  - 1);
-    $post.data.tracks = copy;
+    content.tracks = copy;
     selectedTrack = selectedTrack - 1;
   }
 
@@ -61,9 +59,9 @@
   <span class="material-symbols-outlined">open_in_new</span>
 </button>
 
-<ImageForm bind:post={$post.data} assets={assets} />
-<HeadingsForm bind:post={$post.data} />
-<DescriptionForm bind:post={$post.data} />
+<ImageForm bind:post={content} assets={assets} />
+<HeadingsForm bind:post={content} />
+<DescriptionForm bind:post={content} />
 
 <SplitModal bind:show={showPlaylist} expand={true}>
   <div slot="header">
@@ -74,7 +72,7 @@
 
   <div slot="sidebar">
     <ul>
-      {#each $post.data.tracks as track, i}
+      {#each content.tracks as track, i}
         <li class="-ml-8 -mr-8 px-8 {selectedTrack === i ? 'bg-[#00000010]' : 'hover:bg-[#ffffff40]'}">
           <button on:click={() => {selectedTrack = i}} class="w-full py-3 text-left flex">
             <span class="inline-block p-1 w-8 mr-4 bg-stone-700 rounded text-stone-100 text-center">{i + 1}</span>
@@ -89,14 +87,14 @@
   </div>
 
   <div slot="content" class="bg-stone-800 h-full">
-    {#if $post.data.tracks.length > 0}
-    <PlaylistForm bind:post={$post} bind:playlist={playlist} bind:track={selectedTrack} >
+    {#if content.tracks.length > 0}
+    <PlaylistForm bind:post={content} playlist={playlist} bind:track={selectedTrack} >
       <label for="track-name" class="text-xs opacity-40">Name</label>
-      <Input id="track-name" type="text" placeholder="Name" bind:value={$post.data.tracks[selectedTrack].name} />
+      <Input id="track-name" type="text" placeholder="Name" bind:value={content.tracks[selectedTrack].name} />
       <label for="artist" class="text-xs opacity-40">Artist</label>
-      <Input id="artist" type="text" placeholder="Artist" bind:value={$post.data.tracks[selectedTrack].artist} />
+      <Input id="artist" type="text" placeholder="Artist" bind:value={content.tracks[selectedTrack].artist} />
       <label for="year" class="text-xs opacity-40">Year</label>
-      <Input id="year" type="number" placeholder="Year" bind:value={$post.data.tracks[selectedTrack].year} />
+      <Input id="year" type="number" placeholder="Year" bind:value={content.tracks[selectedTrack].year} />
 
       <svelte:fragment slot="actions">
         <Action icon="close" onClick={() => {showPlaylist = false}}/>

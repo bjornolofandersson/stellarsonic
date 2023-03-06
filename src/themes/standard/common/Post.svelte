@@ -1,7 +1,13 @@
+<script lang="ts">
+  import MenuBar from "@theme/MenuBar.svelte";
+
+  export let site: any;
+</script>
+
 <div class="bg-primary text-white relative" {...$$restProps}>
   <section class="relative text-white">
     <div class="container mx-auto px-20">
-      <slot name="menu"/>
+      <MenuBar site={site} />
     </div>
   </section>
   <section class="relative text-white">

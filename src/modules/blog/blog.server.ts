@@ -13,6 +13,8 @@ export const schema = z.object({
   }),
 });
 
+export type Blog = z.infer<typeof schema>;
+
 export async function onPage(mount: Mount, path: string, entry: CollectionEntry<'blogs'>) {
   const {limit, title, pagination} = entry.data;
   const isDev = import.meta.env.MODE === 'development';

@@ -16,6 +16,8 @@ export const schema = z.object({
   }),
 });
 
+export type Gallery = z.infer<typeof schema>;
+
 export function onPage(mount: Mount, path: string, entry: CollectionEntry<'galleries'>) {
   mount(path, Gallery, { schema: {} });
 }

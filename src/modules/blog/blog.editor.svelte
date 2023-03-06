@@ -3,7 +3,6 @@
     Action,
     LinkListItem,
     List,
-    Scrollable,
     SettingsModal,
     SettingsPanel,
     Input,
@@ -11,13 +10,10 @@
     TitleBar,
     ExpandAdd
   } from 'src/editor';
-  import type { Entity } from '@lib/interfaces';
-  import { loadEntity, saveEntity } from '@lib/store';
+  import type { Blog } from './blog.server';
 
-  export let entity: Entity<any>;
+  export let content: Blog
   export let posts: any[];
-
-  const blog = loadEntity(entity);
 
   let filteredPosts = posts;
   let search: string = '';
@@ -32,7 +28,7 @@
   }
 
   async function onSaveSettings() {
-    await saveEntity($blog);
+    //await saveEntity($blog);
     showSettings = false;
   }
 
@@ -66,11 +62,11 @@
   <ul class="mt-8">
     <li>
       <label for="title" class="text-xs opacity-50">Page title</label>
-      <Input type="text" id="title" bind:value={$blog.data.title} />
+      <Input type="text" id="title" bind:value={content.title} />
     </li>
     <li>
       <label for="limit" class="text-xs opacity-50">Posts per page</label>
-      <NumberInput id="limit" bind:value={$blog.data.limit} />
+      <NumberInput id="limit" bind:value={content.limit} />
     </li>
   </ul>
 </SettingsPanel>

@@ -1,15 +1,26 @@
 ---
-import Playlist from './playlist.svelte';
+import Playlist from '@theme/Playlist.svelte';
 import type { PageProps } from '@lib/interfaces';
 import type { MusicMix } from './playlist.server';
+import ThemeDev from '@components/ThemeDev.svelte';
 
 interface Props extends PageProps<MusicMix> {}
 
-const { entity, site } = Astro.props;
+const { entity, site, edit } = Astro.props;
 ---
 
-<Playlist entity={entity} site={site} client:load>
-  <Fragment slot="article">
+{ edit ?
+  <ThemeDev
+    name="standard"
+    component="Playlist.svelte"
+    content={entity}
+    site={site}
+    client:load
+  >
     <slot/>
-  </Fragment>
-</Playlist>
+  </ThemeDev>
+  :
+  <Playlist data={entity.data} site={site} client:load>
+    <slot/>
+  </Playlist>
+}
