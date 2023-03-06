@@ -15,6 +15,13 @@ export const pageSchema = z.object({
   palette: z.array(z.string()),
 });
 
+const colorPair = z.tuple([z.number(), z.number()]);
+
+const colorComposition = z.object({
+  background: colorPair,
+  text: colorPair,
+});
+
 export const templateSchema = z.object({
   fontSize: z.object({
     h1: z.number(),
@@ -37,6 +44,11 @@ export const templateSchema = z.object({
     button: z.number(),
   }),
   textAlign: z.string(),
+  colorGroups: z.tuple([
+    colorComposition,
+    colorComposition,
+    colorComposition
+  ]),
   colors: z.object({
     background: z.object({
       primary: z.number(),

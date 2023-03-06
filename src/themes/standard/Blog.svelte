@@ -8,11 +8,9 @@
   export let site: any;
 </script>
 
-<div class="bg-palette-1">
+<div class="bg-primary">
   <div class="flex flex-col container mx-auto px-20 h-full">
-    <div class="col-span-12">
-      <MenuBar site={site} />
-    </div>
+    <MenuBar site={site} />
   </div>
 
   <!--
@@ -36,7 +34,7 @@
     </section>
   </div>
 
-  <footer class="h-48 w-full bg-tertiary">
+  <footer class="h-48 w-full bg-primary-invert text-primary-invert">
     <div class="container mx-auto px-20">
       <MenuBar site={site} />
     </div>

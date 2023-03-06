@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     Action,
+    Palette,
     SelectGroup,
     SelectGroupOption,
     Sidebar,
@@ -15,6 +16,7 @@
   import Colors from '@components/editor/Colors.svelte';
   import Typography from '@components/editor/Typography.svelte';
   import Site from '@components/editor/site/Site.svelte';
+    import ColorGroup from './ColorGroup.svelte';
   
   export let page: Entity<Page>;
   export let template: Entity<any>;
@@ -67,7 +69,10 @@
   </Panel>
 
   <Panel name="colors">
-    <Colors bind:colors={template.data.colors} bind:palette={page.data.palette} />
+    <Palette bind:colors={page.data.palette} />
+    <ColorGroup title="Main" bind:colors={template.data.colorGroups[0]} bind:palette={page.data.palette} />
+    <ColorGroup title="Article" bind:colors={template.data.colorGroups[1]} bind:palette={page.data.palette} />
+    <!--<Colors bind:colors={template.data.colors} bind:palette={page.data.palette} />-->
   </Panel>
 
   <Panel name="typography">

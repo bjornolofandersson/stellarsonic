@@ -16,21 +16,27 @@
   {#each playlist.tracks as track, i}
     <li class="py-4 text-sm flex">
       {#if (i === currentTrack) && !playlist.player.isPaused}
-        <button class="mt-2 px-2 opacity-30" on:click={() => playlist.player.pause()}>
+        <button class="play-button mt-2 px-2" on:click={() => playlist.player.pause()}>
           <span class="material-symbols-outlined">pause</span>
         </button>
       {:else}
-        <button class="mt-2 px-2 opacity-30" on:click={() => playlist.play(i) }>
+        <button class="play-button mt-2 px-2" on:click={() => playlist.play(i) }>
           <span class="material-symbols-outlined">play_arrow</span>
         </button>
       {/if}
       <div>
-        <span class="text-xs {currentTrack === i ? 'text-palette-2' : 'text-white'}">
+        <span class="text-xs {currentTrack === i ? 'text-accent' : 'text-primary'}">
           {track.name}
         </span>
         <br/>
-        <span class="text-xs opacity-30 -mt-0.1 block">{track.artist} ({track.year})</span>
+        <span class="text-xs opacity-40 -mt-0.1 block">{track.artist} ({track.year})</span>
       </div>
     </li>
   {/each}
 </ul>
+
+<style>
+  .play-button:hover {
+    color: var(--theme-cg1-text-accent);
+  }
+</style>

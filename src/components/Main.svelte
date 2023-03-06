@@ -11,23 +11,14 @@
 </script>
 
 <main class="bg-slate-100 dark:bg-dark-base" style={`
-  --theme-bg-primary: ${$p.data.palette[$t.data.colors.background.primary]};
-  --theme-bg-secondary: ${$p.data.palette[$t.data.colors.background.secondary]};
-  --theme-bg-tertiary: ${$p.data.palette[$t.data.colors.background.tertiary]};
-  --theme-bg-article: ${$p.data.palette[$t.data.colors.background.article]};
-  --theme-text-h1: ${$p.data.palette[$t.data.colors.text.h1]};
-  --theme-text-h2: ${$p.data.palette[$t.data.colors.text.h2]};
-  --theme-text-p: ${$p.data.palette[$t.data.colors.text.p]};
-  --theme-text-a: ${$p.data.palette[$t.data.colors.text.a]};
-  --theme-text-active: ${$p.data.palette[$t.data.colors.text.active]};
-  --theme-text-article-h1: ${$p.data.palette[$t.data.colors.textArticle.h1]};
-  --theme-text-article-h2: ${$p.data.palette[$t.data.colors.textArticle.h2]};
-  --theme-text-article-p: ${$p.data.palette[$t.data.colors.textArticle.p]};
-  --theme-text-article-a: ${$p.data.palette[$t.data.colors.textArticle.a]};
-  --theme-palette-1: ${$p.data.palette[0]};
-  --theme-palette-2: ${$p.data.palette[1]};
-  --theme-palette-3: ${$p.data.palette[2]};
-  --theme-palette-4: ${$p.data.palette[3]};
+  --theme-bg-primary: ${$p.data.palette[$t.data.colorGroups[0].background[0]]};
+  --theme-bg-accent: ${$p.data.palette[$t.data.colorGroups[0].background[1]]};
+  --theme-text-primary: ${$p.data.palette[$t.data.colorGroups[0].text[0]]};
+  --theme-text-accent: ${$p.data.palette[$t.data.colorGroups[0].text[1]]};
+  --theme-article-bg-primary: ${$p.data.palette[$t.data.colorGroups[1].background[0]]};
+  --theme-article-bg-accent: ${$p.data.palette[$t.data.colorGroups[1].background[1]]};
+  --theme-article-text-primary: ${$p.data.palette[$t.data.colorGroups[1].text[0]]};
+  --theme-article-text-accent: ${$p.data.palette[$t.data.colorGroups[1].text[1]]};
   --theme-font-h1: ${$t.data.fontFamily.h1};
   --theme-font-p: ${$t.data.fontFamily.p};
   --theme-font-button: ${$t.data.fontFamily.button};
@@ -42,7 +33,97 @@
   <slot/>
 </main>
 
-<style>
+<style global>
+/*
+  main :global(.layer-1 .bg-primary) {
+    background-color: var(--theme-cg1-bg-primary);
+  }
+  main :global(.layer-1.bg-primary) {
+    background-color: var(--theme-cg1-bg-primary);
+  }
+  main :global(.layer-1 .bg-accent) {
+    background-color: var(--theme-cg1-bg-accent);
+  }
+  main :global(.layer-1.bg-accent) {
+    background-color: var(--theme-cg1-bg-accent);
+  }
+  main :global(.layer-1 .text-primary) {
+    color: var(--theme-cg1-text-primary);
+  }
+  main :global(.layer-1.text-primary) {
+    color: var(--theme-cg1-text-primary);
+  }
+  main :global(.layer-1 .text-accent) {
+    color: var(--theme-cg1-text-accent);
+  }
+  main :global(.layer-1.text-accent) {
+    color: var(--theme-cg1-text-accent);
+  }
+
+  main :global(.layer-1-invert .bg-primary) {
+    background-color: var(--theme-cg1-text-primary);
+  }
+  main :global(.layer-1-invert .bg-accent) {
+    background-color: var(--theme-cg1-text-accent);
+  }
+  main :global(.layer-1-invert .text-primary) {
+    color: var(--theme-cg1-bg-primary);
+  }
+  main :global(.layer-1-invert .text-accent) {
+    color: var(--theme-cg1-bg-accent);
+  }
+
+  main :global(.layer-2 .bg-primary) {
+    background-color: var(--theme-cg2-bg-primary);
+  }
+  main :global(.layer-2.bg-primary) {
+    background-color: var(--theme-cg2-bg-primary);
+  }
+  main :global(.layer-2 .bg-accent) {
+    background-color: var(--theme-cg2-bg-accent);
+  }
+  main :global(.layer-2.bg-accent) {
+    background-color: var(--theme-cg2-bg-accent);
+  }
+  main :global(.layer-2 .text-primary) {
+    color: var(--theme-cg2-text-primary);
+  }
+  main :global(.layer-2.text-primary) {
+    color: var(--theme-cg2-text-primary);
+  }
+  main :global(.layer-2 .text-accent) {
+    color: var(--theme-cg2-text-accent);
+  }
+  main :global(.layer-2.text-accent) {
+    color: var(--theme-cg2-text-accent);
+  }
+
+  main :global(.article .bg-primary) {
+    background-color: var(--theme-cg3-bg-primary);
+  }
+  main :global(.article.bg-primary) {
+    background-color: var(--theme-cg3-bg-primary);
+  }
+  main :global(.article .bg-accent) {
+    background-color: var(--theme-cg3-bg-accent);
+  }
+  main :global(.article.bg-accent) {
+    background-color: var(--theme-cg3-bg-accent);
+  }
+  main :global(.article .text-primary) {
+    color: var(--theme-cg3-text-primary);
+  }
+  main :global(.article.text-primary) {
+    color: var(--theme-cg3-text-primary);
+  }
+  main :global(.article .text-accent) {
+    color: var(--theme-cg3-text-accent);
+  }
+  main :global(.article.text-accent) {
+    color: var(--theme-cg3-text-accent);
+  }
+  */
+/*
   main :global(.bg-primary) {
     background-color: var(--theme-bg-primary);
   }
@@ -107,6 +188,7 @@
   main :global(.text-palette-4) {
     color: var(--theme-palette-4);
   }
+  */
   main :global(.font-title) {
     font-family: var(--theme-font-h1);
     font-weight: var(--theme-font-weight-h1);
@@ -137,7 +219,7 @@
     font-weight: var(--theme-font-weight-button);
   }
   main :global(.article-body) {
-    background-color: var(--theme-bg-article);
+    background-color: var(--theme-cg3-bg-primary);
     text-align: var(--theme-text-align);
   }
   main :global(.article-body h1) {

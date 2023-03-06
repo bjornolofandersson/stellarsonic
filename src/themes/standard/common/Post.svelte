@@ -1,14 +1,10 @@
 <div class="bg-primary text-white relative" {...$$restProps}>
-  <!---
-  <div class="w-full fixed bg-fixed" style={bgStyle}>
-  </div>
--->
   <section class="relative text-white">
     <div class="container mx-auto px-20">
       <slot name="menu"/>
     </div>
   </section>
-  <section class="bg-primary relative text-white">
+  <section class="relative text-white">
     <div class="container mx-auto px-20 grid">
       <div class="grid grid-cols-12 py-20">
         <div class="col-span-12 md:col-span-6 lg:col-span-6">
@@ -20,9 +16,9 @@
       </div>
     </div>
   </section>
-  <section class="relative bg-article dark:bg-dark-base">
+  <section class="relative bg-article-primary">
     <div class="container mx-auto px-8 grid grid-cols-12 text-stone-800">
-      <div class="col-span-12 lg:col-span-7 dark:text-stone-300 article p-12 py-20 lg:px-20 font-primary">
+      <div class="col-span-12 lg:col-span-7 p-12 py-20 lg:px-20 font-primary">
         <slot/>
       </div>
     </div>

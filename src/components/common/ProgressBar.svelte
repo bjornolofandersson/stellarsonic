@@ -8,6 +8,6 @@
 <button 
   bind:clientWidth={seekWidth}
   on:click={ev => onSeek(ev.offsetX / seekWidth)}
-  class="w-full h-3 overflow-hidden absolute bottom-0 bg-[#ffffff06]">
-    <div class="h-full" style="width: {100 * (progress)}%; background: var(--text-active);"></div>
+  class="w-full h-1 overflow-hidden absolute rounded-full bottom-0 bg-[#00000010]">
+    <div class="h-full" style="width: {100 * (progress)}%; background: var(--theme-text-accent);"></div>
 </button>

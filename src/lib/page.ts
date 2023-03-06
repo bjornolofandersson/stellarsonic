@@ -8,6 +8,7 @@ async function getTemplate(name: string): Promise<Entity<any>> {
     const entry = await getEntryBySlug('templates', name);
     return CollectionController.makeEntity(entry);
   } catch (err) {
+    throw err;
     return {
       id: name,
       slug: name,
