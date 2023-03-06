@@ -4,8 +4,9 @@ import { BlogPage } from './blog';
 import { PageProps } from '@lib/interfaces';
 import ThemeDev from '@components/ThemeDev.svelte';
 import Theme from '@theme/Blog.svelte';
+import { Blog } from './blog.server';
 
-interface Props extends PageProps<any> {
+interface Props extends PageProps<Blog> {
   pagination: AstroPage;
 }
 

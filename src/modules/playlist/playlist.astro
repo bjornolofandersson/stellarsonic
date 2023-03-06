@@ -1,5 +1,5 @@
 ---
-import Playlist from '@theme/Playlist.svelte';
+import Theme from '@theme/Playlist.svelte';
 import type { PageProps } from '@lib/interfaces';
 import type { MusicMix } from './playlist.server';
 import ThemeDev from '@components/ThemeDev.svelte';
@@ -20,7 +20,7 @@ const { entity, site, edit } = Astro.props;
     <slot/>
   </ThemeDev>
   :
-  <Playlist data={entity.data} site={site} client:load>
+  <Theme data={entity.data} site={site} client:load>
     <slot/>
-  </Playlist>
+  </Theme>
 }

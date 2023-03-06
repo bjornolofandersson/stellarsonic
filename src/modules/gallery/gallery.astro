@@ -1,11 +1,12 @@
 ---
-import Gallery from '@theme/Gallery.svelte';
+import Theme from '@theme/Gallery.svelte';
 import { PageProps } from '@lib/interfaces';
 import { getPagePreview } from '@lib/page';
 import { getCollection } from 'astro:content';
 import ThemeDev from '@components/ThemeDev.svelte';
+import { Gallery } from './gallery.server';
 
-interface Props extends PageProps<any> {}
+interface Props extends PageProps<Gallery> {}
 
 const { entity, site, edit } = Astro.props;
 const gallery = entity.data.gallery;
@@ -27,5 +28,5 @@ for (let page of blogPages) {
     client:load
   />
   :
-  <Gallery data={entity.data} site={site} previews={previews} client:load />
+  <Theme data={entity.data} site={site} previews={previews} client:load />
 }
