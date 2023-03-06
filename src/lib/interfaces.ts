@@ -85,7 +85,7 @@ export interface Entity<T> {
 export interface MountConfig {
   schema: any;
 
-  editor: any;
+  editor?: any;
 
   props?: any;
 }

@@ -29,6 +29,7 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
   const template = await getTemplate(page.data.context);
 
   const entry = await getEntryBySlug(content.collection as any, content.id);
+  const col = new CollectionController(entry.collection);
 
   let moduleName: string = '';
   for (let name of Object.keys(modules)) {
@@ -43,11 +44,17 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
       props: {
         Component,
         entry,
-        title: entry.data.title || page.data.title,
+        title: entry.data.title, //|| page.data.title,
         module: moduleName,
         page: CollectionController.makeEntity(page),
         template,
-        ...config,
+        editor: {
+          entity: CollectionController.makeEntity(entry),
+          assets: col.getAssetPaths(entry.slug),
+          ...config.editor,
+        },
+        props: config.props,
+        schema: config.schema,
       }
     });
   }

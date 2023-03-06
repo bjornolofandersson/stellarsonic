@@ -1,4 +1,3 @@
-import { CollectionController } from "@lib/CollectionController";
 import { z, CollectionEntry } from "astro:content";
 import Gallery from './gallery.astro';
 import { Mount } from "@lib/interfaces";
@@ -18,13 +17,5 @@ export const schema = z.object({
 });
 
 export function onPage(mount: Mount, path: string, entry: CollectionEntry<'galleries'>) {
-  const col = new CollectionController(entry.collection);
-
-  mount(path, Gallery, {
-    schema: {},
-    editor: {
-      entity: CollectionController.makeEntity(entry),
-      assets: col.getAssetPaths(entry.slug),
-    },
-  });
+  mount(path, Gallery, { schema: {} });
 }

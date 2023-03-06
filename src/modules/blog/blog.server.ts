@@ -1,4 +1,3 @@
-import { CollectionController } from "@lib/CollectionController";
 import { Mount } from "@lib/interfaces";
 import { Page } from "astro";
 import { z, CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
@@ -64,7 +63,6 @@ export async function onPage(mount: Mount, path: string, entry: CollectionEntry<
   mount(path, BlogPage, {
     schema: {},
     editor: {
-      entity: CollectionController.makeEntity(entry),
       posts,
     },
     props: {

@@ -1,4 +1,3 @@
-import { CollectionController } from "@lib/CollectionController";
 import { z, CollectionEntry } from "astro:content";
 import Playlist from './playlist.astro';
 import site from '@settings';
@@ -29,7 +28,6 @@ export type MusicMixTrack = z.infer<typeof trackSchema>;
 
 export function onPage(mount: Mount, path: string, entry: CollectionEntry<'mixes'>) {
   const {title, subtitle, date, image, description, tracks, genres, tags} = entry.data;
-  const col = new CollectionController(entry.collection);
 
   mount(path, Playlist, {
     schema: {
@@ -56,10 +54,6 @@ export function onPage(mount: Mount, path: string, entry: CollectionEntry<'mixes
       })),
       genre: genres,
       keywords: tags.join(', '),
-    },
-    editor: {
-      entity: CollectionController.makeEntity(entry),
-      assets: col.getAssetPaths(entry.slug),
     },
   });
 }
