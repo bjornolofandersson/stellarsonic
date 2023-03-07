@@ -1,3 +1,7 @@
+<script context="module">
+  export const client = false;
+</script>
+
 <script lang="ts">
   import type { BlogPage } from "@modules/blog/blog";
   import Paginator from "./common/Paginator.svelte";

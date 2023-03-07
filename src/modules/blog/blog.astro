@@ -4,6 +4,7 @@ import { BlogPage } from './blog';
 import { PageProps } from '@lib/interfaces';
 import ThemeDev from '@components/ThemeDev.svelte';
 import Theme from '@theme/Blog.svelte';
+import { client } from '@theme/Blog.svelte';
 import { Blog } from './blog.server';
 
 interface Props extends PageProps<Blog> {
@@ -37,6 +38,5 @@ const blogPage: BlogPage = {
     props={{page: blogPage}}
     client:load
   />
-  :
-  <Theme page={blogPage} site={site} />
+  : client ? <Theme page={blogPage} {site} client:load /> : <Theme page={blogPage} {site} />
 }

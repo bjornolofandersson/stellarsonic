@@ -1,5 +1,5 @@
 ---
-import Theme from '@theme/Gallery.svelte';
+import Theme, { client } from '@theme/Gallery.svelte';
 import { PageProps } from '@lib/interfaces';
 import { getPagePreview } from '@lib/page';
 import { getCollection } from 'astro:content';
@@ -27,6 +27,7 @@ for (let page of blogPages) {
     props={{previews}}
     client:load
   />
-  :
-  <Theme data={entity.data} site={site} previews={previews} client:load />
+  : client 
+    ? <Theme data={entity.data} site={site} previews={previews} client:load />
+    : <Theme data={entity.data} site={site} previews={previews} />
 }
