@@ -9,9 +9,9 @@ import { Gallery } from './gallery.server';
 interface Props extends PageProps<Gallery> {}
 
 const { entity, site, edit } = Astro.props;
-const gallery = entity.data.gallery;
+const include = entity.data.include;
 
-const blogPages = await getCollection('pages', p => p.data.parent === gallery.blog);
+const blogPages = await getCollection('pages', p => p.data.tags && p.data.tags.includes(include));
 let previews: any[] = [];
 for (let page of blogPages) {
   previews.push(await getPagePreview(page as any));

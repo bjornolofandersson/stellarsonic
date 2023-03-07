@@ -2,8 +2,6 @@
   import {
     Action,
     Palette,
-    SelectGroup,
-    SelectGroupOption,
     SettingsModal,
     SettingsPanel,
     Sidebar,
@@ -19,6 +17,7 @@
   import Site from '@components/editor/site/Site.svelte';
   import ColorGroup from './ColorGroup.svelte';
   import SiteSettings from './site/SiteSettings.svelte';
+  import PageEditor from './page/Page.svelte';
   
   export let page: Entity<Page>;
   export let template: Entity<any>;
@@ -27,12 +26,7 @@
   export let sitemap: any;
 
   let panel = 'content';
-  let status = page.data.draft ? 'draft' : 'published';
   let showSettings = false;
-
-  $: {
-    page.data.draft = status !== 'published';
-  }
 
   async function onSave() {
     store.saveEntity(page);
@@ -65,10 +59,7 @@
   </Panel>
 
   <Panel name="page">
-    <SelectGroup bind:selected={status}>
-      <SelectGroupOption id="published" icon="verified">Published</SelectGroupOption>
-      <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
-    </SelectGroup>
+    <PageEditor bind:page={page.data} />
   </Panel>
 
   <Panel name="colors">

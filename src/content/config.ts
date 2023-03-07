@@ -13,6 +13,7 @@ export const pageSchema = z.object({
     id: z.string(),
   }),
   palette: z.array(z.string()),
+  tags: z.array(z.string()).optional(),
 });
 
 const colorPair = z.tuple([z.number(), z.number()]);
