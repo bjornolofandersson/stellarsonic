@@ -4,6 +4,8 @@
     Palette,
     SelectGroup,
     SelectGroupOption,
+    SettingsModal,
+    SettingsPanel,
     Sidebar,
   } from 'src/editor';
   import ActionBar from 'src/editor/ActionBar.svelte';
@@ -16,6 +18,7 @@
   import Typography from '@components/editor/Typography.svelte';
   import Site from '@components/editor/site/Site.svelte';
   import ColorGroup from './ColorGroup.svelte';
+  import SiteSettings from './site/SiteSettings.svelte';
   
   export let page: Entity<Page>;
   export let template: Entity<any>;
@@ -25,6 +28,7 @@
 
   let panel = 'content';
   let status = page.data.draft ? 'draft' : 'published';
+  let showSettings = false;
 
   $: {
     page.data.draft = status !== 'published';
@@ -44,7 +48,7 @@
       <Action icon="undo" onClick={() => {}} disabled={true}/>
       <Action icon="redo" onClick={() => {}} disabled={true}/>
       <Action icon="save" onClick={onSave}/>
-      <Action icon="settings" onClick={() => {}}/>
+      <Action icon="settings" onClick={() => { showSettings = true }}/>
     </ActionBar>
 
     <Tabs>
@@ -71,7 +75,6 @@
     <Palette bind:colors={page.data.palette} />
     <ColorGroup title="Main" bind:colors={template.data.colorGroups[0]} bind:palette={page.data.palette} />
     <ColorGroup title="Article" bind:colors={template.data.colorGroups[1]} bind:palette={page.data.palette} />
-    <!--<Colors bind:colors={template.data.colors} bind:palette={page.data.palette} />-->
   </Panel>
 
   <Panel name="typography">
@@ -82,3 +85,9 @@
     <Site bind:site={site} sitemap={sitemap} />
   </Panel>
 </Sidebar>
+
+<SettingsModal bind:show={showSettings} onSave={onSave}>
+  <SettingsPanel name="Site">
+    <SiteSettings bind:site={site} />
+  </SettingsPanel>
+</SettingsModal>
