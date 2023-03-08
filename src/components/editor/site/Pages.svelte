@@ -17,14 +17,7 @@
   }
 
   const pageIcon = (page: any) => {
-    console.log(page);
-    switch (page.type) {
-      case 'blog': return 'library_books';
-      case 'page': return 'draft';
-      case 'playlist': return 'queue_music';
-      case 'container': return 'display_external_input';
-    }
-    return 'draft';
+    return modules[page.type].icon;
   }
 </script>
 

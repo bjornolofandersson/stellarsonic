@@ -10,7 +10,7 @@ export async function getSitemap() {
     pages: [
       ...pages
         .filter(p => p.data.parent === undefined)
-        .map(p => ({title: p.data.title, path: p.slug, type: p.data.content ? p.data.content.type : 'page'})),
+        .map(p => ({title: p.data.title, path: p.slug, type: p.data.type})),
     ]};
 }
 

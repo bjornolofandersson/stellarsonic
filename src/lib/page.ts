@@ -2,6 +2,7 @@
 import { Entity, Mount, PageSummary, ServerModule } from '@lib/interfaces';
 import { CollectionEntry, getEntryBySlug } from 'astro:content';
 import { CollectionController } from '@lib/CollectionController';
+import { getServerModules } from './server';
 
 async function getTemplate(name: string): Promise<Entity<any>> {
   try {
@@ -25,18 +26,12 @@ async function getTemplate(name: string): Promise<Entity<any>> {
 
 export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Record<string, ServerModule>) {
   const paths: any[] = [];
-  const content = page.data.content;
   const template = await getTemplate(page.data.context);
+  const moduleName = page.data.type;
+  const collection = modules[moduleName].collection;
 
-  const entry = await getEntryBySlug(content.collection as any, content.id);
+  const entry = await getEntryBySlug(collection as any, page.data.reference);
   const col = new CollectionController(entry.collection);
-
-  let moduleName: string = '';
-  for (let name of Object.keys(modules)) {
-    if (modules[name].collection === content.collection) {
-      moduleName = name;
-    }
-  }
 
   const mount: Mount = (path, Component, config) => {
     paths.push({
@@ -77,11 +72,8 @@ export async function getPagePreview(page: CollectionEntry<'pages'>): Promise<Pa
 }
 
 export async function getPageContent(page: CollectionEntry<'pages'>) {
-  const content = page.data.content;
+  const modules = await getServerModules();
+  const collection = modules[page.data.type].collection;
 
-  if (content) {
-    return await getEntryBySlug(content.collection as any, content.id);
-  } else {
-    throw Error('page does not have content');
-  }
+  return getEntryBySlug(collection as any, page.data.reference);
 }

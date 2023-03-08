@@ -8,10 +8,8 @@ export const pageSchema = z.object({
   parent: z.string().optional(),
   context: z.string(),
   draft: z.boolean().optional(),
-  content: z.object({
-    collection: z.string(),
-    id: z.string(),
-  }),
+  type: z.string(),
+  reference: z.string(),
   palette: z.array(z.string()),
   tags: z.array(z.string()).optional(),
 });
