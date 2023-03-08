@@ -5,7 +5,6 @@
   import CreateArticle from '@modules/article/article.form.svelte';
   import type { ModuleDescription } from "@lib/interfaces";
 
-  export let sitemap: any;
   export let site: any;
   export let modules: Record<string, ModuleDescription>;
 
@@ -20,7 +19,7 @@
   }
 </script>
 
-<Pages sitemap={sitemap} modules={modules} onAdd={type => { showAddModal = type}} />
+<Pages modules={modules} onAdd={type => { showAddModal = type}} />
 <Navigation links={site.navigation} onAdd={onAddLink} onDelete={onDeleteLink}/>
 
 <!--<CreateArticle show={showAddModal === 'article'} />-->

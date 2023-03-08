@@ -5,7 +5,6 @@
   import EditorSidebar from "./EditorSidebar.svelte";
   
   export let state: PageState;
-  export let sitemap: any;
   export let modules: Record<string, ModuleDescription>;
 
   const page = store.loadEntity(state.page);
@@ -25,7 +24,6 @@
     bind:palette={$palette}
     bind:content={$content}
     bind:site={$site}
-    sitemap={sitemap}
     modules={modules}
   >
     <slot name="content-editor" slot="content-editor" />

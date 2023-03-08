@@ -24,7 +24,6 @@
   export let palette: Entity<Palette>;
   export let content: Entity<any>;
   export let site: any;
-  export let sitemap: any;
   export let modules: Record<string, ModuleDescription>;
 
   let panel = 'content';
@@ -76,7 +75,7 @@
   </Panel>
 
   <Panel name="site">
-    <Site bind:site={site} sitemap={sitemap} modules={modules} />
+    <Site bind:site={site} modules={modules} />
   </Panel>
 </Sidebar>
 

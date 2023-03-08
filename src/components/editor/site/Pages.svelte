@@ -1,13 +1,14 @@
 <script lang="ts">
-  import type { ModuleDescription } from "@lib/interfaces";
+  import type { Entity, ModuleDescription } from "@lib/interfaces";
+  import type { Page } from "src/content/config";
   import { Action, LinkListItem, List, TitleBar } from "src/editor";
   import ExpandAdd from "src/editor/ExpandAdd.svelte";
 
-  export let sitemap: any;
   export let modules: Record<string, ModuleDescription>;
   export let onAdd: (type: string) => void;
 
   let showAdd: boolean = false;
+  let pages: Entity<Page>[] = [];
 
   async function onDeletePage(page: any) {
     await fetch(`/api/pages/${page.path}.json`, {
@@ -16,9 +17,17 @@
     });
   }
 
-  const pageIcon = (page: any) => {
+  const pageIcon = (page: Page) => {
     return modules[page.type].icon;
   }
+
+  async function loadPages() {
+    const resp = await fetch(`/api/pages.json`);
+    pages = await resp.json();
+    console.log(pages);
+  }
+
+  loadPages();
 </script>
 
 <TitleBar title="pages">
@@ -37,9 +46,9 @@
 </ExpandAdd>
 
 <List class="mb-8">
-  {#each sitemap.pages as page}
-    <LinkListItem icon={pageIcon(page)} url="/{page.path}">
-      {page.path}
+  {#each pages.filter(p => p.data.parent === undefined) as page}
+    <LinkListItem icon={pageIcon(page.data)} url={page.slug}>
+      {page.slug}
       <Action slot="actions" icon={"delete"} onClick={() => onDeletePage(page)}/>
     </LinkListItem>
   {/each}
