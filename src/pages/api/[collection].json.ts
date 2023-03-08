@@ -2,7 +2,7 @@ import { APIRoute } from "astro"
 import { CollectionController } from "@lib/CollectionController";
 
 export async function getStaticPaths() {
-  const collections = ['blogs', 'mixes', 'galleries', 'pages', 'templates'];
+  const collections = ['blogs', 'mixes', 'galleries', 'pages', 'templates', 'palettes'];
   const paths: any[] = [];
 
   for (let c of collections) {
