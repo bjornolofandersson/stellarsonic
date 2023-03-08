@@ -3,6 +3,8 @@ import { Page } from "astro";
 import { z, CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
 import BlogPage from './blog.astro';
 
+export const name = 'Blog';
+export const icon = 'library_books';
 export const collection = 'blogs';
 export const schema = z.object({
   title: z.string(),

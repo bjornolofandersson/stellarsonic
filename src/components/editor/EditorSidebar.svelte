@@ -12,7 +12,7 @@
   import Tab from 'src/editor/Tab.svelte';
   import * as store from '@lib/store';
   import type { Page } from 'src/content/config';
-  import type { Entity } from '@lib/interfaces';
+  import type { Entity, ModuleDescription } from '@lib/interfaces';
   import Typography from '@components/editor/Typography.svelte';
   import Site from '@components/editor/site/Site.svelte';
   import ColorGroup from './ColorGroup.svelte';
@@ -24,6 +24,7 @@
   export let content: Entity<any>;
   export let site: any;
   export let sitemap: any;
+  export let modules: Record<string, ModuleDescription>;
 
   let panel = 'content';
   let showSettings = false;
@@ -73,7 +74,7 @@
   </Panel>
 
   <Panel name="site">
-    <Site bind:site={site} sitemap={sitemap} />
+    <Site bind:site={site} sitemap={sitemap} modules={modules} />
   </Panel>
 </Sidebar>
 

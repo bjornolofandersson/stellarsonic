@@ -1,6 +1,6 @@
 ---
-import { Entity, MountConfig } from '@lib/interfaces';
-import { getSitemap } from '@lib/server';
+import { Entity, ModuleDescription, MountConfig } from '@lib/interfaces';
+import { getServerModules, getSitemap } from '@lib/server';
 import { CollectionEntry } from 'astro:content';
 import PageLayout from '@layouts/Page.astro'
 import EditorLoader from '@components/editor/EditorLoader.svelte';
@@ -28,9 +28,15 @@ const sitemap = await getSitemap();
 const { Content } = await entry.render();
 const entity = CollectionController.makeEntity(entry);
 const isDev = import.meta.env.MODE === 'development';
+const modules = getServerModules();
+
+const clientModules: Record<string, ModuleDescription> = {}
+for (let [id, m] of Object.entries(modules)) {
+  clientModules[id] = { name: m.name, icon: m.icon, collection: m.collection };
+}
 ---
 
-<PageLayout state={{page, template, content: entity, site}} sitemap={sitemap}>
+<PageLayout state={{page, template, content: entity, site}} sitemap={sitemap} modules={clientModules}>
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{title}</title>

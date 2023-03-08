@@ -3,6 +3,11 @@ import Playlist from './playlist.astro';
 import site from '@settings';
 import { Mount } from "@lib/interfaces";
 
+
+export const name = 'Playlist';
+export const icon = 'queue_music';
+export const collection = 'mixes';
+
 const trackSchema = z.object({
   name: z.string(),
   artist: z.string(),
@@ -10,7 +15,6 @@ const trackSchema = z.object({
   duration: z.string(),
 });
 
-export const collection = 'mixes';
 export const schema = z.object({
   title: z.string(),
   subtitle: z.string().optional(),

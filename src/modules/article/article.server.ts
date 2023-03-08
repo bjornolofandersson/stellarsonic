@@ -2,6 +2,8 @@ import { Mount } from "@lib/interfaces";
 import { CollectionEntry, z } from "astro:content";
 import ArticleComponent from './article.astro';
 
+export const name = 'Article';
+export const icon = 'draft';
 export const collection = 'articles';
 export const schema = z.object({
   title: z.string(),

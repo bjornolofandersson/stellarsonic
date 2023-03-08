@@ -1,11 +1,12 @@
 <script lang="ts">
   import { Editor } from "src/editor";
   import * as store from '@lib/store';
-  import type { PageState } from '@lib/interfaces';
+  import type { ModuleDescription, PageState } from '@lib/interfaces';
   import EditorSidebar from "./EditorSidebar.svelte";
   
   export let state: PageState;
   export let sitemap: any;
+  export let modules: Record<string, ModuleDescription>;
 
   const page = store.loadEntity(state.page);
   const template = store.loadEntity(state.template);
@@ -16,7 +17,15 @@
 </script>
 
 <Editor pageTitle="Hello" onSave={() => {}}>
-  <EditorSidebar slot="sidebar" bind:page={$page} bind:template={$template} bind:content={$content} bind:site={$site} sitemap={sitemap}>
+  <EditorSidebar
+    slot="sidebar"
+    bind:page={$page}
+    bind:template={$template}
+    bind:content={$content}
+    bind:site={$site}
+    sitemap={sitemap}
+    modules={modules}
+  >
     <slot name="content-editor" slot="content-editor" />
   </EditorSidebar>
 

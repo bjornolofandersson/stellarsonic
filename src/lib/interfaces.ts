@@ -64,9 +64,15 @@ export interface SitePage {
   type: string;
 }
 
-export interface ServerModule {
-  collection: string;
+export interface ModuleDescription {
+  name: string;
 
+  icon: string;
+
+  collection: string;
+}
+
+export interface ServerModule extends ModuleDescription {
   onPage(mount: Mount, path: string, entry: CollectionEntry<any>): void;
 }
 

@@ -2,6 +2,8 @@ import { z, CollectionEntry } from "astro:content";
 import Gallery from './gallery.astro';
 import { Mount } from "@lib/interfaces";
 
+export const name = 'Gallery';
+export const icon = 'gallery_thumbnail';
 export const collection = 'galleries';
 export const schema = z.object({
   title: z.string(),

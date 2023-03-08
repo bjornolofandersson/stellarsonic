@@ -4,15 +4,17 @@
 
   export let show: boolean = false;
   export let disabled: boolean = false;
+  export let button: boolean = true;
   export let onAdd: () => void;
 </script>
 
 {#if show}
   <div
-    class="relative mt-4 px-8 py-8 mb-8 -ml-8 -mr-8 bg-[#00000007]" 
+    class="relative mt-4 px-8 py-8 mb-8 -ml-8 -mr-8 bg-[#00000007] shadow-inner" 
     transition:slide={{ duration: 200, easing: quintOut }}
   >
     <slot/>
+    {#if button}
     <button
       on:click={onAdd}
       in:fly={{ delay: 200, x: 15, duration: 200, easing: quintOut }}
@@ -21,5 +23,6 @@
     >
       <span class="material-symbols-outlined">add</span>
     </button>
+    {/if}
   </div>
 {/if}
