@@ -11,7 +11,7 @@
   import Tabs from 'src/editor/Tabs.svelte';
   import Tab from 'src/editor/Tab.svelte';
   import * as store from '@lib/store';
-  import type { Page } from 'src/content/config';
+  import type { Page, Template } from 'src/content/config';
   import type { Entity, ModuleDescription } from '@lib/interfaces';
   import Typography from '@components/editor/Typography.svelte';
   import Site from '@components/editor/site/Site.svelte';
@@ -20,7 +20,8 @@
   import PageEditor from './page/Page.svelte';
   
   export let page: Entity<Page>;
-  export let template: Entity<any>;
+  export let template: Entity<Template>;
+  export let palette: Entity<Palette>;
   export let content: Entity<any>;
   export let site: any;
   export let sitemap: any;
@@ -32,6 +33,7 @@
   async function onSave() {
     store.saveEntity(page);
     store.saveEntity(template);
+    store.saveEntity(palette);
     store.saveEntity(content);
     store.saveSite();
   }
@@ -64,9 +66,9 @@
   </Panel>
 
   <Panel name="colors">
-    <Palette bind:colors={page.data.palette} />
-    <ColorGroup title="Main" bind:colors={template.data.colorGroups[0]} bind:palette={page.data.palette} />
-    <ColorGroup title="Article" bind:colors={template.data.colorGroups[1]} bind:palette={page.data.palette} />
+    <Palette bind:colors={palette.data.colors} />
+    <ColorGroup title="Main" bind:colors={template.data.colorGroups[0]} bind:palette={palette.data.colors} />
+    <ColorGroup title="Article" bind:colors={template.data.colorGroups[1]} bind:palette={palette.data.colors} />
   </Panel>
 
   <Panel name="typography">

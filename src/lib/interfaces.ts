@@ -1,4 +1,4 @@
-import type { Page, Template } from "src/content/config";
+import type { Page, Palette, Template } from "src/content/config";
 import { CollectionEntry } from "astro:content";
 
 export interface PageSummary {
@@ -15,6 +15,8 @@ export interface PageState {
   page: Entity<Page>;
 
   template: Entity<Template>;
+  
+  palette: Entity<Palette>;
 
   content: Entity<any>;
 

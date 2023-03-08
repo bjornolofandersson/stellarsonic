@@ -1,24 +1,24 @@
 <script lang="ts">
   import type { Entity } from "@lib/interfaces";
   import { loadEntity } from "@lib/store";
-  import type { Page, Template } from "src/content/config";
+  import type { Palette, Template } from "src/content/config";
 
   export let template: Entity<Template>;
-  export let page: Entity<Page>;
+  export let palette: Entity<Palette>;
 
   const t = loadEntity(template);
-  const p = loadEntity(page);
+  const p = loadEntity(palette);
 </script>
 
 <main class="bg-slate-100 dark:bg-dark-base" style={`
-  --theme-bg-primary: ${$p.data.palette[$t.data.colorGroups[0].background[0]]};
-  --theme-bg-accent: ${$p.data.palette[$t.data.colorGroups[0].background[1]]};
-  --theme-text-primary: ${$p.data.palette[$t.data.colorGroups[0].text[0]]};
-  --theme-text-accent: ${$p.data.palette[$t.data.colorGroups[0].text[1]]};
-  --theme-article-bg-primary: ${$p.data.palette[$t.data.colorGroups[1].background[0]]};
-  --theme-article-bg-accent: ${$p.data.palette[$t.data.colorGroups[1].background[1]]};
-  --theme-article-text-primary: ${$p.data.palette[$t.data.colorGroups[1].text[0]]};
-  --theme-article-text-accent: ${$p.data.palette[$t.data.colorGroups[1].text[1]]};
+  --theme-bg-primary: ${$p.data.colors[$t.data.colorGroups[0].background[0]]};
+  --theme-bg-accent: ${$p.data.colors[$t.data.colorGroups[0].background[1]]};
+  --theme-text-primary: ${$p.data.colors[$t.data.colorGroups[0].text[0]]};
+  --theme-text-accent: ${$p.data.colors[$t.data.colorGroups[0].text[1]]};
+  --theme-article-bg-primary: ${$p.data.colors[$t.data.colorGroups[1].background[0]]};
+  --theme-article-bg-accent: ${$p.data.colors[$t.data.colorGroups[1].background[1]]};
+  --theme-article-text-primary: ${$p.data.colors[$t.data.colorGroups[1].text[0]]};
+  --theme-article-text-accent: ${$p.data.colors[$t.data.colorGroups[1].text[1]]};
   --theme-font-h1: ${$t.data.fontFamily.h1};
   --theme-font-p: ${$t.data.fontFamily.p};
   --theme-font-button: ${$t.data.fontFamily.button};

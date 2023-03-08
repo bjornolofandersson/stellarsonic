@@ -6,7 +6,7 @@ import PageLayout from '@layouts/Page.astro'
 import EditorLoader from '@components/editor/EditorLoader.svelte';
 import Schema from '@components/Schema.astro';
 import { CollectionController } from '@lib/CollectionController';
-import type { Page, Template } from "src/content/config";
+import type { Page, Palette, Template } from "src/content/config";
 import site from '@settings';
 
 interface Props extends MountConfig {
@@ -19,11 +19,13 @@ interface Props extends MountConfig {
   page: Entity<Page>;
 
   template: Entity<Template>;
+  
+  palette: Entity<Palette>;
 
   module?: string;
 }
 
-const { Component, entry, title, page, template, module, schema, editor, props } = Astro.props;
+const { Component, entry, title, page, template, palette, module, schema, editor, props } = Astro.props;
 const sitemap = await getSitemap();
 const { Content } = await entry.render();
 const entity = CollectionController.makeEntity(entry);
@@ -36,7 +38,7 @@ for (let [id, m] of Object.entries(modules)) {
 }
 ---
 
-<PageLayout state={{page, template, content: entity, site}} sitemap={sitemap} modules={clientModules}>
+<PageLayout state={{page, template, palette, content: entity, site}} sitemap={sitemap} modules={clientModules}>
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{title}</title>

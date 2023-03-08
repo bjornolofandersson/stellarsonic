@@ -9,14 +9,14 @@ const { isDev, state, sitemap, modules } = Astro.props;
   <body>
     <Editor state={state} sitemap={sitemap} modules={modules} client:only>
       <slot name="content-editor" slot="content-editor"/>
-      <Main slot="preview" template={state.template} page={state.page} client:load>
+      <Main slot="preview" template={state.template} palette={state.palette} client:load>
         <slot/>
       </Main>
     </Editor>
   </body>
 :
   <body>
-    <Main template={state.template} page={state.page}>
+    <Main template={state.template} palette={state.palette}>
       <slot/>
     </Main>
   </body>

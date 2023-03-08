@@ -10,6 +10,7 @@
 
   const page = store.loadEntity(state.page);
   const template = store.loadEntity(state.template);
+  const palette = store.loadEntity(state.palette);
   const content = store.loadEntity(state.content);
 
   store.site.set(state.site);
@@ -21,6 +22,7 @@
     slot="sidebar"
     bind:page={$page}
     bind:template={$template}
+    bind:palette={$palette}
     bind:content={$content}
     bind:site={$site}
     sitemap={sitemap}

@@ -10,7 +10,7 @@ export const pageSchema = z.object({
   draft: z.boolean().optional(),
   type: z.string(),
   reference: z.string(),
-  palette: z.array(z.string()),
+  palette: z.string(),
   tags: z.array(z.string()).optional(),
 });
 
@@ -71,12 +71,18 @@ export const templateSchema = z.object({
   }),
 });
 
+export const paletteSchema = z.object({
+  colors: z.array(z.string()),
+});
+
 export type Page = z.infer<typeof pageSchema>;
 export type Template = z.infer<typeof templateSchema>;
+export type Palette = z.infer<typeof paletteSchema>;
 
 export const collections = {
   pages: defineCollection({schema: pageSchema}),
   templates: defineCollection({schema: templateSchema}),
+  palettes: defineCollection({schema: paletteSchema}),
 
   blogs: defineCollection({schema: blog.schema}),
   mixes: defineCollection({schema: playlist.schema}),

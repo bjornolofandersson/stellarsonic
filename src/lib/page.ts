@@ -3,6 +3,7 @@ import { Entity, Mount, PageSummary, ServerModule } from '@lib/interfaces';
 import { CollectionEntry, getEntryBySlug } from 'astro:content';
 import { CollectionController } from '@lib/CollectionController';
 import { getServerModules } from './server';
+import { Palette } from 'src/content/config';
 
 async function getTemplate(name: string): Promise<Entity<any>> {
   try {
@@ -24,9 +25,15 @@ async function getTemplate(name: string): Promise<Entity<any>> {
   }
 }
 
+async function getPalette(name: string): Promise<Entity<Palette>> {
+  const entry = await getEntryBySlug('palettes', name);
+  return CollectionController.makeEntity(entry);
+}
+
 export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Record<string, ServerModule>) {
   const paths: any[] = [];
   const template = await getTemplate(page.data.context);
+  const palette = await getPalette(page.data.palette);
   const moduleName = page.data.type;
   const collection = modules[moduleName].collection;
 
@@ -43,6 +50,7 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
         module: moduleName,
         page: CollectionController.makeEntity(page),
         template,
+        palette,
         editor: {
           entity: CollectionController.makeEntity(entry),
           assets: col.getAssetPaths(entry.slug),
