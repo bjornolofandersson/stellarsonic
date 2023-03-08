@@ -29,15 +29,9 @@ const { Component, entry, title, page, template, palette, module, schema, editor
 const { Content } = await entry.render();
 const entity = CollectionController.makeEntity(entry);
 const isDev = import.meta.env.MODE === 'development';
-const modules = getServerModules();
-
-const clientModules: Record<string, ModuleDescription> = {}
-for (let [id, m] of Object.entries(modules)) {
-  clientModules[id] = { name: m.name, icon: m.icon, collection: m.collection };
-}
 ---
 
-<PageLayout state={{page, template, palette, content: entity, site}} modules={clientModules}>
+<PageLayout state={{page, template, palette, content: entity, site}}>
   <Fragment slot="head-bottom">
     <Schema data={schema}/>
     <title>{title}</title>

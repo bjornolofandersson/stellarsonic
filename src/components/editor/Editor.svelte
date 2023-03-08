@@ -1,11 +1,10 @@
 <script lang="ts">
   import { Editor } from "src/editor";
   import * as store from '@lib/store';
-  import type { ModuleDescription, PageState } from '@lib/interfaces';
+  import type { PageState } from '@lib/interfaces';
   import EditorSidebar from "./EditorSidebar.svelte";
   
   export let state: PageState;
-  export let modules: Record<string, ModuleDescription>;
 
   const page = store.loadEntity(state.page);
   const template = store.loadEntity(state.template);
@@ -24,7 +23,6 @@
     bind:palette={$palette}
     bind:content={$content}
     bind:site={$site}
-    modules={modules}
   >
     <slot name="content-editor" slot="content-editor" />
   </EditorSidebar>

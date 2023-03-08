@@ -24,7 +24,6 @@
   export let palette: Entity<Palette>;
   export let content: Entity<any>;
   export let site: any;
-  export let modules: Record<string, ModuleDescription>;
 
   let panel = 'content';
   let showSettings = false;
@@ -75,7 +74,7 @@
   </Panel>
 
   <Panel name="site">
-    <Site bind:site={site} modules={modules} />
+    <Site bind:site={site} />
   </Panel>
 </Sidebar>
 

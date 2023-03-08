@@ -4,11 +4,11 @@
   import { Action, LinkListItem, List, TitleBar } from "src/editor";
   import ExpandAdd from "src/editor/ExpandAdd.svelte";
 
-  export let modules: Record<string, ModuleDescription>;
   export let onAdd: (type: string) => void;
 
   let showAdd: boolean = false;
   let pages: Entity<Page>[] = [];
+  let modules: Record<string, ModuleDescription> = {}
 
   async function onDeletePage(page: any) {
     await fetch(`/api/pages/${page.path}.json`, {
@@ -18,13 +18,14 @@
   }
 
   const pageIcon = (page: Page) => {
-    return modules[page.type].icon;
+    return modules[page.type] ? modules[page.type].icon : '';
   }
 
   async function loadPages() {
-    const resp = await fetch(`/api/pages.json`);
-    pages = await resp.json();
-    console.log(pages);
+    const modulesResp = await fetch(`/api/modules.json`);
+    modules = await modulesResp.json();
+    const pagesResp = await fetch(`/api/pages.json`);
+    pages = await pagesResp.json();
   }
 
   loadPages();

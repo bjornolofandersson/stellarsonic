@@ -6,7 +6,6 @@
   import type { ModuleDescription } from "@lib/interfaces";
 
   export let site: any;
-  export let modules: Record<string, ModuleDescription>;
 
   let showAddModal: string | undefined = undefined;
 
@@ -19,7 +18,7 @@
   }
 </script>
 
-<Pages modules={modules} onAdd={type => { showAddModal = type}} />
+<Pages onAdd={type => { showAddModal = type}} />
 <Navigation links={site.navigation} onAdd={onAddLink} onDelete={onDeleteLink}/>
 
 <!--<CreateArticle show={showAddModal === 'article'} />-->
