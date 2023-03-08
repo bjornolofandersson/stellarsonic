@@ -1,6 +1,7 @@
 import { Mount } from "@lib/interfaces";
+import { getPageContent } from "@lib/page";
 import { Page } from "astro";
-import { z, CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
+import { z, CollectionEntry, getCollection } from "astro:content";
 import BlogPage from './blog.astro';
 
 export const name = 'Blog';
@@ -27,7 +28,7 @@ export async function onPage(mount: Mount, path: string, entry: CollectionEntry<
 
   let posts: any[] = [];
   for (let p of postPageEntries) {
-    const e = await getEntryBySlug(p.data.content.collection, p.data.content.id);
+    const e = await getPageContent(p as any);
     posts.push({...e, slug: p.slug});
   }
 
