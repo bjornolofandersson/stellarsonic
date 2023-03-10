@@ -37,3 +37,25 @@ export async function saveSite() {
     body,
   });
 }
+
+export function editorPanel(panel: string) {
+  const store = writable(panel);
+  const { subscribe, set, update } = store;
+
+  const storedValue = localStorage.getItem('editor-panel')
+
+  if (storedValue) {
+    set(storedValue);
+  } else {
+    set(panel);
+  }
+
+  return {
+    subscribe,
+    set: (p: string) => localStorage.setItem('editor-panel', p),
+    update: (cb: any) => {
+      const updatedStore = cb(get(store));
+      localStorage.setItem('editor-panel', updatedStore);
+    }
+  };
+}

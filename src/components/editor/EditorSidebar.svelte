@@ -17,6 +17,7 @@
   import PageEditor from './page/Page.svelte';
   import Colors from './colors/Colors.svelte';
   import { createEventDispatcher } from 'svelte';
+  import * as store from '@lib/store';
 
 	const dispatch = createEventDispatcher();
   
@@ -25,7 +26,9 @@
   export let palette: Entity<Palette>;
   export let site: any;
 
-  let panel = 'content';
+  let panel = store.editorPanel('content');
+
+  //let panel = 'content';
   let showSettings = false;
 
   async function onSave() {
@@ -33,7 +36,7 @@
   }
 </script>
 
-<Sidebar bind:panel={panel}>
+<Sidebar bind:panel={$panel}>
   <div class="px-8" slot="header">
     <ActionBar slug={page.slug}>
       <Action icon="undo" onClick={() => {}} disabled={true}/>
