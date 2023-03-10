@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -13,6 +13,7 @@
     "@astrojs/svelte": "^2.0.0",
     "@astrojs/tailwind": "^3.0.0",
     "astro": "^2.0.0",
+    "browser-or-node": "^2.1.1",
     "deepmerge": "^4.3.0",
     "iso8601-duration": "^2.1.1",
     "slugify": "^1.6.5",

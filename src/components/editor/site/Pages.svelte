@@ -3,6 +3,8 @@
   import type { Page } from "src/content/config";
   import { Action, LinkListItem, List, TitleBar } from "src/editor";
   import ExpandAdd from "src/editor/ExpandAdd.svelte";
+  import { onMount } from "svelte";
+  import * as api from '@lib/api';
 
   export let onAdd: (type: string) => void;
 
@@ -10,25 +12,18 @@
   let pages: Entity<Page>[] = [];
   let modules: Record<string, ModuleDescription> = {}
 
-  async function onDeletePage(page: any) {
-    await fetch(`/api/pages/${page.path}.json`, {
-      method: 'DELETE',
-      //body: JSON.stringify(page),
-    });
+  function onDeletePage(page: Entity<Page>) {
+    api.deleteEntity('pages', page.id);
   }
 
   const pageIcon = (page: Page) => {
     return modules[page.type] ? modules[page.type].icon : '';
   }
 
-  async function loadPages() {
-    const modulesResp = await fetch(`/api/modules.json`);
-    modules = await modulesResp.json();
-    const pagesResp = await fetch(`/api/pages.json`);
-    pages = await pagesResp.json();
-  }
-
-  loadPages();
+  onMount(async () => {
+    modules = await api.modules();
+    pages = await api.collection<Page>('pages');
+  });
 </script>
 
 <TitleBar title="pages">

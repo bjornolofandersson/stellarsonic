@@ -4,6 +4,7 @@ import { CollectionEntry, getEntryBySlug } from 'astro:content';
 import { CollectionController } from '@lib/CollectionController';
 import { getServerModules } from './server';
 import { Palette } from 'src/content/config';
+import { getEntity } from './api';
 
 async function getTemplate(name: string): Promise<Entity<any>> {
   try {

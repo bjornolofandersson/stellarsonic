@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { Action, ExpandAdd, Input, LinkListItem, List, Scrollable, SettingsModal, SettingsPanel, TitleBar } from "src/editor";
-  import { quintOut } from "svelte/easing";
-  import { fly, slide } from "svelte/transition";
+  import { Action, ExpandAdd, Input, LinkListItem, List, TitleBar } from "src/editor";
 
   export let links: any;
   export let onDelete: (link: any) => void;
