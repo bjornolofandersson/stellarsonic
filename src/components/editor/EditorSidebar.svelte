@@ -1,7 +1,6 @@
 <script lang="ts">
   import {
     Action,
-    Palette,
     SettingsModal,
     SettingsPanel,
     Sidebar,
@@ -10,30 +9,27 @@
   import Panel from 'src/editor/Panel.svelte';
   import Tabs from 'src/editor/Tabs.svelte';
   import Tab from 'src/editor/Tab.svelte';
-  import * as store from '@lib/store';
-  import type { Page, Template } from 'src/content/config';
-  import type { Entity, ModuleDescription } from '@lib/interfaces';
+  import type { Page, Template, Palette } from 'src/content/config';
+  import type { Entity } from '@lib/interfaces';
   import Typography from '@components/editor/Typography.svelte';
   import Site from '@components/editor/site/Site.svelte';
-  import ColorGroup from './ColorGroup.svelte';
   import SiteSettings from './site/SiteSettings.svelte';
   import PageEditor from './page/Page.svelte';
+  import Colors from './colors/Colors.svelte';
+  import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
   
   export let page: Entity<Page>;
   export let template: Entity<Template>;
   export let palette: Entity<Palette>;
-  export let content: Entity<any>;
   export let site: any;
 
   let panel = 'content';
   let showSettings = false;
 
   async function onSave() {
-    store.saveEntity(page);
-    store.saveEntity(template);
-    store.saveEntity(palette);
-    store.saveEntity(content);
-    store.saveSite();
+    dispatch('save');
   }
 </script>
 
@@ -64,9 +60,7 @@
   </Panel>
 
   <Panel name="colors">
-    <Palette bind:colors={palette.data.colors} />
-    <ColorGroup title="Main" bind:colors={template.data.colorGroups[0]} bind:palette={palette.data.colors} />
-    <ColorGroup title="Article" bind:colors={template.data.colorGroups[1]} bind:palette={palette.data.colors} />
+    <Colors bind:page={page.data} bind:palette={palette.data} bind:template={template.data} />
   </Panel>
 
   <Panel name="typography">
