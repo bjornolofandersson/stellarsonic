@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Page } from "src/content/config";
   import { Action, ExpandAdd, Input, ListItem, List, SelectGroup, SelectGroupOption, TitleBar } from "src/editor";
+    import ExpandRight from "src/editor/ExpandRight.svelte";
 
   export let page: Page;
 
@@ -26,6 +27,12 @@
     <SelectGroupOption id="published" icon="verified">Published</SelectGroupOption>
     <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
   </SelectGroup>
+</div>
+
+<div class="mb-8">
+  <ExpandRight icon="title" label="Typography" on:click={() => {}}></ExpandRight>
+  <ExpandRight icon="palette" label="Colors"></ExpandRight>
+  <ExpandRight icon="text_snippet" label="Content"></ExpandRight>
 </div>
 
 <TitleBar title="tags">
