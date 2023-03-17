@@ -9,8 +9,8 @@
   export let onSave: () => void;
 </script>
 
-<div class="bg-stone-300 fixed w-screen h-screen">
-  <div class="w-[512px] h-full absolute text-stone-700 font-editor">
+<div class="bg-stone-200 fixed w-screen h-screen">
+  <div class="w-[420px] h-full absolute text-stone-700 font-editor">
     <slot name="sidebar"/>
   </div>
 

@@ -45,7 +45,7 @@
   <Input placeholder="Title" bind:value={postTitle} />
 </ExpandAdd>
 
-<input type="search" class="w-full p-4 mt-4 bg-transparent border-b border-stone-400 focus:border-stone-700 focus:text-stone-700 focus:outline-none placeholder-stone-400"
+<input type="search" class="w-full p-4 mb-4 bg-transparent border-b border-stone-400 focus:border-stone-700 focus:text-stone-700 focus:outline-none placeholder-stone-400"
   placeholder="Search posts" aria-label="Search" bind:value={search}>
 
 <List class="mb-8">

@@ -14,9 +14,9 @@
 </script>
 
 {#if $selected === name}
-  <div class="absolute overflow-y-auto max-h-full w-full px-8"
-    in:fly={{ x: parent ? 512 : -512, duration: 500, easing: quintOut }}
-    out:fly={{ x: $back ? 512 : -512, duration: 500, easing: quintOut }}
+  <div class="absolute overflow-y-auto max-h-full h-full w-full px-8 pb-8 flex flex-col"
+    in:fly={{ x: parent ? 420 : -420, duration: 500, easing: quintOut }}
+    out:fly={{ x: $back ? 420 : -420, duration: 500, easing: quintOut }}
   >
     {#if parent}
     <BackArrow title={name} on:click={() => selectPanel(parent, true)}/>

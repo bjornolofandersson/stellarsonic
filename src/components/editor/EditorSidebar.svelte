@@ -7,8 +7,6 @@
   } from 'src/editor';
   import ActionBar from 'src/editor/ActionBar.svelte';
   import Panel from 'src/editor/Panel.svelte';
-  import Tabs from 'src/editor/Tabs.svelte';
-  import Tab from 'src/editor/Tab.svelte';
   import type { Page, Template, Palette } from 'src/content/config';
   import type { Entity } from '@lib/interfaces';
   import Typography from '@components/editor/Typography.svelte';
@@ -18,7 +16,6 @@
   import Colors from './colors/Colors.svelte';
   import { createEventDispatcher } from 'svelte';
   import * as store from '@lib/store';
-    import BackArrow from 'src/editor/BackArrow.svelte';
 
 	const dispatch = createEventDispatcher();
   
@@ -29,7 +26,6 @@
 
   let panel = store.editorPanel('content');
 
-  //let panel = 'content';
   let showSettings = false;
 
   async function onSave() {
@@ -40,21 +36,9 @@
 <Sidebar bind:panel={$panel}>
   <div class="px-8" slot="header">
     <ActionBar slug={page.slug}>
-      <Action icon="undo" onClick={() => {}} disabled={true}/>
-      <Action icon="redo" onClick={() => {}} disabled={true}/>
       <Action icon="save" onClick={onSave}/>
       <Action icon="settings" onClick={() => { showSettings = true }}/>
     </ActionBar>
-
-    <!--
-    <Tabs>
-      <Tab panel="content">Content</Tab>
-      <Tab panel="page">Page</Tab>
-      <Tab panel="typography">Typography</Tab>
-      <Tab panel="colors">Colors</Tab>
-      <Tab panel="site">Site</Tab>
-    </Tabs>
-  -->
   </div>
 
   <Panel name="content" parent="page">

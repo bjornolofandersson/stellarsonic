@@ -7,7 +7,7 @@
 </script>
 
 
-<div class="w-full absolute shadow-2xl" style={ edit ? 'width: calc(100vw - 512px - 1rem); top: 1rem; right: 1rem; bottom: 1rem' : ''}>
+<div class="w-full absolute shadow-2xl" style={ edit ? 'width: calc(100vw - 420px - 1rem); top: 1rem; right: 1rem; bottom: 1rem' : ''}>
   <!--
   {#if edit}
     <div class="w-full bg-white px-8 py-2 flex justify-between shadow-sm">
