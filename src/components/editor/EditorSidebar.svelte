@@ -50,6 +50,7 @@
       on:content={() => {$panel = 'content'}}
       on:typography={() => {$panel = 'typography'}}
       on:colors={() => {$panel = 'colors'}}
+      on:site={() => {$panel = 'site'}}
     />
   </Panel>
 
@@ -61,7 +62,7 @@
     <Typography bind:template={template.data} />
   </Panel>
 
-  <Panel name="site">
+  <Panel name="site" parent="page">
     <Site bind:site={site} />
   </Panel>
 </Sidebar>

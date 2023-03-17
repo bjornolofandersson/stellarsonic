@@ -35,9 +35,10 @@
   </div>
 -->
 
+  <ExpandRight icon="text_snippet" label="Content" on:click={() => dispatch('content')}></ExpandRight>
   <ExpandRight icon="title" label="Typography" on:click={() => dispatch('typography')}></ExpandRight>
   <ExpandRight icon="palette" label="Colors" on:click={() => dispatch('colors')}></ExpandRight>
-  <ExpandRight icon="text_snippet" label="Content" on:click={() => dispatch('content')}></ExpandRight>
+  <ExpandRight icon="web" label="Site" on:click={() => dispatch('site')}></ExpandRight>
   <ExpandSelect icon="draft" label="Publishing"></ExpandSelect>
 </div>
 
