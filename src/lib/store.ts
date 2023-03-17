@@ -52,7 +52,10 @@ export function editorPanel(panel: string) {
 
   return {
     subscribe,
-    set: (p: string) => localStorage.setItem('editor-panel', p),
+    set: (p: string) => {
+      store.set(p);
+      localStorage.setItem('editor-panel', p)
+    },
     update: (cb: any) => {
       const updatedStore = cb(get(store));
       localStorage.setItem('editor-panel', updatedStore);

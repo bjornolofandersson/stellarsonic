@@ -9,6 +9,7 @@
 
   const panels: string[] = [];
   const selected = writable<string | undefined>(panel);
+  const goBack = writable<boolean>(false);
 
   $: {
     getContext<any>(PANELS).selectPanel(panel);
@@ -25,11 +26,13 @@
 				selected.update(current => current === panel ? (panels[i] || panels[panel.length - 1]) : current);
 			});
 		},
-    selectPanel: (p: any) => {
+    selectPanel: (p: any, back: boolean = false) => {
 			selected.set(p);
+      goBack.set(back);
       panel = p;
 		},
     selected,
+    back: goBack,
     panels,
 	});
 </script>

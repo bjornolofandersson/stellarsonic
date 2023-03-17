@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { Page } from "src/content/config";
   import { Action, ExpandAdd, Input, ListItem, List, SelectGroup, SelectGroupOption, TitleBar } from "src/editor";
-    import ExpandRight from "src/editor/ExpandRight.svelte";
+  import ExpandRight from "src/editor/ExpandRight.svelte";
+  import { createEventDispatcher } from 'svelte';
 
   export let page: Page;
 
+	const dispatch = createEventDispatcher();
   let status = page.draft ? 'draft' : 'published';
   let tag: string = '';
   let showAdd = false;
@@ -30,9 +32,9 @@
 </div>
 
 <div class="mb-8">
-  <ExpandRight icon="title" label="Typography" on:click={() => {}}></ExpandRight>
-  <ExpandRight icon="palette" label="Colors"></ExpandRight>
-  <ExpandRight icon="text_snippet" label="Content"></ExpandRight>
+  <ExpandRight icon="title" label="Typography" on:click={() => dispatch('typography')}></ExpandRight>
+  <ExpandRight icon="palette" label="Colors" on:click={() => dispatch('colors')}></ExpandRight>
+  <ExpandRight icon="text_snippet" label="Content" on:click={() => dispatch('content')}></ExpandRight>
 </div>
 
 <TitleBar title="tags">

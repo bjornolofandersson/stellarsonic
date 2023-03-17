@@ -1,19 +1,26 @@
 <script lang="ts">
-  import { fade, fly } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import { quintOut } from "svelte/easing";
   import { getContext } from "svelte";
 	import { PANELS } from './Sidebar.svelte';
   import BackArrow from "./BackArrow.svelte";
   
   export let name: string;
+  export let parent: string | undefined = undefined;
 
-	const { registerPanel, selectPanel, selected, panels } = getContext<any>(PANELS);
+	const { registerPanel, selectPanel, selected, back } = getContext<any>(PANELS);
 
 	registerPanel(name);
 </script>
 
 {#if $selected === name}
-  <div class="absolute overflow-y-auto max-h-full w-full px-8 py-8" transition:fade={{ duration: 500, easing: quintOut }}>
+  <div class="absolute overflow-y-auto max-h-full w-full px-8"
+    in:fly={{ x: parent ? 512 : -512, duration: 500, easing: quintOut }}
+    out:fly={{ x: $back ? 512 : -512, duration: 500, easing: quintOut }}
+  >
+    {#if parent}
+    <BackArrow title={name} on:click={() => selectPanel(parent, true)}/>
+    {/if}
     <slot/>
   </div>
 {/if}

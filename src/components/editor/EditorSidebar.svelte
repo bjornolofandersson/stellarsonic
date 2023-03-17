@@ -18,6 +18,7 @@
   import Colors from './colors/Colors.svelte';
   import { createEventDispatcher } from 'svelte';
   import * as store from '@lib/store';
+    import BackArrow from 'src/editor/BackArrow.svelte';
 
 	const dispatch = createEventDispatcher();
   
@@ -45,6 +46,7 @@
       <Action icon="settings" onClick={() => { showSettings = true }}/>
     </ActionBar>
 
+    <!--
     <Tabs>
       <Tab panel="content">Content</Tab>
       <Tab panel="page">Page</Tab>
@@ -52,21 +54,26 @@
       <Tab panel="colors">Colors</Tab>
       <Tab panel="site">Site</Tab>
     </Tabs>
+  -->
   </div>
 
-  <Panel name="content">
+  <Panel name="content" parent="page">
     <slot name="content-editor"/>
   </Panel>
 
   <Panel name="page">
-    <PageEditor bind:page={page.data} />
+    <PageEditor bind:page={page.data}
+      on:content={() => {$panel = 'content'}}
+      on:typography={() => {$panel = 'typography'}}
+      on:colors={() => {$panel = 'colors'}}
+    />
   </Panel>
 
-  <Panel name="colors">
+  <Panel name="colors" parent="page">
     <Colors bind:page={page.data} bind:palette={palette.data} bind:template={template.data} />
   </Panel>
 
-  <Panel name="typography">
+  <Panel name="typography" parent="page">
     <Typography bind:template={template.data} />
   </Panel>
 

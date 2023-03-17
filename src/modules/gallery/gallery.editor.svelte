@@ -22,7 +22,7 @@
 </script>
 
 <div class="mb-8">
-  <label for="include" class="text-xs">Inclusion tag</label>
+  <label for="include" class="text-sm uppercase opacity-50">Inclusion tag</label>
   <Input id="include" placeholder="Inclusion tag" bind:value={content.include} />
   <div class="border border-[#00000010] p-4 rounded">
     <span class="text-sm opacity-50">Any page having a tag equal to the one above will be included in the gallery. Press save for changes to apply</span>
