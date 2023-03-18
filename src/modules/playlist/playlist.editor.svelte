@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Action, Input, TitleBar } from 'src/editor';
+  import { Action, ExpandAdd, Input, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
@@ -7,6 +7,7 @@
   import PlaylistForm from '@components/editor/forms/PlaylistForm.svelte';
   import type { MusicMix } from './playlist.server';
   import { MixPlaylist } from './playlist';
+  import ExpandRight from 'src/editor/ExpandRight.svelte';
 
   export let content: MusicMix;
   export let assets: string[];
@@ -15,6 +16,9 @@
 
   let showPlaylist: boolean = false;
   let selectedTrack: number = 0;
+
+  let category: string = '';
+  let showAdd = false;
 
   function addTrack() {
     content.tracks = [...content.tracks, {name: `Track ${content.tracks.length + 1}`, artist: '', year: 0, duration: 'PT3M0S'} as any];
@@ -51,17 +55,30 @@
   playlist.load();
 </script>
 
-<button class="flex justify-between mb-4 w-full bg-[#ffffff60] rounded shadow p-4" on:click={() => {showPlaylist = true}}>
-  <div class="flex gap-4">
-    <span class="material-symbols-outlined">queue_music</span>
-    <span>Playlist</span>
-  </div>
-  <span class="material-symbols-outlined">open_in_new</span>
-</button>
 
-<ImageForm bind:post={content} assets={assets} />
-<HeadingsForm bind:post={content} />
-<DescriptionForm bind:post={content} />
+<div class="flex-grow">
+  <ImageForm bind:post={content} assets={assets} />
+  <HeadingsForm bind:post={content} />
+  <DescriptionForm bind:post={content} />
+  <ExpandRight icon="queue_music" label="Playlist" on:click={() => {showPlaylist = true}}/>
+</div>
+
+<div class="">
+  <TitleBar title="categories">
+    <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
+  </TitleBar>
+
+  <ExpandAdd show={showAdd} onAdd={() => {}}>
+    <Input placeholder="Tag" bind:value={category} />
+  </ExpandAdd>
+
+  <div class="border border-[#00000010] p-4 rounded">
+    <span class="text-sm opacity-50">
+      This content does not have any categories yet
+    </span>
+  </div>
+</div>
+
 
 <SplitModal bind:show={showPlaylist} expand={true}>
   <div slot="header">

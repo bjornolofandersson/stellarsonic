@@ -26,24 +26,18 @@
 </script>
 
 <div class="flex-grow">
-  <!--
-  <div class="mb-8">
-    <SelectGroup bind:selected={status}>
-      <SelectGroupOption id="published" icon="verified">Published</SelectGroupOption>
-      <SelectGroupOption id="draft" icon="draft">Draft</SelectGroupOption>
-    </SelectGroup>
-  </div>
--->
-
   <ExpandRight icon="text_snippet" label="Content" on:click={() => dispatch('content')}></ExpandRight>
   <ExpandRight icon="title" label="Typography" on:click={() => dispatch('typography')}></ExpandRight>
   <ExpandRight icon="palette" label="Colors" on:click={() => dispatch('colors')}></ExpandRight>
   <ExpandRight icon="web" label="Site" on:click={() => dispatch('site')}></ExpandRight>
-  <ExpandSelect icon="draft" label="Publishing"></ExpandSelect>
+  <ExpandSelect icon="task_alt" label="Status">
+    <div slot="value">
+      <span class="capitalize">{status}</span>
+    </div>
+  </ExpandSelect>
 </div>
 
 <div class="">
-
   <TitleBar title="tags">
     <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
   </TitleBar>

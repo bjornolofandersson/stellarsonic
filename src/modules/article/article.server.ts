@@ -18,3 +18,33 @@ export function onPage(mount: Mount, path: string, entry: CollectionEntry<'artic
     schema: {},
   });
 }
+
+/*
+@module({
+  name: 'Article',
+  icon: 'draft'
+})
+@content({
+  collection: 'articles',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    image: z.string(),
+  })
+})
+export default class ArticleContent extends PageContent {
+  get component() {
+    return ArticleComponent;
+  }
+
+  get jsonld() {
+    
+  }
+
+  get preview() {
+    const { title, description, image} = this.entity.data;
+
+    return { title, description, image };
+  }
+}
+*/
