@@ -4,22 +4,21 @@
 
   import CreateArticle from '@modules/article/article.form.svelte';
   import type { ModuleDescription } from "@lib/interfaces";
+    import Scrollable from "src/editor/Scrollable.svelte";
+    import ExpandRight from "src/editor/ExpandRight.svelte";
 
   export let site: any;
+  export let panel: string;
 
   let showAddModal: string | undefined = undefined;
 
-  function onAddLink(link: any) {
-    site.navigation = [...site.navigation, link];
-  }
-
-  function onDeleteLink() {
-
-  }
 </script>
 
-<Pages onAdd={type => { showAddModal = type}} />
-<Navigation links={site.navigation} onAdd={onAddLink} onDelete={onDeleteLink}/>
+<Scrollable>
+  <Pages bind:panel={panel} onAdd={type => { showAddModal = type}} />
+</Scrollable>
+<ExpandRight icon="explore" label="Navigation" on:click={() => {panel = 'navigation'}}></ExpandRight>
+
 
 <!--<CreateArticle show={showAddModal === 'article'} />-->
 

@@ -7,6 +7,7 @@
   import * as api from '@lib/api';
 
   export let onAdd: (type: string) => void;
+  export let panel: string;
 
   let showAdd: boolean = false;
   let pages: Entity<Page>[] = [];
@@ -51,7 +52,10 @@
   {#each pages.sort((a, b) => a.slug > b.slug ? 1 : -1) as page}
     <LinkListItem icon={pageIcon(page.data)} url="/{page.slug}" active={isActive(page.slug)}>
       {page.slug}
-      <Action slot="actions" icon={"delete"} onClick={() => onDeletePage(page)}/>
+      <div slot="actions">
+        <Action class="dark" icon={"edit_square"} onClick={() => {panel = 'page'}}/>
+        <Action icon={"delete"} onClick={() => onDeletePage(page)}/>
+      </div>
     </LinkListItem>
   {/each}
 </List>

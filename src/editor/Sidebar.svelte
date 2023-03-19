@@ -10,8 +10,9 @@
 
   const panels: any[] = [];
   const selected = writable<string | undefined>(panel);
-  const goBack = writable<boolean>(false);
   const direction = writable<number>(420);
+
+  let parent: string | undefined = undefined;
 
   $: {
     const obj = panels.find(p => p.name === $selected);
@@ -23,10 +24,23 @@
     $selected = panel;
   }
 
+  selected.subscribe(s => {
+    updateParent();
+  });
+
+  function updateParent() {
+    const c = panels.find(o => o.name === $selected);
+    if (c) {
+      parent = c.parent;
+    }
+  }
+
+
 	setContext(PANELS, {
 		registerPanel: (p: any) => {
 			panels.push(p);
 			selected.update(current => current || p.name);
+      updateParent();
 			
 			onDestroy(() => {
 				const i = panels.indexOf(panel);
@@ -38,17 +52,14 @@
       panel = p;
 		},
     selected,
-    back: goBack,
     direction,
     panels,
 	});
 </script>
 
 <div class="flex flex-col h-screen">
-  <div>
-    <slot name="header"/>
-  </div>
   <div class="relative flex-grow">
     <slot/>
   </div>
+  <slot name="footer"/>
 </div>

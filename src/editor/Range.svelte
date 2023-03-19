@@ -8,10 +8,10 @@
 </script>
 
 <div class="relative">
-  <label for="font-size-h1" class="-mb-6 text-md text-stone-600 p-4 w-full flex justify-between">
+  <label for="range" class="-mb-6 text-sm text-stone-600 p-4 w-full flex justify-between">
     <span>{label}</span>
     <span>{value} {unit ? unit : ''}</span>
   </label>
-  <input id="font-size-h1" type="range" min={min} max={max} step={step} bind:value={value}
+  <input id="range" type="range" min={min} max={max} step={step} bind:value={value}
     class="w-full h-0.5 bg-stone-400 rounded-lg appearance-none cursor-pointer dark:bg-stone-700 accent-stone-500"/>
 </div>

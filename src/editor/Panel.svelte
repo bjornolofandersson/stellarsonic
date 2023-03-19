@@ -3,7 +3,6 @@
   import { quintOut } from "svelte/easing";
   import { getContext } from "svelte";
 	import { PANELS } from './Sidebar.svelte';
-  import BackArrow from "./BackArrow.svelte";
   
   export let name: string;
   export let parent: string | undefined = undefined;
@@ -14,13 +13,24 @@
 </script>
 
 {#if $selected === name}
-  <div class="absolute overflow-hidden max-h-full h-full w-full px-8 pb-8 flex flex-col"
+  <div class="absolute overflow-hidden max-h-full h-full w-full px-8 pt-8 flex flex-col"
     in:fly|local={{ x: $direction, duration: 500, easing: quintOut }}
     out:fly|local={{ x: -$direction, duration: 500, easing: quintOut }}
   >
-    {#if parent}
-    <BackArrow title={name} on:click={() => selectPanel(parent)}/>
-    {/if}
+    <div class="flex justify-between w-full mb-8">
+      <div class="flex gap-4 text-sm">
+        {#if parent}
+          <button class="text-stone-400 hover:text-stone-700" on:click={() => selectPanel(parent)}>
+            <span class="material-symbols-outlined -mb-1">keyboard_backspace</span>
+          </button>
+        {/if}
+        <h1 class="uppercase opacity-50">
+          {name}
+        </h1>
+      </div>
+      <slot name="title" />
+    </div>
+
     <slot/>
   </div>
 {/if}

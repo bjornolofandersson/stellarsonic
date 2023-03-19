@@ -20,6 +20,7 @@
   import FontPicker from './forms/FontPicker.svelte';
     import PalettePicker from './colors/PalettePicker.svelte';
     import ForwardArrow from 'src/editor/ForwardArrow.svelte';
+    import Navigation from './site/Navigation.svelte';
 
 	const dispatch = createEventDispatcher();
   
@@ -29,8 +30,17 @@
   export let site: any;
 
   let panel = store.editorPanel('content');
+  let title: string = '';
 
   let showSettings = false;
+
+  function onAddLink(link: any) {
+    site.navigation = [...site.navigation, link];
+  }
+
+  function onDeleteLink() {
+
+  }
 
   async function onSave() {
     dispatch('save');
@@ -38,16 +48,21 @@
 </script>
 
 <Sidebar bind:panel={$panel}>
-  <div class="px-8" slot="header">
+  <div class="px-8" slot="footer">
     <ActionBar slug={page.slug}>
       <Action icon="save" onClick={onSave}/>
       <Action icon="settings" onClick={() => { showSettings = true }}/>
     </ActionBar>
   </div>
 
+  <h1 slot="title">{title}</h1>
+
   <Panel name="site">
-    <ForwardArrow title="site" on:click={() => { $panel = 'page' }} />
-    <Site bind:site={site} />
+    <Site bind:site={site} bind:panel={$panel} />
+  </Panel>
+
+  <Panel name="navigation" parent="site">
+    <Navigation links={site.navigation} onAdd={onAddLink} onDelete={onDeleteLink}/>
   </Panel>
 
   <Panel name="content" parent="page">
@@ -71,6 +86,7 @@
   </Panel>
 
   <Panel name="heading" parent="typography">
+    <span slot="title">{template.data.fontFamily.h1}</span>
     <FontPicker label="Heading"
       bind:family={template.data.fontFamily.h1}
       bind:weight={template.data.fontWeight.h1}>
@@ -79,6 +95,7 @@
   </Panel>
 
   <Panel name="paragraph" parent="typography">
+    <span slot="title">{template.data.fontFamily.p}</span>
     <FontPicker label="Paragraph"
       bind:family={template.data.fontFamily.p}
       bind:weight={template.data.fontWeight.p}>
@@ -87,6 +104,7 @@
   </Panel>
 
   <Panel name="button" parent="typography">
+    <span slot="title">{template.data.fontFamily.button}</span>
     <FontPicker label="Button"
       bind:family={template.data.fontFamily.button}
       bind:weight={template.data.fontWeight.button}>
