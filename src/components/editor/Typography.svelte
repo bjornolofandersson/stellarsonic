@@ -1,14 +1,31 @@
 <script lang="ts">
-  import { ExpandRight } from "src/editor";
+  import { ExpandRight, List, ListItem } from "src/editor";
   import ExpandSelect from "src/editor/ExpandSelect.svelte";
 
   export let template: any;
   export let panel: any;
+
+  function alignIcon(align: string) {
+    switch (align) {
+      case 'left': return 'format_align_left';
+      case 'right': return 'format_align_right';
+      case 'center': return 'format_align_center';
+    }
+    return '';
+  }
 </script>
 
-<ExpandSelect label="Text align">
+<ExpandSelect icon={alignIcon(template.textAlign)} label="Text align">
   <div slot="value">
     <span class="capitalize">{template.textAlign}</span>
+  </div>
+
+  <div class="-mr-4 -ml-4 -mb-4 -mt-4">
+    <List>
+      {#each ['left', 'center', 'right'] as align}
+      <ListItem onClick={() => {template.textAlign = align}} active={template.textAlign === align} icon={alignIcon(align)}>{align}</ListItem>
+      {/each}
+    </List>
   </div>
 </ExpandSelect>
 

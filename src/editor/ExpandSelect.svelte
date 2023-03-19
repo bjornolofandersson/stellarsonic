@@ -10,7 +10,7 @@
 
 <div class="">
   <button on:click={() => {expanded = !expanded}} class="flex justify-between mb-4 text-sm w-full p-4 pb-2 bg-transparent {!expanded ? 'border-b border-[#00000020]' : ''} placeholder-stone-400 rounded focus:outline-none focus:border-stone-700 focus:text-stone-700 dark:text-stone-300 dark:focus:text-stone-100 dark:border-[#ffffff80] dark:focus:border-[#ffffff]">
-    <div class="flex gap-4">
+    <div class="flex gap-4 -ml-4">
       {#if icon}
         <span class="material-symbols-outlined">{icon}</span>
       {/if}
