@@ -19,6 +19,7 @@
   import * as store from '@lib/store';
   import FontPicker from './forms/FontPicker.svelte';
     import PalettePicker from './colors/PalettePicker.svelte';
+    import ForwardArrow from 'src/editor/ForwardArrow.svelte';
 
 	const dispatch = createEventDispatcher();
   
@@ -44,16 +45,20 @@
     </ActionBar>
   </div>
 
+  <Panel name="site">
+    <ForwardArrow title="site" on:click={() => { $panel = 'page' }} />
+    <Site bind:site={site} />
+  </Panel>
+
   <Panel name="content" parent="page">
     <slot name="content-editor"/>
   </Panel>
 
-  <Panel name="page">
+  <Panel name="page" parent="site">
     <PageEditor bind:page={page.data}
       on:content={() => {$panel = 'content'}}
       on:typography={() => {$panel = 'typography'}}
       on:colors={() => {$panel = 'colors'}}
-      on:site={() => {$panel = 'site'}}
     />
   </Panel>
 
@@ -63,10 +68,6 @@
 
   <Panel name="typography" parent="page">
     <Typography bind:template={template.data} bind:panel={$panel} />
-  </Panel>
-
-  <Panel name="site" parent="page">
-    <Site bind:site={site} />
   </Panel>
 
   <Panel name="heading" parent="typography">

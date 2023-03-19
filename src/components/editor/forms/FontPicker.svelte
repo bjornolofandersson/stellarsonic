@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { List, ListItem, Option, Select, Scrollable, Input } from "src/editor";
+  import { List, ListItem, Option, Select, Scrollable, Input, Footer } from "src/editor";
 
   export let label: string;
   export let family: string;
@@ -53,7 +53,7 @@
   </List>
 </Scrollable>
 
-<div class="-mr-8 -ml-8 px-8 border-t border-stone-300 pt-4">
+<Footer>
   <Select label="Weight" bind:value={weight}>
     {#each weights as w}
       <Option value={w}>{w}</Option>
@@ -61,4 +61,4 @@
   </Select>
 
   <slot/>
-</div>
+</Footer>

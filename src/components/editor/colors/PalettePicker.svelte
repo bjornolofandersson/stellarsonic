@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { Input, List, ListItem, Scrollable } from "src/editor";
+  import { Footer, Input, List, ListItem, Scrollable } from "src/editor";
   import type { Entity } from "@lib/interfaces";
   import type { Page, Palette } from "src/content/config";
   import * as api from "@lib/api";
   import { onMount } from "svelte";
-    import ExpandAdd from "src/editor/ExpandAdd.svelte";
 
   export let page: Page;
 
@@ -38,5 +37,4 @@
   </List>
 </Scrollable>
 
-<div class="border-t-2 border-stone-300 -mr-8 -ml-8 px-8 pt-4">
-</div>
+<Footer></Footer>

@@ -6,6 +6,8 @@ import ColorInput from "./ColorInput.svelte";
 import Editor from './Editor.svelte';
 import ExpandAdd from './ExpandAdd.svelte';
 import ExpandRight from "./ExpandRight.svelte";
+import Footer from "./Footer.svelte";
+import ForwardArrow from './ForwardArrow.svelte';
 import Input from "./Input.svelte";
 import LinkListItem from "./LinkListItem.svelte";
 import List from "./List.svelte";
@@ -37,6 +39,8 @@ export {
   Editor,
   ExpandAdd,
   ExpandRight,
+  Footer,
+  ForwardArrow,
   Input,
   NumberInput,
   LinkListItem,
