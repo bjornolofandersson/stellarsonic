@@ -1,9 +1,6 @@
 <script lang="ts">
-    import { ExpandRight } from "src/editor";
+  import { ExpandRight } from "src/editor";
   import ExpandSelect from "src/editor/ExpandSelect.svelte";
-  import Panel from "src/editor/Panel.svelte";
-  import Range from "src/editor/Range.svelte";
-  import FontPicker from "./forms/FontPicker.svelte";
 
   export let template: any;
   export let panel: any;
@@ -15,22 +12,14 @@
   </div>
 </ExpandSelect>
 
-<ExpandRight icon="title" label="Heading" on:click={() => {panel = 'heading'}}></ExpandRight>
+<ExpandRight icon="title" label="Heading" on:click={() => {panel = 'heading'}}>
+  <span slot="value">{template.fontFamily.h1}</span>
+</ExpandRight>
 
-<FontPicker label="Heading"
-  bind:family={template.fontFamily.h1}
-  bind:weight={template.fontWeight.h1}>
-  <Range label="Size" bind:value={template.fontSize.h1} unit="rem" min={1} max={8} step={0.25} />
-</FontPicker>
+<ExpandRight icon="format_paragraph" label="Paragraph" on:click={() => {panel = 'paragraph'}}>
+  <span slot="value">{template.fontFamily.p}</span>
+</ExpandRight>
 
-<FontPicker label="Paragraph"
-  bind:family={template.fontFamily.p}
-  bind:weight={template.fontWeight.p}>
-  <Range label="Size" bind:value={template.fontSize.p} unit="rem" min={0.5} max={4} step={0.1} />
-</FontPicker>
-
-<FontPicker label="Button"
-  bind:family={template.fontFamily.button}
-  bind:weight={template.fontWeight.button}>
-  <Range label="Size" bind:value={template.fontSize.button} unit="rem" min={0.5} max={4} step={0.1} />
-</FontPicker>
+<ExpandRight icon="link" label="Button" on:click={() => {panel = 'button'}}>
+  <span slot="value">{template.fontFamily.button}</span>
+</ExpandRight>
