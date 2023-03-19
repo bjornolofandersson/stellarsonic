@@ -4,7 +4,7 @@
   export let onClick: (() => void) | undefined = undefined
 </script>
 
-<li on:click={onClick} on:keypress={onClick} class="-ml-8 -mr-8 px-8 py-4 flex justify-between text-sm text-stone-600 hover:bg-[#00000010] {onClick ? 'cursor-pointer' : ''} {active ? 'bg-[#00000020]' : ''}">
+<li on:click={onClick} on:keypress={onClick} class="-ml-8 -mr-8 px-8 py-4 flex justify-between text-sm  {onClick ? 'cursor-pointer' : ''} {active ? 'bg-stone-500 text-stone-50' : 'hover:bg-[#00000010] text-stone-600'}">
   {#if onClick}
   <div class="flex">
     <span class="mr-4 material-symbols-outlined">{icon}</span>

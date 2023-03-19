@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Option, Select } from "src/editor";
+  import { List, ListItem, Option, Select, Scrollable } from "src/editor";
 
   export let label: string;
   export let family: string;
@@ -8,8 +8,12 @@
   let fonts: any[] = [];
   let selected: any;
   let weights: any[] = [];
+  let search: string = '';
+  let filteredFonts: any[] = [];
 
   $: {
+    filteredFonts = fonts.filter(f => f.family.toLowerCase().includes(search.toLowerCase()));
+
     if (selected) {
       family = selected.family;
       weights = selected.variants
@@ -27,23 +31,35 @@
     const apiKey = 'AIzaSyAscojZoTHT-ChlbFfAeONUjCntBXQiXPU';
     const resp = await fetch(`https://webfonts.googleapis.com/v1/webfonts?sort=POPULARITY&key=${apiKey}`);
     const data = await resp.json();
-    fonts = data.items.slice(0, 100);
+    filteredFonts = fonts = data.items.slice(0, 100);
     selected = fonts.find(f => f.family === family);
   }
 
   getFonts();
 </script>
 
-<Select label="Family" bind:value={selected}>
-  {#each fonts as font}
-    <Option value={font}>{font.family}</Option>
-  {/each}
-</Select>
 
-<Select label="Weight" bind:value={weight}>
-  {#each weights as w}
-    <Option value={w}>{w}</Option>
-  {/each}
-</Select>
+{#if selected}
+  <h1 class="mb-8">{selected.family}</h1>
+{/if}
 
-<slot/>
+<input type="search" class="w-full p-4 mb-4 bg-transparent border-b border-stone-400 focus:border-stone-700 focus:text-stone-700 focus:outline-none placeholder-stone-400"
+  placeholder="Search fonts" aria-label="Search" bind:value={search}>
+
+<Scrollable>
+  <List>
+    {#each filteredFonts as font}
+      <ListItem active={selected === font} icon="" onClick={() => {selected = font}}>{font.family}</ListItem>
+    {/each}
+  </List>
+</Scrollable>
+
+<div class="-mr-8 -ml-8 px-8 border-t border-stone-300 pt-4">
+  <Select label="Weight" bind:value={weight}>
+    {#each weights as w}
+      <Option value={w}>{w}</Option>
+    {/each}
+  </Select>
+
+  <slot/>
+</div>

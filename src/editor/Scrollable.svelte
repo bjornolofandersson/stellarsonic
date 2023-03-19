@@ -1,4 +1,4 @@
-<div class="overflow-y-auto h-full flex-grow px-8 -ml-8 -mr-8">
+<div class="overflow-y-auto flex-grow px-8 -ml-8 -mr-8">
   <slot/>
 </div>
 
@@ -12,7 +12,7 @@
   height: 0px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #e1e1e1;
+  background: #f1f1f1;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
@@ -20,7 +20,7 @@
   background: #ffffff;
 }
 ::-webkit-scrollbar-thumb:active {
-  background: #000000;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-track {
   background: #666666;

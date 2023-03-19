@@ -14,7 +14,7 @@
 </script>
 
 {#if $selected === name}
-  <div class="absolute overflow-y-auto max-h-full h-full w-full px-8 pb-8 flex flex-col"
+  <div class="absolute overflow-hidden max-h-full h-full w-full px-8 pb-8 flex flex-col"
     in:fly|local={{ x: $direction, duration: 500, easing: quintOut }}
     out:fly|local={{ x: -$direction, duration: 500, easing: quintOut }}
   >
