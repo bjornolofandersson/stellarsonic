@@ -8,18 +8,18 @@
   export let name: string;
   export let parent: string | undefined = undefined;
 
-	const { registerPanel, selectPanel, selected, back } = getContext<any>(PANELS);
+	const { registerPanel, selectPanel, selected, back, direction } = getContext<any>(PANELS);
 
-	registerPanel(name);
+	registerPanel({name, parent});
 </script>
 
 {#if $selected === name}
   <div class="absolute overflow-y-auto max-h-full h-full w-full px-8 pb-8 flex flex-col"
-    in:fly={{ x: parent ? 420 : -420, duration: 500, easing: quintOut }}
-    out:fly={{ x: $back ? 420 : -420, duration: 500, easing: quintOut }}
+    in:fly|local={{ x: $direction, duration: 500, easing: quintOut }}
+    out:fly|local={{ x: -$direction, duration: 500, easing: quintOut }}
   >
     {#if parent}
-    <BackArrow title={name} on:click={() => selectPanel(parent, true)}/>
+    <BackArrow title={name} on:click={() => selectPanel(parent)}/>
     {/if}
     <slot/>
   </div>

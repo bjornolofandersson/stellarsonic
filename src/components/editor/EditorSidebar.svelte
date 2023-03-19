@@ -59,11 +59,15 @@
   </Panel>
 
   <Panel name="typography" parent="page">
-    <Typography bind:template={template.data} />
+    <Typography bind:template={template.data} bind:panel={$panel} />
   </Panel>
 
   <Panel name="site" parent="page">
     <Site bind:site={site} />
+  </Panel>
+
+  <Panel name="heading" parent="typography">
+    <h1>Heading</h1>
   </Panel>
 </Sidebar>
 

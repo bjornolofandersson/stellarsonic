@@ -3,36 +3,43 @@
 </script>
 
 <script lang="ts">
-  import { setContext, onDestroy, getContext } from 'svelte';
+  import { setContext, onDestroy } from 'svelte';
 	import { writable } from 'svelte/store';
-  export let panel: string = 'main';
 
-  const panels: string[] = [];
+  export let panel: string = 'page';
+
+  const panels: any[] = [];
   const selected = writable<string | undefined>(panel);
   const goBack = writable<boolean>(false);
+  const direction = writable<number>(420);
 
   $: {
-    getContext<any>(PANELS).selectPanel(panel);
+    const obj = panels.find(p => p.name === $selected);
+    if (obj && panel === obj.parent) {
+      $direction = -420;
+    } else {
+      $direction = 420;
+    }
+    $selected = panel;
   }
 
 	setContext(PANELS, {
-		registerPanel: (panel: any) => {
-			panels.push(panel);
-			selected.update(current => current || panel);
+		registerPanel: (p: any) => {
+			panels.push(p);
+			selected.update(current => current || p.name);
 			
 			onDestroy(() => {
 				const i = panels.indexOf(panel);
 				panels.splice(i, 1);
-				selected.update(current => current === panel ? (panels[i] || panels[panel.length - 1]) : current);
+				selected.update(current => current === p.name ? (panels[i] || panels[panel.length - 1]) : current);
 			});
 		},
-    selectPanel: (p: any, back: boolean = false) => {
-			selected.set(p);
-      goBack.set(back);
+    selectPanel: (p: string) => {
       panel = p;
 		},
     selected,
     back: goBack,
+    direction,
     panels,
 	});
 </script>
