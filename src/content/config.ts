@@ -72,6 +72,7 @@ export const templateSchema = z.object({
 });
 
 export const paletteSchema = z.object({
+  name: z.string(),
   colors: z.array(z.string()),
 });
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { List, ListItem, Option, Select, Scrollable } from "src/editor";
+  import { List, ListItem, Option, Select, Scrollable, Input } from "src/editor";
 
   export let label: string;
   export let family: string;
@@ -43,8 +43,7 @@
   <h1 class="mb-8">{selected.family}</h1>
 {/if}
 
-<input type="search" class="w-full p-4 mb-4 bg-transparent border-b border-stone-400 focus:border-stone-700 focus:text-stone-700 focus:outline-none placeholder-stone-400"
-  placeholder="Search fonts" aria-label="Search" bind:value={search}>
+<Input type="search" icon="search" placeholder="Search fonts" bind:value={search} />
 
 <Scrollable>
   <List>

@@ -18,6 +18,7 @@
   import { createEventDispatcher } from 'svelte';
   import * as store from '@lib/store';
   import FontPicker from './forms/FontPicker.svelte';
+    import PalettePicker from './colors/PalettePicker.svelte';
 
 	const dispatch = createEventDispatcher();
   
@@ -57,7 +58,7 @@
   </Panel>
 
   <Panel name="colors" parent="page">
-    <Colors bind:page={page.data} bind:palette={palette.data} bind:template={template.data} />
+    <Colors bind:panel={$panel} bind:page={page.data} bind:palette={palette.data} bind:template={template.data} />
   </Panel>
 
   <Panel name="typography" parent="page">
@@ -90,6 +91,10 @@
       bind:weight={template.data.fontWeight.button}>
       <Range label="Size" bind:value={template.data.fontSize.button} unit="rem" min={0.5} max={4} step={0.1} />
     </FontPicker>
+  </Panel>
+
+  <Panel name="palettes" parent="colors">
+    <PalettePicker bind:page={page.data} />
   </Panel>
 </Sidebar>
 

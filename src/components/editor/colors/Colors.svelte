@@ -1,42 +1,36 @@
 <script lang="ts">
-  import type { Entity } from "@lib/interfaces";
-  import * as api from "@lib/api";
   import type { Page, Palette, Template } from "src/content/config";
-  import { List, ListItem, Palette as PaletteComponent } from "src/editor";
-  import { onMount } from "svelte";
+  import { ExpandRight, List, ListItem, Palette as PaletteComponent } from "src/editor";
   import ColorGroup from "./ColorGroup.svelte";
-  import ExpandSelect from "src/editor/ExpandSelect.svelte";
 
+  export let panel: string;
   export let page: Page;
   export let template: Template;
   export let palette: Palette;
 
-  let options: Entity<Palette>[] = [];
+  let group: string = 'main';
 
-  onMount(async () => {
-    options = await api.collection<Palette>('palettes');
-  });
 </script>
 
-<div class="mb-8">
-  <ExpandSelect label="Palette">
-    <span slot="value">{page.palette}</span>
+<div class="flex-grow">
+  <div class="flex gap-4 mb-8">
+    {#each ['main', 'article'] as g}
+      <button 
+        on:click={() => { group = g }}
+        class="capitalize border-b-2 {g === group ? 'border-stone-600' : 'opacity-50'}">{g}</button>
+    {/each}
+  </div>
 
-    <List class="-mr-4 -ml-4 -mt-4 -mb-4">
-      {#each options as option, i}
-        <ListItem icon="palette" active={page.palette === option.id} onClick={() => {page.palette = option.id}}>
-          <span>{option.id}</span>
-          <ul class="flex shadow-md rounded overflow-hidden" slot="actions">
-            {#each option.data.colors as color}
-            <li class="inline-block w-8 h-full" style="background-color: {color};"></li>
-            {/each}
-          </ul>
-        </ListItem>
-      {/each}
-    </List>
-  </ExpandSelect>
-</div>
-    
+  {#if group === 'main'}
+    <ColorGroup bind:colors={template.colorGroups[0]} bind:palette={palette.colors} />
+  {/if}
+
+  {#if group === 'article'}
+    <ColorGroup bind:colors={template.colorGroups[1]} bind:palette={palette.colors} />
+  {/if}
+  </div>
+
+  <ExpandRight label="Palette" icon="palette" on:click={() => {panel = 'palettes'}}>
+    <span slot="value">{page.palette}</span>
+  </ExpandRight>
 <PaletteComponent bind:colors={palette.colors} />
-<ColorGroup title="Main" bind:colors={template.colorGroups[0]} bind:palette={palette.colors} />
-<ColorGroup title="Article" bind:colors={template.colorGroups[1]} bind:palette={palette.colors} />
