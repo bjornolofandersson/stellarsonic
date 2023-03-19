@@ -11,6 +11,11 @@
   let showAdd: boolean = false;
   let pages: Entity<Page>[] = [];
   let modules: Record<string, ModuleDescription> = {}
+  let path = window.location.pathname;
+
+  function isActive(slug: string) {
+    return '/' + slug === path || slug === 'index' && path === '/';
+  }
 
   function onDeletePage(page: Entity<Page>) {
     api.deleteEntity('pages', page.id);
@@ -24,6 +29,7 @@
     modules = await api.modules();
     pages = await api.collection<Page>('pages');
   });
+
 </script>
 
 <TitleBar title="pages">
@@ -42,8 +48,8 @@
 </ExpandAdd>
 
 <List class="mb-8">
-  {#each pages.filter(p => p.data.parent === undefined) as page}
-    <LinkListItem icon={pageIcon(page.data)} url={page.slug}>
+  {#each pages.sort((a, b) => a.slug > b.slug ? 1 : -1) as page}
+    <LinkListItem icon={pageIcon(page.data)} url="/{page.slug}" active={isActive(page.slug)}>
       {page.slug}
       <Action slot="actions" icon={"delete"} onClick={() => onDeletePage(page)}/>
     </LinkListItem>
