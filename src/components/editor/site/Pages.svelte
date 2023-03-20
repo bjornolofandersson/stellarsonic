@@ -38,9 +38,9 @@
 </TitleBar>
 
 <ExpandAdd show={showAdd} button={false} onAdd={() => {}}>
-  <div class="grid grid-cols-2 gap-8">
+  <div class="grid grid-cols-2 gap-4">
     {#each Object.entries(modules) as [id, module]}
-      <button on:click={() => onAdd(id)} class="text-sm flex bg-stone-300 hover:bg-stone-200 rounded p-4 w-full shadow">
+      <button on:click={() => onAdd(id)} class="text-sm flex bg-stone-200 hover:bg-stone-100 rounded p-4 w-full shadow">
         <span class="material-symbols-outlined mr-2">{module.icon}</span>
         <span>{module.name}</span>
       </button>
@@ -51,9 +51,9 @@
 <List class="mb-8">
   {#each pages.sort((a, b) => a.slug > b.slug ? 1 : -1) as page}
     <LinkListItem icon={pageIcon(page.data)} url="/{page.slug}" active={isActive(page.slug)}>
-      {page.slug}
-      <div slot="actions">
-        <Action class="dark" icon={"edit_square"} onClick={() => {panel = 'page'}}/>
+      <span>{page.slug}</span>
+      <div class="dark" slot="actions">
+        <Action icon={"edit_square"} onClick={() => {panel = 'page'}}/>
         <Action icon={"delete"} onClick={() => onDeletePage(page)}/>
       </div>
     </LinkListItem>
