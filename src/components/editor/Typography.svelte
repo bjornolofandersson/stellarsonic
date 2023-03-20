@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ExpandRight, List, ListItem } from "src/editor";
+  import { ExpandRight } from "src/editor";
   import ExpandSelect from "src/editor/ExpandSelect.svelte";
 
   export let template: any;
@@ -20,12 +20,13 @@
     <span class="capitalize">{template.textAlign}</span>
   </div>
 
-  <div class="-mr-4 -ml-4 -mb-4 -mt-4">
-    <List>
-      {#each ['left', 'center', 'right'] as align}
-      <ListItem onClick={() => {template.textAlign = align}} active={template.textAlign === align} icon={alignIcon(align)}>{align}</ListItem>
-      {/each}
-    </List>
+  <div class="flex justify-between w-full gap-4">
+    {#each ['left', 'center', 'right'] as align}
+      <button on:click={() => {template.textAlign = align}} class="flex gap-4 p-4 shadow rounded {template.textAlign === align ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
+        <span class="material-symbols-outlined text-sm">{alignIcon(align)}</span>
+        <span class="text-sm">{align}</span>
+      </button>
+    {/each}
   </div>
 </ExpandSelect>
 
