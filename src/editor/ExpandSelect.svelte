@@ -22,7 +22,7 @@
     </div>
   </button>
   {#if expanded}
-    <div class="bg-[#00000007] px-12 py-4 -ml-8 -mr-8" transition:slide={{ duration: 200, easing: quintOut }}>
+    <div class="bg-[#00000007] px-8 py-4 -ml-8 -mr-8" transition:slide={{ duration: 200, easing: quintOut }}>
       <slot/>
     </div>
   {/if}

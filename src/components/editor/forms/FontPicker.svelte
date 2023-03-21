@@ -1,5 +1,6 @@
 <script lang="ts">
   import { List, ListItem, Option, Select, Scrollable, Input, Footer } from "src/editor";
+    import ExpandSelect from "src/editor/ExpandSelect.svelte";
 
   export let label: string;
   export let family: string;
@@ -60,11 +61,18 @@
 {/if}
 
 {#if tab === 'properties'}
-  <Select label="Weight" bind:value={weight}>
-    {#each weights as w}
-      <Option value={w}>{w}</Option>
-    {/each}
-  </Select>
+  <ExpandSelect icon="" label="Weight">
+    <div slot="value">
+      <span class="capitalize">{weight}</span>
+    </div>
+    <div class="flex justify-between w-full gap-4 flex-wrap">
+      {#each weights as w}
+        <button on:click={() => {weight = w}} class="flex gap-4 p-4 shadow rounded {weight === w ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
+          <span class="text-sm">{w}</span>
+        </button>
+      {/each}
+    </div>
+  </ExpandSelect>
 
   <slot/>
 {/if}
