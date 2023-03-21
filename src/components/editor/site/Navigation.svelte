@@ -11,7 +11,7 @@
   let showAdd = false;
 </script>
 
-<TitleBar title="navigation">
+<TitleBar title="links">
   <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
 </TitleBar>
 
