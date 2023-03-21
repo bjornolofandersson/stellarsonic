@@ -8,11 +8,13 @@ import ExpandAdd from './ExpandAdd.svelte';
 import ExpandRight from "./ExpandRight.svelte";
 import Footer from "./Footer.svelte";
 import ForwardArrow from './ForwardArrow.svelte';
+import Icon from './Icon.svelte';
 import Input from "./Input.svelte";
 import LinkListItem from "./LinkListItem.svelte";
 import List from "./List.svelte";
 import ListItem from "./ListItem.svelte";
 import MainPanel from "./MainPanel.svelte";
+import Message from './Message.svelte';
 import NumberInput from "./NumberInput.svelte";
 import Option from "./Option.svelte";
 import PageContainer from "./PageContainer.svelte";
@@ -41,12 +43,14 @@ export {
   ExpandRight,
   Footer,
   ForwardArrow,
+  Icon,
   Input,
   NumberInput,
   LinkListItem,
   List,
   ListItem,
   MainPanel,
+  Message,
   Option,
   PageContainer,
   Palette,
