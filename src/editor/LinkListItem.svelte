@@ -7,8 +7,10 @@
 <li
   class="-ml-8 -mr-8 px-8 py-4 flex justify-between text-sm {active ? 'bg-stone-500 text-stone-50' : 'hover:bg-[#00000007]'}">
   <a class="flex gap-4" href={url}>
-    <span class="material-symbols-outlined">{icon}</span>
-    <slot/>
+    <span class="material-symbols-outlined mt-1">{icon}</span>
+    <div class="flex flex-col justify-center">
+      <slot/>
+    </div>
   </a>
   {#if active}
     <div class="flex">

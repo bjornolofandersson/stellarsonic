@@ -55,8 +55,6 @@
     </ActionBar>
   </div>
 
-  <h1 slot="title">{title}</h1>
-
   <Panel name="site">
     <Site bind:site={site} bind:panel={$panel} />
   </Panel>

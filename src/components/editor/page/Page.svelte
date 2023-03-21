@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Page } from "src/content/config";
-  import { Action, ExpandAdd, Input, ListItem, List, SelectGroup, SelectGroupOption, TitleBar } from "src/editor";
+  import { Action, ExpandAdd, Input, ListItem, List, SelectGroup, SelectGroupOption, TitleBar, Message } from "src/editor";
   import ExpandRight from "src/editor/ExpandRight.svelte";
     import ExpandSelect from "src/editor/ExpandSelect.svelte";
   import { createEventDispatcher } from 'svelte';
@@ -55,10 +55,6 @@
   </List>
 
   {#if (page.tags || []).length === 0}
-    <div class="border border-[#00000010] p-4 rounded">
-      <span class="text-sm opacity-50">
-        This page has no tags yet
-      </span>
-    </div>
+    <Message icon="info">This page has no tags yet</Message>
   {/if}
 </div>
