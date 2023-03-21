@@ -2,7 +2,7 @@
   import type { Page } from "src/content/config";
   import { Action, ExpandAdd, Input, ListItem, List, SelectGroup, SelectGroupOption, TitleBar, Message } from "src/editor";
   import ExpandRight from "src/editor/ExpandRight.svelte";
-    import ExpandSelect from "src/editor/ExpandSelect.svelte";
+  import ExpandSelect from "src/editor/ExpandSelect.svelte";
   import { createEventDispatcher } from 'svelte';
 
   export let page: Page;
@@ -26,14 +26,21 @@
 </script>
 
 <div class="flex-grow">
-  <ExpandRight icon="text_snippet" label="Content" on:click={() => dispatch('content')}></ExpandRight>
-  <ExpandRight icon="title" label="Typography" on:click={() => dispatch('typography')}></ExpandRight>
-  <ExpandRight icon="palette" label="Colors" on:click={() => dispatch('colors')}></ExpandRight>
   <ExpandSelect icon="task_alt" label="Status">
     <div slot="value">
       <span class="capitalize">{status}</span>
     </div>
+    <div class="flex justify-start w-full gap-4">
+      {#each ['draft', 'published'] as s}
+        <button on:click={() => {status = s}} class="flex w-full gap-4 p-4 shadow rounded {status === s ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
+          <span class="text-sm capitalize">{s}</span>
+        </button>
+      {/each}
+    </div>
   </ExpandSelect>
+  <ExpandRight icon="text_snippet" label="Content" on:click={() => dispatch('content')}></ExpandRight>
+  <ExpandRight icon="title" label="Typography" on:click={() => dispatch('typography')}></ExpandRight>
+  <ExpandRight icon="palette" label="Colors" on:click={() => dispatch('colors')}></ExpandRight>
 </div>
 
 <div class="">
