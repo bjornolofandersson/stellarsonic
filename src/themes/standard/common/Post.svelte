@@ -13,11 +13,11 @@
   <section class="relative text-white">
     <div class="container mx-auto px-20 grid">
       <div class="grid grid-cols-12 py-20">
-        <div class="col-span-12 md:col-span-6 lg:col-span-6">
-          <slot name="header-left"/>
-        </div>
-        <div class="relative col-span-12 md:col-span-6 lg:col-span-6 md:px-8 lg:pl-20">
+        <div class="relative col-span-12 md:col-span-6 md:px-8 lg:pl-20 md:order-1">
           <slot name="header-right"/>
+        </div>
+        <div class="col-span-12 md:col-span-6">
+          <slot name="header-left"/>
         </div>
       </div>
     </div>
