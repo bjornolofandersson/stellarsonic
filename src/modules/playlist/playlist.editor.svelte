@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Action, ExpandAdd, Input, TitleBar } from 'src/editor';
+  import { Action, ExpandAdd, ExpandRight, Input, Message, Scrollable, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
@@ -7,7 +7,6 @@
   import PlaylistForm from '@components/editor/forms/PlaylistForm.svelte';
   import type { MusicMix } from './playlist.server';
   import { MixPlaylist } from './playlist';
-  import ExpandRight from 'src/editor/ExpandRight.svelte';
 
   export let content: MusicMix;
   export let assets: string[];
@@ -56,12 +55,12 @@
 </script>
 
 
-<div class="flex-grow">
+<Scrollable>
   <ImageForm bind:post={content} assets={assets} />
   <HeadingsForm bind:post={content} />
   <DescriptionForm bind:post={content} />
   <ExpandRight icon="queue_music" label="Playlist" on:click={() => {showPlaylist = true}}/>
-</div>
+</Scrollable>
 
 <div class="">
   <TitleBar title="categories">
@@ -72,11 +71,9 @@
     <Input placeholder="Tag" bind:value={category} />
   </ExpandAdd>
 
-  <div class="border border-[#00000010] p-4 rounded">
-    <span class="text-sm opacity-50">
-      This content does not have any categories yet
-    </span>
-  </div>
+  <Message>
+    This content does not have any categories yet
+  </Message>
 </div>
 
 

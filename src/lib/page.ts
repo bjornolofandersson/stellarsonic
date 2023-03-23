@@ -4,7 +4,7 @@ import { CollectionEntry, getEntryBySlug } from 'astro:content';
 import { CollectionController } from '@lib/CollectionController';
 import { getServerModules } from './server';
 import { Palette } from 'src/content/config';
-import { getEntity } from './api';
+import glob from 'glob';
 
 async function getTemplate(name: string): Promise<Entity<any>> {
   try {
@@ -41,6 +41,9 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
   const entry = await getEntryBySlug(collection as any, page.data.reference);
   const col = new CollectionController(entry.collection);
 
+  const files = await glob('public/assets/**/*.{png,jpeg}');
+  const images = files.map(file => file.substring(file.indexOf('/')));
+
   const mount: Mount = (path, Component, config) => {
     paths.push({
       params: {path},
@@ -54,7 +57,7 @@ export async function getPagePaths(page: CollectionEntry<'pages'>, modules: Reco
         palette,
         editor: {
           entity: CollectionController.makeEntity(entry),
-          assets: col.getAssetPaths(entry.slug),
+          assets: images,
           ...config.editor,
         },
         props: config.props,
