@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ExpandSelect from "src/editor/ExpandSelect.svelte";
+    import ButtonExpand from "src/editor/ButtonExpand.svelte";
     import Input from "src/editor/Input.svelte";
 
   export let post: any;
@@ -12,7 +12,7 @@
   let images = assets.filter(file => ['jpg', 'png'].includes(file.split('.').pop() as string));
 </script>
 
-<ExpandSelect icon="image" label="Image">
+<ButtonExpand icon="image" label="Image">
   <label for="url" class="text-xs">Image URL</label>
   <Input id="url" bind:value={post.image}/>
   <div class="py-4 grid grid-cols-3 gap-4">
@@ -24,4 +24,4 @@
       </button>
     {/each}
   </div>
-</ExpandSelect>
+</ButtonExpand>

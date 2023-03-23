@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Page } from "src/content/config";
-  import { Action, ExpandAdd, Input, ListItem, List, SelectGroup, SelectGroupOption, TitleBar, Message } from "src/editor";
-  import ExpandRight from "src/editor/ExpandRight.svelte";
-  import ExpandSelect from "src/editor/ExpandSelect.svelte";
+  import { Action, ExpandAdd, Input, ListItem, List, TitleBar, Message } from "src/editor";
+  import Button from "src/editor/Button.svelte";
+  import ButtonExpand from "src/editor/ButtonExpand.svelte";
   import { createEventDispatcher } from 'svelte';
 
   export let page: Page;
@@ -26,7 +26,7 @@
 </script>
 
 <div class="flex-grow">
-  <ExpandSelect icon="task_alt" label="Status">
+  <ButtonExpand icon="task_alt" label="Status">
     <div slot="value">
       <span class="capitalize">{status}</span>
     </div>
@@ -37,10 +37,10 @@
         </button>
       {/each}
     </div>
-  </ExpandSelect>
-  <ExpandRight icon="text_snippet" label="Content" on:click={() => dispatch('content')}></ExpandRight>
-  <ExpandRight icon="title" label="Typography" on:click={() => dispatch('typography')}></ExpandRight>
-  <ExpandRight icon="palette" label="Colors" on:click={() => dispatch('colors')}></ExpandRight>
+  </ButtonExpand>
+  <Button icon="text_snippet" label="Content" on:click={() => dispatch('content')}></Button>
+  <Button icon="title" label="Typography" on:click={() => dispatch('typography')}></Button>
+  <Button icon="palette" label="Colors" on:click={() => dispatch('colors')}></Button>
 </div>
 
 <div class="">

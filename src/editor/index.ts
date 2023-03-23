@@ -1,13 +1,11 @@
 import Accordion from "./Accordion.svelte";
 import AccordionItem from "./AccordionItem.svelte";
 import Action from './Action.svelte';
-import BackArrow from './BackArrow.svelte';
-import ColorInput from "./ColorInput.svelte";
+import Button from './Button.svelte';
+import ButtonExpand from './ButtonExpand.svelte';
 import Editor from './Editor.svelte';
 import ExpandAdd from './ExpandAdd.svelte';
-import ExpandRight from "./ExpandRight.svelte";
 import Footer from "./Footer.svelte";
-import ForwardArrow from './ForwardArrow.svelte';
 import Icon from './Icon.svelte';
 import Input from "./Input.svelte";
 import LinkListItem from "./LinkListItem.svelte";
@@ -22,13 +20,12 @@ import Palette from "./Palette.svelte";
 import Range from "./Range.svelte";
 import Scrollable from "./Scrollable.svelte";
 import Select from "./Select.svelte";
-import SelectGroup from "./SelectGroup.svelte";
-import SelectGroupOption from "./SelectGroupOption.svelte";
 import SettingsModal from "./SettingsModal.svelte";
 import SplitModal from "./SplitModal.svelte";
 import SettingsPanel from "./SettingsPanel.svelte";
 import Sidebar from "./Sidebar.svelte";
-import SubPanel from "./SubPanel.svelte";
+import Tab from './Tab.svelte';
+import Tabs from './Tabs.svelte';
 import TextArea from "./TextArea.svelte";
 import TitleBar from "./TitleBar.svelte";
 
@@ -36,13 +33,11 @@ export {
   Accordion,
   AccordionItem,
   Action,
-  BackArrow,
-  ColorInput,
+  Button,
+  ButtonExpand,
   Editor,
   ExpandAdd,
-  ExpandRight,
   Footer,
-  ForwardArrow,
   Icon,
   Input,
   NumberInput,
@@ -57,13 +52,12 @@ export {
   Range,
   Scrollable,
   Select,
-  SelectGroup,
-  SelectGroupOption,
   SettingsModal,
   SettingsPanel,
   Sidebar,
   SplitModal,
-  SubPanel,
+  Tab,
+  Tabs,
   TextArea,
   TitleBar
 }

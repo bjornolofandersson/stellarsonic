@@ -1,7 +1,11 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+  import ButtonExpand from "./ButtonExpand.svelte";
+
   export let value: any;
   export let label: string;
-  export let onChange = () => {};
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <div class="relative">
@@ -10,3 +14,7 @@
     <slot/>
   </select>
 </div>
+
+<ButtonExpand label={label}>
+
+</ButtonExpand>

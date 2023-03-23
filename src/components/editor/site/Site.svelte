@@ -5,7 +5,7 @@
   import CreateArticle from '@modules/article/article.form.svelte';
   import type { ModuleDescription } from "@lib/interfaces";
     import Scrollable from "src/editor/Scrollable.svelte";
-    import ExpandRight from "src/editor/ExpandRight.svelte";
+    import Button from "src/editor/Button.svelte";
 
   export let site: any;
   export let panel: string;
@@ -17,7 +17,7 @@
 <Scrollable>
   <Pages bind:panel={panel} onAdd={type => { showAddModal = type}} />
 </Scrollable>
-<ExpandRight icon="explore" label="Navigation" on:click={() => {panel = 'navigation'}}></ExpandRight>
+<Button icon="explore" label="Navigation" on:click={() => {panel = 'navigation'}}></Button>
 
 
 <!--<CreateArticle show={showAddModal === 'article'} />-->

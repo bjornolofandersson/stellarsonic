@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { List, ListItem, Option, Select, Scrollable, Input, Footer } from "src/editor";
-    import ExpandSelect from "src/editor/ExpandSelect.svelte";
+  import { ButtonExpand, List, ListItem, Option, Select, Scrollable, Input, Footer, Tabs, Tab } from "src/editor";
 
   export let label: string;
   export let family: string;
@@ -40,39 +39,33 @@
   getFonts();
 </script>
 
-<div class="text-sm flex gap-4 mb-8">
-  {#each ['family', 'properties'] as t}
-    <button 
-      on:click={() => { tab = t }}
-      class="capitalize border-b-2 {t === tab ? 'border-stone-600' : 'opacity-50'}">{t}</button>
-  {/each}
-</div>
+<Tabs>
+  <Tab name="family">
+    <Input type="search" icon="search" placeholder="Search fonts" bind:value={search} />
 
-{#if tab === 'family'}
-<Input type="search" icon="search" placeholder="Search fonts" bind:value={search} />
+    <Scrollable>
+      <List>
+        {#each filteredFonts as font}
+          <ListItem active={selected === font} icon="" onClick={() => {selected = font}}>{font.family}</ListItem>
+        {/each}
+      </List>
+    </Scrollable>
+  </Tab>
 
-<Scrollable>
-  <List>
-    {#each filteredFonts as font}
-      <ListItem active={selected === font} icon="" onClick={() => {selected = font}}>{font.family}</ListItem>
-    {/each}
-  </List>
-</Scrollable>
-{/if}
+  <Tab name="properties">
+    <ButtonExpand icon="" label="Weight">
+      <div slot="value">
+        <span class="capitalize">{weight}</span>
+      </div>
+      <div class="flex justify-start w-full gap-4 flex-wrap">
+        {#each weights as w}
+          <button on:click={() => {weight = w}} class="flex gap-4 p-4 shadow rounded {weight === w ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
+            <span class="text-sm">{w}</span>
+          </button>
+        {/each}
+      </div>
+    </ButtonExpand>
 
-{#if tab === 'properties'}
-  <ExpandSelect icon="" label="Weight">
-    <div slot="value">
-      <span class="capitalize">{weight}</span>
-    </div>
-    <div class="flex justify-between w-full gap-4 flex-wrap">
-      {#each weights as w}
-        <button on:click={() => {weight = w}} class="flex gap-4 p-4 shadow rounded {weight === w ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
-          <span class="text-sm">{w}</span>
-        </button>
-      {/each}
-    </div>
-  </ExpandSelect>
-
-  <slot/>
-{/if}
+    <slot/>
+  </Tab>
+</Tabs>

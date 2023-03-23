@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { PANELS } from './Sidebar.svelte';
+	import { TABS } from './Tabs.svelte';
   import { getContext } from 'svelte';
 
-  export let panel: string;
+  export let name: string;
 
-	const { selectPanel, selected } = getContext<any>(PANELS);
+	const { selected, registerTab } = getContext<any>(TABS);
+
+  registerTab(name);
 </script>
 
-<button on:click={() => {selectPanel(panel)}} class="text-sm p-4 {panel === $selected ? 'font-[600]' : 'opacity-60'}">
-  {panel.toUpperCase()}
-</button>
+{#if name === $selected}
+  <slot/>
+{/if}

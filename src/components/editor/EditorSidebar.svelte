@@ -18,9 +18,8 @@
   import { createEventDispatcher } from 'svelte';
   import * as store from '@lib/store';
   import FontPicker from './forms/FontPicker.svelte';
-    import PalettePicker from './colors/PalettePicker.svelte';
-    import ForwardArrow from 'src/editor/ForwardArrow.svelte';
-    import Navigation from './site/Navigation.svelte';
+  import PalettePicker from './colors/PalettePicker.svelte';
+  import Navigation from './site/Navigation.svelte';
 
 	const dispatch = createEventDispatcher();
   

@@ -1,14 +1,22 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   export let label: string;
-  export let icon: string | undefined;
-  export let onClick: () => void;
+  export let icon: string | undefined = undefined;
+  export let actionIcon: string = 'chevron_right';
+
+	const dispatch = createEventDispatcher();
 </script>
 
-<button on:click={onClick}
-  class="w-full p-4 bg-stone-200 shadow-md flex justify-between hover:bg-stone-100" 
-  style="transition: background-color 0.2s">
-  <span>{label}</span>
-  {#if icon}
-    <span class="block -mb-2 material-symbols-outlined">{icon}</span>
-  {/if}
+<button on:click={() => dispatch('click')} class="flex justify-between text-sm mb-4 w-full p-4 pb-2 bg-transparent border-b border-[#00000020] placeholder-stone-400 rounded focus:outline-none hover:border-stone-700 hover:text-stone-700 dark:text-stone-300 dark:focus:text-stone-100 dark:border-[#ffffff80] dark:focus:border-[#ffffff] transition">
+  <div class="flex gap-4 -ml-4">
+    {#if icon}
+      <span class="material-symbols-outlined opacity-50">{icon}</span>
+    {/if}
+    <span>{label}</span>
+  </div>
+  <div class="flex gap-4 -mr-4">
+    <slot name="value"/>
+    <span class="material-symbols-outlined">{actionIcon}</span>
+  </div>
 </button>

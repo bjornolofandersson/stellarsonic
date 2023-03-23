@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Action, ExpandAdd, ExpandRight, Input, Message, Scrollable, TitleBar } from 'src/editor';
+  import { Action, Button, ExpandAdd, Input, Message, Scrollable, TitleBar } from 'src/editor';
   import DescriptionForm from '@components/editor/forms/DescriptionForm.svelte';
   import HeadingsForm from '@components/editor/forms/HeadingsForm.svelte';
   import ImageForm from '@components/editor/forms/ImageForm.svelte';
@@ -59,7 +59,7 @@
   <ImageForm bind:post={content} assets={assets} />
   <HeadingsForm bind:post={content} />
   <DescriptionForm bind:post={content} />
-  <ExpandRight icon="queue_music" label="Playlist" on:click={() => {showPlaylist = true}}/>
+  <Button icon="queue_music" actionIcon="open_in_new" label="Playlist" on:click={() => {showPlaylist = true}}/>
 </Scrollable>
 
 <div class="">

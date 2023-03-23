@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ExpandRight } from "src/editor";
-  import ExpandSelect from "src/editor/ExpandSelect.svelte";
+  import { Button } from "src/editor";
+  import ButtonExpand from "src/editor/ButtonExpand.svelte";
 
   export let template: any;
   export let panel: any;
@@ -15,7 +15,7 @@
   }
 </script>
 
-<ExpandSelect icon={alignIcon(template.textAlign)} label="Text align">
+<ButtonExpand icon={alignIcon(template.textAlign)} label="Text align">
   <div slot="value">
     <span class="capitalize">{template.textAlign}</span>
   </div>
@@ -28,16 +28,16 @@
       </button>
     {/each}
   </div>
-</ExpandSelect>
+</ButtonExpand>
 
-<ExpandRight icon="title" label="Heading" on:click={() => {panel = 'heading'}}>
+<Button icon="title" label="Heading" on:click={() => {panel = 'heading'}}>
   <span slot="value">{template.fontFamily.h1}</span>
-</ExpandRight>
+</Button>
 
-<ExpandRight icon="format_paragraph" label="Paragraph" on:click={() => {panel = 'paragraph'}}>
+<Button icon="format_paragraph" label="Paragraph" on:click={() => {panel = 'paragraph'}}>
   <span slot="value">{template.fontFamily.p}</span>
-</ExpandRight>
+</Button>
 
-<ExpandRight icon="link" label="Button" on:click={() => {panel = 'button'}}>
+<Button icon="link" label="Button" on:click={() => {panel = 'button'}}>
   <span slot="value">{template.fontFamily.button}</span>
-</ExpandRight>
+</Button>
