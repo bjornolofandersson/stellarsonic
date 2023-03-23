@@ -86,7 +86,9 @@
     <span slot="title">{template.data.fontFamily.h1}</span>
     <FontPicker label="Heading"
       bind:family={template.data.fontFamily.h1}
-      bind:weight={template.data.fontWeight.h1}>
+      bind:weight={template.data.fontWeight.h1}
+      bind:lineHeight={template.data.lineHeight.h1}
+    >
       <Range label="Size" bind:value={template.data.fontSize.h1} unit="rem" min={1} max={8} step={0.25} />
     </FontPicker>
   </Panel>
@@ -95,7 +97,9 @@
     <span slot="title">{template.data.fontFamily.p}</span>
     <FontPicker label="Paragraph"
       bind:family={template.data.fontFamily.p}
-      bind:weight={template.data.fontWeight.p}>
+      bind:weight={template.data.fontWeight.p}
+      bind:lineHeight={template.data.lineHeight.p}
+    >
       <Range label="Size" bind:value={template.data.fontSize.p} unit="rem" min={0.5} max={4} step={0.1} />
     </FontPicker>
   </Panel>
@@ -104,7 +108,9 @@
     <span slot="title">{template.data.fontFamily.button}</span>
     <FontPicker label="Button"
       bind:family={template.data.fontFamily.button}
-      bind:weight={template.data.fontWeight.button}>
+      bind:weight={template.data.fontWeight.button}
+      bind:lineHeight={template.data.lineHeight.button}
+    >
       <Range label="Size" bind:value={template.data.fontSize.button} unit="rem" min={0.5} max={4} step={0.1} />
     </FontPicker>
   </Panel>

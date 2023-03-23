@@ -42,6 +42,11 @@ export const templateSchema = z.object({
     p: z.number(),
     button: z.number(),
   }),
+  lineHeight: z.object({
+    h1: z.number(),
+    p: z.number(),
+    button: z.number(),
+  }),
   textAlign: z.string(),
   colorGroups: z.tuple([
     colorComposition,

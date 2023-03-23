@@ -7,8 +7,8 @@
   export let step: number = 1;
 </script>
 
-<div class="relative">
-  <label for="range" class="-mb-6 text-sm text-stone-600 py-4 w-full flex justify-between">
+<div class="relative mb-4">
+  <label for="range" class="-mb-5 text-sm text-stone-600 py-4 w-full flex justify-between">
     <span>{label}</span>
     <span>{value} {unit ? unit : ''}</span>
   </label>

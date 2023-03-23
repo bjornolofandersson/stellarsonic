@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { List, ListItem, Select, Scrollable, Input, Tabs, Tab } from "src/editor";
+  import { List, ListItem, Select, Scrollable, Input, Tabs, Tab, Range } from "src/editor";
 
   export let label: string;
   export let family: string;
   export let weight: number;
+  export let lineHeight: number;
 
   let fonts: any[] = [];
   let selected: any;
@@ -54,6 +55,7 @@
 
   <Tab name="properties">
     <Select label="Weight" bind:value={weight} options={weights} />
+    <Range label="Line height" bind:value={lineHeight} unit="rem" min={0.5} max={4} step={0.1} />
 
     <slot/>
   </Tab>
