@@ -21,9 +21,9 @@
         .filter((v: string) => !v.includes('italic'))
         .map((v: string) => {
           if (v === 'regular') {
-            return 400;
+            return { value: 400, name: '400' };
           }
-          return parseInt(v);
+          return { value: parseInt(v), name: v };
       });
     }
   }
@@ -53,18 +53,7 @@
   </Tab>
 
   <Tab name="properties">
-    <ButtonExpand icon="" label="Weight">
-      <div slot="value">
-        <span class="capitalize">{weight}</span>
-      </div>
-      <div class="flex justify-start w-full gap-4 flex-wrap">
-        {#each weights as w}
-          <button on:click={() => {weight = w}} class="flex gap-4 p-4 shadow rounded {weight === w ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
-            <span class="text-sm">{w}</span>
-          </button>
-        {/each}
-      </div>
-    </ButtonExpand>
+    <Select label="Weight" bind:value={weight} options={weights} />
 
     <slot/>
   </Tab>

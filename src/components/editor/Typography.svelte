@@ -1,34 +1,17 @@
 <script lang="ts">
-  import { Button } from "src/editor";
-  import ButtonExpand from "src/editor/ButtonExpand.svelte";
+  import { Button, Select } from "src/editor";
 
   export let template: any;
   export let panel: any;
 
-  function alignIcon(align: string) {
-    switch (align) {
-      case 'left': return 'format_align_left';
-      case 'right': return 'format_align_right';
-      case 'center': return 'format_align_center';
-    }
-    return '';
-  }
+  const textAlignOptions = [
+    { name: 'Left', icon: 'format_align_left', value: "left" },
+    { name: 'Center', icon: 'format_align_center', value: "center" },
+    { name: 'Right', icon: 'format_align_right', value: "right" },
+  ];
 </script>
 
-<ButtonExpand icon={alignIcon(template.textAlign)} label="Text align">
-  <div slot="value">
-    <span class="capitalize">{template.textAlign}</span>
-  </div>
-
-  <div class="flex justify-between w-full gap-4">
-    {#each ['left', 'center', 'right'] as align}
-      <button on:click={() => {template.textAlign = align}} class="flex gap-4 p-4 shadow rounded {template.textAlign === align ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
-        <span class="material-symbols-outlined text-sm">{alignIcon(align)}</span>
-        <span class="text-sm">{align}</span>
-      </button>
-    {/each}
-  </div>
-</ButtonExpand>
+<Select label="Text align" bind:value={template.textAlign} options={textAlignOptions} singleRow/>
 
 <Button icon="title" label="Heading" on:click={() => {panel = 'heading'}}>
   <span slot="value">{template.fontFamily.h1}</span>

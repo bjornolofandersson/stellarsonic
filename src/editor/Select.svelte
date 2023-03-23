@@ -1,20 +1,29 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import ButtonExpand from "./ButtonExpand.svelte";
 
   export let value: any;
   export let label: string;
+  export let options: any[];
+  export let singleRow: boolean = false;
 
-	const dispatch = createEventDispatcher();
+  let selected: any = undefined;
+  $: {
+    selected = options.find(o => o.value === value);
+  }
 </script>
 
-<div class="relative">
-  <label class="absolute font-semi-bold mt-4 ml-4 pointer-events-none" for={label}>{label}</label>
-  <select id={label} bind:value={value} on:change={onChange} class="text-right mb-4 w-full p-4 pb-2 bg-transparent border-b border-[#00000020] placeholder-stone-400 rounded focus:outline-none focus:border-stone-700 focus:text-stone-700 dark:text-stone-300 dark:focus:text-stone-100 dark:border-[#ffffff80] dark:focus:border-[#ffffff]">
-    <slot/>
-  </select>
-</div>
-
-<ButtonExpand label={label}>
-
+<ButtonExpand label={label} icon={selected?.icon}>
+  <div slot="value">
+    <span class="capitalize">{selected?.name}</span>
+  </div>
+  <div class="flex justify-start w-full gap-4 {!singleRow ? 'flex-wrap': ''}">
+    {#each options as o}
+      <button on:click={() => {value = o.value}} class="{singleRow ? 'w-full' : ''} flex gap-4 p-4 shadow rounded {o.value === value ? 'bg-stone-100 shadow-lg' : 'bg-stone-200'}">
+        {#if o.icon}
+          <span class="material-symbols-outlined text-sm">{o.icon}</span>
+        {/if}
+        <span class="text-sm">{o.name}</span>
+      </button>
+    {/each}
+  </div>
 </ButtonExpand>
