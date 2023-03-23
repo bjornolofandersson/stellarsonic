@@ -1,5 +1,3 @@
-import Accordion from "./Accordion.svelte";
-import AccordionItem from "./AccordionItem.svelte";
 import Action from './Action.svelte';
 import Button from './Button.svelte';
 import ButtonExpand from './ButtonExpand.svelte';
@@ -11,12 +9,11 @@ import Input from "./Input.svelte";
 import LinkListItem from "./LinkListItem.svelte";
 import List from "./List.svelte";
 import ListItem from "./ListItem.svelte";
-import MainPanel from "./MainPanel.svelte";
 import Message from './Message.svelte';
 import NumberInput from "./NumberInput.svelte";
-import Option from "./Option.svelte";
 import PageContainer from "./PageContainer.svelte";
 import Palette from "./Palette.svelte";
+import Panel from "./Panel.svelte";
 import Range from "./Range.svelte";
 import Scrollable from "./Scrollable.svelte";
 import Select from "./Select.svelte";
@@ -30,8 +27,6 @@ import TextArea from "./TextArea.svelte";
 import TitleBar from "./TitleBar.svelte";
 
 export {
-  Accordion,
-  AccordionItem,
   Action,
   Button,
   ButtonExpand,
@@ -44,11 +39,10 @@ export {
   LinkListItem,
   List,
   ListItem,
-  MainPanel,
   Message,
-  Option,
   PageContainer,
   Palette,
+  Panel,
   Range,
   Scrollable,
   Select,

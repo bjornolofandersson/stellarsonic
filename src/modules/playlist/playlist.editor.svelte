@@ -54,7 +54,6 @@
   playlist.load();
 </script>
 
-
 <Scrollable>
   <ImageForm bind:post={content} assets={assets} />
   <HeadingsForm bind:post={content} />

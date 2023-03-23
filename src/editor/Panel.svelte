@@ -7,7 +7,7 @@
   export let name: string;
   export let parent: string | undefined = undefined;
 
-	const { registerPanel, selectPanel, selected, back, direction } = getContext<any>(PANELS);
+	const { registerPanel, selectPanel, selected, direction } = getContext<any>(PANELS);
 
 	registerPanel({name, parent});
 </script>

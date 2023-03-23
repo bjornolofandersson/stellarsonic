@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ButtonExpand, List, ListItem, Option, Select, Scrollable, Input, Footer, Tabs, Tab } from "src/editor";
+  import { List, ListItem, Select, Scrollable, Input, Tabs, Tab } from "src/editor";
 
   export let label: string;
   export let family: string;
