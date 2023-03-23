@@ -10,14 +10,14 @@
   import Panel from 'src/editor/Panel.svelte';
   import type { Page, Template, Palette } from 'src/content/config';
   import type { Entity } from '@lib/interfaces';
-  import Typography from '@components/editor/Typography.svelte';
+  import Typography from '@components/editor/typography/Typography.svelte';
   import Site from '@components/editor/site/Site.svelte';
   import SiteSettings from './site/SiteSettings.svelte';
   import PageEditor from './page/Page.svelte';
   import Colors from './colors/Colors.svelte';
   import { createEventDispatcher } from 'svelte';
   import * as store from '@lib/store';
-  import FontPicker from './forms/FontPicker.svelte';
+  import FontPicker from './typography/FontPicker.svelte';
   import PalettePicker from './colors/PalettePicker.svelte';
   import Navigation from './site/Navigation.svelte';
 
