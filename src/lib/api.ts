@@ -17,6 +17,13 @@ export async function deleteEntity(collection: string, id: string): Promise<void
   });
 }
 
+export async function createEntity(entity: Entity<any>): Promise<void> {
+  await fetch(`/api/${entity.collection}.json`, {
+    method: 'POST',
+    body: JSON.stringify(entity),
+  });
+}
+
 export async function collection<T>(collection: string): Promise<Entity<T>[]> {
   return fetch(`/api/${collection}.json`).then(resp => resp.json());
 }

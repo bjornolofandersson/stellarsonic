@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Page } from "src/content/config";
-  import { Action, Button,  ExpandAdd, Input, ListItem, List, Select, TitleBar, Message } from "src/editor";
+  import { Action, Button,  ExpandAdd, Input, ListItem, List, Select, TitleBar, Message, Scrollable } from "src/editor";
   import { createEventDispatcher } from 'svelte';
 
   export let page: Page;
@@ -23,12 +23,12 @@
   ]
 </script>
 
-<div class="flex-grow">
+<Scrollable>
   <Select label="Status" bind:value={page.draft} options={statusOptions} singleRow />
   <Button icon="text_snippet" label="Content" on:click={() => dispatch('content')}></Button>
   <Button icon="title" label="Typography" on:click={() => dispatch('typography')}></Button>
   <Button icon="palette" label="Colors" on:click={() => dispatch('colors')}></Button>
-</div>
+</Scrollable>
 
 <div class="">
   <TitleBar title="tags">

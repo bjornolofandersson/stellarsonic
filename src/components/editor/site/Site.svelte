@@ -1,28 +1,30 @@
 <script lang="ts">
-  import Navigation from "./Navigation.svelte";
-  import Pages from "./Pages.svelte";
+  import Pages from "./PageAdd.svelte";
 
-  import CreateArticle from '@modules/article/article.form.svelte';
-  import type { ModuleDescription } from "@lib/interfaces";
-    import Scrollable from "src/editor/Scrollable.svelte";
-    import Button from "src/editor/Button.svelte";
+  import { onMount } from "svelte";
+  import type { Entity, ModuleDescription } from "@lib/interfaces";
+  import type { Page } from "src/content/config";
+  import Scrollable from "src/editor/Scrollable.svelte";
+  import Button from "src/editor/Button.svelte";
+  import PageList from "./PageList.svelte";
+  import * as api from '@lib/api';
+    import PageAdd from "./PageAdd.svelte";
 
   export let site: any;
   export let panel: string;
 
-  let showAddModal: string | undefined = undefined;
+  let pages: Entity<Page>[] = [];
+  let modules: Record<string, ModuleDescription> = {}
 
+  onMount(async () => {
+    modules = await api.modules();
+    pages = await api.collection<Page>('pages');
+  });
 </script>
 
+
+<PageAdd modules={modules} />
 <Scrollable>
-  <Pages bind:panel={panel} onAdd={type => { showAddModal = type}} />
+  <PageList bind:panel={panel} pages={pages} modules={modules} />
 </Scrollable>
 <Button icon="explore" label="Navigation" on:click={() => {panel = 'navigation'}}></Button>
-
-
-<!--<CreateArticle show={showAddModal === 'article'} />-->
-
-<!--
-<CreatePageModal show={showAddModal === 'page'} />
-<CreateMixModal show={showAddModal === 'mix'} />
--->

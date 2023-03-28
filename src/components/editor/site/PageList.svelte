@@ -1,17 +1,13 @@
 <script lang="ts">
   import type { Entity, ModuleDescription } from "@lib/interfaces";
   import type { Page } from "src/content/config";
-  import { Action, LinkListItem, List, TitleBar } from "src/editor";
-  import ExpandAdd from "src/editor/ExpandAdd.svelte";
-  import { onMount } from "svelte";
+  import { Action, LinkListItem, List } from "src/editor";
   import * as api from '@lib/api';
 
-  export let onAdd: (type: string) => void;
   export let panel: string;
+  export let pages: Entity<Page>[] = [];
+  export let modules: Record<string, ModuleDescription> = {}
 
-  let showAdd: boolean = false;
-  let pages: Entity<Page>[] = [];
-  let modules: Record<string, ModuleDescription> = {}
   let path = window.location.pathname;
 
   function isActive(slug: string) {
@@ -25,28 +21,7 @@
   const pageIcon = (page: Page) => {
     return modules[page.type] ? modules[page.type].icon : '';
   }
-
-  onMount(async () => {
-    modules = await api.modules();
-    pages = await api.collection<Page>('pages');
-  });
-
 </script>
-
-<TitleBar title="pages">
-  <Action icon={showAdd ? 'expand_less' : 'add'} onClick={() => {showAdd = !showAdd}}/>
-</TitleBar>
-
-<ExpandAdd show={showAdd} button={false} onAdd={() => {}}>
-  <div class="grid grid-cols-2 gap-4">
-    {#each Object.entries(modules) as [id, module]}
-      <button on:click={() => onAdd(id)} class="text-sm flex bg-stone-200 hover:bg-stone-100 rounded p-4 w-full shadow">
-        <span class="material-symbols-outlined mr-2">{module.icon}</span>
-        <span>{module.name}</span>
-      </button>
-    {/each}
-  </div>
-</ExpandAdd>
 
 <List class="mb-8">
   {#each pages.sort((a, b) => a.slug > b.slug ? 1 : -1) as page}
